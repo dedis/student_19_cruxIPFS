@@ -1,0 +1,48 @@
+[[servers]]
+  Address = "tls://localhost:7776"
+  Suite = "Ed25519"
+  Public = "e22ec76a5489a5bc1adb68182ff4971ef42212cf09c69c6c564c5a6ecb488bf9"
+  Description = "Conode_4"
+  [servers.Services]
+    [servers.Services.ByzCoin]
+      Public = "271f9728d0fa74400a0d2e3aa388b8e045cabc5967768088b31598bbcb09c5166245be1bbaef772b4e3656c59bfd49e7afe60191c396fdefb3651bc7f24841921301355d1ec35bebc23a290ad0ac7e4a0acac1074222efd189bd08f496c4e0a67136d1d3389d3503b2cbf209039465aa8a7203ba5adb1138d196969997e653ab"
+      Suite = "bn256.adapter"
+    [servers.Services.Skipchain]
+      Public = "375823dcde3f89bc613476ffcc67e15277fc27b25960f5e6f12e15544aa3893235a4b16c3222618e0ffc48d1de6ea9f85df275bcbd2864c91ac86370af0a485b423d9fed02e4cb690500b30f11ebb22b6568b65d772929e66d050b385383e2d40c112bec7062405616c6219eb695c78037bb630dd4df13bdb10b2f413171df4d"
+      Suite = "bn256.adapter"
+[[servers]]
+  Address = "tls://localhost:7774"
+  Suite = "Ed25519"
+  Public = "a5da747cb279e9bd8ff9627889126bf985391121cc11a16b6a6f377874b213ab"
+  Description = "Conode_3"
+  [servers.Services]
+    [servers.Services.ByzCoin]
+      Public = "5382cc1f7326515824dd4204a6fafcb7b4b96680d98837a6f9bac1dcbb69cec43ad7aa8c044719f9813b1126c3e7930bb1555aefc75463158176744a9165507a804d731d2e88ec9487f92cbfeaa5d76a6fd0f6b57a0bf0e91b6403d2aebd7cf33f69cf633d4b1eae0fb8af87c91354a61874183da69b14db23dcf2ccfe6084e3"
+      Suite = "bn256.adapter"
+    [servers.Services.Skipchain]
+      Public = "11a5eb57d633a3fdd24ca944f0a7998883ecdf439f6fecfefe3f36002099980c642e3b1d2d15427b1427e1ad0ebe64beecf8ea08518ddac5a3971b36b6e064b00d23e80de2039812b6a5d6de7930efaaa1430e80ba93caa5200ea2ec6d32289351797262e8a7cebb8b56c950643548c689da9487b7bd2120afa483171abcc586"
+      Suite = "bn256.adapter"
+[[servers]]
+  Address = "tls://localhost:7772"
+  Suite = "Ed25519"
+  Public = "9020048eac777c1aa3335dfc0b57836939cb39bba6faf1e0234f5eb63a515d09"
+  Description = "Conode_2"
+  [servers.Services]
+    [servers.Services.ByzCoin]
+      Public = "5f97fdd736acbc26061873bb7c05059972f6b3d40e3e6881af812a46c2303311536b6059a84df16e9b44b5c906d0af850792cc556d1a7b9ca36763171b5ad9a11ce766c557fad8f206fc16d4b8cdd41bd1da9612d4caf4c78966bcb7731a1b103990c081e248a137940dd5666ef039ca47b6123eadd2e0c8ed54ee1fe855a6bb"
+      Suite = "bn256.adapter"
+    [servers.Services.Skipchain]
+      Public = "7f93cab5177265a57c3b3bc1259bb28558266fb40f1ef7f5cd4d6e9fb4bb72954ef4a8c8ff623d5a57de2d0eb05570fadca715f46c3a59979efe74351d4972f75c092c8379615370ca9354bd3222c28b74d95564e4ad18313da33a24e9cd54883ac985f5e545ddff9bfcceea46a550766152a532c3af2bb28eb152e5f80e578d"
+      Suite = "bn256.adapter"
+[[servers]]
+  Address = "tls://localhost:7770"
+  Suite = "Ed25519"
+  Public = "55e7765fa57b49593f21c990aecfcf2aa12e2be23067ee712f033e7be77ebf51"
+  Description = "Conode_1"
+  [servers.Services]
+    [servers.Services.ByzCoin]
+      Public = "1621d613cc8a34cc1b12cf0d09ac6029b74873f722648add1444d3f0b3cf77348e1c283c25e5339c24f6324315bde2b6ae667f65debded0e232bee31a50923ee449d98d439c52ef6d3e1adc55ef7ac184be90941ae3518701ae539479327c61f666ebd8c3660fc154c540a0e74cd72cd5ba7d929291bdd1073837f846344c1ee"
+      Suite = "bn256.adapter"
+    [servers.Services.Skipchain]
+      Public = "75cc9950bbc5bd13097e1dbc7043627fad0d5d824425dc82b82ca894e7740b951964850758c419b28f8fc99d53512c6aa3d59ff11cf73a46914d76efc06ec05f065dc45560c55c57665d387394482837b61ab6e39b6a7e407149fd08c7cc197c76003fbe8d68d79f500e036d9c2cc469ae100051990def0d1b8356447d8bd7f7"
+      Suite = "bn256.adapter"

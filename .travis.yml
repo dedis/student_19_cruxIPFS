@@ -1,0 +1,34 @@
+notifications:
+  email: false
+
+matrix:
+  include:
+    - language: go
+
+      go:
+        - 1.12.x
+
+      install:
+        - go get golang.org/x/tools/cmd/cover
+
+      script:
+        - env GO111MODULE=on make test
+
+    - language: java
+
+      services:
+        - docker
+
+      install:
+        - gimme 1.12
+        - . $HOME/.gimme/envs/go1.12.env
+        - env GO111MODULE=off go get github.com/dedis/Coding || true
+
+      script:
+        - make test_java
+
+cache:
+  directories:
+    - $HOME/.m2
+    - $HOME/.cache/go-build
+    - $GOPATH/pkg/mod
