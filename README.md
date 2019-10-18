@@ -128,3 +128,4 @@ everything goes smoothly. And we'd like to have good code-coverage.
 # Contact
 
 You can contact us at https://groups.google.com/forum/#!forum/cothority
+# student_19_cruxIPFS
