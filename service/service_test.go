@@ -3,7 +3,7 @@ package service
 import (
 	"testing"
 
-	"github.com/dedis/cothority_template"
+	template "github.com/dedis/cothority_template"
 	"github.com/stretchr/testify/require"
 	"go.dedis.ch/kyber/v3/suites"
 	"go.dedis.ch/onet/v3"

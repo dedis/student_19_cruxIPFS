@@ -15,8 +15,8 @@ import (
 	"errors"
 	"sync"
 
-	template "github.com/dedis/cothority_template"
 	"github.com/dedis/cothority_template/protocol"
+	template "github.com/dedis/student_19_cruxIPFS"
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/log"
 	"go.dedis.ch/onet/v3/network"
@@ -107,8 +107,13 @@ func (s *Service) StartIPFS(req *template.StartIPFS) (*template.StartIPFSReply,
 		fmt.Println(err)
 	}
 
+	// init ipfs in the desired folder
 	initCmd := "ipfs -c " + req.ConfigPath + " init"
 	exec.Command(initCmd).Run()
+	ports := GetNextAvailablePort(req.PortMin, req.PortMax, 3) // MAGIC NUMBER
+
+	reply := template.StartIPFSReply{Ports: ports}
+	return &reply, nil
 }
 
 // NewProtocol is called on all nodes of a Tree (except the root, since it is
@@ -159,7 +164,8 @@ func newService(c *onet.Context) (onet.Service, error) {
 	s := &Service{
 		ServiceProcessor: onet.NewServiceProcessor(c),
 	}
-	if err := s.RegisterHandlers(s.Clock, s.Count, s.GenSecret); err != nil {
+	if err := s.RegisterHandlers(s.Clock, s.Count,
+		s.GenSecret, s.StartIPFS); err != nil {
 		return nil, errors.New("Couldn't register messages")
 	}
 	if err := s.tryLoad(); err != nil {

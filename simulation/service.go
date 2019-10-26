@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/BurntSushi/toml"
-	template "github.com/dedis/cothority_template"
+	template "github.com/dedis/student_19_cruxIPFS"
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/log"
 	"go.dedis.ch/onet/v3/simul/monitor"
@@ -59,8 +59,9 @@ func (s *SimulationService) Node(config *onet.SimulationConfig) error {
 	c := template.NewClient()
 	resp, err := c.GenSecret(config.Roster)
 	log.ErrFatal(err)
-
 	fmt.Println("Secret is", resp.Secret)
+
+	resp, err = c.StartIPFS(config.Roster)
 
 	return s.SimulationBFTree.Node(config)
 }
