@@ -11,3 +11,5 @@ require (
 	golang.org/x/net v0.0.0-20190206173232-65e2d4e15006 // indirect
 	gopkg.in/urfave/cli.v1 v1.20.0
 )
+
+go 1.13
