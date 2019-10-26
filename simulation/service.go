@@ -7,6 +7,7 @@ import (
 	template "github.com/dedis/cothority_template"
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/log"
+	"go.dedis.ch/onet/v3/simul/monitor"
 )
 
 /*
@@ -55,6 +56,12 @@ func (s *SimulationService) Node(config *onet.SimulationConfig) error {
 		log.Fatal("Didn't find this node in roster")
 	}
 	log.Lvl3("Initializing node-index", index)
+	c := template.NewClient()
+	resp, err := c.GenSecret(config.Roster)
+	log.ErrFatal(err)
+
+	fmt.Println("Secret is", resp.Secret)
+
 	return s.SimulationBFTree.Node(config)
 }
 
@@ -66,16 +73,14 @@ func (s *SimulationService) Run(config *onet.SimulationConfig) error {
 	c := template.NewClient()
 	for round := 0; round < s.Rounds; round++ {
 		log.Lvl1("Starting round", round)
-		//round := monitor.NewTimeMeasure("round")
-		//resp, err := c.Clock(config.Roster)
-		resp, err := c.GenSecret(config.Roster)
+		round := monitor.NewTimeMeasure("round")
+		resp, err := c.Clock(config.Roster)
 		log.ErrFatal(err)
 
-		fmt.Println("Secret is", resp.Secret)
-		/*if resp.Time <= 0 {
+		if resp.Time <= 0 {
 			log.Fatal("0 time elapsed")
-		}*/
-		//round.Record()
+		}
+		round.Record()
 	}
 	return nil
 }

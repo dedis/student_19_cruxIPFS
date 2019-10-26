@@ -9,6 +9,7 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"fmt"
+	"os/exec"
 	"time"
 
 	"errors"
@@ -52,7 +53,6 @@ type storage struct {
 
 // Clock starts a template-protocol and returns the run-time.
 func (s *Service) Clock(req *template.Clock) (*template.ClockReply, error) {
-	fmt.Println("DEBUG: preparing clock reply")
 	s.storage.Lock()
 	s.storage.Count++
 	s.storage.Unlock()
@@ -82,7 +82,8 @@ func (s *Service) Count(req *template.Count) (*template.CountReply, error) {
 }
 
 // GenSecret generate a secret key for ipfs cluster
-func (s *Service) GenSecret(req *template.GenSecret) (*template.GenSecretReply, error) {
+func (s *Service) GenSecret(req *template.GenSecret) (*template.GenSecretReply,
+	error) {
 	key := make([]byte, 32)
 	_, err := rand.Read(key)
 	if err != nil {
@@ -91,6 +92,23 @@ func (s *Service) GenSecret(req *template.GenSecret) (*template.GenSecretReply, 
 
 	reply := template.GenSecretReply{Secret: hex.EncodeToString(key)}
 	return &reply, nil
+}
+
+// StartIPFS launch an ipfs instance, and returns the used ports
+// it cleans the config folder, init ipfs in there, get unused ports, edit the
+// config with the available ports and given id, starts ipfs daemon and returns
+// the ports used by ipfs in this order [swarm, api, gateway]
+func (s *Service) StartIPFS(req *template.StartIPFS) (*template.StartIPFSReply,
+	error) {
+
+	// create the empty directory that will store ipfs configs
+	err := CreateEmptyDir(req.ConfigPath)
+	if err == nil {
+		fmt.Println(err)
+	}
+
+	initCmd := "ipfs -c " + req.ConfigPath + " init"
+	exec.Command(initCmd).Run()
 }
 
 // NewProtocol is called on all nodes of a Tree (except the root, since it is

@@ -15,6 +15,7 @@ func init() {
 		Count{}, CountReply{},
 		Clock{}, ClockReply{},
 		GenSecret{}, GenSecretReply{},
+		StartIPFS{}, StartIPFSReply{},
 	)
 }
 
@@ -48,7 +49,20 @@ type CountReply struct {
 type GenSecret struct {
 }
 
-// GenSecretReply : reply of gensecret containing the secret as a string
+// GenSecretReply reply of gensecret containing the secret as a string
 type GenSecretReply struct {
 	Secret string
+}
+
+// StartIPFS ipfs start packet
+type StartIPFS struct {
+	ConfigPath string
+	NodeID     string
+	PortMin    int
+	PortMax    int
+}
+
+// StartIPFSReply ss
+type StartIPFSReply struct {
+	Ports []int
 }
