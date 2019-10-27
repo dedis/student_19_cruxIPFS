@@ -62,7 +62,26 @@ type StartIPFS struct {
 	PortMax    int
 }
 
+// IPFSPortN number of ports IPFS is using
+const IPFSPortN int = 3
+
+// IPFSSwarmID id of the Swarm port
+const IPFSSwarmID int = 0
+
+// IPFSAPIID id of the API port
+const IPFSAPIID int = 1
+
+// IPFSGatewayID if of the Gateway port
+const IPFSGatewayID int = 2
+
+// IPFSPorts structure containing all ports used by IPFS
+type IPFSPorts struct {
+	Swarm   int
+	API     int
+	Gateway int
+}
+
 // StartIPFSReply ss
 type StartIPFSReply struct {
-	Ports []int
+	Ports *IPFSPorts
 }

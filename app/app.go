@@ -8,7 +8,7 @@ import (
 	"errors"
 	"os"
 
-	template "github.com/dedis/cothority_template"
+	template "github.com/dedis/student_19_cruxIPFS"
 
 	"go.dedis.ch/onet/v3/app"
 
@@ -18,7 +18,7 @@ import (
 
 func main() {
 	cliApp := cli.NewApp()
-	cliApp.Name = "Template"
+	cliApp.Name = "IPFS"
 	cliApp.Usage = "Used for building other apps."
 	cliApp.Version = "0.1"
 	groupsDef := "the group-definition-file"

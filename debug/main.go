@@ -2,36 +2,28 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"os/exec"
-	"strconv"
-	"strings"
+	"time"
 )
 
 func main() {
-	pmin := 14000
-	pmax := 15000
-	n := 3
-	cmd := "comm -23 <(seq \"" + strconv.Itoa(pmin) + "\" \"" + strconv.Itoa(pmax) +
-		"\" | sort) <(ss -tan | awk '{print $4}' | cut -d':' -f2 | " +
-		"grep '[0-9]\\{1,5\\}' | sort -u) | head -n " + strconv.Itoa(n)
-	out, err := exec.Command("bash", "-c", cmd).Output()
-	if err != nil {
-		fmt.Println(err)
-		fmt.Println(out)
-		os.Exit(1)
-	}
-	ret := make([]int, 0)
-	for i, s := range strings.Split(string(out), "\n") {
-		if i >= n {
-			break
-		}
-		p, err := strconv.Atoi(s)
+
+	/*
+		//array := []string{"-c", "ipfs -c /home/guillaume/.ipfs_test/myfolder/Node1 daemon"}
+		array := []string{"-c", "echo coucou"}
+
+		var procAttr os.ProcAttr
+		procAttr.Files = []*os.File{nil, nil, nil}
+		p, err := os.StartProcess("/bin/bash", array, &procAttr)
 		if err != nil {
 			fmt.Println(err)
-			return
 		}
-		ret = append(ret, p)
-	}
-	fmt.Println(ret)
+		fmt.Println(p.Pid)*/
+
+	go func() {
+		o, _ := exec.Command("bash", "-c", "ipfs -c/home/guillaume/.ipfs_test/myfolder/Node1 daemon &").Output()
+		fmt.Println(string(o))
+	}()
+	fmt.Println("Continuing")
+	time.Sleep(30 * time.Second)
 }

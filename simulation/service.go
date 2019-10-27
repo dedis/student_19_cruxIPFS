@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/BurntSushi/toml"
 	template "github.com/dedis/student_19_cruxIPFS"
@@ -56,12 +57,29 @@ func (s *SimulationService) Node(config *onet.SimulationConfig) error {
 		log.Fatal("Didn't find this node in roster")
 	}
 	log.Lvl3("Initializing node-index", index)
-	c := template.NewClient()
-	resp, err := c.GenSecret(config.Roster)
-	log.ErrFatal(err)
-	fmt.Println("Secret is", resp.Secret)
 
-	resp, err = c.StartIPFS(config.Roster)
+	identity := config.Roster.Get(index)
+
+	c := template.NewClient()
+	reply := &template.StartIPFSReply{}
+	req := template.StartIPFS{
+		ConfigPath: "/home/guillaume/.ipfs_test/myfolder/Node" +
+			strconv.Itoa(index),
+		NodeID:  "Node1",
+		PortMin: 14000,
+		PortMax: 15000,
+	}
+	err := c.SendProtobuf(identity, &req, reply)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(reply.Ports.Swarm, reply.Ports.API, reply.Ports.Gateway)
+
+	/*
+		resp, err := c.GenSecret(config.Roster)
+		log.ErrFatal(err)
+		fmt.Println("Secret is", resp.Secret)
+	*/
 
 	return s.SimulationBFTree.Node(config)
 }
@@ -74,6 +92,7 @@ func (s *SimulationService) Run(config *onet.SimulationConfig) error {
 	c := template.NewClient()
 	for round := 0; round < s.Rounds; round++ {
 		log.Lvl1("Starting round", round)
+
 		round := monitor.NewTimeMeasure("round")
 		resp, err := c.Clock(config.Roster)
 		log.ErrFatal(err)

@@ -16,7 +16,7 @@ import (
 	"os"
 	"path"
 
-	_ "github.com/dedis/cothority_template/byzcoin"
+	_ "github.com/dedis/student_19_cruxIPFS/byzcoin"
 
 	"go.dedis.ch/cothority/v3"
 	"go.dedis.ch/onet/v3/app"

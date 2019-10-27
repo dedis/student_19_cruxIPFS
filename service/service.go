@@ -10,13 +10,14 @@ import (
 	"encoding/hex"
 	"fmt"
 	"os/exec"
+	"strconv"
 	"time"
 
 	"errors"
 	"sync"
 
-	"github.com/dedis/cothority_template/protocol"
 	template "github.com/dedis/student_19_cruxIPFS"
+	"github.com/dedis/student_19_cruxIPFS/protocol"
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/log"
 	"go.dedis.ch/onet/v3/network"
@@ -103,16 +104,46 @@ func (s *Service) StartIPFS(req *template.StartIPFS) (*template.StartIPFSReply,
 
 	// create the empty directory that will store ipfs configs
 	err := CreateEmptyDir(req.ConfigPath)
-	if err == nil {
+	if err != nil {
 		fmt.Println(err)
 	}
 
 	// init ipfs in the desired folder
-	initCmd := "ipfs -c " + req.ConfigPath + " init"
-	exec.Command(initCmd).Run()
-	ports := GetNextAvailablePort(req.PortMin, req.PortMax, 3) // MAGIC NUMBER
+	exec.Command("ipfs", "-c"+req.ConfigPath, "init").Run()
 
-	reply := template.StartIPFSReply{Ports: ports}
+	ports := template.IPFSPorts{}
+
+	go func() {
+		for {
+			delay, _ := strconv.Atoi(req.NodeID)
+			time.Sleep(time.Duration(delay) * 12 * time.Second)
+
+			// get the next 3 available ports
+			portList, err := GetNextAvailablePort(req.PortMin,
+				req.PortMax, template.IPFSPortN)
+			if err != nil {
+				fmt.Println(err)
+			}
+			// create the IFPS ports struct
+			ports = template.IPFSPorts{
+				Swarm:   (*portList)[template.IPFSSwarmID],
+				API:     (*portList)[template.IPFSAPIID],
+				Gateway: (*portList)[template.IPFSGatewayID],
+			}
+			// edit the ports in the config file
+			err = EditIPFSConfig(&ports, req.ConfigPath)
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			// start the ipfs daemon
+			exec.Command("ipfs", "-c"+req.ConfigPath, "daemon").Run()
+		}
+
+	}()
+	time.Sleep(90 * time.Second)
+
+	reply := template.StartIPFSReply{Ports: &ports}
 	return &reply, nil
 }
 

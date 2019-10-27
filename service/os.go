@@ -1,7 +1,9 @@
 package service
 
 import (
+	"errors"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"strconv"
@@ -14,25 +16,26 @@ const defaultFileMode os.FileMode = 0777
 // CreateEmptyDir create an empty directory at the given path
 func CreateEmptyDir(path string) error {
 	// remove existing dir if any
-	os.RemoveAll(path)
+	err := os.RemoveAll(path)
+	if err != nil {
+		fmt.Println(err)
+	}
 	// create the empty directorys
-	err := os.Mkdir(path, defaultFileMode)
+	err = os.Mkdir(path, defaultFileMode)
 	return err
 }
 
 // GetNextAvailablePort return n available ports between pmin and pmax
 // crash if error
-func GetNextAvailablePort(pmin, pmax, n int) []int {
+func GetNextAvailablePort(pmin, pmax, n int) (*[]int, error) {
 	cmd := "comm -23 <(seq \"" + strconv.Itoa(pmin) + "\" \"" +
-		strconv.Itoa(pmax) + "\" | sort) <(ss -tan | awk '{print $4}' | cut" +
+		strconv.Itoa(pmax) + "\" | sort) <(ss -tan | awk '{print $4}' | cut " +
 		"-d':' -f2 | grep '[0-9]\\{1,5\\}' | sort -u) | head -n " +
 		strconv.Itoa(n)
 	out, err := exec.Command("bash", "-c", cmd).Output()
 	// if command fails, crash the program
 	if err != nil {
-		fmt.Println(err)
-		fmt.Println(out)
-		os.Exit(1)
+		return nil, err
 	}
 	ret := make([]int, 0)
 	for i, s := range strings.Split(string(out), "\n") {
@@ -42,12 +45,45 @@ func GetNextAvailablePort(pmin, pmax, n int) []int {
 		p, err := strconv.Atoi(s)
 		// if error while reading the ports, crash the program
 		if err != nil {
-			fmt.Println(out)
-			fmt.Println(err)
-			fmt.Println("Fatal: cannot parse available ports")
-			os.Exit(1)
+			return nil, errors.New("cannot parse available ports")
 		}
 		ret = append(ret, p)
 	}
-	return ret
+	if len(ret) != n {
+		return nil, errors.New("Couldn't get" + strconv.Itoa(n) +
+			"available ports")
+	}
+	return &ret, nil
+}
+
+// ReadConfig read a config file given as parameter and returns a string
+func ReadConfig(file string) (string, error) {
+	dat, err := ioutil.ReadFile(file)
+	if err != nil {
+		return "", err
+	}
+	return string(dat), nil
+}
+
+// WriteConfig write string to a file
+func WriteConfig(path string, config string) error {
+	// Open file using WRITE only permission.
+	file, err := os.OpenFile(path, os.O_WRONLY, defaultFileMode)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	// Write some text line-by-line to file.
+	_, err = file.WriteString(config)
+	if err != nil {
+		return err
+	}
+
+	// Save file changes.
+	err = file.Sync()
+	if err != nil {
+		return err
+	}
+	return nil
 }

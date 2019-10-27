@@ -77,8 +77,8 @@ func (c *Client) StartIPFS(r *onet.Roster) (*StartIPFSReply, error) {
 	log.Lvl4("Sending message to", dst)
 	reply := &StartIPFSReply{}
 	req := StartIPFS{
-		ConfigPath: "~/.ifps_test/myfolder",
-		NodeID:     "Node 1",
+		ConfigPath: "/home/guillaume/.ipfs_test/myfolder/Node1",
+		NodeID:     "Node1",
 		PortMin:    14000,
 		PortMax:    15000,
 	}
