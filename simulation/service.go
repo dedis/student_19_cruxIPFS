@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"os/exec"
 	"strconv"
 
 	"github.com/BurntSushi/toml"
@@ -44,6 +46,35 @@ func (s *SimulationService) Setup(dir string, hosts []string) (
 	if err != nil {
 		return nil, err
 	}
+
+	// clean all ipfs processes
+	o, err := exec.Command("../clean.sh").Output()
+	if err != nil {
+		fmt.Println(err)
+	}
+	// remove the config dir
+	err = os.RemoveAll(template.DefaultConfigPath)
+	if err != nil {
+		fmt.Println(err)
+	}
+	// create an empty config dir
+	err = os.MkdirAll(template.DefaultConfigPath, 0777)
+	if err != nil {
+		fmt.Println(err)
+	}
+	log.Lvl1(string(o))
+	/*
+		c := template.NewClient()
+		reply := &template.DoSetupReply{}
+		req := template.DoSetup{Path: "hey"}
+		id := sc.Server.ServerIdentity
+		fmt.Println(c, reply, req, id)
+
+		/*
+			err = c.SendProtobuf(sc.Server.ServerIdentity, &req, reply)
+			if err != nil {
+				fmt.Println(err)
+			}*/
 	return sc, nil
 }
 
@@ -58,22 +89,33 @@ func (s *SimulationService) Node(config *onet.SimulationConfig) error {
 	}
 	log.Lvl3("Initializing node-index", index)
 
+	configPath := "/home/guillaume/ipfs_test/myfolder/Node" +
+		strconv.Itoa(index)
 	identity := config.Roster.Get(index)
 
 	c := template.NewClient()
 	reply := &template.StartIPFSReply{}
 	req := template.StartIPFS{
-		ConfigPath: "/home/guillaume/.ipfs_test/myfolder/Node" +
-			strconv.Itoa(index),
-		NodeID:  "Node1",
-		PortMin: 14000,
-		PortMax: 15000,
+		ConfigPath: configPath,
+		NodeID:     index,
+		PortMin:    14000,
+		PortMax:    15000,
 	}
 	err := c.SendProtobuf(identity, &req, reply)
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(reply.Ports.Swarm, reply.Ports.API, reply.Ports.Gateway)
+	fmt.Println("Swarm:", reply.Ports.Swarm, "API:", reply.Ports.API,
+		"Gateway", reply.Ports.Gateway)
+	replyC := &template.StartClusterReply{}
+	reqC := template.StartCluster{
+		ConfigPath: configPath,
+		NodeID:     index,
+		ClusterID:  0,
+		PortMax:    15000,
+		PortMin:    14000,
+	}
+	err = c.SendProtobuf(identity, &reqC, replyC)
 
 	/*
 		resp, err := c.GenSecret(config.Roster)

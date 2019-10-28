@@ -102,49 +102,76 @@ func (s *Service) GenSecret(req *template.GenSecret) (*template.GenSecretReply,
 func (s *Service) StartIPFS(req *template.StartIPFS) (*template.StartIPFSReply,
 	error) {
 
+	path := req.ConfigPath + "/ipfs"
+
 	// create the empty directory that will store ipfs configs
-	err := CreateEmptyDir(req.ConfigPath)
+	err := CreateEmptyDir(path)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	// init ipfs in the desired folder
-	exec.Command("ipfs", "-c"+req.ConfigPath, "init").Run()
+	exec.Command("ipfs", "-c"+path, "init").Run()
 
 	ports := template.IPFSPorts{}
 
 	go func() {
-		for {
-			delay, _ := strconv.Atoi(req.NodeID)
-			time.Sleep(time.Duration(delay) * 12 * time.Second)
+		/*
+			result, _ := rand.Int(rand.Reader, big.NewInt(int64(req.PortMax-req.PortMin)))
+			rand := int(result.Int64())
 
 			// get the next 3 available ports
-			portList, err := GetNextAvailablePort(req.PortMin,
-				req.PortMax, template.IPFSPortN)
-			if err != nil {
-				fmt.Println(err)
-			}
-			// create the IFPS ports struct
-			ports = template.IPFSPorts{
-				Swarm:   (*portList)[template.IPFSSwarmID],
-				API:     (*portList)[template.IPFSAPIID],
-				Gateway: (*portList)[template.IPFSGatewayID],
-			}
-			// edit the ports in the config file
-			err = EditIPFSConfig(&ports, req.ConfigPath)
-			if err != nil {
-				fmt.Println(err)
-			}
+			portList, err := GetNextAvailablePorts(req.PortMin+rand,
+				req.PortMax, template.IPFSPortN)*/
 
-			// start the ipfs daemon
-			exec.Command("ipfs", "-c"+req.ConfigPath, "daemon").Run()
+		portList, err := GetNextAvailablePorts(req.PortMin+10*req.NodeID,
+			req.PortMax, template.IPFSPortN)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		// create the IFPS ports struct
+		ports = template.IPFSPorts{
+			Swarm:   (*portList)[template.IPFSSwarmID],
+			API:     (*portList)[template.IPFSAPIID],
+			Gateway: (*portList)[template.IPFSGatewayID],
+		}
+		// edit the ports in the config file
+		err = EditIPFSConfig(&ports, path)
+		if err != nil {
+			fmt.Println(err)
+			return
 		}
 
+		// start the ipfs daemon
+		exec.Command("ipfs", "-c"+path, "daemon").Run()
+
 	}()
-	time.Sleep(90 * time.Second)
+	time.Sleep(15 * time.Second)
 
 	reply := template.StartIPFSReply{Ports: &ports}
 	return &reply, nil
+}
+
+// StartCluster start a cluster instance
+func (s *Service) StartCluster(req *template.StartCluster) (
+	*template.StartClusterReply, error) {
+
+	path := req.ConfigPath + "/cluster" + strconv.Itoa(req.ClusterID)
+	err := CreateEmptyDir(path)
+	if err != nil {
+		return nil, err
+	}
+
+	err = exec.Command("bash", "-c",
+		"ipfs-cluster-service -c "+path+" init").Run()
+	if err != nil {
+		return nil, err
+	}
+
+	err = EditClusterConfig()
+
+	return &template.StartClusterReply{}, nil
 }
 
 // NewProtocol is called on all nodes of a Tree (except the root, since it is
@@ -196,7 +223,7 @@ func newService(c *onet.Context) (onet.Service, error) {
 		ServiceProcessor: onet.NewServiceProcessor(c),
 	}
 	if err := s.RegisterHandlers(s.Clock, s.Count,
-		s.GenSecret, s.StartIPFS); err != nil {
+		s.GenSecret, s.StartIPFS, s.StartCluster); err != nil {
 		return nil, errors.New("Couldn't register messages")
 	}
 	if err := s.tryLoad(); err != nil {

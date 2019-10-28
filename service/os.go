@@ -21,13 +21,13 @@ func CreateEmptyDir(path string) error {
 		fmt.Println(err)
 	}
 	// create the empty directorys
-	err = os.Mkdir(path, defaultFileMode)
+	err = os.MkdirAll(path, defaultFileMode)
 	return err
 }
 
-// GetNextAvailablePort return n available ports between pmin and pmax
+// GetNextAvailablePorts return n available ports between pmin and pmax
 // crash if error
-func GetNextAvailablePort(pmin, pmax, n int) (*[]int, error) {
+func GetNextAvailablePorts(pmin, pmax, n int) (*[]int, error) {
 	cmd := "comm -23 <(seq \"" + strconv.Itoa(pmin) + "\" \"" +
 		strconv.Itoa(pmax) + "\" | sort) <(ss -tan | awk '{print $4}' | cut " +
 		"-d':' -f2 | grep '[0-9]\\{1,5\\}' | sort -u) | head -n " +

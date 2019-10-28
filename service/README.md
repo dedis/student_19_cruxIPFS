@@ -1,4 +1,6 @@
-Navigation: [DEDIS](https://github.com/dedis/doc/tree/master/README.md) ::
+
+# Navigation: [DEDIS](https://github.com/dedis/doc/tree/master/README.md)
+
 [Cothority Template](../README.md) ::
 Service
 
@@ -16,29 +18,29 @@ and can start new protocols. A service starts with the method defined in
 ```go
 // service.go
 func init() {
-	onet.RegisterNewService(Name, newService)
+    onet.RegisterNewService(Name, newService)
 }
 
 type Service struct {
-	// We need to embed the ServiceProcessor, so that incoming messages
-	// are correctly handled.
-	*onet.ServiceProcessor
-	path string
-	// Count holds the number of calls to 'ClockRequest'
-	Count int
+    // We need to embed the ServiceProcessor, so that incoming messages
+    // are correctly handled.
+    *onet.ServiceProcessor
+    path string
+    // Count holds the number of calls to 'ClockRequest'
+    Count int
 }
 
 // ...
 
 func newService(c *onet.Context, path string) onet.Service {
-	s := &Service{
-		ServiceProcessor: onet.NewServiceProcessor(c),
-		path:             path,
-	}
-	if err := s.RegisterHandlers(s.ClockRequest, s.CountRequest); err != nil {
-		log.ErrFatal(err, "Couldn't register messages")
-	}
-	return s
+    s := &Service{
+        ServiceProcessor: onet.NewServiceProcessor(c),
+        path:             path,
+    }
+    if err := s.RegisterHandlers(s.ClockRequest, s.CountRequest); err != nil {
+        log.ErrFatal(err, "Couldn't register messages")
+    }
+    return s
 }
 ```
 
@@ -55,12 +57,12 @@ structure. It can only communicate to the service through the `SendProtobuf`
 
  ```go
  func (c *Client) Count(si *network.ServerIdentity) (int, error) {
- 	reply := &CountResponse{}
- 	err := c.SendProtobuf(si, &CountRequest{}, reply)
- 	if err != nil {
- 		return -1, err
- 	}
- 	return reply.Count, nil
+    reply := &CountResponse{}
+    err := c.SendProtobuf(si, &CountRequest{}, reply)
+    if err != nil {
+        return -1, err
+    }
+    return reply.Count, nil
  }
 ```
 

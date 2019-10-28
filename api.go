@@ -70,21 +70,3 @@ func (c *Client) GenSecret(r *onet.Roster) (*GenSecretReply, error) {
 	}
 	return reply, nil
 }
-
-// StartIPFS on all nodes
-func (c *Client) StartIPFS(r *onet.Roster) (*StartIPFSReply, error) {
-	dst := r.RandomServerIdentity()
-	log.Lvl4("Sending message to", dst)
-	reply := &StartIPFSReply{}
-	req := StartIPFS{
-		ConfigPath: "/home/guillaume/.ipfs_test/myfolder/Node1",
-		NodeID:     "Node1",
-		PortMin:    14000,
-		PortMax:    15000,
-	}
-	err := c.SendProtobuf(dst, &req, reply)
-	if err != nil {
-		return nil, err
-	}
-	return reply, nil
-}

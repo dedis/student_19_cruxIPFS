@@ -47,3 +47,9 @@ func EditIPFSConfig(ports *template.IPFSPorts, path string) error {
 
 	return nil
 }
+
+// EditClusterConfig edit the cluster configuration file with the ports, cluster
+// secret and peername
+func EditClusterConfig() error {
+	return nil
+}

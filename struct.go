@@ -16,6 +16,7 @@ func init() {
 		Clock{}, ClockReply{},
 		GenSecret{}, GenSecretReply{},
 		StartIPFS{}, StartIPFSReply{},
+		StartCluster{}, StartClusterReply{},
 	)
 }
 
@@ -57,7 +58,7 @@ type GenSecretReply struct {
 // StartIPFS ipfs start packet
 type StartIPFS struct {
 	ConfigPath string
-	NodeID     string
+	NodeID     int
 	PortMin    int
 	PortMax    int
 }
@@ -81,7 +82,36 @@ type IPFSPorts struct {
 	Gateway int
 }
 
+// DefaultConfigPath default path to config files
+const DefaultConfigPath string = "/home/guillaume/ipfs_test/myfolder"
+
 // StartIPFSReply ss
 type StartIPFSReply struct {
 	Ports *IPFSPorts
+}
+
+// ClusterPortN number of ports needed by the cluster
+const ClusterPortN int = 3
+
+// StartCluster packet that is sent to start a cluster instance
+type StartCluster struct {
+	ConfigPath  string
+	NodeID      int
+	ClusterID   int
+	PortMin     int
+	PortMax     int
+	IPFSAPIPort int
+}
+
+// ClusterPorts ports that are used by the cluster
+type ClusterPorts struct {
+	IPFSAPI   int
+	RestAPI   int
+	IPFSProxy int
+	Cluster   int
+}
+
+// StartClusterReply reply sent once that the cluster instance has started
+type StartClusterReply struct {
+	Ports *ClusterPorts
 }
