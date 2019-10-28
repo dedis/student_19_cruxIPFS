@@ -89,12 +89,15 @@ func (s *SimulationService) Node(config *onet.SimulationConfig) error {
 	}
 	log.Lvl3("Initializing node-index", index)
 
+	// should be set to a const
 	configPath := "/home/guillaume/ipfs_test/myfolder/Node" +
 		strconv.Itoa(index)
+	// get node id
 	identity := config.Roster.Get(index)
 
 	c := template.NewClient()
 	reply := &template.StartIPFSReply{}
+	// create start ipfs request
 	req := template.StartIPFS{
 		ConfigPath: configPath,
 		NodeID:     index,
@@ -107,6 +110,11 @@ func (s *SimulationService) Node(config *onet.SimulationConfig) error {
 	}
 	fmt.Println("Swarm:", reply.Ports.Swarm, "API:", reply.Ports.API,
 		"Gateway", reply.Ports.Gateway)
+
+	// !!!!!! We should have the same secret for all hosts in the same cluster
+	resp, err := c.GenSecret(config.Roster)
+	log.ErrFatal(err)
+
 	replyC := &template.StartClusterReply{}
 	reqC := template.StartCluster{
 		ConfigPath: configPath,
@@ -114,14 +122,10 @@ func (s *SimulationService) Node(config *onet.SimulationConfig) error {
 		ClusterID:  0,
 		PortMax:    15000,
 		PortMin:    14000,
+		Secret:     resp.Secret,
+		Peername:   "Peer" + strconv.Itoa(index) + "_0",
 	}
 	err = c.SendProtobuf(identity, &reqC, replyC)
-
-	/*
-		resp, err := c.GenSecret(config.Roster)
-		log.ErrFatal(err)
-		fmt.Println("Secret is", resp.Secret)
-	*/
 
 	return s.SimulationBFTree.Node(config)
 }

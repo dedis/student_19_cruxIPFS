@@ -9,6 +9,7 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"fmt"
+	"math/big"
 	"os/exec"
 	"strconv"
 	"time"
@@ -169,9 +170,39 @@ func (s *Service) StartCluster(req *template.StartCluster) (
 		return nil, err
 	}
 
-	err = EditClusterConfig()
+	result, _ := rand.Int(rand.Reader, big.NewInt(int64(req.PortMax-req.PortMin)))
+	rand := int(result.Int64())
 
-	return &template.StartClusterReply{}, nil
+	// get the next 3 available ports
+	portList, err := GetNextAvailablePorts(req.PortMin+rand,
+		req.PortMax, template.ClusterPortN)
+	if err != nil {
+		return nil, err
+	}
+	ports := template.ClusterPorts{
+		IPFSAPI:   req.IPFSAPIPort,
+		RestAPI:   (*portList)[0],
+		IPFSProxy: (*portList)[1],
+		Cluster:   (*portList)[2],
+	}
+
+	err = EditClusterConfig(ports, path, req.Peername, req.Secret)
+	if err != nil {
+		return nil, err
+	}
+
+	/*
+		go func() {
+			o, err := exec.Command("bash", "-c", "ipfs-cluster-service -c "+path+" daemon").Output()
+			fmt.Println(string(o))
+			if err != nil {
+				fmt.Println(err)
+			}
+		}()
+		time.Sleep(2 * time.Second)
+	*/
+
+	return &template.StartClusterReply{Ports: &ports}, nil
 }
 
 // NewProtocol is called on all nodes of a Tree (except the root, since it is

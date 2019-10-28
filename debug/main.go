@@ -2,28 +2,32 @@ package main
 
 import (
 	"fmt"
-	"os/exec"
-	"time"
+	"strings"
+
+	"github.com/dedis/student_19_cruxIPFS/service"
 )
 
 func main() {
 
-	/*
-		//array := []string{"-c", "ipfs -c /home/guillaume/.ipfs_test/myfolder/Node1 daemon"}
-		array := []string{"-c", "echo coucou"}
+	filepath := "/home/guillaume/ipfs_test/myfolder/Node0/cluster0/service.json"
+	conf, err := service.ReadConfig(filepath)
+	if err != nil {
+		fmt.Println("here")
+		fmt.Println(err)
+	}
 
-		var procAttr os.ProcAttr
-		procAttr.Files = []*os.File{nil, nil, nil}
-		p, err := os.StartProcess("/bin/bash", array, &procAttr)
-		if err != nil {
-			fmt.Println(err)
-		}
-		fmt.Println(p.Pid)*/
+	iSecret := strings.Index(conf, "secret")
+	nLine := strings.Index(conf[iSecret:], "\n")
 
-	go func() {
-		o, _ := exec.Command("bash", "-c", "ipfs -c/home/guillaume/.ipfs_test/myfolder/Node1 daemon &").Output()
-		fmt.Println(string(o))
-	}()
-	fmt.Println("Continuing")
-	time.Sleep(30 * time.Second)
+	conf = strings.ReplaceAll(conf, conf[iSecret:iSecret+nLine], "secret\": \""+"4E1100xDEADBEEF"+"\",")
+
+	iPeername := strings.Index(conf, "peername")
+	nLine = strings.Index(conf[iPeername:], "\n")
+	conf = strings.ReplaceAll(conf, conf[iPeername:iPeername+nLine], "peername\": \""+"guissou"+"\",")
+
+	err = service.WriteConfig(filepath, conf)
+	if err != nil {
+		fmt.Println("there")
+		fmt.Println(err)
+	}
 }

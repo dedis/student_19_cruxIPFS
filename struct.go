@@ -101,6 +101,8 @@ type StartCluster struct {
 	PortMin     int
 	PortMax     int
 	IPFSAPIPort int
+	Peername    string
+	Secret      string
 }
 
 // ClusterPorts ports that are used by the cluster
