@@ -8,6 +8,7 @@ import (
 
 	"github.com/BurntSushi/toml"
 	template "github.com/dedis/student_19_cruxIPFS"
+	"go.dedis.ch/onet/app"
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/log"
 	"go.dedis.ch/onet/v3/simul/monitor"
@@ -40,12 +41,19 @@ func NewSimulationService(config string) (onet.Simulation, error) {
 // Setup creates the tree used for that simulation
 func (s *SimulationService) Setup(dir string, hosts []string) (
 	*onet.SimulationConfig, error) {
+
+	fmt.Println(hosts)
+
 	sc := &onet.SimulationConfig{}
 	s.CreateRoster(sc, hosts, 2000)
+
+	fmt.Println(sc.Roster.List)
 	err := s.CreateTree(sc)
 	if err != nil {
 		return nil, err
 	}
+
+	app.Copy(dir, "../clean.sh")
 
 	// clean all ipfs processes
 	o, err := exec.Command("../clean.sh").Output()

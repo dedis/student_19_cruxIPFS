@@ -145,8 +145,8 @@ func (s *Service) StartIPFS(req *template.StartIPFS) (*template.StartIPFSReply,
 		}
 
 		// start the ipfs daemon
-		exec.Command("ipfs", "-c"+path, "daemon").Run()
-
+		_, err = exec.Command("ipfs", "-c"+path, "daemon").Output()
+		// channel
 	}()
 	time.Sleep(15 * time.Second)
 
