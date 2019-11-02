@@ -8,73 +8,22 @@ import (
 
 func main() {
 
-	os.RemoveAll("/home/guillaume/.ipfs")
-	err := exec.Command("bash", "-c", "ipfs init").Run()
-	if err != nil {
-		fmt.Println(err)
-	}
+	os.RemoveAll("/home/guillaume/cluster")
+	os.Mkdir("/home/guillaume/cluster", 0777)
 
-	err = exec.Command("bash", "-c", "ipfs config Addresses.API \"/ip4/127.0.0.2/tcp/5001\"").Run()
-	if err != nil {
-		fmt.Println(err)
-	}
+	//ID := "QmUfSFm12eYCaRdypg48m8RqkXfLW7A2ZeGZb2skeHHDGA"
 
-	o, err := exec.Command("bash", "-c", "ipfs config --json Addresses.Swarm \"[\\\"/ip6/::/tcp/12345\\\"]\"").Output()
+	//err := os.Setenv("CLUSTER_ID", "QmUfSFm12eYCaRdypg48m8RqkXfLW7A2ZeGZb2skeHHDGA")
+	//err := os.Setenv("CLUSTER_SECRET", "1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef")
+	//err := os.Setenv("CLUSTER_ID", ID)
+	err := os.Setenv("CLUSTER_LISTENMULTIADDRESS", "/ip4/0.0.0.0/tcp/9999")
+	//err = os.Setenv("CLUSTER_PRIVATEKEY", "CAASqAkwggSkAgEAAoIBAQDpT16IRF6bb9tHsCbQ7M+nb2aI8sz8xyt8PoAWM42ki+SNoESIxKb4UhFxixKvtEdGxNE6aUUVc8kFk6wTStJ/X3IGiMetwkXiFiUxabUF/8A6SyvnSVDm+wFuavugpVrZikjLcfrf2xOVgnG3deQQvd/qbAv14jTwMFl+T+8d/cXBo8Mn/leLZCQun/EJEnkXP5MjgNI8XcWUE4NnH3E0ESSm6Pkm8MhMDZ2fmzNgqEyJ0GVinNgSml3Pyha3PBSj5LRczLip/ie4QkKx5OHvX2L3sNv/JIUHse5HSbjZ1c/4oGCYMVTYCykWiczrxBUOlcr8RwnZLOm4n2bCt5ZhAgMBAAECggEAVkePwfzmr7zR7tTpxeGNeXHtDUAdJm3RWwUSASPXgb5qKyXVsm5nAPX4lXDE3E1i/nzSkzNS5PgIoxNVU10cMxZs6JW0okFx7oYaAwgAddN6lxQtjD7EuGaixN6zZ1k/G6vT98iS6i3uNCAlRZ9HVBmjsOF8GtYolZqLvfZ5izEVFlLVq/BCs7Y5OrDrbGmn3XupfitVWYExV0BrHpobDjsx2fYdTZkmPpSSvXNcm4Iq2AXVQzoqAfGo7+qsuLCZtVlyTfVKQjMvE2ffzN1dQunxixOvev/fz4WSjGnRpC6QLn6Oqps9+VxQKqKuXXqUJC+U45DuvA94Of9MvZfAAQKBgQD7xmXueXRBMr2+0WftybAV024ap0cXFrCAu+KWC1SUddCfkiV7e5w+kRJx6RH1cg4cyyCL8yhHZ99Z5V0Mxa/b/usuHMadXPyX5szVI7dOGgIC9q8IijN7B7GMFAXc8+qC7kivehJzjQghpRRAqvRzjDls4gmbNPhbH1jUiU124QKBgQDtOaW5/fOEtOq0yWbDLkLdjImct6oKMLhENL6yeIKjMYgifzHb2adk7rWG3qcMrdgaFtDVfqv8UmMEkzk7bSkovMVj3SkLzMz84ii1SkSfyaCXgt/UOzDkqAUYB0cXMppYA7jxHa2OY8oEHdBgmyJXdLdzJxCp851AoTlRUSePgQKBgQCQgKgUHOUaXnMEx88sbOuBO14gMg3dNIqM+Ejt8QbURmI8k3arzqA4UK8Tbb9+7b0nzXWanS5q/TT1tWyYXgW28DIuvxlHTA01aaP6WItmagrphIelERzG6f1+9ib/T4czKmvROvDIHROjq8lZ7ERs5Pg4g+sbh2VbdzxWj49EQQKBgFEna36ZVfmMOs7mJ3WWGeHY9ira2hzqVd9fe+1qNKbHhx7mDJR9fTqWPxuIh/Vac5dZPtAKqaOEO8OQ6f9edLou+ggT3LrgsS/B3tNGOPvA6mNqrk/Yf/15TWTO+I8DDLIXc+lokbsogC+wU1z5NWJd13RZZOX/JUi63vTmonYBAoGBAIpglLCH2sPXfmguO6p8QcQcv4RjAU1c0GP4P5PNN3Wzo0ItydVd2LHJb6MdmL6ypeiwNklzPFwTeRlKTPmVxJ+QPg1ct/3tAURN/D40GYw9ojDhqmdSl4HW4d6gHS2lYzSFeU5jkG49y5nirOOoEgHy95wghkh6BfpwHujYJGw4")
+	o, err := exec.Command("ipfs-cluster-service", "-c", "/home/guillaume/cluster", "init").Output()
+	//cmd := "CLUSTER_SECRET="" ipfs-cluster-service -c /home/guillaume/cluster init"
+
 	fmt.Println(string(o))
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	TransportProtocol := "/tcp/"
-	IPVersion := "/ip4/"
-
-	gateway := "9090"
-	swarm := "4009"
-	api := "5009"
-	ip := "127.0.0.9"
-
-	path := "/home/guillaume/.ipfs"
-	addr := IPVersion + ip + TransportProtocol
-
-	// \"/ip4/127.0.0.1/tcp/5001\"
-	API := MakeJSONElem(addr + api)
-	// \"/ip4/127.0.0.1/tcp/8080\"
-	Gateway := MakeJSONElem(addr + gateway)
-
-	// [\"/ip4/0.0.0.0/tcp/5001\", \"/ip6/::/tcp/5001\"]
-	swarmList := []string{addr + swarm}
-	Swarm := MakeJSONArray(swarmList)
-	EditIPFSField(path, "Addresses.API", API)
-	EditIPFSField(path, "Addresses.Gateway", Gateway)
-	EditIPFSField(path, "Addresses.Swarm", Swarm)
-
-}
-
-// MakeJSONElem make a JSON single element
-func MakeJSONElem(elem string) string {
-	// \"elem\"
-	return "\\\"" + elem + "\\\""
-}
-
-// MakeJSONArray make a json array from the given elements
-func MakeJSONArray(elements []string) string {
-	// "[
-	str := "\"["
-	for _, e := range elements {
-		// \"elem\"
-		str += "\\\"" + e + "\\\""
-	}
-	// str + ]"
-	return str + "]\""
-}
-
-// EditIPFSField with the native IPFS config command
-func EditIPFSField(path, field, value string) {
-	cmd := "ipfs -c " + path + " config --json " + field + " " + value
-	o, err := exec.Command("bash", "-c", cmd).Output()
-	if err != nil {
-		fmt.Println(cmd)
-		fmt.Println(string(o))
-		fmt.Println(err)
-	}
 }

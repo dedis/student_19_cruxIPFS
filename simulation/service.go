@@ -51,7 +51,6 @@ func (s *SimulationService) Setup(dir string, hosts []string) (
 		return nil, err
 	}
 	mySC = *sc
-	//StartIPFSDaemon(sc, 0)
 	return sc, nil
 }
 
@@ -67,6 +66,7 @@ func (s *SimulationService) Node(config *onet.SimulationConfig) error {
 	log.Lvl3("Initializing node-index", index)
 
 	StartIPFSDaemon(config, index)
+
 	//s.StartIPFSDaemon(config)
 	/*
 		// should be set to a const
@@ -117,17 +117,19 @@ func (s *SimulationService) Run(config *onet.SimulationConfig) error {
 }
 
 // StartIPFSDaemon select ports for each peer and start ipfs on those ports
-func StartIPFSDaemon(sc *onet.SimulationConfig,
-	index int) {
-	//peers := mySC.Roster.List
-	//fmt.Println(peers)
+func StartIPFSDaemon(sc *onet.SimulationConfig, index int) {
 
 	c := template.NewClient()
+	// mySC is the SimulConfig created in Setup()
+	// I guess I shouldn't use it, but it runs
 	identity := mySC.Roster.Get(index)
 
+	// ip of the node that will start
 	ip := template.ServerIdentityToIPString(identity)
-
+	// path of the config files of that node
 	configPath := template.ConfigPath + "/Node" + strconv.Itoa(index)
+
+	// create the ipfs start request
 	req := template.StartIPFS{
 		ConfigPath: configPath,
 		IP:         ip,
