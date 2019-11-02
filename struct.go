@@ -61,6 +61,7 @@ type StartIPFS struct {
 	NodeID     int
 	PortMin    int
 	PortMax    int
+	IP         string
 }
 
 // IPFSPortN number of ports IPFS is using

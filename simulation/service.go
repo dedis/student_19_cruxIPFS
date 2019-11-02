@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"os/exec"
 	"strconv"
 
 	"github.com/BurntSushi/toml"
@@ -13,6 +11,8 @@ import (
 	"go.dedis.ch/onet/v3/log"
 	"go.dedis.ch/onet/v3/simul/monitor"
 )
+
+var mySC onet.SimulationConfig
 
 /*
  * Defines the simulation for the service-template
@@ -41,48 +41,17 @@ func NewSimulationService(config string) (onet.Simulation, error) {
 // Setup creates the tree used for that simulation
 func (s *SimulationService) Setup(dir string, hosts []string) (
 	*onet.SimulationConfig, error) {
-
-	fmt.Println(hosts)
+	app.Copy(dir, "../clean.sh")
 
 	sc := &onet.SimulationConfig{}
 	s.CreateRoster(sc, hosts, 2000)
 
-	fmt.Println(sc.Roster.List)
 	err := s.CreateTree(sc)
 	if err != nil {
 		return nil, err
 	}
-
-	app.Copy(dir, "../clean.sh")
-
-	// clean all ipfs processes
-	o, err := exec.Command("../clean.sh").Output()
-	if err != nil {
-		fmt.Println(err)
-	}
-	// remove the config dir
-	err = os.RemoveAll(template.DefaultConfigPath)
-	if err != nil {
-		fmt.Println(err)
-	}
-	// create an empty config dir
-	err = os.MkdirAll(template.DefaultConfigPath, 0777)
-	if err != nil {
-		fmt.Println(err)
-	}
-	log.Lvl1(string(o))
-	/*
-		c := template.NewClient()
-		reply := &template.DoSetupReply{}
-		req := template.DoSetup{Path: "hey"}
-		id := sc.Server.ServerIdentity
-		fmt.Println(c, reply, req, id)
-
-		/*
-			err = c.SendProtobuf(sc.Server.ServerIdentity, &req, reply)
-			if err != nil {
-				fmt.Println(err)
-			}*/
+	mySC = *sc
+	//StartIPFSDaemon(sc, 0)
 	return sc, nil
 }
 
@@ -97,43 +66,31 @@ func (s *SimulationService) Node(config *onet.SimulationConfig) error {
 	}
 	log.Lvl3("Initializing node-index", index)
 
-	// should be set to a const
-	configPath := "/home/guillaume/ipfs_test/myfolder/Node" +
-		strconv.Itoa(index)
-	// get node id
-	identity := config.Roster.Get(index)
+	StartIPFSDaemon(config, index)
+	//s.StartIPFSDaemon(config)
+	/*
+		// should be set to a const
+		configPath := "/home/guillaume/ipfs_test/myfolder/Node" +
+			strconv.Itoa(index)
+		// get node id
+		identity := config.Roster.Get(index)
 
-	c := template.NewClient()
-	reply := &template.StartIPFSReply{}
-	// create start ipfs request
-	req := template.StartIPFS{
-		ConfigPath: configPath,
-		NodeID:     index,
-		PortMin:    14000,
-		PortMax:    15000,
-	}
-	err := c.SendProtobuf(identity, &req, reply)
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println("Swarm:", reply.Ports.Swarm, "API:", reply.Ports.API,
-		"Gateway", reply.Ports.Gateway)
+		// !!!!!! We should have the same secret for all hosts in the same cluster
+		resp, err := c.GenSecret(config.Roster)
+		log.ErrFatal(err)
 
-	// !!!!!! We should have the same secret for all hosts in the same cluster
-	resp, err := c.GenSecret(config.Roster)
-	log.ErrFatal(err)
-
-	replyC := &template.StartClusterReply{}
-	reqC := template.StartCluster{
-		ConfigPath: configPath,
-		NodeID:     index,
-		ClusterID:  0,
-		PortMax:    15000,
-		PortMin:    14000,
-		Secret:     resp.Secret,
-		Peername:   "Peer" + strconv.Itoa(index) + "_0",
-	}
-	err = c.SendProtobuf(identity, &reqC, replyC)
+		replyC := &template.StartClusterReply{}
+		reqC := template.StartCluster{
+			ConfigPath: configPath,
+			NodeID:     index,
+			ClusterID:  0,
+			PortMax:    15000,
+			PortMin:    14000,
+			Secret:     resp.Secret,
+			Peername:   "Peer" + strconv.Itoa(index) + "_0",
+		}
+		err = c.SendProtobuf(identity, &reqC, replyC)
+	*/
 
 	return s.SimulationBFTree.Node(config)
 }
@@ -157,4 +114,62 @@ func (s *SimulationService) Run(config *onet.SimulationConfig) error {
 		round.Record()
 	}
 	return nil
+}
+
+// StartIPFSDaemon select ports for each peer and start ipfs on those ports
+func StartIPFSDaemon(sc *onet.SimulationConfig,
+	index int) {
+	//peers := mySC.Roster.List
+	//fmt.Println(peers)
+
+	c := template.NewClient()
+	identity := mySC.Roster.Get(index)
+
+	ip := template.ServerIdentityToIPString(identity)
+
+	configPath := template.ConfigPath + "/Node" + strconv.Itoa(index)
+	req := template.StartIPFS{
+		ConfigPath: configPath,
+		NodeID:     index,
+		PortMin:    14000,
+		PortMax:    15000,
+		IP:         ip,
+	}
+	reply := &template.StartIPFSReply{}
+	err := c.SendProtobuf(identity, &req, reply)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("Swarm:", reply.Ports.Swarm, "API:", reply.Ports.API,
+		"Gateway", reply.Ports.Gateway, index)
+
+	/*
+		var wg sync.WaitGroup
+
+		for i := range peers {
+			wg.Add(1)
+			go func(i int) {
+				c := template.NewClient()
+				identity := mySC.Roster.Get(i)
+				configPath := template.ConfigPath + "/Node" + strconv.Itoa(i)
+				req := template.StartIPFS{
+					ConfigPath: configPath,
+					NodeID:     i,
+					PortMin:    14000,
+					PortMax:    15000,
+				}
+				reply := &template.StartIPFSReply{}
+				err := c.SendProtobuf(identity, &req, reply)
+				if err != nil {
+					fmt.Println(err)
+				}
+				fmt.Println("Swarm:", reply.Ports.Swarm, "API:", reply.Ports.API,
+					"Gateway", reply.Ports.Gateway)
+
+				wg.Done()
+
+			}(i)
+		}
+		wg.Wait()
+	*/
 }

@@ -86,6 +86,7 @@ func (s *Service) Count(req *template.Count) (*template.CountReply, error) {
 // GenSecret generate a secret key for ipfs cluster
 func (s *Service) GenSecret(req *template.GenSecret) (*template.GenSecretReply,
 	error) {
+
 	key := make([]byte, 32)
 	_, err := rand.Read(key)
 	if err != nil {
@@ -114,41 +115,31 @@ func (s *Service) StartIPFS(req *template.StartIPFS) (*template.StartIPFSReply,
 	// init ipfs in the desired folder
 	exec.Command("ipfs", "-c"+path, "init").Run()
 
+	fmt.Println("String IP", req.IP)
 	ports := template.IPFSPorts{}
 
-	go func() {
-		/*
-			result, _ := rand.Int(rand.Reader, big.NewInt(int64(req.PortMax-req.PortMin)))
-			rand := int(result.Int64())
+	portList, err := GetNextAvailablePorts(req.PortMin,
+		req.PortMax, template.IPFSPortN)
 
-			// get the next 3 available ports
-			portList, err := GetNextAvailablePorts(req.PortMin+rand,
-				req.PortMax, template.IPFSPortN)*/
+	if err != nil {
+		return nil, err
+	}
+	// create the IFPS ports struct
+	ports = template.IPFSPorts{
+		Swarm:   (*portList)[template.IPFSSwarmID],
+		API:     (*portList)[template.IPFSAPIID],
+		Gateway: (*portList)[template.IPFSGatewayID],
+	}
+	// edit the ports in the config file
+	EditIPFSConfig(path, req.IP)
+	if err != nil {
+		return nil, err
+	}
 
-		portList, err := GetNextAvailablePorts(req.PortMin+10*req.NodeID,
-			req.PortMax, template.IPFSPortN)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		// create the IFPS ports struct
-		ports = template.IPFSPorts{
-			Swarm:   (*portList)[template.IPFSSwarmID],
-			API:     (*portList)[template.IPFSAPIID],
-			Gateway: (*portList)[template.IPFSGatewayID],
-		}
-		// edit the ports in the config file
-		err = EditIPFSConfig(&ports, path)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
+	// start the ipfs daemon
+	go exec.Command("ipfs", "-c"+path, "daemon").Run()
 
-		// start the ipfs daemon
-		_, err = exec.Command("ipfs", "-c"+path, "daemon").Output()
-		// channel
-	}()
-	time.Sleep(15 * time.Second)
+	time.Sleep(13 * time.Second)
 
 	reply := template.StartIPFSReply{Ports: &ports}
 	return &reply, nil
@@ -186,7 +177,7 @@ func (s *Service) StartCluster(req *template.StartCluster) (
 		Cluster:   (*portList)[2],
 	}
 
-	err = EditClusterConfig(ports, path, req.Peername, req.Secret)
+	//err = EditClusterConfig(ports, path, req.Peername, req.Secret)
 	if err != nil {
 		return nil, err
 	}
