@@ -130,9 +130,6 @@ func StartIPFSDaemon(sc *onet.SimulationConfig,
 	configPath := template.ConfigPath + "/Node" + strconv.Itoa(index)
 	req := template.StartIPFS{
 		ConfigPath: configPath,
-		NodeID:     index,
-		PortMin:    14000,
-		PortMax:    15000,
 		IP:         ip,
 	}
 	reply := &template.StartIPFSReply{}
@@ -140,36 +137,4 @@ func StartIPFSDaemon(sc *onet.SimulationConfig,
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println("Swarm:", reply.Ports.Swarm, "API:", reply.Ports.API,
-		"Gateway", reply.Ports.Gateway, index)
-
-	/*
-		var wg sync.WaitGroup
-
-		for i := range peers {
-			wg.Add(1)
-			go func(i int) {
-				c := template.NewClient()
-				identity := mySC.Roster.Get(i)
-				configPath := template.ConfigPath + "/Node" + strconv.Itoa(i)
-				req := template.StartIPFS{
-					ConfigPath: configPath,
-					NodeID:     i,
-					PortMin:    14000,
-					PortMax:    15000,
-				}
-				reply := &template.StartIPFSReply{}
-				err := c.SendProtobuf(identity, &req, reply)
-				if err != nil {
-					fmt.Println(err)
-				}
-				fmt.Println("Swarm:", reply.Ports.Swarm, "API:", reply.Ports.API,
-					"Gateway", reply.Ports.Gateway)
-
-				wg.Done()
-
-			}(i)
-		}
-		wg.Wait()
-	*/
 }

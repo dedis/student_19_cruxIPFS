@@ -8,7 +8,6 @@ runs on the node.
 import (
 	"crypto/rand"
 	"encoding/hex"
-	"fmt"
 	"math/big"
 	"os/exec"
 	"strconv"
@@ -109,40 +108,23 @@ func (s *Service) StartIPFS(req *template.StartIPFS) (*template.StartIPFSReply,
 	// create the empty directory that will store ipfs configs
 	err := CreateEmptyDir(path)
 	if err != nil {
-		fmt.Println(err)
+		return nil, err
 	}
 
 	// init ipfs in the desired folder
 	exec.Command("ipfs", "-c"+path, "init").Run()
 
-	fmt.Println("String IP", req.IP)
-	ports := template.IPFSPorts{}
-
-	portList, err := GetNextAvailablePorts(req.PortMin,
-		req.PortMax, template.IPFSPortN)
-
-	if err != nil {
-		return nil, err
-	}
-	// create the IFPS ports struct
-	ports = template.IPFSPorts{
-		Swarm:   (*portList)[template.IPFSSwarmID],
-		API:     (*portList)[template.IPFSAPIID],
-		Gateway: (*portList)[template.IPFSGatewayID],
-	}
-	// edit the ports in the config file
+	// edit the ip in the config file
 	EditIPFSConfig(path, req.IP)
-	if err != nil {
-		return nil, err
-	}
 
 	// start the ipfs daemon
+	// we need to fork the process
 	go exec.Command("ipfs", "-c"+path, "daemon").Run()
 
+	// sleep with the daemon launches
 	time.Sleep(13 * time.Second)
 
-	reply := template.StartIPFSReply{Ports: &ports}
-	return &reply, nil
+	return &template.StartIPFSReply{}, nil
 }
 
 // StartCluster start a cluster instance
