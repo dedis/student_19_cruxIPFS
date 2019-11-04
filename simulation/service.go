@@ -51,6 +51,8 @@ func (s *SimulationService) Setup(dir string, hosts []string) (
 		return nil, err
 	}
 	mySC = *sc
+	//StartIPFSDaemon(sc, 2)
+
 	return sc, nil
 }
 
@@ -66,31 +68,6 @@ func (s *SimulationService) Node(config *onet.SimulationConfig) error {
 	log.Lvl3("Initializing node-index", index)
 
 	StartIPFSDaemon(config, index)
-
-	//s.StartIPFSDaemon(config)
-	/*
-		// should be set to a const
-		configPath := "/home/guillaume/ipfs_test/myfolder/Node" +
-			strconv.Itoa(index)
-		// get node id
-		identity := config.Roster.Get(index)
-
-		// !!!!!! We should have the same secret for all hosts in the same cluster
-		resp, err := c.GenSecret(config.Roster)
-		log.ErrFatal(err)
-
-		replyC := &template.StartClusterReply{}
-		reqC := template.StartCluster{
-			ConfigPath: configPath,
-			NodeID:     index,
-			ClusterID:  0,
-			PortMax:    15000,
-			PortMin:    14000,
-			Secret:     resp.Secret,
-			Peername:   "Peer" + strconv.Itoa(index) + "_0",
-		}
-		err = c.SendProtobuf(identity, &reqC, replyC)
-	*/
 
 	return s.SimulationBFTree.Node(config)
 }

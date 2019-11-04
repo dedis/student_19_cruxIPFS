@@ -129,30 +129,6 @@ func (s *Service) StartIPFS(req *template.StartIPFS) (*template.StartIPFSReply,
 func (s *Service) StartCluster(req *template.StartCluster) (
 	*template.StartClusterReply, error) {
 
-	/*
-		path := req.ConfigPath + "/cluster" + strconv.Itoa(req.ClusterID)
-		err := CreateEmptyDir(path)
-		if err != nil {
-			return nil, err
-		}
-
-		result, _ := rand.Int(rand.Reader, big.NewInt(int64(req.PortMax-req.PortMin)))
-		rand := int(result.Int64())
-
-		// get the next 3 available ports
-		portList, err := GetNextAvailablePorts(req.PortMin+rand,
-			req.PortMax, template.ClusterPortN)
-		if err != nil {
-			return nil, err
-		}
-		ports := template.ClusterPorts{
-			IPFSAPI:   req.IPFSAPIPort,
-			RestAPI:   (*portList)[0],
-			IPFSProxy: (*portList)[1],
-			Cluster:   (*portList)[2],
-		}
-	*/
-
 	peername := "clusterX"
 	replmin := 3
 	replmax := 5
