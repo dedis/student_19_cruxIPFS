@@ -139,4 +139,16 @@ func StartIPFSDaemon(sc *onet.SimulationConfig, index int) {
 	if err != nil {
 		fmt.Println(err)
 	}
+
+	req2 := template.StartCluster{
+		ConfigPath: configPath,
+		IP:         ip,
+	}
+
+	c2 := template.NewClient()
+	reply2 := &template.StartClusterReply{}
+	err = c2.SendProtobuf(identity, &req2, reply2)
+	if err != nil {
+		fmt.Println(err)
+	}
 }

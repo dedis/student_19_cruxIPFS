@@ -73,14 +73,8 @@ const ClusterPortN int = 3
 
 // StartCluster packet that is sent to start a cluster instance
 type StartCluster struct {
-	ConfigPath  string
-	NodeID      int
-	ClusterID   int
-	PortMin     int
-	PortMax     int
-	IPFSAPIPort int
-	Peername    string
-	Secret      string
+	ConfigPath string
+	IP         string
 }
 
 // ClusterPorts ports that are used by the cluster
@@ -93,5 +87,4 @@ type ClusterPorts struct {
 
 // StartClusterReply reply sent once that the cluster instance has started
 type StartClusterReply struct {
-	Ports *ClusterPorts
 }

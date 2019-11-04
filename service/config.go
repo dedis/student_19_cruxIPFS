@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"os/exec"
 	"strconv"
-	"strings"
+	"time"
 
 	template "github.com/dedis/student_19_cruxIPFS"
 )
@@ -68,7 +68,8 @@ func EditIPFSField(path, field, value string) {
 }
 
 // SetClusterLeaderConfig set the configs for the leader of a cluster
-func SetClusterLeaderConfig(path, ip, peername string, ports *template.ClusterPorts) (
+func SetClusterLeaderConfig(path, ip, peername string,
+	replmin, replmax int, ports *template.ClusterPorts) (
 	string, string, error) {
 
 	// generate random secret
@@ -79,13 +80,14 @@ func SetClusterLeaderConfig(path, ip, peername string, ports *template.ClusterPo
 	}
 	secret := hex.EncodeToString(key)
 
-	vars := GetClusterVariables(path, ip, peername, secret, ports)
+	vars := GetClusterVariables(path, ip, peername, secret,
+		replmin, replmax, ports)
 	return vars, secret, nil
 }
 
 // GetClusterVariables get the cluster variables
 func GetClusterVariables(path, ip, secret, peername string,
-	ports *template.ClusterPorts) string {
+	replmin, replmax int, ports *template.ClusterPorts) string {
 
 	apiIPFSAddr := IPVersion + ip +
 		TransportProtocol + strconv.Itoa(ports.IPFSAPI) // 5001
@@ -105,16 +107,17 @@ func GetClusterVariables(path, ip, secret, peername string,
 	cmd += GetEnvVar("CLUSTER_SECRET", secret)
 
 	// replace IPFS API port (5001)
-	cmd += GetEnvVar("API_IPFSPROXY_NODEMULTIADDRESS", apiIPFSAddr) // 5001
+	cmd += GetEnvVar("CLUSTER_IPFSPROXY_NODEMULTIADDRESS", apiIPFSAddr) // 5001
+	cmd += GetEnvVar("CLUSTER_IPFSHTTP_NODEMULTIADDRESS", apiIPFSAddr)  // 5001
 
 	// replace Cluster ports (9094, 9095, 9096)
-	cmd += GetEnvVar("API_RESTAPI_HTTPLISTENMULTIADDRESS", restAPIAddr) // 9094
-	cmd += GetEnvVar("API_IPFSPROXY_LISTENMULTIADDRESS", IPFSProxyAddr) // 9095
-	cmd += GetEnvVar("CLUSTER_LISTENMULTIADDRESS", clusterAddr)         // 9096
+	cmd += GetEnvVar("CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS", restAPIAddr) // 9094
+	cmd += GetEnvVar("CLUSTER_IPFSPROXY_LISTENMULTIADDRESS", IPFSProxyAddr) // 9095
+	cmd += GetEnvVar("CLUSTER_LISTENMULTIADDRESS", clusterAddr)             // 9096
 
 	// replace replication factor
-	cmd += GetEnvVar("CLUSTER_REPLICATIONFACTORMIN", "-1") // min
-	cmd += GetEnvVar("CLUSTER_REPLICATIONFACTORMAX", "-1") // max
+	cmd += GetEnvVar("CLUSTER_REPLICATIONFACTORMIN", strconv.Itoa(replmin))
+	cmd += GetEnvVar("CLUSTER_REPLICATIONFACTORMAX", strconv.Itoa(replmax))
 
 	return cmd
 }
@@ -123,58 +126,6 @@ func GetClusterVariables(path, ip, secret, peername string,
 func GetEnvVar(field, value string) string {
 	// `CLUSTER_FIELD="value" `
 	return field + "=\"" + value + "\" "
-}
-
-/*
-// EditClusterConfig edit the cluster configuration file with the ports, cluster
-// secret and peername
-func EditClusterConfig(ports template.ClusterPorts,
-	path, peername, secret string) error {
-
-	// load the config
-	filepath := path + "/" + ClusterConfigName
-	conf, err := ReadConfig(filepath)
-	if err != nil {
-		return err
-	}
-
-	// replace cluster ports
-	conf = strings.ReplaceAll(conf, DefaultIPFSAPIPort,
-		TransportProtocol+strconv.Itoa(ports.IPFSAPI))
-	conf = strings.ReplaceAll(conf, DefaultClusterRestAPIPort,
-		TransportProtocol+strconv.Itoa(ports.RestAPI))
-	conf = strings.ReplaceAll(conf, DefaultClusterIPFSProxyPort,
-		TransportProtocol+strconv.Itoa(ports.IPFSProxy))
-	conf = strings.ReplaceAll(conf, DefaultClusterPort,
-		TransportProtocol+strconv.Itoa(ports.Cluster))
-
-	// replace secret
-	//conf = ReplaceField(conf, SecretStr, secret)
-
-	// replace peername
-	//conf = ReplaceField(conf, PeernameStr, peername)
-
-	// write config
-	err = WriteConfig(filepath, conf)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-*/
-
-// ReplaceField replace a json field in a config
-func ReplaceField(conf, identifier, value string, coma bool) string {
-	i := strings.Index(conf, identifier)
-	nLine := strings.Index(conf[i:], "\n")
-
-	conf = strings.ReplaceAll(conf, conf[i:i+nLine],
-		identifier+"\": \""+value+"\"")
-	if coma {
-		conf += ","
-	}
-	return conf
 }
 
 // MakeJSONElem make a JSON single element
@@ -193,4 +144,130 @@ func MakeJSONArray(elements []string) string {
 	}
 	// str + ]"
 	return str + "]\""
+}
+
+// SetupClusterLeader setup a cluster instance for the ARA leader
+func SetupClusterLeader(configPath, nodeID, ip string,
+	replmin, replmax int) (string, string, error) {
+
+	// generate random secret
+	key := make([]byte, 32)
+	_, err := rand.Read(key)
+	if err != nil {
+		return "", "", errors.New("could not generate secret")
+	}
+	secret := hex.EncodeToString(key)
+
+	// path for config files
+	path := configPath + "/cluster_" + secret
+	err = CreateEmptyDir(path)
+	if err != nil {
+		return "", "", err
+	}
+
+	ints, err := GetNextAvailablePorts(14000, 15000, 3)
+	if err != nil {
+		return "", "", err
+	}
+
+	// set the ports that the cluster will use
+	ports := template.ClusterPorts{
+		IPFSAPI:   5001,
+		RestAPI:   (*ints)[0],
+		IPFSProxy: (*ints)[1],
+		Cluster:   (*ints)[2],
+	}
+
+	bootstrap := IPVersion + ip + TransportProtocol + strconv.Itoa((*ints)[2])
+
+	// get the environment variables to set cluster configs
+	vars := GetClusterVariables(path, ip, secret, nodeID,
+		replmin, replmax, &ports)
+
+	// init command to be run
+	cmd := vars + "ipfs-cluster-service -c " + path + " init"
+	o, err := exec.Command("bash", "-c", cmd).Output()
+	if err != nil {
+		fmt.Println(string(o))
+		fmt.Println(err)
+		return "", "", err
+	}
+
+	// start cluster daemon
+	cmd = "ipfs-cluster-service -c " + path + " daemon"
+	go func() {
+		exec.Command("bash", "-c", cmd).Run()
+		fmt.Println(ip + " cluster crashed")
+	}()
+
+	// wait for the daemon to be launched
+	time.Sleep(2 * time.Second)
+
+	return secret, bootstrap, nil
+}
+
+// SetupClusterSlave setup a cluster slave instance
+func SetupClusterSlave(configPath, nodeID, ip, bootstrap, secret string,
+	replmin, replmax int) error {
+
+	// create the config directory, identified by the secret of the cluster
+	path := configPath + "/cluster_slave_" + secret
+	err := CreateEmptyDir(path)
+	if err != nil {
+		return err
+	}
+
+	ints, err := GetNextAvailablePorts(14000, 15000, 3)
+	if err != nil {
+		return err
+	}
+
+	// set the ports that the cluster will use
+	ports := template.ClusterPorts{
+		IPFSAPI:   5001,
+		RestAPI:   (*ints)[0],
+		IPFSProxy: (*ints)[1],
+		Cluster:   (*ints)[2],
+	}
+
+	// get the environment variables to set cluster configs
+	vars := GetClusterVariables(path, ip, secret, nodeID,
+		replmin, replmax, &ports)
+
+	// init command to be run
+	cmd := vars + "ipfs-cluster-service -c " + path + " init"
+	err = exec.Command("bash", "-c", cmd).Run()
+	if err != nil {
+		return err
+	}
+
+	// start cluster daemon
+	cmd = "ipfs-cluster-service -c " + path + " daemon --bootstrap " + bootstrap
+	go exec.Command("bash", "-c", cmd).Run()
+
+	// wait for the daemon to be launched
+	time.Sleep(2 * time.Second)
+
+	return nil
+}
+
+// Protocol to start all clusters in an ARA
+func Protocol(configPath, nodeID, ip string, replmin, replmax int) error {
+
+	// for all ARAs (trees ?) where nodeID is the leader: do
+
+	// setup the leader of the cluster
+	secret, bootstrap, err := SetupClusterLeader(configPath, "master", ip,
+		replmin, replmax)
+	if err != nil {
+		return err
+	}
+	// for all nodes in this ARA
+	err = SetupClusterSlave(configPath, "slave", ip, bootstrap, secret,
+		replmin, replmax)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

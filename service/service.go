@@ -8,9 +8,7 @@ runs on the node.
 import (
 	"crypto/rand"
 	"encoding/hex"
-	"math/big"
 	"os/exec"
-	"strconv"
 	"time"
 
 	"errors"
@@ -131,51 +129,40 @@ func (s *Service) StartIPFS(req *template.StartIPFS) (*template.StartIPFSReply,
 func (s *Service) StartCluster(req *template.StartCluster) (
 	*template.StartClusterReply, error) {
 
-	path := req.ConfigPath + "/cluster" + strconv.Itoa(req.ClusterID)
-	err := CreateEmptyDir(path)
-	if err != nil {
-		return nil, err
-	}
-
-	err = exec.Command("bash", "-c",
-		"ipfs-cluster-service -c "+path+" init").Run()
-	if err != nil {
-		return nil, err
-	}
-
-	result, _ := rand.Int(rand.Reader, big.NewInt(int64(req.PortMax-req.PortMin)))
-	rand := int(result.Int64())
-
-	// get the next 3 available ports
-	portList, err := GetNextAvailablePorts(req.PortMin+rand,
-		req.PortMax, template.ClusterPortN)
-	if err != nil {
-		return nil, err
-	}
-	ports := template.ClusterPorts{
-		IPFSAPI:   req.IPFSAPIPort,
-		RestAPI:   (*portList)[0],
-		IPFSProxy: (*portList)[1],
-		Cluster:   (*portList)[2],
-	}
-
-	//err = EditClusterConfig(ports, path, req.Peername, req.Secret)
-	if err != nil {
-		return nil, err
-	}
-
 	/*
-		go func() {
-			o, err := exec.Command("bash", "-c", "ipfs-cluster-service -c "+path+" daemon").Output()
-			fmt.Println(string(o))
-			if err != nil {
-				fmt.Println(err)
-			}
-		}()
-		time.Sleep(2 * time.Second)
+		path := req.ConfigPath + "/cluster" + strconv.Itoa(req.ClusterID)
+		err := CreateEmptyDir(path)
+		if err != nil {
+			return nil, err
+		}
+
+		result, _ := rand.Int(rand.Reader, big.NewInt(int64(req.PortMax-req.PortMin)))
+		rand := int(result.Int64())
+
+		// get the next 3 available ports
+		portList, err := GetNextAvailablePorts(req.PortMin+rand,
+			req.PortMax, template.ClusterPortN)
+		if err != nil {
+			return nil, err
+		}
+		ports := template.ClusterPorts{
+			IPFSAPI:   req.IPFSAPIPort,
+			RestAPI:   (*portList)[0],
+			IPFSProxy: (*portList)[1],
+			Cluster:   (*portList)[2],
+		}
 	*/
 
-	return &template.StartClusterReply{Ports: &ports}, nil
+	peername := "clusterX"
+	replmin := 3
+	replmax := 5
+
+	err := Protocol(req.ConfigPath, peername, req.IP, replmin, replmax)
+	if err != nil {
+		return nil, err
+	}
+
+	return &template.StartClusterReply{}, nil
 }
 
 // NewProtocol is called on all nodes of a Tree (except the root, since it is
