@@ -82,7 +82,7 @@ func GetClusterVariables(path, ip, secret, peername string,
 	cmd := ""
 
 	// edit peername
-	cmd += GetEnvVar("CLUSTER_PEERNAME", peername)
+	//cmd += GetEnvVar("CLUSTER_PEERNAME", peername)
 
 	// edit the secret
 	cmd += GetEnvVar("CLUSTER_SECRET", secret)

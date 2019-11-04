@@ -51,6 +51,11 @@ func (s *SimulationService) Setup(dir string, hosts []string) (
 		return nil, err
 	}
 	mySC = *sc
+	fmt.Println(sc.Roster)
+	fmt.Println(hosts)
+	for _, h := range sc.Roster.List {
+		fmt.Println(h)
+	}
 	//StartIPFSDaemon(sc, 2)
 
 	return sc, nil
@@ -67,7 +72,12 @@ func (s *SimulationService) Node(config *onet.SimulationConfig) error {
 	}
 	log.Lvl3("Initializing node-index", index)
 
-	StartIPFSDaemon(config, index)
+	fmt.Println(config.Roster)
+	for _, h := range config.Roster.List {
+		fmt.Println(h)
+	}
+
+	//StartIPFSDaemon(config, index)
 
 	return s.SimulationBFTree.Node(config)
 }
@@ -99,7 +109,7 @@ func StartIPFSDaemon(sc *onet.SimulationConfig, index int) {
 	c := template.NewClient()
 	// mySC is the SimulConfig created in Setup()
 	// I guess I shouldn't use it, but it runs
-	identity := mySC.Roster.Get(index)
+	identity := sc.Roster.Get(index)
 
 	// ip of the node that will start
 	ip := template.ServerIdentityToIPString(identity)
@@ -117,15 +127,16 @@ func StartIPFSDaemon(sc *onet.SimulationConfig, index int) {
 		fmt.Println(err)
 	}
 
-	req2 := template.StartCluster{
-		ConfigPath: configPath,
-		IP:         ip,
-	}
+	/*
+		req2 := template.StartCluster{
+			ConfigPath: configPath,
+			IP:         ip,
+		}
 
-	c2 := template.NewClient()
-	reply2 := &template.StartClusterReply{}
-	err = c2.SendProtobuf(identity, &req2, reply2)
-	if err != nil {
-		fmt.Println(err)
-	}
+		c2 := template.NewClient()
+		reply2 := &template.StartClusterReply{}
+		err = c2.SendProtobuf(identity, &req2, reply2)
+		if err != nil {
+			fmt.Println(err)
+		}*/
 }
