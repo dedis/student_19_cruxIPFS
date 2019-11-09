@@ -1,4 +1,4 @@
-Simulation = "MyTestSimulation"
+Simulation = "IPFS"
 Servers = 8
 Bf = 7
 Rounds = 1
