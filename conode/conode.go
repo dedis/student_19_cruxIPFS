@@ -18,10 +18,10 @@ import (
 
 	_ "github.com/dedis/student_19_cruxIPFS/byzcoin"
 
-	"go.dedis.ch/cothority/v3"
-	"go.dedis.ch/onet/v3/app"
-	"go.dedis.ch/onet/v3/cfgpath"
-	"go.dedis.ch/onet/v3/log"
+	"go.dedis.ch/cothority"
+	"go.dedis.ch/onet/app"
+	"go.dedis.ch/onet/cfgpath"
+	"go.dedis.ch/onet/log"
 	cli "gopkg.in/urfave/cli.v1"
 	// Here you can import any other needed service for your conode.
 	// For example, if your service needs cosi available in the server

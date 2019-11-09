@@ -10,9 +10,9 @@ import (
 
 	template "github.com/dedis/student_19_cruxIPFS"
 
-	"go.dedis.ch/onet/v3/app"
+	"go.dedis.ch/onet/app"
 
-	"go.dedis.ch/onet/v3/log"
+	"go.dedis.ch/onet/log"
 	"gopkg.in/urfave/cli.v1"
 )
 

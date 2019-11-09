@@ -25,9 +25,9 @@ import (
 
 	"github.com/BurntSushi/toml"
 	"github.com/dedis/student_19_cruxIPFS/protocol"
-	"go.dedis.ch/onet/v3"
-	"go.dedis.ch/onet/v3/log"
-	"go.dedis.ch/onet/v3/simul/monitor"
+	"go.dedis.ch/onet"
+	"go.dedis.ch/onet/log"
+	"go.dedis.ch/onet/simul/monitor"
 )
 
 func init() {

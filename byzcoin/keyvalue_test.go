@@ -6,10 +6,10 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
-	"go.dedis.ch/cothority/v3"
-	"go.dedis.ch/cothority/v3/byzcoin"
-	"go.dedis.ch/cothority/v3/darc"
-	"go.dedis.ch/onet/v3"
+	"go.dedis.ch/cothority"
+	"go.dedis.ch/cothority/byzcoin"
+	"go.dedis.ch/cothority/darc"
+	"go.dedis.ch/onet"
 	"go.dedis.ch/protobuf"
 )
 

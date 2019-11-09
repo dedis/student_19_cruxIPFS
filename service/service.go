@@ -8,46 +8,133 @@ runs on the node.
 import (
 	"crypto/rand"
 	"encoding/hex"
+	"fmt"
 	"os/exec"
+	"strconv"
+	"strings"
 	"time"
 
 	"errors"
-	"sync"
 
+	"github.com/dedis/paper_crux/dsn_exp/gentree"
 	template "github.com/dedis/student_19_cruxIPFS"
 	"github.com/dedis/student_19_cruxIPFS/protocol"
-	"go.dedis.ch/onet/v3"
-	"go.dedis.ch/onet/v3/log"
-	"go.dedis.ch/onet/v3/network"
+	"go.dedis.ch/onet"
+	"go.dedis.ch/onet/log"
+	"go.dedis.ch/onet/network"
 )
 
 // Used for tests
 var templateID onet.ServiceID
 
-func init() {
-	var err error
-	templateID, err = onet.RegisterNewService(template.ServiceName, newService)
-	log.ErrFatal(err)
-	network.RegisterMessage(&storage{})
-}
-
-// Service is our template-service
-type Service struct {
-	// We need to embed the ServiceProcessor, so that incoming messages
-	// are correctly handled.
-	*onet.ServiceProcessor
-
-	storage *storage
-}
-
 // storageID reflects the data we're storing - we could store more
 // than one structure.
 var storageID = []byte("main")
 
-// storage is used to save our data.
-type storage struct {
-	Count int
-	sync.Mutex
+// Name of the service
+var Name = "IPFS"
+
+func init() {
+	var err error
+	templateID, err = onet.RegisterNewService(Name, newService)
+	log.ErrFatal(err)
+	network.RegisterMessage(&storage{})
+}
+
+// InitRequest handles initialisation requests
+func (s *Service) InitRequest(req *InitRequest) (*InitResponse, error) {
+	//log.Lvl1("here", s.ServerIdentity().String())
+	s.Setup(req)
+
+	return &InitResponse{}, nil
+}
+
+// Setup the service
+func (s *Service) Setup(req *InitRequest) {
+	// set the nodes
+	s.Nodes.All = req.Nodes
+
+	// fill in the server identity to name
+	s.Nodes.ServerIdentityToName = make(map[network.ServerIdentityID]string)
+	for k, v := range req.ServerIdentityToName {
+		s.Nodes.ServerIdentityToName[k.ID] = v
+	}
+
+	nodes := make([]*gentree.LocalityNode, len(s.Nodes.All))
+	for _, n := range s.Nodes.All {
+		nodes[gentree.NodeNameToInt(n.Name)] = n
+		//log.Info(s.ServerIdentity(), fmt.Sprintf("%+v", nodes[gentree.NodeNameToInt(n.Name)]))
+	}
+	s.Nodes.All = nodes
+
+	s.OwnPings = make(map[string]float64)
+	s.PingDistances = make(map[string]map[string]float64)
+	s.NrPingAnswers = 0
+
+	// compute the ping from hosts
+	s.ComputePing()
+	fmt.Println(s.OwnPings)
+}
+
+// ComputePing computes the ping distance used as metric between nodes
+func (s *Service) ComputePing() {
+	log.Lvl1("Computing ping", len(s.Nodes.All))
+	myName := s.Nodes.GetServerIdentityToName(s.ServerIdentity())
+	for _, node := range s.Nodes.All {
+
+		s1 := node.ServerIdentity
+
+		fmt.Println(s1)
+
+		//if node.ServerIdentity.String() != s.ServerIdentity().String() {
+		if node.ServerIdentity.Address.String() != s.ServerIdentity().String() {
+
+			log.Lvl2(myName, "meas ping to ", s.Nodes.GetServerIdentityToName(node.ServerIdentity))
+
+			for {
+
+				peerName := node.Name
+				pingCmdStr := "ping -W 150 -q -c 3 -i 1 " + node.ServerIdentity.Address.Host() + " | tail -n 1"
+				pingCmd := exec.Command("sh", "-c", pingCmdStr)
+				pingOutput, err := pingCmd.Output()
+				if err != nil {
+					log.Fatal("couldn't measure ping")
+				}
+
+				if strings.Contains(string(pingOutput), "pipe") || len(strings.TrimSpace(string(pingOutput))) == 0 {
+					log.Lvl1(s.Nodes.GetServerIdentityToName(s.ServerIdentity()), "retrying for", peerName, node.ServerIdentity.Address.Host(), node.ServerIdentity.String())
+					log.LLvl1("retry")
+					continue
+				}
+
+				processPingCmdStr := "echo " + string(pingOutput) + " | cut -d ' ' -f 4 | cut -d '/' -f 1-2 | tr '/' ' '"
+				processPingCmd := exec.Command("sh", "-c", processPingCmdStr)
+				processPingOutput, _ := processPingCmd.Output()
+				if string(pingOutput) == "" {
+					//log.Lvl1("empty ping ", myName + " " + peerName)
+				} else {
+					//log.Lvl1("%%%%%%%%%%%%% ping ", myName + " " + peerName, "output ", string(pingOutput), "processed output ", string(processPingOutput))
+				}
+
+				//log.Lvl1("%%%%%%%%%%%%% ping ", s.Nodes.GetServerIdentityToName(s.ServerIdentity()) + " " + peerName, "output ", string(pingOutput), "processed output ", string(processPingOutput))
+
+				strPingOut := string(processPingOutput)
+
+				pingRes := strings.Split(strPingOut, "/")
+				//log.LLvl1("pingRes", pingRes)
+
+				avgPing, err := strconv.ParseFloat(pingRes[5], 64)
+				if err != nil {
+					log.Fatal("Problem when parsing pings")
+				}
+
+				s.OwnPings[peerName] = float64(avgPing / 2.0)
+
+				break
+			}
+
+		}
+	}
 }
 
 // Clock starts a template-protocol and returns the run-time.

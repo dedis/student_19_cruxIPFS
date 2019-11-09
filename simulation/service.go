@@ -11,10 +11,10 @@ import (
 	"github.com/dedis/paper_crux/dsn_exp/gentree"
 	template "github.com/dedis/student_19_cruxIPFS"
 	"github.com/dedis/student_19_cruxIPFS/service"
+	"go.dedis.ch/onet"
 	"go.dedis.ch/onet/app"
+	"go.dedis.ch/onet/log"
 	"go.dedis.ch/onet/network"
-	"go.dedis.ch/onet/v3"
-	"go.dedis.ch/onet/v3/log"
 )
 
 const simName = "IPFS"

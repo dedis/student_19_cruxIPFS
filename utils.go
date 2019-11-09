@@ -3,7 +3,7 @@ package template
 import (
 	"strings"
 
-	"go.dedis.ch/onet/v3/network"
+	"go.dedis.ch/onet/network"
 )
 
 // ServerIdentityToIPString return the ip address of a server identity

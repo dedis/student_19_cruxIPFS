@@ -5,8 +5,8 @@ This holds the messages used to communicate with the service over the network.
 */
 
 import (
-	"go.dedis.ch/onet/v3"
-	"go.dedis.ch/onet/v3/network"
+	"go.dedis.ch/onet"
+	"go.dedis.ch/onet/network"
 )
 
 // We need to register all messages so the network knows how to handle them.
