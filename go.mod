@@ -1,4 +1,4 @@
-module github.com/dedis/cothority_template
+module github.com/dedis/student_19_cruxIPFS
 
 require (
 	github.com/BurntSushi/toml v0.3.1
