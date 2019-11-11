@@ -10,12 +10,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dedis/student_19_cruxIPFS/protocol"
+	"github.com/dedis/cothority_template/protocol"
 	"github.com/stretchr/testify/require"
-	"go.dedis.ch/kyber/suites"
-	"go.dedis.ch/onet"
-	"go.dedis.ch/onet/log"
-	"go.dedis.ch/onet/network"
+	"go.dedis.ch/kyber/v3/suites"
+	"go.dedis.ch/onet/v3"
+	"go.dedis.ch/onet/v3/log"
+	"go.dedis.ch/onet/v3/network"
 )
 
 var tSuite = suites.MustFind("Ed25519")

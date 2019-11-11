@@ -7,10 +7,10 @@ with the `*onet.TreeNode` embedded. The latter is used in the handler-function
 so that it can find out who sent the message.
 */
 
-import "go.dedis.ch/onet"
+import "go.dedis.ch/onet/v3"
 
 // Name can be used from other packages to refer to this protocol.
-const Name = "IPFS"
+const Name = "Template"
 
 // Announce is used to pass a message to all children.
 type Announce struct {

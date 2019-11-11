@@ -8,17 +8,17 @@ import (
 	"errors"
 	"os"
 
-	template "github.com/dedis/student_19_cruxIPFS"
+	template "github.com/dedis/cothority_template"
 
-	"go.dedis.ch/onet/app"
+	"go.dedis.ch/onet/v3/app"
 
-	"go.dedis.ch/onet/log"
+	"go.dedis.ch/onet/v3/log"
 	"gopkg.in/urfave/cli.v1"
 )
 
 func main() {
 	cliApp := cli.NewApp()
-	cliApp.Name = "IPFS"
+	cliApp.Name = "Template"
 	cliApp.Usage = "Used for building other apps."
 	cliApp.Version = "0.1"
 	groupsDef := "the group-definition-file"

@@ -1,16 +1,14 @@
-# Navigation: [DEDIS](https://github.com/dedis/doc/tree/master/README.md)
-
+Navigation: [DEDIS](https://github.com/dedis/doc/tree/master/README.md) ::
 [Cothority Template](../README.md) ::
 Simulation
 
-## Simulation
+# Simulation
 
 After you know that a new service and protocol work at all (unit testing and integration testing have passed) then you might want to know how that software will behave in larger networks of 10's, 100's or 1000's of nodes. This is the job of the simulation system.
 
 References:
-
-* The README.md: [https://github.com/dedis/onet/blob/master/simul/README.md](https://github.com/dedis/onet/blob/master/simul/README.md)
-* The interface you need to implement: [https://godoc.org/github.com/dedis/onet#Simulation](https://godoc.org/github.com/dedis/onet#Simulation)
+* The README.md: https://github.com/dedis/onet/blob/master/simul/README.md
+* The interface you need to implement: https://godoc.org/github.com/dedis/onet#Simulation
 
 Simulations in onet are a powerful way of making sure your code is well behaving
 also in bigger settings, including on different servers, and of course to write
@@ -45,7 +43,7 @@ it one or more toml files on the commandline.
 
 The protocol.toml file has:
 
-```bash
+```
 Simulation = "TemplateProtocol"
 Servers = 8
 Bf = 4
@@ -59,7 +57,7 @@ Depth
 
 When you run `./simulation protocol.toml` this is what you get:
 
-```bash
+```
 $ ./simulation protocol.toml
 1 : (                        simul.startBuild:  54) - Deploying to localhost
 1 : (           platform.(*Localhost).Cleanup:  92) - Nothing to clean up

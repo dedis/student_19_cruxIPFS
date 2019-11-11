@@ -3,8 +3,8 @@ package byzcoin
 import (
 	"errors"
 
-	"go.dedis.ch/cothority/byzcoin"
-	"go.dedis.ch/cothority/darc"
+	"go.dedis.ch/cothority/v3/byzcoin"
+	"go.dedis.ch/cothority/v3/darc"
 	"go.dedis.ch/protobuf"
 )
 
