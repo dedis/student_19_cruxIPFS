@@ -8,7 +8,7 @@ DBG_APP=2
 
 main(){
     startTest
-    buildConode github.com/dedis/cothority_template/service
+    buildConode github.com/dedis/student_19_cruxIPFS/service
     run testCount
     run testTime
     stopTest

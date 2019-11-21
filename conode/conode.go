@@ -23,7 +23,7 @@ import (
 	"reflect"
 	"time"
 
-	_ "github.com/dedis/cothority_template/byzcoin"
+	_ "github.com/dedis/student_19_cruxIPFS/byzcoin"
 
 	"go.dedis.ch/cothority/v3"
 	status "go.dedis.ch/cothority/v3/status/service"

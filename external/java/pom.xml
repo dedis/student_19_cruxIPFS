@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ch.epfl.dedis</groupId>
-    <artifactId>cothority_template</artifactId>
+    <artifactId>student_19_cruxIPFS</artifactId>
     <version>master-SNAPSHOT</version>
     <name>Cothority Template in Java</name>
     <description>Template examples of how to interact with the cothority</description>
-    <url>https://github.com/dedis/cothority_template</url>
+    <url>https://github.com/dedis/student_19_cruxIPFS</url>
     <licenses>
         <license>
             <name>GNU Affero General Public License version 3</name>
@@ -25,9 +25,9 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:git://github.com/dedis/cothority_template.git</connection>
-        <developerConnection>scm:git:ssh://github.com:dedis/cothority_template.git</developerConnection>
-        <url>http://github.com/dedis/cothority_template/tree/master</url>
+        <connection>scm:git:git://github.com/dedis/student_19_cruxIPFS.git</connection>
+        <developerConnection>scm:git:ssh://github.com:dedis/student_19_cruxIPFS.git</developerConnection>
+        <url>http://github.com/dedis/student_19_cruxIPFS/tree/master</url>
     </scm>
     <build>
         <plugins>

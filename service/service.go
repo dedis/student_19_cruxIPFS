@@ -11,8 +11,8 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/dedis/cothority_template"
-	"github.com/dedis/cothority_template/protocol"
+	template "github.com/dedis/student_19_cruxIPFS"
+	"github.com/dedis/student_19_cruxIPFS/protocol"
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/log"
 	"go.dedis.ch/onet/v3/network"
