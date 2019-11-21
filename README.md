@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dedis/student_19_cruxIPFS.svg?branch=master)](https://travis-ci.org/dedis/student_19_cruxIPFS)
+[![Build Status](https://travis-ci.org/dedis/cothority_template.svg?branch=master)](https://travis-ci.org/dedis/cothority_template)
 
 Navigation: [DEDIS](https://github.com/dedis/doc/tree/master/README.md) ::
 Cothority Template
@@ -60,10 +60,10 @@ The Go tests should be written for protocols, services and apps alike, while the
 
 ## Setting up your own repository
 
-Just for testing you can `go get github.com/dedis/student_19_cruxIPFS`. For setting
+Just for testing you can `go get github.com/dedis/cothority_template`. For setting
 up a new protocol/service/simulation, we propose that you create a new personal
 repository in your account and then copy over the necessary files. Then you
-will need to replace all the `github.com/dedis/student_19_cruxIPFS` references
+will need to replace all the `github.com/dedis/cothority_tempate` references
 with the path of your repository, e.g. `github.com/foo/super_protocol` if your
 account is `foo` and the repository is `super_protocol`.
 If you happen to do a semester project for DEDIS, please ask your responsible to
@@ -73,7 +73,7 @@ The Perl pie to the rescue (or `sed -i` if you prefer...):
 
 ```bash
 find . -name "*go" | xargs \
-perl -pi -e "s:github.com/dedis/student_19_cruxIPFS:github.com/foo/super_protocol:"
+perl -pi -e "s:github.com/dedis/cothority_template:github.com/foo/super_protocol:"
 ```
 
 **Note:** Everywhere you see the word "template" in the code, you should imagine

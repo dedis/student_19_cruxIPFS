@@ -54,7 +54,7 @@ For testing, it uses a docker image. Before running the java
 tests, you need to create the docker file:
 
 ```
-cd (go env GOPATH)/github.com/dedis/student_19_cruxIPFS
+cd (go env GOPATH)/github.com/dedis/cothority_template
 make docker
 ```
 
