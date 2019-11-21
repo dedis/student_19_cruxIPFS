@@ -1,19 +1,17 @@
 package ARAgen
 
 import (
-	"github.com/dedis/paper_nyle/gentree"
-	"go.dedis.ch/onet/v3/log"
+	"github.com/dedis/student_19_cruxIPFS/gentree"
 	"go.dedis.ch/onet/v3"
+	"go.dedis.ch/onet/v3/log"
 	"go.dedis.ch/onet/v3/network"
 )
-
 
 const RND_NODES = false
 const NR_LEVELS = 3
 const OPTIMIZED = false
 const OPTTYPE = 1
 const MIN_BUNCH_SIZE = 12
-
 
 // Runs the compact routing algorithm to generate ARAs.
 // It returns "AuxNodes", a LocalityNodes structure with all compact routing relevant fields filled in (bunch, cluster etc), as well
@@ -36,7 +34,7 @@ func GenARAs(Nodes gentree.LocalityNodes, rootNodeName string, PingDistances map
 	ARATreeStruct = make(map[string][]GraphTree)
 	ARAOnetTrees = make(map[string][]*onet.Tree)
 
-	for i,n := range Nodes.All {
+	for i, n := range Nodes.All {
 		AuxNodes.All[i].IP = n.IP
 		AuxNodes.All[i].Name = n.Name
 		AuxNodes.All[i].AvailablePortsStart = n.AvailablePortsStart
@@ -46,7 +44,7 @@ func GenARAs(Nodes gentree.LocalityNodes, rootNodeName string, PingDistances map
 		AuxNodes.All[i].Y = n.Y
 	}
 
-	for k,v := range Nodes.ServerIdentityToName {
+	for k, v := range Nodes.ServerIdentityToName {
 		AuxNodes.ServerIdentityToName[k] = v
 	}
 
@@ -91,12 +89,10 @@ func GenARAs(Nodes gentree.LocalityNodes, rootNodeName string, PingDistances map
 		}
 	}
 
-
 	log.Lvl2("done")
 
 	return AuxNodes, dist2, ARATreeStruct, ARAOnetTrees
 }
-
 
 //Computes an onet binary tree based on a GraphTree
 func createBinaryTreeFromGraphTree(GraphTree GraphTree) *onet.Tree {

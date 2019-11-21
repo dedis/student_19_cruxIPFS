@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"errors"
-	"sync"
 
 	template "github.com/dedis/student_19_cruxIPFS"
 	"github.com/dedis/student_19_cruxIPFS/protocol"
@@ -26,25 +25,6 @@ func init() {
 	templateID, err = onet.RegisterNewService(template.ServiceName, newService)
 	log.ErrFatal(err)
 	network.RegisterMessage(&storage{})
-}
-
-// Service is our template-service
-type Service struct {
-	// We need to embed the ServiceProcessor, so that incoming messages
-	// are correctly handled.
-	*onet.ServiceProcessor
-
-	storage *storage
-}
-
-// storageID reflects the data we're storing - we could store more
-// than one structure.
-var storageID = []byte("main")
-
-// storage is used to save our data.
-type storage struct {
-	Count int
-	sync.Mutex
 }
 
 // Clock starts a template-protocol and returns the run-time.
