@@ -11,4 +11,7 @@ type IPFSSimulation struct {
 
 	Nodes   gentree.LocalityNodes
 	Parents map[string][]string
+
+	NodePathLocal  string
+	NodePathRemote string
 }

@@ -1,44 +1,10 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"io"
-	"os"
-	"strings"
+	"strconv"
 
 	"github.com/dedis/student_19_cruxIPFS/gentree"
-	"go.dedis.ch/onet/v3/log"
 )
-
-// CheckErr checks for an error and prints it
-func CheckErr(e error) {
-	if e != nil && e != io.EOF {
-		fmt.Print(e)
-		panic(e)
-	}
-}
-
-// ReadFileLineByLine reads a file line by line
-func ReadFileLineByLine(configFilePath string) func() string {
-	wd, err := os.Getwd()
-	log.Lvl1(wd)
-	f, err := os.Open(configFilePath)
-	//defer close(f)
-	CheckErr(err)
-	reader := bufio.NewReader(f)
-	//defer close(reader)
-	var line string
-	return func() string {
-		if err == io.EOF {
-			return ""
-		}
-		line, err = reader.ReadString('\n')
-		CheckErr(err)
-		line = strings.Split(line, "\n")[0]
-		return line
-	}
-}
 
 // CreateNode with the given parameters
 func CreateNode(Name string, x float64, y float64, IP string, level int) *gentree.LocalityNode {
@@ -47,6 +13,7 @@ func CreateNode(Name string, x float64, y float64, IP string, level int) *gentre
 	myNode.X = x
 	myNode.Y = y
 	myNode.Name = Name
+	myNode.IP = make(map[string]bool)
 	myNode.IP[IP] = true
 	myNode.Level = level
 	myNode.ADist = make([]float64, 0)
@@ -55,4 +22,10 @@ func CreateNode(Name string, x float64, y float64, IP string, level int) *gentre
 	myNode.Bunch = make(map[string]bool)
 	myNode.Rings = make([]string, 0)
 	return &myNode
+}
+
+// SetNodePaths set the node paths for remote and local node files
+func SetNodePaths(n int) {
+	NODEPATHREMOTE = NODEPATHNAME + strconv.Itoa(n) + ".txt"
+	NODEPATHLOCAL = "../" + NODEPATHREMOTE
 }

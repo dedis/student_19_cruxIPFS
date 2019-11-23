@@ -28,3 +28,12 @@ type InitRequest struct {
 // InitResponse packet
 type InitResponse struct {
 }
+
+type ReqPings struct {
+	SenderName string
+}
+
+type ReplyPings struct {
+	Pings      string
+	SenderName string
+}

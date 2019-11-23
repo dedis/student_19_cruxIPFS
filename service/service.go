@@ -7,11 +7,16 @@ runs on the node.
 
 import (
 	"errors"
+	"math"
+	"sync"
 
 	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
+	"github.com/dedis/student_19_cruxIPFS/ARAgen"
+	"github.com/dedis/student_19_cruxIPFS/gentree"
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/log"
 	"go.dedis.ch/onet/v3/network"
+	"go.dedis.ch/onet/v3/simul/monitor"
 )
 
 // Used for tests
@@ -33,7 +38,70 @@ func (s *Service) InitRequest(req *cruxIPFS.InitRequest) (*cruxIPFS.InitResponse
 
 // Setup IPFS cluster ARAs
 func (s *Service) Setup(req *cruxIPFS.InitRequest) {
+	// copied from nyle
 	log.Lvl1("Setup service")
+
+	s.Nodes.All = req.Nodes
+	s.Nodes.ServerIdentityToName = make(map[network.ServerIdentityID]string)
+	for k, v := range req.ServerIdentityToName {
+		s.Nodes.ServerIdentityToName[k.ID] = v
+	}
+
+	for _, myNode := range s.Nodes.All {
+
+		myNode.ADist = make([]float64, 0)
+		myNode.PDist = make([]string, 0)
+		myNode.OptimalCluster = make(map[string]bool)
+		myNode.OptimalBunch = make(map[string]bool)
+		myNode.Cluster = make(map[string]bool)
+		myNode.Bunch = make(map[string]bool)
+		myNode.Rings = make([]string, 0)
+
+	}
+	// order nodesin s.Nodes in the order of index
+	nodes := make([]*gentree.LocalityNode, len(s.Nodes.All))
+	for _, n := range s.Nodes.All {
+		nodes[gentree.NodeNameToInt(n.Name)] = n
+	}
+	s.Nodes.All = nodes
+	s.Nodes.ClusterBunchDistances = make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]float64)
+	s.Nodes.Links = make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]map[*gentree.LocalityNode]bool)
+	s.GraphTree = make(map[string][]ARAgen.GraphTree)
+	s.BinaryTree = make(map[string][]*onet.Tree)
+
+	// allocate distances
+	for _, node := range s.Nodes.All {
+		s.Nodes.ClusterBunchDistances[node] = make(map[*gentree.LocalityNode]float64)
+		s.Nodes.Links[node] = make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]bool)
+		for _, node2 := range s.Nodes.All {
+			s.Nodes.ClusterBunchDistances[node][node2] = math.MaxFloat64
+			s.Nodes.Links[node][node2] = make(map[*gentree.LocalityNode]bool)
+
+			if node == node2 {
+				s.Nodes.ClusterBunchDistances[node][node2] = 0
+			}
+
+			//log.LLvl1("init map", node.Name, node2.Name)
+		}
+	}
+
+	s.CosiWg = make(map[int]*sync.WaitGroup)
+	s.metrics = make(map[string]*monitor.TimeMeasure)
+
+	s.OwnPings = make(map[string]float64)
+	s.PingDistances = make(map[string]map[string]float64)
+
+	log.LLvl1("called init service on", s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.ServerIdentity())
+
+	s.getPings(false)
+	AuxNodes, dist2, ARATreeStruct, ARAOnetTrees := ARAgen.GenARAs(s.Nodes,
+		s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.PingDistances, 3)
+
+	s.Distances = dist2
+	s.Nodes = AuxNodes
+	s.GraphTree = ARATreeStruct
+	s.BinaryTree = ARAOnetTrees
+
 }
 
 // NewProtocol is called on all nodes of a Tree (except the root, since it is
@@ -84,6 +152,9 @@ func newService(c *onet.Context) (onet.Service, error) {
 	s := &Service{
 		ServiceProcessor: onet.NewServiceProcessor(c),
 	}
+	s.RegisterProcessorFunc(execReqPingsMsgID, s.ExecReqPings)
+	s.RegisterProcessorFunc(execReplyPingsMsgID, s.ExecReplyPings)
+
 	if err := s.RegisterHandlers(); err != nil {
 		return nil, errors.New("Couldn't register messages")
 	}

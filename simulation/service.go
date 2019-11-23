@@ -14,7 +14,6 @@ import (
 	"go.dedis.ch/onet/v3/app"
 	"go.dedis.ch/onet/v3/log"
 	"go.dedis.ch/onet/v3/network"
-	"go.dedis.ch/onet/v3/simul/monitor"
 )
 
 /*
@@ -40,6 +39,10 @@ func NewSimulationService(config string) (onet.Simulation, error) {
 func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	*onet.SimulationConfig, error) {
 
+	nodeNb := len(hosts)
+	SetNodePaths(nodeNb)
+
+	app.Copy(dir, s.NodePathRemote)
 	app.Copy(dir, "../clean.sh")
 
 	sc := &onet.SimulationConfig{}
@@ -66,14 +69,14 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 
 	mymap := s.InitializeMaps(config, true)
 
-	myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
-
-	serviceReq := &cruxIPFS.InitRequest{
-		Nodes:                s.Nodes.All,
-		ServerIdentityToName: mymap,
-	}
-
 	if s.Nodes.GetServerIdentityToName(config.Server.ServerIdentity) == "node_19" {
+		myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
+
+		serviceReq := &cruxIPFS.InitRequest{
+			Nodes:                s.Nodes.All,
+			ServerIdentityToName: mymap,
+		}
+
 		myService.InitRequest(serviceReq)
 
 		for _, trees := range myService.BinaryTree {
@@ -89,39 +92,42 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 // Run is used on the destination machines and runs a number of
 // rounds
 func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
-	size := config.Tree.Size()
-	log.Lvl2("Size is:", size, "rounds:", s.Rounds)
-	//c := template.NewClient()
-	for round := 0; round < s.Rounds; round++ {
-		log.Lvl1("Starting round", round)
-		round := monitor.NewTimeMeasure("round")
-		round.Record()
-	}
+	/*
+		size := config.Tree.Size()
+		log.Lvl2("Size is:", size, "rounds:", s.Rounds)
+		//c := template.NewClient()
+		for round := 0; round < s.Rounds; round++ {
+			log.Lvl1("Starting round", round)
+			round := monitor.NewTimeMeasure("round")
+			round.Record()
+		}
+	*/
 	return nil
 }
 
 func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool) {
-	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	_, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Lvl1(dir)
 	if isLocalTest {
-		s.ReadNodesFromFile(NODEPATHLOCAL)
+		s.ReadNodesFromFile(s.NodePathLocal)
 	} else {
-		s.ReadNodesFromFile(NODEPATHREMOTE)
+		s.ReadNodesFromFile(s.NodePathRemote)
 	}
 
-	for _, nodeRef := range s.Nodes.All {
-		node := nodeRef
-		log.Lvl1(node.Name, node.X, node.Y, node.IP)
-	}
+	/*
+		for _, nodeRef := range s.Nodes.All {
+			node := nodeRef
+			log.Lvl1(node.Name, node.X, node.Y, node.IP)
+		}
+	*/
 }
 
 func (s *IPFSSimulation) ReadNodesFromFile(filename string) {
 	s.Nodes.All = make([]*gentree.LocalityNode, 0)
 
-	readLine := ReadFileLineByLine(filename)
+	readLine := cruxIPFS.ReadFileLineByLine(filename)
 
 	for true {
 		line := readLine()
@@ -166,7 +172,7 @@ func (s *IPFSSimulation) InitializeMaps(config *onet.SimulationConfig, isLocalTe
 			s.Nodes.All[i].ServerIdentity = treeNode.ServerIdentity
 			s.Nodes.ServerIdentityToName[treeNode.ServerIdentity.ID] = s.Nodes.All[i].Name
 			ServerIdentityToName[treeNode.ServerIdentity] = s.Nodes.All[i].Name
-			log.Lvl1("associating", treeNode.ServerIdentity.String(), "to", s.Nodes.All[i].Name)
+			//log.Lvl1("associating", treeNode.ServerIdentity.String(), "to", s.Nodes.All[i].Name)
 		}
 	} else {
 		for _, treeNode := range config.Tree.List() {
@@ -175,7 +181,7 @@ func (s *IPFSSimulation) InitializeMaps(config *onet.SimulationConfig, isLocalTe
 			node.ServerIdentity = treeNode.ServerIdentity
 			s.Nodes.ServerIdentityToName[treeNode.ServerIdentity.ID] = node.Name
 			ServerIdentityToName[treeNode.ServerIdentity] = node.Name
-			log.Lvl1("associating", treeNode.ServerIdentity.String(), "to", node.Name)
+			//log.Lvl1("associating", treeNode.ServerIdentity.String(), "to", node.Name)
 		}
 	}
 
