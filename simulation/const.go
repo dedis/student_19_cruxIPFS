@@ -1,6 +1,6 @@
 package main
 
 const (
-	// SimName simulation name
-	SimName = "IPFS"
+	NODEPATHREMOTE = "nodes_local_20.txt"
+	NODEPATHLOCAL  = "../nodes_local_20.txt"
 )

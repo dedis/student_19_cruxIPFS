@@ -5,16 +5,13 @@ This holds the messages used to communicate with the service over the network.
 */
 
 import (
-	"go.dedis.ch/onet/v3"
+	"github.com/dedis/student_19_cruxIPFS/gentree"
 	"go.dedis.ch/onet/v3/network"
 )
 
 // We need to register all messages so the network knows how to handle them.
 func init() {
-	network.RegisterMessages(
-		Count{}, CountReply{},
-		Clock{}, ClockReply{},
-	)
+	network.RegisterMessages()
 }
 
 const (
@@ -22,23 +19,12 @@ const (
 	ErrorParse = iota + 4000
 )
 
-// Clock will run the tepmlate-protocol on the roster and return
-// the time spent doing so.
-type Clock struct {
-	Roster *onet.Roster
+// InitRequest packet
+type InitRequest struct {
+	Nodes                []*gentree.LocalityNode
+	ServerIdentityToName map[*network.ServerIdentity]string
 }
 
-// ClockReply returns the time spent for the protocol-run.
-type ClockReply struct {
-	Time     float64
-	Children int
-}
-
-// Count will return how many times the protocol has been run.
-type Count struct {
-}
-
-// CountReply returns the number of protocol-runs
-type CountReply struct {
-	Count int
+// InitResponse packet
+type InitResponse struct {
 }
