@@ -1,6 +1,7 @@
 package main
 
 import (
+	"path/filepath"
 	"strconv"
 
 	"github.com/dedis/student_19_cruxIPFS/gentree"
@@ -27,5 +28,5 @@ func CreateNode(Name string, x float64, y float64, IP string, level int) *gentre
 // SetNodePaths set the node paths for remote and local node files
 func SetNodePaths(n int) {
 	NODEPATHREMOTE = NODEPATHNAME + strconv.Itoa(n) + ".txt"
-	NODEPATHLOCAL = "../" + NODEPATHREMOTE
+	NODEPATHLOCAL = filepath.Join("..", DATAFOLDER, NODEPATHREMOTE)
 }

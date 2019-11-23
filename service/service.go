@@ -22,15 +22,24 @@ import (
 // Used for tests
 var templateID onet.ServiceID
 
+var execReqPingsMsgID network.MessageTypeID
+var execReplyPingsMsgID network.MessageTypeID
+
 func init() {
 	var err error
 	templateID, err = onet.RegisterNewService(cruxIPFS.ServiceName, newService)
 	log.ErrFatal(err)
+
+	execReqPingsMsgID = network.RegisterMessage(&cruxIPFS.ReqPings{})
+	execReplyPingsMsgID = network.RegisterMessage(&cruxIPFS.ReplyPings{})
+
 	network.RegisterMessage(&storage{})
 }
 
 // InitRequest init the tree
 func (s *Service) InitRequest(req *cruxIPFS.InitRequest) (*cruxIPFS.InitResponse, error) {
+	log.Lvl1("here", s.ServerIdentity().String())
+
 	s.Setup(req)
 
 	return &cruxIPFS.InitResponse{}, nil
@@ -94,13 +103,15 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 	log.LLvl1("called init service on", s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.ServerIdentity())
 
 	s.getPings(false)
-	AuxNodes, dist2, ARATreeStruct, ARAOnetTrees := ARAgen.GenARAs(s.Nodes,
-		s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.PingDistances, 3)
+	/*
+		AuxNodes, dist2, ARATreeStruct, ARAOnetTrees := ARAgen.GenARAs(s.Nodes,
+			s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.PingDistances, 3)
 
-	s.Distances = dist2
-	s.Nodes = AuxNodes
-	s.GraphTree = ARATreeStruct
-	s.BinaryTree = ARAOnetTrees
+		s.Distances = dist2
+		s.Nodes = AuxNodes
+		s.GraphTree = ARATreeStruct
+		s.BinaryTree = ARAOnetTrees
+	*/
 
 }
 
@@ -149,18 +160,20 @@ func (s *Service) tryLoad() error {
 // running on. Saving and loading can be done using the context. The data will
 // be stored in memory for tests and simulations, and on disk for real deployments.
 func newService(c *onet.Context) (onet.Service, error) {
+	log.LLvl1("new service")
+
 	s := &Service{
 		ServiceProcessor: onet.NewServiceProcessor(c),
 	}
+	log.ErrFatal(s.RegisterHandlers(s.InitRequest))
+
 	s.RegisterProcessorFunc(execReqPingsMsgID, s.ExecReqPings)
 	s.RegisterProcessorFunc(execReplyPingsMsgID, s.ExecReplyPings)
 
-	if err := s.RegisterHandlers(); err != nil {
-		return nil, errors.New("Couldn't register messages")
-	}
 	if err := s.tryLoad(); err != nil {
 		log.Error(err)
 		return nil, err
 	}
+
 	return s, nil
 }

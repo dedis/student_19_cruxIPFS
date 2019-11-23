@@ -42,7 +42,7 @@ func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	nodeNb := len(hosts)
 	SetNodePaths(nodeNb)
 
-	app.Copy(dir, s.NodePathRemote)
+	app.Copy(dir, filepath.Join(DATAFOLDER, NODEPATHREMOTE))
 	app.Copy(dir, "../clean.sh")
 
 	sc := &onet.SimulationConfig{}
@@ -65,18 +65,21 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 	}
 	log.Lvl3("Initializing node-index", index)
 
+	//config.Overlay.RegisterTree()
+
 	s.ReadNodeInfo(false)
 
 	mymap := s.InitializeMaps(config, true)
 
-	if s.Nodes.GetServerIdentityToName(config.Server.ServerIdentity) == "node_19" {
-		myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
+	myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
 
-		serviceReq := &cruxIPFS.InitRequest{
-			Nodes:                s.Nodes.All,
-			ServerIdentityToName: mymap,
-		}
+	serviceReq := &cruxIPFS.InitRequest{
+		Nodes:                s.Nodes.All,
+		ServerIdentityToName: mymap,
+	}
 
+	if s.Nodes.GetServerIdentityToName(config.Server.ServerIdentity) ==
+		"node_0" {
 		myService.InitRequest(serviceReq)
 
 		for _, trees := range myService.BinaryTree {
@@ -85,7 +88,6 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 			}
 		}
 	}
-
 	return s.SimulationBFTree.Node(config)
 }
 
@@ -111,9 +113,9 @@ func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool) {
 		log.Fatal(err)
 	}
 	if isLocalTest {
-		s.ReadNodesFromFile(s.NodePathLocal)
+		s.ReadNodesFromFile(NODEPATHLOCAL)
 	} else {
-		s.ReadNodesFromFile(s.NodePathRemote)
+		s.ReadNodesFromFile(NODEPATHREMOTE)
 	}
 
 	/*

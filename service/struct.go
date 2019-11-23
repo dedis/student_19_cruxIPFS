@@ -8,16 +8,12 @@ import (
 	"github.com/dedis/student_19_cruxIPFS/ARAgen"
 	"github.com/dedis/student_19_cruxIPFS/gentree"
 	"go.dedis.ch/onet/v3"
-	"go.dedis.ch/onet/v3/network"
 	"go.dedis.ch/onet/v3/simul/monitor"
 )
 
 // storageID reflects the data we're storing - we could store more
 // than one structure.
 var storageID = []byte("main")
-
-var execReqPingsMsgID network.MessageTypeID
-var execReplyPingsMsgID network.MessageTypeID
 
 // Service is our template-service
 type Service struct {

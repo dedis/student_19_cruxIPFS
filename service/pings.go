@@ -14,6 +14,90 @@ import (
 	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
 )
 
+func (s *Service) ExecReqPings(env *network.Envelope) error {
+	// Parse message
+	req, ok := env.Msg.(*cruxIPFS.ReqPings)
+	if !ok {
+		log.Error(s.ServerIdentity(), "failed to cast to ReqPings")
+		return errors.New(s.ServerIdentity().String() + " failed to cast to ReqPings")
+	}
+
+	// wait for pings to be finished
+	for !s.DonePing {
+		time.Sleep(5 * time.Second)
+	}
+
+	reply := ""
+	myName := s.Nodes.GetServerIdentityToName(s.ServerIdentity())
+	// build reply
+	for peerName, pingTime := range s.OwnPings {
+		//if peerName == myName {
+		//	reply += myName + " " + peerName + " " + "0.0"
+		//} else {
+		reply += myName + " " + peerName + " " + fmt.Sprintf("%f", pingTime) + "\n"
+		//}
+	}
+
+	log.Lvl3("sending", reply)
+	requesterIdentity := s.Nodes.GetByName(req.SenderName).ServerIdentity
+
+	e := s.SendRaw(requesterIdentity, &cruxIPFS.ReplyPings{Pings: reply, SenderName: myName})
+	if e != nil {
+		panic(e)
+	}
+
+	return e
+}
+
+func (s *Service) ExecReplyPings(env *network.Envelope) error {
+	fmt.Println("RepPing")
+
+	// Parse message
+	req, ok := env.Msg.(*cruxIPFS.ReplyPings)
+	if !ok {
+		log.Error(s.ServerIdentity(), "failed to cast to ReplyPings")
+		return errors.New(s.ServerIdentity().String() + " failed to cast to ReplyPings")
+	}
+
+	// process ping output
+	//log.LLvl1("resp=", req.Pings)
+	s.PingMapMtx.Lock()
+	lines := strings.Split(req.Pings, "\n")
+	for _, line := range lines {
+		if line != "" {
+			//log.LLvl1("line=", line)
+			words := strings.Split(line, " ")
+			src := words[0]
+			dst := words[1]
+			pingRes, err := strconv.ParseFloat(words[2], 64)
+			if err != nil {
+				log.Error("Problem when parsing pings")
+			}
+
+			if _, ok := s.PingDistances[src]; !ok {
+				s.PingDistances[src] = make(map[string]float64)
+			}
+
+			//if _, ok := s.PingDistances[dst]; !ok {
+			//	s.PingDistances[dst] = make(map[string]float64)
+			//}
+
+			s.PingDistances[src][dst] += pingRes
+			//s.PingDistances[dst][src] += pingRes
+			s.PingDistances[src][src] = 0.0
+
+		}
+	}
+	s.PingMapMtx.Unlock()
+
+	s.PingAnswerMtx.Lock()
+	s.NrPingAnswers++
+	s.PingAnswerMtx.Unlock()
+
+	return nil
+
+}
+
 func (s *Service) getPings(readFromFile bool) {
 	if !readFromFile {
 		// measure pings to other nodes
@@ -21,6 +105,7 @@ func (s *Service) getPings(readFromFile bool) {
 		s.DonePing = true
 
 		s.PingMapMtx.Lock()
+		// fill ownping in pingdistances
 		for name, dist := range s.OwnPings {
 			src := s.Nodes.GetServerIdentityToName(s.ServerIdentity())
 			dst := name
@@ -39,6 +124,8 @@ func (s *Service) getPings(readFromFile bool) {
 		// ask for pings from others
 		for _, node := range s.Nodes.All {
 			if node.Name != s.Nodes.GetServerIdentityToName(s.ServerIdentity()) {
+				fmt.Println("Request ping to", node.ServerIdentity)
+				//s.InitRequest(serviceReq)
 				e := s.SendRaw(node.ServerIdentity, &cruxIPFS.ReqPings{SenderName: s.Nodes.GetServerIdentityToName(s.ServerIdentity())})
 				if e != nil {
 					panic(e)
@@ -46,8 +133,10 @@ func (s *Service) getPings(readFromFile bool) {
 			}
 		}
 
-		// wit for ping replies from everyone but myself
+		// wait for ping replies from everyone but myself
+		fmt.Println("len(s.Nodes.All)", len(s.Nodes.All))
 		for s.NrPingAnswers != len(s.Nodes.All)-1 {
+			fmt.Println(s.NrPingAnswers)
 			time.Sleep(5 * time.Second)
 		}
 
@@ -202,88 +291,4 @@ func (s *Service) measureOwnPings() {
 
 		}
 	}
-}
-
-func (s *Service) ExecReqPings(env *network.Envelope) error {
-
-	// Parse message
-	req, ok := env.Msg.(*cruxIPFS.ReqPings)
-	if !ok {
-		log.Error(s.ServerIdentity(), "failed to cast to ReqPings")
-		return errors.New(s.ServerIdentity().String() + " failed to cast to ReqPings")
-	}
-
-	// wait for pings to be finished
-	for !s.DonePing {
-		time.Sleep(5 * time.Second)
-	}
-
-	reply := ""
-	myName := s.Nodes.GetServerIdentityToName(s.ServerIdentity())
-	// build reply
-	for peerName, pingTime := range s.OwnPings {
-		//if peerName == myName {
-		//	reply += myName + " " + peerName + " " + "0.0"
-		//} else {
-		reply += myName + " " + peerName + " " + fmt.Sprintf("%f", pingTime) + "\n"
-		//}
-	}
-
-	log.Lvl3("sending", reply)
-	requesterIdentity := s.Nodes.GetByName(req.SenderName).ServerIdentity
-
-	e := s.SendRaw(requesterIdentity, &cruxIPFS.ReplyPings{Pings: reply, SenderName: myName})
-	if e != nil {
-		panic(e)
-	}
-
-	return e
-}
-
-func (s *Service) ExecReplyPings(env *network.Envelope) error {
-
-	// Parse message
-	req, ok := env.Msg.(*cruxIPFS.ReplyPings)
-	if !ok {
-		log.Error(s.ServerIdentity(), "failed to cast to ReplyPings")
-		return errors.New(s.ServerIdentity().String() + " failed to cast to ReplyPings")
-	}
-
-	// process ping output
-	//log.LLvl1("resp=", req.Pings)
-	s.PingMapMtx.Lock()
-	lines := strings.Split(req.Pings, "\n")
-	for _, line := range lines {
-		if line != "" {
-			//log.LLvl1("line=", line)
-			words := strings.Split(line, " ")
-			src := words[0]
-			dst := words[1]
-			pingRes, err := strconv.ParseFloat(words[2], 64)
-			if err != nil {
-				log.Error("Problem when parsing pings")
-			}
-
-			if _, ok := s.PingDistances[src]; !ok {
-				s.PingDistances[src] = make(map[string]float64)
-			}
-
-			//if _, ok := s.PingDistances[dst]; !ok {
-			//	s.PingDistances[dst] = make(map[string]float64)
-			//}
-
-			s.PingDistances[src][dst] += pingRes
-			//s.PingDistances[dst][src] += pingRes
-			s.PingDistances[src][src] = 0.0
-
-		}
-	}
-	s.PingMapMtx.Unlock()
-
-	s.PingAnswerMtx.Lock()
-	s.NrPingAnswers++
-	s.PingAnswerMtx.Unlock()
-
-	return nil
-
 }
