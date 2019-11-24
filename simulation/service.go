@@ -78,16 +78,15 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 		ServerIdentityToName: mymap,
 	}
 
-	if s.Nodes.GetServerIdentityToName(config.Server.ServerIdentity) ==
-		"node_0" {
-		myService.InitRequest(serviceReq)
+	//if s.Nodes.GetServerIdentityToName(config.Server.ServerIdentity) =="node_0" {
+	myService.InitRequest(serviceReq)
 
-		for _, trees := range myService.BinaryTree {
-			for _, tree := range trees {
-				config.Overlay.RegisterTree(tree)
-			}
+	for _, trees := range myService.BinaryTree {
+		for _, tree := range trees {
+			config.Overlay.RegisterTree(tree)
 		}
 	}
+	//}
 	return s.SimulationBFTree.Node(config)
 }
 

@@ -38,7 +38,7 @@ func init() {
 
 // InitRequest init the tree
 func (s *Service) InitRequest(req *cruxIPFS.InitRequest) (*cruxIPFS.InitResponse, error) {
-	log.Lvl1("here", s.ServerIdentity().String())
+	//log.Lvl1("here", s.ServerIdentity().String())
 
 	s.Setup(req)
 
@@ -48,7 +48,7 @@ func (s *Service) InitRequest(req *cruxIPFS.InitRequest) (*cruxIPFS.InitResponse
 // Setup IPFS cluster ARAs
 func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 	// copied from nyle
-	log.Lvl1("Setup service")
+	log.Lvl3("Setup service")
 
 	s.Nodes.All = req.Nodes
 	s.Nodes.ServerIdentityToName = make(map[network.ServerIdentityID]string)
@@ -160,7 +160,7 @@ func (s *Service) tryLoad() error {
 // running on. Saving and loading can be done using the context. The data will
 // be stored in memory for tests and simulations, and on disk for real deployments.
 func newService(c *onet.Context) (onet.Service, error) {
-	log.LLvl1("new service")
+	//log.LLvl1("new service")
 
 	s := &Service{
 		ServiceProcessor: onet.NewServiceProcessor(c),

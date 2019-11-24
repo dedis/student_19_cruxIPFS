@@ -15,12 +15,15 @@ import (
 )
 
 func (s *Service) ExecReqPings(env *network.Envelope) error {
+
 	// Parse message
 	req, ok := env.Msg.(*cruxIPFS.ReqPings)
 	if !ok {
 		log.Error(s.ServerIdentity(), "failed to cast to ReqPings")
 		return errors.New(s.ServerIdentity().String() + " failed to cast to ReqPings")
 	}
+
+	fmt.Println(s.Nodes.GetByName(req.SenderName).ServerIdentity, "wants my ping", s.ServerIdentity().String())
 
 	// wait for pings to be finished
 	for !s.DonePing {
@@ -41,6 +44,9 @@ func (s *Service) ExecReqPings(env *network.Envelope) error {
 	log.Lvl3("sending", reply)
 	requesterIdentity := s.Nodes.GetByName(req.SenderName).ServerIdentity
 
+	fmt.Println("I sent this freaking reply to", requesterIdentity)
+
+	log.Lvl1(s.ServerIdentity().String(), "sending pings to", requesterIdentity)
 	e := s.SendRaw(requesterIdentity, &cruxIPFS.ReplyPings{Pings: reply, SenderName: myName})
 	if e != nil {
 		panic(e)
@@ -50,7 +56,7 @@ func (s *Service) ExecReqPings(env *network.Envelope) error {
 }
 
 func (s *Service) ExecReplyPings(env *network.Envelope) error {
-	fmt.Println("RepPing")
+	//fmt.Println("RepPing")
 
 	// Parse message
 	req, ok := env.Msg.(*cruxIPFS.ReplyPings)
@@ -60,7 +66,7 @@ func (s *Service) ExecReplyPings(env *network.Envelope) error {
 	}
 
 	// process ping output
-	//log.LLvl1("resp=", req.Pings)
+	log.LLvl1("resp=", req.Pings)
 	s.PingMapMtx.Lock()
 	lines := strings.Split(req.Pings, "\n")
 	for _, line := range lines {
@@ -124,8 +130,9 @@ func (s *Service) getPings(readFromFile bool) {
 		// ask for pings from others
 		for _, node := range s.Nodes.All {
 			if node.Name != s.Nodes.GetServerIdentityToName(s.ServerIdentity()) {
-				fmt.Println("Request ping to", node.ServerIdentity)
-				//s.InitRequest(serviceReq)
+				if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == "node_0" {
+					fmt.Println("Request ping to", node.ServerIdentity)
+				}
 				e := s.SendRaw(node.ServerIdentity, &cruxIPFS.ReqPings{SenderName: s.Nodes.GetServerIdentityToName(s.ServerIdentity())})
 				if e != nil {
 					panic(e)
@@ -134,15 +141,19 @@ func (s *Service) getPings(readFromFile bool) {
 		}
 
 		// wait for ping replies from everyone but myself
-		fmt.Println("len(s.Nodes.All)", len(s.Nodes.All))
+		//fmt.Println("len(s.Nodes.All)", len(s.Nodes.All))
+		//for s.NrPingAnswers != len(s.Nodes.All)-1 {
 		for s.NrPingAnswers != len(s.Nodes.All)-1 {
-			fmt.Println(s.NrPingAnswers)
+
+			//fmt.Println(s.ServerIdentity().String(), s.NrPingAnswers)
 			time.Sleep(5 * time.Second)
 		}
 
+		fmt.Println("SUUCCCEEEEEEEEEEEEEEEEEEEEEEEEEEEEEESS")
+
 		// prints
-		observerNode := s.Nodes.GetServerIdentityToName(s.ServerIdentity())
-		pingDistStr := observerNode + "pingDistStr--------> "
+		//observerNode := s.Nodes.GetServerIdentityToName(s.ServerIdentity())
+		//pingDistStr := observerNode + "pingDistStr--------> "
 
 		// divide all pings by 2
 		/*
@@ -155,16 +166,18 @@ func (s *Service) getPings(readFromFile bool) {
 			}
 		*/
 
-		for i := 0; i < 45; i++ {
-			name1 := "node_" + strconv.Itoa(i)
-			for j := 0; j < 45; j++ {
-				name2 := "node_" + strconv.Itoa(j)
-				pingDistStr += name1 + "-" + name2 + "=" + fmt.Sprintf("%f", s.PingDistances[name1][name2])
+		/*
+			for i := 0; i < 45; i++ {
+				name1 := "node_" + strconv.Itoa(i)
+				for j := 0; j < 45; j++ {
+					name2 := "node_" + strconv.Itoa(j)
+					pingDistStr += name1 + "-" + name2 + "=" + fmt.Sprintf("%f", s.PingDistances[name1][name2])
+				}
+				pingDistStr += "\n"
 			}
-			pingDistStr += "\n"
-		}
 
-		log.LLvl1(pingDistStr)
+			log.LLvl1(pingDistStr)
+		*/
 
 		// check that there are enough pings
 		if len(s.PingDistances) < len(s.Nodes.All) {
@@ -173,7 +186,7 @@ func (s *Service) getPings(readFromFile bool) {
 		for _, m := range s.PingDistances {
 			if len(m) < len(s.Nodes.All) {
 				log.Lvl1(s.Nodes.GetServerIdentityToName(s.ServerIdentity()), " too few pings 2")
-				log.LLvl1(m)
+				//log.LLvl1(m)
 			}
 		}
 
