@@ -23,8 +23,6 @@ func (s *Service) ExecReqPings(env *network.Envelope) error {
 		return errors.New(s.ServerIdentity().String() + " failed to cast to ReqPings")
 	}
 
-	fmt.Println(s.Nodes.GetByName(req.SenderName).ServerIdentity, "wants my ping", s.ServerIdentity().String())
-
 	// wait for pings to be finished
 	for !s.DonePing {
 		time.Sleep(5 * time.Second)
@@ -44,9 +42,6 @@ func (s *Service) ExecReqPings(env *network.Envelope) error {
 	log.Lvl3("sending", reply)
 	requesterIdentity := s.Nodes.GetByName(req.SenderName).ServerIdentity
 
-	fmt.Println("I sent this freaking reply to", requesterIdentity)
-
-	log.Lvl1(s.ServerIdentity().String(), "sending pings to", requesterIdentity)
 	e := s.SendRaw(requesterIdentity, &cruxIPFS.ReplyPings{Pings: reply, SenderName: myName})
 	if e != nil {
 		panic(e)
@@ -56,7 +51,6 @@ func (s *Service) ExecReqPings(env *network.Envelope) error {
 }
 
 func (s *Service) ExecReplyPings(env *network.Envelope) error {
-	//fmt.Println("RepPing")
 
 	// Parse message
 	req, ok := env.Msg.(*cruxIPFS.ReplyPings)
@@ -130,9 +124,6 @@ func (s *Service) getPings(readFromFile bool) {
 		// ask for pings from others
 		for _, node := range s.Nodes.All {
 			if node.Name != s.Nodes.GetServerIdentityToName(s.ServerIdentity()) {
-				if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == "node_0" {
-					fmt.Println("Request ping to", node.ServerIdentity)
-				}
 				e := s.SendRaw(node.ServerIdentity, &cruxIPFS.ReqPings{SenderName: s.Nodes.GetServerIdentityToName(s.ServerIdentity())})
 				if e != nil {
 					panic(e)
@@ -144,16 +135,14 @@ func (s *Service) getPings(readFromFile bool) {
 		//fmt.Println("len(s.Nodes.All)", len(s.Nodes.All))
 		//for s.NrPingAnswers != len(s.Nodes.All)-1 {
 		for s.NrPingAnswers != len(s.Nodes.All)-1 {
-
-			//fmt.Println(s.ServerIdentity().String(), s.NrPingAnswers)
 			time.Sleep(5 * time.Second)
 		}
 
 		fmt.Println("SUUCCCEEEEEEEEEEEEEEEEEEEEEEEEEEEEEESS")
 
 		// prints
-		//observerNode := s.Nodes.GetServerIdentityToName(s.ServerIdentity())
-		//pingDistStr := observerNode + "pingDistStr--------> "
+		observerNode := s.Nodes.GetServerIdentityToName(s.ServerIdentity())
+		pingDistStr := observerNode + " pingDistStr--------> "
 
 		// divide all pings by 2
 		/*
@@ -166,18 +155,16 @@ func (s *Service) getPings(readFromFile bool) {
 			}
 		*/
 
-		/*
-			for i := 0; i < 45; i++ {
-				name1 := "node_" + strconv.Itoa(i)
-				for j := 0; j < 45; j++ {
-					name2 := "node_" + strconv.Itoa(j)
-					pingDistStr += name1 + "-" + name2 + "=" + fmt.Sprintf("%f", s.PingDistances[name1][name2])
-				}
-				pingDistStr += "\n"
+		for i := 0; i < 3; i++ {
+			name1 := "node_" + strconv.Itoa(i)
+			for j := 0; j < 3; j++ {
+				name2 := "node_" + strconv.Itoa(j)
+				pingDistStr += name1 + "-" + name2 + "=" + fmt.Sprintf("%f ", s.PingDistances[name1][name2])
 			}
+			pingDistStr += "\n"
+		}
 
-			log.LLvl1(pingDistStr)
-		*/
+		log.LLvl1(pingDistStr)
 
 		// check that there are enough pings
 		if len(s.PingDistances) < len(s.Nodes.All) {
@@ -192,24 +179,26 @@ func (s *Service) getPings(readFromFile bool) {
 
 		log.LLvl1(s.Nodes.GetServerIdentityToName(s.ServerIdentity()), "has all pings, starting tree gen")
 
-		// check TIV just once
-		// painful, but run floyd warshall and build the static routes
-		// ifrst, let's solve the k means mistery
+		/*
+			// check TIV just once
+			// painful, but run floyd warshall and build the static routes
+			// ifrst, let's solve the k means mistery
 
-		if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == "node_0" {
-			for n1, m := range s.PingDistances {
-				for n2, d := range m {
-					//bestDist
-					for k := 0; k < 20; k++ {
-						namek := "node_" + strconv.Itoa(k)
-						if d > s.PingDistances[n1][namek]+s.PingDistances[namek][n2] {
-							log.LLvl1("TIV!", n1, n2, "through", namek, "original:", s.PingDistances[n1][n2], ">", s.PingDistances[n1][namek], "+", s.PingDistances[namek][n2])
-							break
+			if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == "node_0" {
+				for n1, m := range s.PingDistances {
+					for n2, d := range m {
+						//bestDist
+						for k := 0; k < 20; k++ {
+							namek := "node_" + strconv.Itoa(k)
+							if d > s.PingDistances[n1][namek]+s.PingDistances[namek][n2] {
+								log.LLvl1("TIV!", n1, n2, "through", namek, "original:", s.PingDistances[n1][n2], ">", s.PingDistances[n1][namek], "+", s.PingDistances[namek][n2])
+								break
+							}
 						}
 					}
 				}
 			}
-		}
+		*/
 
 		// ping node_0 node_1 = 19.314
 		if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == "node_0" {

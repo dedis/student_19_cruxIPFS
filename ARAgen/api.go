@@ -1,6 +1,9 @@
 package ARAgen
 
 import (
+	"math"
+
+	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
 	"github.com/dedis/student_19_cruxIPFS/gentree"
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/log"
@@ -26,6 +29,7 @@ func GenARAs(Nodes gentree.LocalityNodes, rootNodeName string, PingDistances map
 	NrLevels int) (AuxNodes gentree.LocalityNodes, dist2 map[*gentree.LocalityNode]map[*gentree.LocalityNode]float64,
 	ARATreeStruct map[string][]GraphTree, ARAOnetTrees map[string][]*onet.Tree) {
 
+	log.LLvl1("length=", len(Nodes.All))
 	AuxNodes.All = make([]*gentree.LocalityNode, len(Nodes.All))
 	AuxNodes.ServerIdentityToName = make(map[network.ServerIdentityID]string)
 	AuxNodes.ClusterBunchDistances = make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]float64)
@@ -35,13 +39,44 @@ func GenARAs(Nodes gentree.LocalityNodes, rootNodeName string, PingDistances map
 	ARAOnetTrees = make(map[string][]*onet.Tree)
 
 	for i, n := range Nodes.All {
-		AuxNodes.All[i].IP = n.IP
-		AuxNodes.All[i].Name = n.Name
+		log.LLvl1("i=", i)
+
+		IPlist := ""
+		for IPaddr, exists := range n.IP {
+			if exists {
+				if IPlist != "" {
+					IPlist = IPlist + "," + IPaddr
+				} else {
+					IPlist = IPaddr
+				}
+			}
+		}
+
+		AuxNodes.All[i] = cruxIPFS.CreateNode(n.Name, n.X, n.Y, IPlist, n.Level)
 		AuxNodes.All[i].AvailablePortsStart = n.AvailablePortsStart
 		AuxNodes.All[i].ServerIdentity = n.ServerIdentity
-		AuxNodes.All[i].Level = n.Level
-		AuxNodes.All[i].X = n.X
-		AuxNodes.All[i].Y = n.Y
+
+		AuxNodes.All[i].ADist = make([]float64, 0)
+		AuxNodes.All[i].PDist = make([]string, 0)
+		AuxNodes.All[i].OptimalCluster = make(map[string]bool)
+		AuxNodes.All[i].OptimalBunch = make(map[string]bool)
+		AuxNodes.All[i].Cluster = make(map[string]bool)
+		AuxNodes.All[i].Bunch = make(map[string]bool)
+		AuxNodes.All[i].Rings = make([]string, 0)
+
+	}
+
+	for _, node := range AuxNodes.All {
+		AuxNodes.ClusterBunchDistances[node] = make(map[*gentree.LocalityNode]float64)
+		AuxNodes.Links[node] = make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]bool)
+		for _, node2 := range AuxNodes.All {
+			AuxNodes.ClusterBunchDistances[node][node2] = math.MaxFloat64
+			AuxNodes.Links[node][node2] = make(map[*gentree.LocalityNode]bool)
+
+			if node == node2 {
+				AuxNodes.ClusterBunchDistances[node][node2] = 0
+			}
+		}
 	}
 
 	for k, v := range Nodes.ServerIdentityToName {

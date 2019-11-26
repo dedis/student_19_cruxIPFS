@@ -179,7 +179,9 @@ func findTreeNode(tree *onet.Tree, target *onet.TreeNode) (*onet.TreeNode, error
 //Second and Third arguments should always be the same
 func CreateLocalityGraph(all LocalityNodes, randomCoords, randomLevels bool, levels int, pingDist map[string]map[string]float64) {
 
-	nodes := all.All
+	//nodes := all.All
+	// quick fix
+	nodes := all.All[1:]
 
 	randSrc := rand.New(rand.NewSource(time.Now().UnixNano()))
 
@@ -223,7 +225,8 @@ func CreateLocalityGraph(all LocalityNodes, randomCoords, randomLevels bool, lev
 					}
 				}
 			}
-
+			fmt.Println(v1.PDist)
+			fmt.Println(node.Name)
 			v1.PDist = append(v1.PDist, node.Name)
 			v1.ADist = append(v1.ADist, min)
 		}

@@ -39,7 +39,7 @@ func NewSimulationService(config string) (onet.Simulation, error) {
 func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	*onet.SimulationConfig, error) {
 
-	nodeNb := len(hosts)
+	nodeNb := len(hosts) - 1
 	SetNodePaths(nodeNb)
 
 	app.Copy(dir, filepath.Join(DATAFOLDER, NODEPATHREMOTE))
@@ -78,15 +78,15 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 		ServerIdentityToName: mymap,
 	}
 
-	//if s.Nodes.GetServerIdentityToName(config.Server.ServerIdentity) =="node_0" {
-	myService.InitRequest(serviceReq)
+	if strings.Contains(s.Nodes.GetServerIdentityToName(config.Server.ServerIdentity), "node_") {
+		myService.InitRequest(serviceReq)
 
-	for _, trees := range myService.BinaryTree {
-		for _, tree := range trees {
-			config.Overlay.RegisterTree(tree)
+		for _, trees := range myService.BinaryTree {
+			for _, tree := range trees {
+				config.Overlay.RegisterTree(tree)
+			}
 		}
 	}
-	//}
 	return s.SimulationBFTree.Node(config)
 }
 
@@ -157,7 +157,7 @@ func (s *IPFSSimulation) ReadNodesFromFile(filename string) {
 
 		//	log.Lvl1("reqd node level", name, level_str, "lvl", level)
 
-		myNode := CreateNode(name, x, y, IP, level)
+		myNode := cruxIPFS.CreateNode(name, x, y, IP, level)
 		s.Nodes.All = append(s.Nodes.All, myNode)
 	}
 }
@@ -169,7 +169,9 @@ func (s *IPFSSimulation) InitializeMaps(config *onet.SimulationConfig, isLocalTe
 
 	if isLocalTest {
 		for i := range s.Nodes.All {
-			treeNode := config.Tree.List()[i]
+			//treeNode := config.Tree.List()[i]
+			// quick fix
+			treeNode := config.Tree.List()[i+1]
 			s.Nodes.All[i].ServerIdentity = treeNode.ServerIdentity
 			s.Nodes.ServerIdentityToName[treeNode.ServerIdentity.ID] = s.Nodes.All[i].Name
 			ServerIdentityToName[treeNode.ServerIdentity] = s.Nodes.All[i].Name

@@ -47,6 +47,7 @@ func (s *Service) InitRequest(req *cruxIPFS.InitRequest) (*cruxIPFS.InitResponse
 
 // Setup IPFS cluster ARAs
 func (s *Service) Setup(req *cruxIPFS.InitRequest) {
+
 	// copied from nyle
 	log.Lvl3("Setup service")
 
@@ -100,18 +101,21 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 	s.OwnPings = make(map[string]float64)
 	s.PingDistances = make(map[string]map[string]float64)
 
+	if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == "" {
+		return
+	}
+
 	log.LLvl1("called init service on", s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.ServerIdentity())
 
 	s.getPings(false)
-	/*
-		AuxNodes, dist2, ARATreeStruct, ARAOnetTrees := ARAgen.GenARAs(s.Nodes,
-			s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.PingDistances, 3)
 
-		s.Distances = dist2
-		s.Nodes = AuxNodes
-		s.GraphTree = ARATreeStruct
-		s.BinaryTree = ARAOnetTrees
-	*/
+	AuxNodes, dist2, ARATreeStruct, ARAOnetTrees := ARAgen.GenARAs(s.Nodes,
+		s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.PingDistances, 3)
+
+	s.Distances = dist2
+	s.Nodes = AuxNodes
+	s.GraphTree = ARATreeStruct
+	s.BinaryTree = ARAOnetTrees
 
 }
 
