@@ -7,6 +7,7 @@ runs on the node.
 
 import (
 	"errors"
+	"fmt"
 	"math"
 	"sync"
 
@@ -116,6 +117,12 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 	s.Nodes = AuxNodes
 	s.GraphTree = ARATreeStruct
 	s.BinaryTree = ARAOnetTrees
+
+	for _, v := range ARAOnetTrees {
+		for _, n := range v {
+			fmt.Println(n)
+		}
+	}
 
 }
 

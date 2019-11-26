@@ -67,8 +67,8 @@ func (s *Service) ExecReplyPings(env *network.Envelope) error {
 		if line != "" {
 			//log.LLvl1("line=", line)
 			words := strings.Split(line, " ")
-			src := words[0]
-			dst := words[1]
+			src := words[1]
+			dst := words[0]
 			pingRes, err := strconv.ParseFloat(words[2], 64)
 			if err != nil {
 				log.Error("Problem when parsing pings")
@@ -82,6 +82,7 @@ func (s *Service) ExecReplyPings(env *network.Envelope) error {
 			//	s.PingDistances[dst] = make(map[string]float64)
 			//}
 
+			fmt.Printf("src: %s, dst: %s, old val: %f, ping res: %f\n", src, dst, s.PingDistances[src][dst], pingRes)
 			s.PingDistances[src][dst] += pingRes
 			//s.PingDistances[dst][src] += pingRes
 			s.PingDistances[src][src] = 0.0
@@ -105,19 +106,21 @@ func (s *Service) getPings(readFromFile bool) {
 		s.DonePing = true
 
 		s.PingMapMtx.Lock()
+		src := s.Nodes.GetServerIdentityToName(s.ServerIdentity())
 		for name, dist := range s.OwnPings {
-			src := s.Nodes.GetServerIdentityToName(s.ServerIdentity())
 			dst := name
 
 			if _, ok := s.PingDistances[src]; !ok {
 				s.PingDistances[src] = make(map[string]float64)
 			}
-
-			s.PingDistances[src][dst] = dist
+			fmt.Println(src, "before ownping", s.PingDistances[src][dst])
+			s.PingDistances[src][dst] += dist
+			fmt.Println("src:", src, "dst:", dst, "ownping", s.PingDistances[src][dst])
 			s.PingDistances[src][src] = 0.0
 		}
 		s.PingMapMtx.Unlock()
 
+		time.Sleep(5 * time.Second)
 		log.LLvl1(s.Nodes.GetServerIdentityToName(s.ServerIdentity()), "finished ping own meas with len", len(s.OwnPings))
 
 		// ask for pings from others
