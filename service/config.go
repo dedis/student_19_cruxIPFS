@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
+	"math/big"
 	"os/exec"
 	"strconv"
 	"time"
@@ -138,9 +139,14 @@ func MakeJSONArray(elements []string) string {
 func (s *Service) SetupClusterLeader(path string,
 	replmin, replmax int) (string, *ClusterInstance, error) {
 
+	err := CreateEmptyDir(path)
+	if err != nil {
+		return "", nil, err
+	}
+
 	// generate random secret
 	key := make([]byte, 32)
-	_, err := rand.Read(key)
+	_, err = rand.Read(key)
 	if err != nil {
 		return "", nil, errors.New("could not generate secret")
 	}
@@ -191,7 +197,7 @@ func (s *Service) SetupClusterLeader(path string,
 	}()
 
 	addr := IPVersion + s.MyIP + TransportProtocol + strconv.Itoa(ports.RestAPIPort)
-	fmt.Println("Started ipfs-cluster at " + addr)
+	log.Lvl1("Started ipfs-cluster leader at " + addr)
 
 	// wait for the daemon to be launched
 	time.Sleep(ClusterStartupTime)
@@ -200,50 +206,70 @@ func (s *Service) SetupClusterLeader(path string,
 }
 
 // SetupClusterSlave setup a cluster slave instance
-func SetupClusterSlave(configPath, nodeID, ip, bootstrap, secret string,
+func (s *Service) SetupClusterSlave(path, bootstrap, secret string,
 	replmin, replmax int) (*ClusterInstance, error) {
 
-	// create the config directory, identified by the secret of the cluster
-	path := configPath + "/cluster_" + nodeID + "_" + secret
+	fmt.Println("Setting up slave")
 	err := CreateEmptyDir(path)
 	if err != nil {
 		return nil, err
 	}
 
-	ints, err := GetNextAvailablePorts(14000, 15000, 3)
+	/*
+		// create the config directory, identified by the secret of the cluster
+		path := configPath + "/cluster_" + nodeID + "_" + secret
+		err := CreateEmptyDir(path)
+		if err != nil {
+			return nil, err
+		}
+	*/
+
+	nBig, err := rand.Int(rand.Reader, big.NewInt(MaxPortNumberPerHost-ClusterPortNumber))
 	if err != nil {
+		panic(err)
+	}
+	rand := int(nBig.Int64())
+
+	ints, err := GetNextAvailablePorts(s.MinPort+rand, s.MaxPort, ClusterPortNumber)
+	if err != nil {
+		log.Lvl1(err)
 		return nil, err
 	}
 
 	// set the ports that the cluster will use
 	ports := ClusterInstance{
-		IP:            IPVersion + ip + TransportProtocol,
-		IPFSAPIPort:   DefaultIPFSAPIPort,
+		IP:            IPVersion + s.MyIP + TransportProtocol,
+		IPFSAPIPort:   s.MyIPFS.APIPort,
 		RestAPIPort:   (*ints)[0],
 		IPFSProxyPort: (*ints)[1],
 		ClusterPort:   (*ints)[2],
 	}
 
 	// get the environment variables to set cluster configs
-	vars := GetClusterVariables(path, ip, secret, nodeID,
+	vars := GetClusterVariables(path, s.MyIP, secret, s.Name,
 		replmin, replmax, ports)
 
 	// init command to be run
 	cmd := vars + "ipfs-cluster-service -c " + path + " init"
 	err = exec.Command("bash", "-c", cmd).Run()
 	if err != nil {
+		log.Lvl1(err)
 		return nil, err
 	}
 
 	// start cluster daemon
 	cmd = "ipfs-cluster-service -c " + path + " daemon --bootstrap " + bootstrap
-	go exec.Command("bash", "-c", cmd).Run()
+	fmt.Println("running daemon")
+	go func() {
+		exec.Command("bash", "-c", cmd).Run()
+		log.Lvl1("slave crashed")
+	}()
 
 	// wait for the daemon to be launched
-	time.Sleep(2 * time.Second)
+	time.Sleep(ClusterStartupTime)
 
 	addr := ports.IP + strconv.Itoa(ports.RestAPIPort)
-	log.Lvl1("Started ipfs-cluster leader at " + addr)
+	log.Lvl1("Started ipfs-cluster slave at " + addr)
 
 	return &ports, nil
 }

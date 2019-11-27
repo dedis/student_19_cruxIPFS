@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"os/exec"
@@ -18,14 +19,14 @@ func (s *Service) StartIPFS() {
 	// e.g $GOPATH/src/github.com/dedis/student_19_cruxIPFS/simulation/build
 	pwd, err := os.Getwd()
 	checkErr(err)
-	s.ConfigPath = filepath.Join(pwd, ConfigsFolder)
+	configPath := filepath.Join(pwd, ConfigsFolder)
 
 	if !LocalSim {
 		// if not local, everyone create its own configs directory
-		checkErr(CreateEmptyDir(s.ConfigPath))
+		checkErr(CreateEmptyDir(configPath))
 	} else if s.Name == Node0 {
 		// only node 0, create the empty folder
-		checkErr(CreateEmptyDir(s.ConfigPath))
+		checkErr(CreateEmptyDir(configPath))
 	}
 
 	if LocalSim {
@@ -42,8 +43,10 @@ func (s *Service) StartIPFS() {
 	s.MinPort = BaseHostPort + s.getNodeID()*MaxPortNumberPerHost
 	s.MaxPort = s.MinPort + MaxPortNumberPerHost
 
+	s.ConfigPath = filepath.Join(configPath, s.Name)
+
 	// create own config home folder and ipfs config folder
-	s.MyIPFSPath = filepath.Join(s.ConfigPath, s.Name, IPFSFolder)
+	s.MyIPFSPath = filepath.Join(s.ConfigPath, IPFSFolder)
 	checkErr(CreateEmptyDir(s.MyIPFSPath))
 
 	// init ipfs in the desired folder
@@ -81,10 +84,30 @@ func (s *Service) ExecReplyIPFSInfo(env *network.Envelope) error {
 }
 
 func (s *Service) ExecReqBootstrapCluster(env *network.Envelope) error {
+	req, ok := env.Msg.(*ReqBootstrapCluster)
+	if !ok {
+		log.Error(s.ServerIdentity(), "failed to cast to ReqPings")
+		return errors.New(s.ServerIdentity().String() + " failed to cast to ReqPings")
+	}
+	clusterPath := filepath.Join(s.ConfigPath, ClusterFolderPrefix+req.SenderName)
+
 	// create cluster dir
 
+	_, err := s.SetupClusterSlave(clusterPath, req.Bootstrap, req.Secret,
+		DefaultReplMin, DefaultReplMax)
+	if err != nil {
+		fmt.Println("Error slave:", err)
+	}
+
 	// bootstrap peer
-	return nil
+
+	requesterIdentity := s.Nodes.GetByName(req.SenderName).ServerIdentity
+	e := s.SendRaw(requesterIdentity, &ReplyBootstrapCluster{
+		SenderName: s.Name})
+	if e != nil {
+		panic(e)
+	}
+	return e
 }
 
 func (s *Service) ExecReplyBootstrapCluster(env *network.Envelope) error {
@@ -117,7 +140,6 @@ func (s *Service) ManageClusters() {
 func (s *Service) LaunchCluster(nodes []string) {
 	// create cluster dir
 	clusterPath := filepath.Join(s.ConfigPath, ClusterFolderPrefix+s.Name)
-	checkErr(CreateEmptyDir(clusterPath))
 
 	// start cluster leader
 	secret, p, err := s.SetupClusterLeader(clusterPath, DefaultReplMin,
