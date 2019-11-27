@@ -60,15 +60,18 @@ func (s *Service) ExecReplyPings(env *network.Envelope) error {
 	}
 
 	// process ping output
-	log.LLvl1("resp=", req.Pings)
+	//log.LLvl1("resp=", req.Pings)
 	s.PingMapMtx.Lock()
 	lines := strings.Split(req.Pings, "\n")
+
+	//s.printDistances(s.Nodes.GetServerIdentityToName(s.ServerIdentity()) + " before update")
+
 	for _, line := range lines {
 		if line != "" {
 			//log.LLvl1("line=", line)
 			words := strings.Split(line, " ")
-			src := words[1]
-			dst := words[0]
+			src := words[0]
+			dst := words[1]
 			pingRes, err := strconv.ParseFloat(words[2], 64)
 			if err != nil {
 				log.Error("Problem when parsing pings")
@@ -77,18 +80,20 @@ func (s *Service) ExecReplyPings(env *network.Envelope) error {
 			if _, ok := s.PingDistances[src]; !ok {
 				s.PingDistances[src] = make(map[string]float64)
 			}
+			if _, ok := s.PingDistances[dst]; !ok {
+				s.PingDistances[dst] = make(map[string]float64)
+			}
 
-			//if _, ok := s.PingDistances[dst]; !ok {
-			//	s.PingDistances[dst] = make(map[string]float64)
-			//}
+			//fmt.Printf("src: %s, dst: %s, old val: %f, ping res: %f\n", src, dst, s.PingDistances[src][dst], pingRes)
 
-			fmt.Printf("src: %s, dst: %s, old val: %f, ping res: %f\n", src, dst, s.PingDistances[src][dst], pingRes)
 			s.PingDistances[src][dst] += pingRes
-			//s.PingDistances[dst][src] += pingRes
-			s.PingDistances[src][src] = 0.0
-
+			s.PingDistances[dst][src] += pingRes
+			//s.PingDistances[src][src] = 0.0
+			//s.PingDistances[dst][dst] = 0.0
 		}
 	}
+	//s.printDistances(s.Nodes.GetServerIdentityToName(s.ServerIdentity()) + " after update")
+
 	s.PingMapMtx.Unlock()
 
 	s.PingAnswerMtx.Lock()
@@ -113,20 +118,28 @@ func (s *Service) getPings(readFromFile bool) {
 			if _, ok := s.PingDistances[src]; !ok {
 				s.PingDistances[src] = make(map[string]float64)
 			}
-			fmt.Println(src, "before ownping", s.PingDistances[src][dst])
+			if _, ok := s.PingDistances[dst]; !ok {
+				s.PingDistances[dst] = make(map[string]float64)
+			}
 			s.PingDistances[src][dst] += dist
-			fmt.Println("src:", src, "dst:", dst, "ownping", s.PingDistances[src][dst])
+			s.PingDistances[dst][src] += dist
 			s.PingDistances[src][src] = 0.0
+			s.PingDistances[dst][dst] = 0.0
 		}
 		s.PingMapMtx.Unlock()
 
-		time.Sleep(5 * time.Second)
+		//debug
+		//time.Sleep(5 * time.Second)
 		log.LLvl1(s.Nodes.GetServerIdentityToName(s.ServerIdentity()), "finished ping own meas with len", len(s.OwnPings))
+
+		observerNode := s.Nodes.GetServerIdentityToName(s.ServerIdentity())
+
+		//s.printDistances("After ownping " + observerNode)
 
 		// ask for pings from others
 		for _, node := range s.Nodes.All {
 			if node.Name != s.Nodes.GetServerIdentityToName(s.ServerIdentity()) {
-				log.LLvl1(s.ServerIdentity().String(), s.Nodes.GetServerIdentityToName(s.ServerIdentity()), "sends raw to", node.Name, node.ServerIdentity)
+				//log.LLvl1(s.ServerIdentity().String(), s.Nodes.GetServerIdentityToName(s.ServerIdentity()), "sends raw to", node.Name, node.ServerIdentity)
 				e := s.SendRaw(node.ServerIdentity, &cruxIPFS.ReqPings{SenderName: s.Nodes.GetServerIdentityToName(s.ServerIdentity())})
 				if e != nil {
 					panic(e)
@@ -137,35 +150,47 @@ func (s *Service) getPings(readFromFile bool) {
 
 		// wit for ping replies from everyone but myself
 		for s.NrPingAnswers != len(s.Nodes.All)-1 {
-			log.LLvl1(s.Nodes.GetServerIdentityToName(s.ServerIdentity()), "got pings", s.NrPingAnswers)
+			//log.LLvl1(s.Nodes.GetServerIdentityToName(s.ServerIdentity()), "got pings", s.NrPingAnswers)
 			time.Sleep(5 * time.Second)
 		}
 
+		//s.printDistances("Array full " + observerNode)
+
 		// prints
-		observerNode := s.Nodes.GetServerIdentityToName(s.ServerIdentity())
-		pingDistStr := observerNode + "pingDistStr--------> "
+		pingDistStr := observerNode + " pingDistStr--------> "
 
 		// divide all pings by 2
-		/*
-			for i := 0 ; i < 45 ; i++ {
-				name1 := "node_" + strconv.Itoa(i)
-				for j := 0; j < 45; j++ {
-					name2 := "node_" + strconv.Itoa(j)
-					s.PingDistances[name1][name2] = s.PingDistances[name1][name2] / 2.0
-				}
-			}
-		*/
 
 		for i := 0; i < len(s.Nodes.All); i++ {
 			name1 := "node_" + strconv.Itoa(i)
 			for j := 0; j < len(s.Nodes.All); j++ {
 				name2 := "node_" + strconv.Itoa(j)
-				pingDistStr += name1 + "-" + name2 + "=" + fmt.Sprintf("%f", s.PingDistances[name1][name2])
+				s.PingDistances[name1][name2] = s.PingDistances[name1][name2] / 2.0
+			}
+		}
+
+		//s.printDistances("After adaptation " + observerNode)
+
+		for i := 0; i < len(s.Nodes.All); i++ {
+			name1 := "node_" + strconv.Itoa(i)
+			for j := 0; j < len(s.Nodes.All); j++ {
+				name2 := "node_" + strconv.Itoa(j)
+				if s.PingDistances[name1][name2] != s.PingDistances[name2][name1] {
+					log.Lvl1("Error: ping not symmetric")
+				}
+			}
+		}
+
+		for i := 0; i < len(s.Nodes.All); i++ {
+			name1 := "node_" + strconv.Itoa(i)
+			for j := 0; j < len(s.Nodes.All); j++ {
+				name2 := "node_" + strconv.Itoa(j)
+				pingDistStr += name1 + "-" + name2 + "=" + fmt.Sprintf("%f ", s.PingDistances[name1][name2])
 			}
 			pingDistStr += "\n"
 		}
 
-		log.LLvl1(pingDistStr)
+		//log.LLvl1(pingDistStr)
 
 		// check that there are enough pings
 		if len(s.PingDistances) < len(s.Nodes.All) {
@@ -188,7 +213,7 @@ func (s *Service) getPings(readFromFile bool) {
 			for n1, m := range s.PingDistances {
 				for n2, d := range m {
 					//bestDist
-					for k := 0; k < 20; k++ {
+					for k := 0; k < len(s.Nodes.All); k++ {
 						namek := "node_" + strconv.Itoa(k)
 						if d > s.PingDistances[n1][namek]+s.PingDistances[namek][n2] {
 							log.LLvl1("TIV!", n1, n2, "through", namek, "original:", s.PingDistances[n1][n2], ">", s.PingDistances[n1][namek], "+", s.PingDistances[namek][n2])
@@ -201,12 +226,16 @@ func (s *Service) getPings(readFromFile bool) {
 
 		// ping node_0 node_1 = 19.314
 		if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == "node_0" {
-			for n1, m := range s.PingDistances {
-				for n2, d := range m {
-					log.LLvl1("ping ", n1, n2, "=", d)
+			s.printDistances("Ping distances")
+			/*
+				for n1, m := range s.PingDistances {
+					for n2, d := range m {
+						log.LLvl1("ping ", n1, n2, "=", d)
+					}
 				}
-			}
+			*/
 		}
+
 	} else {
 		// read from file lines of fomrm "ping node_19 node_7 = 32.317"
 		//readLine, _ := ReadFileLineByLine("pings10_2.txt")
@@ -292,4 +321,22 @@ func (s *Service) measureOwnPings() {
 
 		}
 	}
+}
+
+func (s *Service) printDistances(str string) {
+	str += "\n       | "
+	for i := 0; i < len(s.Nodes.All); i++ {
+		str += "  node_" + strconv.Itoa(i) + "  |"
+	}
+	str += "\n"
+	for i := 0; i < len(s.Nodes.All); i++ {
+		name1 := "node_" + strconv.Itoa(i)
+		str += name1 + " | "
+		for j := 0; j < len(s.Nodes.All); j++ {
+			name2 := "node_" + strconv.Itoa(j)
+			str += fmt.Sprintf(" %f |", s.PingDistances[name1][name2])
+		}
+		str += "\n"
+	}
+	log.Lvl1(str)
 }
