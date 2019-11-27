@@ -54,9 +54,12 @@ type Service struct {
 
 	Name       string // name of the service (node_2)
 	MyIP       string // IP address
+	ConfigPath string // path to home config folder
 	MyIPFSPath string // path to ipfs config folder of that service
 	MinPort    int    // port range allocated to this node
 	MaxPort    int
+	MyIPFS     IPFSInformation            // own ipfs information
+	OtherIPFS  map[string]IPFSInformation // node_x -> IP, ports etc.
 }
 
 // storage is used to save our data.
@@ -72,4 +75,33 @@ type ClusterInstance struct {
 	RestAPIPort   int
 	IPFSProxyPort int
 	ClusterPort   int
+}
+
+// IPFSInformation structure containing information about an IPFS instance
+type IPFSInformation struct {
+	IP          string
+	SwarmPort   int
+	APIPort     int
+	GatewayPort int
+}
+
+// ReqIPFSInfo IPFS information request packet
+type ReqIPFSInfo struct {
+	SenderName string
+}
+
+// ReplyIPFSInfo IPFS information reply packet
+type ReplyIPFSInfo struct {
+	SenderName string
+	IPFSInfo   IPFSInformation
+}
+
+type ReqBootstrapCluster struct {
+	SenderName string
+	Bootstrap  string
+	Secret     string
+}
+
+type ReplyBootstrapCluster struct {
+	SenderName string
 }

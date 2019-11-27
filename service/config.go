@@ -8,6 +8,8 @@ import (
 	"os/exec"
 	"strconv"
 	"time"
+
+	"go.dedis.ch/onet/v3/log"
 )
 
 // EditIPFSConfig edit the ipfs configuration file (mainly the ip)
@@ -31,6 +33,15 @@ func (s *Service) EditIPFSConfig() {
 	EditIPFSField(s.MyIPFSPath, "Addresses.API", API)
 	EditIPFSField(s.MyIPFSPath, "Addresses.Gateway", Gateway)
 	EditIPFSField(s.MyIPFSPath, "Addresses.Swarm", Swarm)
+
+	// filling my IPFS info
+	s.MyIPFS = IPFSInformation{
+		IP:          s.MyIP,
+		SwarmPort:   (*ports)[0],
+		APIPort:     (*ports)[1],
+		GatewayPort: (*ports)[2],
+	}
+
 }
 
 // EditIPFSField with the native IPFS config command
@@ -45,7 +56,7 @@ func EditIPFSField(path, field, value string) {
 }
 
 // SetClusterLeaderConfig set the configs for the leader of a cluster
-func SetClusterLeaderConfig(path, ip, peername string,
+func (s *Service) SetClusterLeaderConfig(path string,
 	replmin, replmax int, ports ClusterInstance) (
 	string, string, error) {
 
@@ -57,7 +68,7 @@ func SetClusterLeaderConfig(path, ip, peername string,
 	}
 	secret := hex.EncodeToString(key)
 
-	vars := GetClusterVariables(path, ip, peername, secret,
+	vars := GetClusterVariables(path, s.MyIP, s.Name, secret,
 		replmin, replmax, ports)
 	return vars, secret, nil
 }
@@ -124,7 +135,7 @@ func MakeJSONArray(elements []string) string {
 }
 
 // SetupClusterLeader setup a cluster instance for the ARA leader
-func SetupClusterLeader(configPath, nodeID, ip string,
+func (s *Service) SetupClusterLeader(path string,
 	replmin, replmax int) (string, *ClusterInstance, error) {
 
 	// generate random secret
@@ -135,30 +146,32 @@ func SetupClusterLeader(configPath, nodeID, ip string,
 	}
 	secret := hex.EncodeToString(key)
 
-	// path for config files
-	path := configPath + "/cluster_" + secret
-	err = CreateEmptyDir(path)
-	if err != nil {
-		return "", nil, err
-	}
+	/*
+		// path for config files
+		path := configPath + "/cluster_" + secret
+		err = CreateEmptyDir(path)
+		if err != nil {
+			return "", nil, err
+		}
+	*/
 
-	ints, err := GetNextAvailablePorts(14000, 15000, 3)
+	ints, err := GetNextAvailablePorts(s.MinPort, s.MaxPort, ClusterPortNumber)
 	if err != nil {
 		return "", nil, err
 	}
 
 	// set the ports that the cluster will use
 	ports := ClusterInstance{
-		IP:            IPVersion + ip + TransportProtocol,
-		IPFSAPIPort:   5001,
+		IP:            IPVersion + s.MyIP + TransportProtocol,
+		IPFSAPIPort:   s.MyIPFS.APIPort,
 		RestAPIPort:   (*ints)[0],
 		IPFSProxyPort: (*ints)[1],
 		ClusterPort:   (*ints)[2],
 	}
 
 	// get the environment variables to set cluster configs
-	vars := GetClusterVariables(path, ip, secret, nodeID,
-		replmin, replmax, ports)
+	vars := GetClusterVariables(path, s.MyIP, secret, s.Name, replmin, replmax,
+		ports)
 
 	// init command to be run
 	cmd := vars + "ipfs-cluster-service -c " + path + " init"
@@ -174,14 +187,14 @@ func SetupClusterLeader(configPath, nodeID, ip string,
 	cmd = "ipfs-cluster-service -c " + path + " daemon"
 	go func() {
 		exec.Command("bash", "-c", cmd).Run()
-		fmt.Println(ip + " cluster crashed")
+		fmt.Println(s.Name + " cluster leader crashed")
 	}()
 
-	addr := IPVersion + ip + TransportProtocol + strconv.Itoa(ports.RestAPIPort)
+	addr := IPVersion + s.MyIP + TransportProtocol + strconv.Itoa(ports.RestAPIPort)
 	fmt.Println("Started ipfs-cluster at " + addr)
 
 	// wait for the daemon to be launched
-	time.Sleep(2 * time.Second)
+	time.Sleep(ClusterStartupTime)
 
 	return secret, &ports, nil
 }
@@ -230,11 +243,12 @@ func SetupClusterSlave(configPath, nodeID, ip, bootstrap, secret string,
 	time.Sleep(2 * time.Second)
 
 	addr := ports.IP + strconv.Itoa(ports.RestAPIPort)
-	fmt.Println("Started ipfs-cluster at " + addr)
+	log.Lvl1("Started ipfs-cluster leader at " + addr)
 
 	return &ports, nil
 }
 
+/*
 // Protocol to start all clusters in an ARA
 func Protocol(configPath, nodeID, ip string, replmin, replmax int) error {
 
@@ -261,3 +275,4 @@ func Protocol(configPath, nodeID, ip string, replmin, replmax int) error {
 
 	return nil
 }
+*/

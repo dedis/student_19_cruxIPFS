@@ -23,16 +23,27 @@ const (
 
 	// MaxPortNumberPerHost max number of ports that a host can use
 	MaxPortNumberPerHost = 100
-	// IPFSPortNumber number of ports used by IPFS
+	// IPFSPortNumber number of ports used by an IPFS instance
 	IPFSPortNumber = 3
+	// ClusterPortNumber number of ports used by an ipfs cluster instance
+	ClusterPortNumber = 3
+
+	// DefaultReplMin ipfs cluster minimal replication factor
+	DefaultReplMin = 2
+	// DefaultReplMax ipfs cluster maximal replication factor
+	DefaultReplMax = 3
 
 	// IPFSStartupTime IPFSStartupTime
 	IPFSStartupTime = 13 * time.Second
+	// ClusterStartupTime ClusterStartupTime
+	ClusterStartupTime = 2 * time.Second
 
 	// ConfigsFolder folder name
 	ConfigsFolder = "configs"
 	// IPFSFolder ipfs config folder name
 	IPFSFolder = "ipfs"
+	// ClusterFolderPrefix prefix of cluster configs folder name
+	ClusterFolderPrefix = "cluster-"
 
 	// NodeName name of a node instance
 	NodeName = "node_"

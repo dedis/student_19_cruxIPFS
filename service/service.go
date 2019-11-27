@@ -27,6 +27,12 @@ var templateID onet.ServiceID
 var execReqPingsMsgID network.MessageTypeID
 var execReplyPingsMsgID network.MessageTypeID
 
+var execReqIPFSInfoMsgID network.MessageTypeID
+var execReplyIPFSInfoMsgID network.MessageTypeID
+
+var execReqBootstrapClusterMsgID network.MessageTypeID
+var execReplyBootstrapClusterMsgID network.MessageTypeID
+
 func init() {
 	var err error
 	templateID, err = onet.RegisterNewService(cruxIPFS.ServiceName, newService)
@@ -34,6 +40,12 @@ func init() {
 
 	execReqPingsMsgID = network.RegisterMessage(&cruxIPFS.ReqPings{})
 	execReplyPingsMsgID = network.RegisterMessage(&cruxIPFS.ReplyPings{})
+
+	execReqIPFSInfoMsgID = network.RegisterMessage(ReqIPFSInfo{})
+	execReplyIPFSInfoMsgID = network.RegisterMessage(ReplyIPFSInfo{})
+
+	execReqBootstrapClusterMsgID = network.RegisterMessage(ReqBootstrapCluster{})
+	execReplyBootstrapClusterMsgID = network.RegisterMessage(ReplyBootstrapCluster{})
 
 	network.RegisterMessage(&storage{})
 }
@@ -142,6 +154,7 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 	}
 
 	s.StartIPFS()
+	s.ManageClusters()
 
 }
 
@@ -199,6 +212,12 @@ func newService(c *onet.Context) (onet.Service, error) {
 
 	s.RegisterProcessorFunc(execReqPingsMsgID, s.ExecReqPings)
 	s.RegisterProcessorFunc(execReplyPingsMsgID, s.ExecReplyPings)
+
+	s.RegisterProcessorFunc(execReqIPFSInfoMsgID, s.ExecReqIPFSInfo)
+	s.RegisterProcessorFunc(execReplyIPFSInfoMsgID, s.ExecReplyIPFSInfo)
+
+	s.RegisterProcessorFunc(execReqBootstrapClusterMsgID, s.ExecReqBootstrapCluster)
+	s.RegisterProcessorFunc(execReplyBootstrapClusterMsgID, s.ExecReplyBootstrapCluster)
 
 	if err := s.tryLoad(); err != nil {
 		log.Error(err)
