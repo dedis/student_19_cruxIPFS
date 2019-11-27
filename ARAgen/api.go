@@ -29,7 +29,7 @@ func GenARAs(Nodes gentree.LocalityNodes, rootNodeName string, PingDistances map
 	NrLevels int) (AuxNodes gentree.LocalityNodes, dist2 map[*gentree.LocalityNode]map[*gentree.LocalityNode]float64,
 	ARATreeStruct map[string][]GraphTree, ARAOnetTrees map[string][]*onet.Tree) {
 
-	log.LLvl1("length=", len(Nodes.All))
+	//log.LLvl1("length=", len(Nodes.All))
 	AuxNodes.All = make([]*gentree.LocalityNode, len(Nodes.All))
 	AuxNodes.ServerIdentityToName = make(map[network.ServerIdentityID]string)
 	AuxNodes.ClusterBunchDistances = make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]float64)
@@ -39,7 +39,7 @@ func GenARAs(Nodes gentree.LocalityNodes, rootNodeName string, PingDistances map
 	ARAOnetTrees = make(map[string][]*onet.Tree)
 
 	for i, n := range Nodes.All {
-		log.LLvl1("i=", i)
+		//log.LLvl1("i=", i)
 
 		IPlist := ""
 		for IPaddr, exists := range n.IP {

@@ -7,6 +7,7 @@ runs on the node.
 
 import (
 	"errors"
+	"fmt"
 	"math"
 	"sync"
 
@@ -117,6 +118,14 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 	s.GraphTree = ARATreeStruct
 	s.BinaryTree = ARAOnetTrees
 
+	if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == "node_0" {
+		for _, n := range s.Nodes.All {
+			str := n.Name + "\n"
+			str += "Cluster: " + fmt.Sprintln(n.Cluster)
+			str += "Bunch: " + fmt.Sprintln(n.Bunch)
+			log.Lvl1(str)
+		}
+	}
 }
 
 // NewProtocol is called on all nodes of a Tree (except the root, since it is

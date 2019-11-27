@@ -275,9 +275,11 @@ func CreateLocalityGraph(all LocalityNodes, randomCoords, randomLevels bool, lev
 		}
 	}
 
-	for _, n := range all.All {
-		log.LLvl1(n.Name, "cluster=", n.Cluster, "bunch=", n.Bunch)
-	}
+	/*
+		for _, n := range all.All {
+			log.LLvl1(n.Name, "cluster=", n.Cluster, "bunch=", n.Bunch)
+		}
+	*/
 
 	// write to file
 	file, _ := os.Create("Specs/original.txt")
@@ -427,7 +429,7 @@ func GenerateRadius(maxDist float64) []float64 {
 
 	//radiuses = []float64{30.0, 300, 10000.0}
 
-	log.LLvl1(radiuses)
+	//log.LLvl1(radiuses)
 
 	return radiuses
 }

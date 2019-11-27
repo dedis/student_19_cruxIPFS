@@ -84,12 +84,8 @@ func (s *Service) ExecReplyPings(env *network.Envelope) error {
 				s.PingDistances[dst] = make(map[string]float64)
 			}
 
-			//fmt.Printf("src: %s, dst: %s, old val: %f, ping res: %f\n", src, dst, s.PingDistances[src][dst], pingRes)
-
 			s.PingDistances[src][dst] += pingRes
 			s.PingDistances[dst][src] += pingRes
-			//s.PingDistances[src][src] = 0.0
-			//s.PingDistances[dst][dst] = 0.0
 		}
 	}
 	//s.printDistances(s.Nodes.GetServerIdentityToName(s.ServerIdentity()) + " after update")
@@ -128,9 +124,7 @@ func (s *Service) getPings(readFromFile bool) {
 		}
 		s.PingMapMtx.Unlock()
 
-		//debug
-		//time.Sleep(5 * time.Second)
-		log.LLvl1(s.Nodes.GetServerIdentityToName(s.ServerIdentity()), "finished ping own meas with len", len(s.OwnPings))
+		log.LLvl3(s.Nodes.GetServerIdentityToName(s.ServerIdentity()), "finished ping own meas with len", len(s.OwnPings))
 
 		observerNode := s.Nodes.GetServerIdentityToName(s.ServerIdentity())
 
