@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/BurntSushi/toml"
 	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
@@ -19,6 +20,8 @@ import (
 /*
  * Defines the simulation for the service-template
  */
+
+var wg sync.WaitGroup
 
 func init() {
 	onet.SimulationRegister(cruxIPFS.ServiceName, NewSimulationService)
@@ -51,6 +54,9 @@ func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	if err != nil {
 		return nil, err
 	}
+
+	wg = sync.WaitGroup{}
+
 	return sc, nil
 }
 
@@ -72,6 +78,7 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 	mymap := s.InitializeMaps(config, true)
 
 	myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
+	myService.NodeWg = &wg
 
 	serviceReq := &cruxIPFS.InitRequest{
 		Nodes:                s.Nodes.All,

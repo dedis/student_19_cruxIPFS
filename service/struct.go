@@ -31,7 +31,8 @@ type Service struct {
 	alive        bool
 	Distances    map[*gentree.LocalityNode]map[*gentree.LocalityNode]float64
 
-	CosiWg       map[int]*sync.WaitGroup
+	NodeWg *sync.WaitGroup
+	//CosiWg       map[int]*sync.WaitGroup
 	W            *bufio.Writer
 	File         *os.File
 	metrics      map[string]*monitor.TimeMeasure
@@ -50,10 +51,25 @@ type Service struct {
 	NrPingAnswers int
 	PingAnswerMtx sync.Mutex
 	PingMapMtx    sync.Mutex
+
+	Name       string // name of the service (node_2)
+	MyIP       string // IP address
+	MyIPFSPath string // path to ipfs config folder of that service
+	MinPort    int    // port range allocated to this node
+	MaxPort    int
 }
 
 // storage is used to save our data.
 type storage struct {
 	Count int
 	sync.Mutex
+}
+
+// ClusterInstance details of a cluster
+type ClusterInstance struct {
+	IP            string
+	IPFSAPIPort   int
+	RestAPIPort   int
+	IPFSProxyPort int
+	ClusterPort   int
 }

@@ -9,7 +9,8 @@ import (
 	"errors"
 	"fmt"
 	"math"
-	"sync"
+	"strconv"
+	"strings"
 
 	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
 	"github.com/dedis/student_19_cruxIPFS/ARAgen"
@@ -96,17 +97,29 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 		}
 	}
 
-	s.CosiWg = make(map[int]*sync.WaitGroup)
+	//s.CosiWg = make(map[int]*sync.WaitGroup)
+	//s.NodeWg = &sync.WaitGroup{}
 	s.metrics = make(map[string]*monitor.TimeMeasure)
 
 	s.OwnPings = make(map[string]float64)
 	s.PingDistances = make(map[string]map[string]float64)
 
-	if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == "" {
+	myip := strings.Split(s.ServerIdentity().String(), "/")
+	myip = strings.Split(myip[len(myip)-1], ":")
+	s.MyIP = myip[0]
+
+	s.Name = s.Nodes.GetServerIdentityToName(s.ServerIdentity())
+
+	if s.Name == "" {
 		return
 	}
 
-	log.LLvl1("called init service on", s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.ServerIdentity())
+	// wait after we created ARAs
+	if LocalSim {
+		s.NodeWg.Add(1)
+	}
+
+	//log.LLvl1("called init service on", s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.ServerIdentity())
 
 	s.getPings(false)
 
@@ -118,7 +131,8 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 	s.GraphTree = ARATreeStruct
 	s.BinaryTree = ARAOnetTrees
 
-	if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == "node_0" {
+	if s.Name == Node0 {
+		// print ping distances
 		for _, n := range s.Nodes.All {
 			str := n.Name + "\n"
 			str += "Cluster: " + fmt.Sprintln(n.Cluster)
@@ -126,6 +140,9 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 			log.Lvl1(str)
 		}
 	}
+
+	s.StartIPFS()
+
 }
 
 // NewProtocol is called on all nodes of a Tree (except the root, since it is
@@ -189,4 +206,11 @@ func newService(c *onet.Context) (onet.Service, error) {
 	}
 
 	return s, nil
+}
+
+func (s *Service) getNodeID() int {
+	n, err := strconv.Atoi(s.Nodes.GetServerIdentityToName(
+		s.ServerIdentity())[len(NodeName):])
+	checkErr(err)
+	return n
 }
