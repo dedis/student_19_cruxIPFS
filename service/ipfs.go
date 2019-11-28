@@ -35,7 +35,7 @@ func (s *Service) StartIPFS() {
 		// all nodes wait until the configs folder is created and all nodes reach
 		// this stage
 		s.NodeWg.Wait()
-		time.Sleep(500 * time.Millisecond)
+		time.Sleep(100 * time.Millisecond)
 		s.NodeWg.Add(1)
 	}
 
@@ -66,6 +66,7 @@ func (s *Service) StartIPFS() {
 	if LocalSim {
 		s.NodeWg.Done()
 		s.NodeWg.Wait()
+		time.Sleep(100 * time.Millisecond)
 	}
 	if s.Name == Node0 {
 		log.Lvl1("All IPFS instances successfully started")
@@ -111,6 +112,7 @@ func (s *Service) ExecReqBootstrapCluster(env *network.Envelope) error {
 }
 
 func (s *Service) ExecReplyBootstrapCluster(env *network.Envelope) error {
+	s.ClusterWg.Done()
 	// ack cluster is ready
 	return nil
 }
@@ -138,6 +140,9 @@ func (s *Service) ManageClusters() {
 // LaunchCluster launches a cluster, leader first, and then bootstrap other
 // peers until the cluster is complete
 func (s *Service) LaunchCluster(nodes []string) {
+	if LocalSim {
+		s.NodeWg.Add(1)
+	}
 	// create cluster dir
 	clusterPath := filepath.Join(s.ConfigPath, ClusterFolderPrefix+s.Name)
 
@@ -162,6 +167,7 @@ func (s *Service) LaunchCluster(nodes []string) {
 					Secret:     secret,
 				}
 				// send request
+				s.ClusterWg.Add(1)
 				e := s.SendRaw(node.ServerIdentity, &req)
 				if e != nil {
 					panic(e)
@@ -170,5 +176,13 @@ func (s *Service) LaunchCluster(nodes []string) {
 			}
 		}
 	}
+	s.ClusterWg.Wait()
 
+	if LocalSim {
+		s.NodeWg.Done()
+		s.NodeWg.Wait()
+	}
+	if s.Name == Node0 {
+		log.Lvl1("All ipfs-cluster-service instances successfully started")
+	}
 }

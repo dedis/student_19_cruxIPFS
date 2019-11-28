@@ -5,7 +5,6 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"math/big"
 	"os/exec"
 	"strconv"
 	"time"
@@ -209,7 +208,6 @@ func (s *Service) SetupClusterLeader(path string,
 func (s *Service) SetupClusterSlave(path, bootstrap, secret string,
 	replmin, replmax int) (*ClusterInstance, error) {
 
-	fmt.Println("Setting up slave")
 	err := CreateEmptyDir(path)
 	if err != nil {
 		return nil, err
@@ -223,14 +221,16 @@ func (s *Service) SetupClusterSlave(path, bootstrap, secret string,
 			return nil, err
 		}
 	*/
+	s.PortMutex.Lock()
+	/*
+		nBig, err := rand.Int(rand.Reader, big.NewInt(MaxPortNumberPerHost-ClusterPortNumber))
+		if err != nil {
+			panic(err)
+		}
+		rand := int(nBig.Int64())
+	*/
 
-	nBig, err := rand.Int(rand.Reader, big.NewInt(MaxPortNumberPerHost-ClusterPortNumber))
-	if err != nil {
-		panic(err)
-	}
-	rand := int(nBig.Int64())
-
-	ints, err := GetNextAvailablePorts(s.MinPort+rand, s.MaxPort, ClusterPortNumber)
+	ints, err := GetNextAvailablePorts(s.MinPort, s.MaxPort, ClusterPortNumber)
 	if err != nil {
 		log.Lvl1(err)
 		return nil, err
@@ -259,14 +259,14 @@ func (s *Service) SetupClusterSlave(path, bootstrap, secret string,
 
 	// start cluster daemon
 	cmd = "ipfs-cluster-service -c " + path + " daemon --bootstrap " + bootstrap
-	fmt.Println("running daemon")
 	go func() {
 		exec.Command("bash", "-c", cmd).Run()
-		log.Lvl1("slave crashed")
+		log.Lvl1("slave " + s.Name + " crashed")
 	}()
 
 	// wait for the daemon to be launched
 	time.Sleep(ClusterStartupTime)
+	s.PortMutex.Unlock()
 
 	addr := ports.IP + strconv.Itoa(ports.RestAPIPort)
 	log.Lvl1("Started ipfs-cluster slave at " + addr)

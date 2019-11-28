@@ -31,7 +31,9 @@ type Service struct {
 	alive        bool
 	Distances    map[*gentree.LocalityNode]map[*gentree.LocalityNode]float64
 
-	NodeWg *sync.WaitGroup
+	NodeWg    *sync.WaitGroup
+	ClusterWg *sync.WaitGroup
+	PortMutex *sync.Mutex
 	//CosiWg       map[int]*sync.WaitGroup
 	W            *bufio.Writer
 	File         *os.File

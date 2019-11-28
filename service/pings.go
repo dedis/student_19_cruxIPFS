@@ -197,7 +197,7 @@ func (s *Service) getPings(readFromFile bool) {
 			}
 		}
 
-		log.LLvl1(s.Nodes.GetServerIdentityToName(s.ServerIdentity()), "has all pings, starting tree gen")
+		log.Lvl2(s.Nodes.GetServerIdentityToName(s.ServerIdentity()), "has all pings, starting tree gen")
 
 		// check TIV just once
 		// painful, but run floyd warshall and build the static routes

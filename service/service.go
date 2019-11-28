@@ -11,6 +11,7 @@ import (
 	"math"
 	"strconv"
 	"strings"
+	"sync"
 
 	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
 	"github.com/dedis/student_19_cruxIPFS/ARAgen"
@@ -111,6 +112,8 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 
 	//s.CosiWg = make(map[int]*sync.WaitGroup)
 	//s.NodeWg = &sync.WaitGroup{}
+	s.ClusterWg = &sync.WaitGroup{}
+	s.PortMutex = &sync.Mutex{}
 	s.metrics = make(map[string]*monitor.TimeMeasure)
 
 	s.OwnPings = make(map[string]float64)
@@ -155,7 +158,9 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 
 	s.StartIPFS()
 	s.ManageClusters()
-
+	if s.Name == Node0 {
+		log.Lvl1("All cluster instances successfully started")
+	}
 }
 
 // NewProtocol is called on all nodes of a Tree (except the root, since it is
