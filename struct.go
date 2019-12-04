@@ -6,6 +6,7 @@ This holds the messages used to communicate with the service over the network.
 
 import (
 	"github.com/dedis/student_19_cruxIPFS/gentree"
+
 	"go.dedis.ch/onet/v3/network"
 )
 
