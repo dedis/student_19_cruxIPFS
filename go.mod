@@ -9,3 +9,5 @@ require (
 	go.dedis.ch/onet/v3 v3.0.30
 	gopkg.in/urfave/cli.v1 v1.20.0
 )
+
+replace go.dedis.ch/onet/v3 => /mnt/guillaume/Documents/workspace/go/src/github.com/dedis/onet
