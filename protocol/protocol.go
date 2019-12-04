@@ -20,6 +20,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+	//_,err := onet.GlobalProtocolRegister(WaitpeersName, protocol)
 }
 
 // TemplateProtocol holds the state of a given protocol.

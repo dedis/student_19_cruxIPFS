@@ -35,3 +35,35 @@ type replyWrapper struct {
 	*onet.TreeNode
 	Reply
 }
+
+// WaitpeersProtocol structure
+type WaitpeersProtocol struct {
+	*onet.TreeNodeInstance
+	announceChan chan announceWrapperWaitpeers
+	repliesChan  chan []replyWrapperWaitpeers
+	Ready        chan bool
+}
+
+// WaitpeersAnnounce is used to pass a message to all children.
+type WaitpeersAnnounce struct {
+	Message string
+}
+
+// announceWrapperWaitpeers just contains Announce and the data necessary to
+// identify and process the message in onet.
+type announceWrapperWaitpeers struct {
+	*onet.TreeNode
+	WaitpeersAnnounce
+}
+
+// WaitpeersReply returns true when ready.
+type WaitpeersReply struct {
+	Ready bool
+}
+
+// replyWrapper just contains Reply and the data necessary to identify and
+// process the message in onet.
+type replyWrapperWaitpeers struct {
+	*onet.TreeNode
+	WaitpeersReply
+}
