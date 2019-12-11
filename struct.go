@@ -7,6 +7,7 @@ This holds the messages used to communicate with the service over the network.
 import (
 	"github.com/dedis/student_19_cruxIPFS/gentree"
 
+	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/network"
 )
 
@@ -24,6 +25,8 @@ const (
 type InitRequest struct {
 	Nodes                []*gentree.LocalityNode
 	ServerIdentityToName map[*network.ServerIdentity]string
+	OnetTree             *onet.Tree
+	Roster               *onet.Roster
 }
 
 // InitResponse packet
@@ -37,4 +40,10 @@ type ReqPings struct {
 type ReplyPings struct {
 	Pings      string
 	SenderName string
+}
+
+type ReqStartIPFS struct {
+}
+
+type ReplyStartIPFS struct {
 }

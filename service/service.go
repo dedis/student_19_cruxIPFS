@@ -9,13 +9,13 @@ import (
 	"errors"
 	"fmt"
 	"math"
-	"strconv"
 	"strings"
 	"sync"
 
 	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
 	"github.com/dedis/student_19_cruxIPFS/ARAgen"
 	"github.com/dedis/student_19_cruxIPFS/gentree"
+
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/log"
 	"go.dedis.ch/onet/v3/network"
@@ -110,14 +110,13 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 		}
 	}
 
-	//s.CosiWg = make(map[int]*sync.WaitGroup)
-	//s.NodeWg = &sync.WaitGroup{}
-	s.ClusterWg = &sync.WaitGroup{}
 	s.PortMutex = &sync.Mutex{}
 	s.metrics = make(map[string]*monitor.TimeMeasure)
 
 	s.OwnPings = make(map[string]float64)
 	s.PingDistances = make(map[string]map[string]float64)
+
+	s.OnetTree = req.OnetTree
 
 	myip := strings.Split(s.ServerIdentity().String(), "/")
 	myip = strings.Split(myip[len(myip)-1], ":")
@@ -129,14 +128,9 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 		return
 	}
 
-	// wait after we created ARAs
-	if LocalSim {
-		s.NodeWg.Add(1)
-	}
-
 	//log.LLvl1("called init service on", s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.ServerIdentity())
 
-	s.getPings(false)
+	s.getPings(true)
 
 	AuxNodes, dist2, ARATreeStruct, ARAOnetTrees := ARAgen.GenARAs(s.Nodes,
 		s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.PingDistances, 3)
@@ -155,12 +149,44 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 			log.Lvl1(str)
 		}
 	}
+	/*
 
-	s.StartIPFS()
-	s.ManageClusters()
-	if s.Name == Node0 {
-		log.Lvl1("All cluster instances successfully started")
-	}
+		pi, err := s.CreateProtocol(StartIPFSName, s.OnetTree)
+		if err != nil {
+			fmt.Println(err)
+		}
+		pi.Start()
+
+
+			pi, err := s.CreateProtocol(StartIPFSName, s.OnetTree)
+			if err != nil {
+				fmt.Println(err)
+			}
+			pi.(*StartIPFSProtocol).Service = s
+			s.StartIPFSProt = pi
+			log.Lvl1("Protocol", pi)
+			pi.Start()
+
+			/*
+				if s.Name == "node_4" {
+					//tree := s.BinaryTree[s.Name][len(s.BinaryTree[s.Name])-1]
+					tree := req.Roster.GenerateNaryTreeWithRoot(len(req.Roster.List)-1, s.ServerIdentity())
+					pi, err := s.CreateProtocol(protocol.WaitpeersName, tree)
+					if err != nil {
+						fmt.Println(err)
+					}
+					pi.Start()
+					//<-pi.(*protocol.WaitpeersProtocol).Ready
+				}
+	*/
+
+	/*
+		s.StartIPFS()
+		s.ManageClusters()
+		if s.Name == Node0 {
+			log.Lvl1("All cluster instances successfully started")
+		}
+	*/
 }
 
 // NewProtocol is called on all nodes of a Tree (except the root, since it is
@@ -170,8 +196,8 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 // instantiate the protocol on its own. If you need more control at the
 // instantiation of the protocol, use CreateProtocolService, and you can
 // give some extra-configuration to your protocol in here.
-func (s *Service) NewProtocol(tn *onet.TreeNodeInstance, conf *onet.GenericConfig) (onet.ProtocolInstance, error) {
-	log.Lvl3("Not templated yet")
+func (s *Service) NewProtocol(tn *onet.TreeNodeInstance,
+	conf *onet.GenericConfig) (onet.ProtocolInstance, error) {
 	return nil, nil
 }
 
@@ -221,10 +247,23 @@ func newService(c *onet.Context) (onet.Service, error) {
 	s.RegisterProcessorFunc(execReqIPFSInfoMsgID, s.ExecReqIPFSInfo)
 	s.RegisterProcessorFunc(execReplyIPFSInfoMsgID, s.ExecReplyIPFSInfo)
 
-	s.RegisterProcessorFunc(execReqBootstrapClusterMsgID, s.ExecReqBootstrapCluster)
-	s.RegisterProcessorFunc(execReplyBootstrapClusterMsgID, s.ExecReplyBootstrapCluster)
+	s.RegisterProcessorFunc(execReqBootstrapClusterMsgID,
+		s.ExecReqBootstrapCluster)
+	s.RegisterProcessorFunc(execReplyBootstrapClusterMsgID,
+		s.ExecReplyBootstrapCluster)
 
-	if err := s.tryLoad(); err != nil {
+	_, err := s.ProtocolRegister(StartIPFSName, func(n *onet.TreeNodeInstance) (
+		onet.ProtocolInstance, error) {
+
+		return NewStartIPFSProtocol(n, s.GetService)
+	})
+
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	if err = s.tryLoad(); err != nil {
 		log.Error(err)
 		return nil, err
 	}
@@ -233,8 +272,26 @@ func newService(c *onet.Context) (onet.Service, error) {
 }
 
 func (s *Service) getNodeID() int {
-	n, err := strconv.Atoi(s.Nodes.GetServerIdentityToName(
-		s.ServerIdentity())[len(NodeName):])
-	checkErr(err)
-	return n
+	fmt.Println(s.Name, NodeName)
+
+	fmt.Println(len(strings.Split(s.Name, NodeName)), strings.Split(s.Name, NodeName))
+	//_, err := strconv.Atoi(strings.Split(s.Name, NodeName)[1])
+
+	/*
+		n, err := strconv.Atoi(s.Nodes.GetServerIdentityToName(
+			s.ServerIdentity())[len(NodeName):])
+	*/
+	//checkErr(err)
+
+	return 0
+}
+
+// GetService Returns the Current SERVICE
+func (s *Service) GetService() *Service {
+	return s
+}
+
+// PrintName PrintName
+func (s *Service) PrintName() {
+	fmt.Println(s.Name)
 }

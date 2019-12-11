@@ -2,7 +2,6 @@ package service
 
 import (
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -12,12 +11,6 @@ import (
 
 // default file mode for files that the program writes to the system
 const defaultFileMode os.FileMode = 0777
-
-func checkErr(err error) {
-	if err != nil {
-		fmt.Println(err)
-	}
-}
 
 // CreateEmptyDir create an empty directory at the given path
 func CreateEmptyDir(path string) error {

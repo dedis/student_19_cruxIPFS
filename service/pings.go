@@ -219,20 +219,12 @@ func (s *Service) getPings(readFromFile bool) {
 		}
 
 		// ping node_0 node_1 = 19.314
-		if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == "node_0" {
+		if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == Node0 {
 			s.printDistances("Ping distances")
-			/*
-				for n1, m := range s.PingDistances {
-					for n2, d := range m {
-						log.LLvl1("ping ", n1, n2, "=", d)
-					}
-				}
-			*/
 		}
 
 	} else {
-		// read from file lines of fomrm "ping node_19 node_7 = 32.317"
-		//readLine, _ := ReadFileLineByLine("pings10_2.txt")
+		// read from file lines of form "node_19 node_7 : 321"
 		readLine := cruxIPFS.ReadFileLineByLine("pings.txt")
 
 		for true {
@@ -246,10 +238,9 @@ func (s *Service) getPings(readFromFile bool) {
 			}
 
 			tokens := strings.Split(line, " ")
-			src := tokens[1]
-			dst := tokens[2]
-			//log.LLvl1(tokens)
-			pingTime, err := strconv.ParseFloat(tokens[4], 64)
+			src := tokens[0]
+			dst := tokens[1]
+			pingTime, err := strconv.ParseFloat(tokens[3], 64)
 			if err != nil {
 				log.Error("Problem when parsing pings")
 			}
@@ -259,6 +250,9 @@ func (s *Service) getPings(readFromFile bool) {
 			}
 
 			s.PingDistances[src][dst] = pingTime
+		}
+		if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == Node0 {
+			s.printDistances("Ping distances")
 		}
 	}
 }

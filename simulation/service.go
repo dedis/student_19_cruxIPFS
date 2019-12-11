@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -8,9 +9,11 @@ import (
 	"sync"
 
 	"github.com/BurntSushi/toml"
+
 	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
 	"github.com/dedis/student_19_cruxIPFS/gentree"
 	"github.com/dedis/student_19_cruxIPFS/service"
+
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/app"
 	"go.dedis.ch/onet/v3/log"
@@ -47,6 +50,7 @@ func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 
 	app.Copy(dir, filepath.Join(DATAFOLDER, NODEPATHREMOTE))
 	app.Copy(dir, "../clean.sh")
+	app.Copy(dir, "pings.txt")
 
 	sc := &onet.SimulationConfig{}
 	s.CreateRoster(sc, hosts, 2000)
@@ -78,14 +82,16 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 	mymap := s.InitializeMaps(config, true)
 
 	myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
-	myService.NodeWg = &wg
 
 	serviceReq := &cruxIPFS.InitRequest{
 		Nodes:                s.Nodes.All,
 		ServerIdentityToName: mymap,
+		OnetTree:             config.Tree,
+		Roster:               config.Roster,
 	}
 
-	if strings.Contains(s.Nodes.GetServerIdentityToName(config.Server.ServerIdentity), "node_") {
+	if strings.Contains(s.Nodes.GetServerIdentityToName(
+		config.Server.ServerIdentity), "node_") {
 		myService.InitRequest(serviceReq)
 
 		for _, trees := range myService.BinaryTree {
@@ -94,21 +100,43 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 			}
 		}
 	}
+
 	return s.SimulationBFTree.Node(config)
 }
 
 // Run is used on the destination machines and runs a number of
 // rounds
 func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
-	/*
-		size := config.Tree.Size()
-		log.Lvl2("Size is:", size, "rounds:", s.Rounds)
-		//c := template.NewClient()
-		for round := 0; round < s.Rounds; round++ {
-			log.Lvl1("Starting round", round)
-			round := monitor.NewTimeMeasure("round")
-			round.Record()
+	log.Lvl1("Entering 'Run'")
+
+	if strings.Contains(s.Nodes.GetServerIdentityToName(
+		config.Server.ServerIdentity), "node_") {
+		myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
+
+		pi, err := myService.CreateProtocol(service.StartIPFSName, config.Tree)
+		if err != nil {
+			fmt.Println(err)
 		}
+		pi.Start()
+
+		<-pi.(*service.StartIPFSProtocol).Ready
+
+	} else {
+		log.Error("ONET failed")
+	}
+
+	/*
+
+		//fmt.Println(<-pi.(protocol.WaitpeersProtocol).Ready)
+
+			size := config.Tree.Size()
+			log.Lvl2("Size is:", size, "rounds:", s.Rounds)
+			//c := template.NewClient()
+			for round := 0; round < s.Rounds; round++ {
+				log.Lvl1("Starting round", round)
+				round := monitor.NewTimeMeasure("round")
+				round.Record()
+			}
 	*/
 	return nil
 }

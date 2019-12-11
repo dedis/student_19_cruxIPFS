@@ -7,6 +7,7 @@ import (
 
 	"github.com/dedis/student_19_cruxIPFS/ARAgen"
 	"github.com/dedis/student_19_cruxIPFS/gentree"
+
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/simul/monitor"
 )
@@ -31,10 +32,7 @@ type Service struct {
 	alive        bool
 	Distances    map[*gentree.LocalityNode]map[*gentree.LocalityNode]float64
 
-	NodeWg    *sync.WaitGroup
-	ClusterWg *sync.WaitGroup
-	PortMutex *sync.Mutex
-	//CosiWg       map[int]*sync.WaitGroup
+	PortMutex    *sync.Mutex
 	W            *bufio.Writer
 	File         *os.File
 	metrics      map[string]*monitor.TimeMeasure
@@ -62,7 +60,12 @@ type Service struct {
 	MaxPort    int
 	MyIPFS     IPFSInformation            // own ipfs information
 	OtherIPFS  map[string]IPFSInformation // node_x -> IP, ports etc.
+
+	OnetTree      *onet.Tree
+	StartIPFSProt onet.ProtocolInstance
 }
+
+type ServiceFn func() *Service
 
 // storage is used to save our data.
 type storage struct {
@@ -106,4 +109,96 @@ type ReqBootstrapCluster struct {
 
 type ReplyBootstrapCluster struct {
 	SenderName string
+}
+
+// Name can be used from other packages to refer to this protocol.
+const Name = "Template"
+
+// Announce is used to pass a message to all children.
+type Announce struct {
+	Message string
+}
+
+// announceWrapper just contains Announce and the data necessary to identify
+// and process the message in onet.
+type announceWrapper struct {
+	*onet.TreeNode
+	Announce
+}
+
+// Reply returns the count of all children.
+type Reply struct {
+	ChildrenCount int
+}
+
+// replyWrapper just contains Reply and the data necessary to identify and
+// process the message in onet.
+type replyWrapper struct {
+	*onet.TreeNode
+	Reply
+}
+
+// WaitpeersProtocol structure
+type WaitpeersProtocol struct {
+	*onet.TreeNodeInstance
+	announceChan chan announceWrapperWaitpeers
+	repliesChan  chan []replyWrapperWaitpeers
+	Ready        chan bool
+}
+
+// WaitpeersAnnounce is used to pass a message to all children.
+type WaitpeersAnnounce struct {
+	Message string
+}
+
+// announceWrapperWaitpeers just contains Announce and the data necessary to
+// identify and process the message in onet.
+type announceWrapperWaitpeers struct {
+	*onet.TreeNode
+	WaitpeersAnnounce
+}
+
+// WaitpeersReply returns true when ready.
+type WaitpeersReply struct {
+	Ready bool
+}
+
+// replyWrapper just contains Reply and the data necessary to identify and
+// process the message in onet.
+type replyWrapperWaitpeers struct {
+	*onet.TreeNode
+	WaitpeersReply
+}
+
+// StartIPFSProtocol structure
+type StartIPFSProtocol struct {
+	*onet.TreeNodeInstance
+	announceChan chan announceWrapperStartIPFS
+	repliesChan  chan []replyWrapperStartIPFS
+	Ready        chan bool
+	GetService   ServiceFn
+}
+
+// StartIPFSAnnounce is used to pass a message to all children.
+type StartIPFSAnnounce struct {
+	Message string
+}
+
+// announceWrapperWaitpeers just contains Announce and the data necessary to
+// identify and process the message in onet.
+type announceWrapperStartIPFS struct {
+	*onet.TreeNode
+	StartIPFSAnnounce
+}
+
+// StartIPFSReply returns true when ready.
+type StartIPFSReply struct {
+	Ready bool
+}
+
+// replyWrapper just contains Reply and the data necessary to identify and
+// process the message in onet.
+type replyWrapperStartIPFS struct {
+	*onet.TreeNode
+	StartIPFSReply
 }

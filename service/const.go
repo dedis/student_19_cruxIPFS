@@ -49,4 +49,9 @@ const (
 	NodeName = "node_"
 	// Node0 name of the first node
 	Node0 = NodeName + "0"
+
+	// WaitpeersName name of WaitPeers protocol
+	WaitpeersName = "WaitPeers"
+	// StartIPFSName name of StartIPFS protocol
+	StartIPFSName = "StartIPFS"
 )

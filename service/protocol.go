@@ -1,4 +1,4 @@
-package protocol
+package service
 
 /*
 The `NewProtocol` method is used to define the protocol and to register
@@ -17,10 +17,15 @@ import (
 
 func init() {
 	_, err := onet.GlobalProtocolRegister(Name, NewProtocol)
+	checkErr(err)
+	_, err = onet.GlobalProtocolRegister(WaitpeersName, NewWaitpeersProtocol)
+	checkErr(err)
+}
+
+func checkErr(err error) {
 	if err != nil {
 		panic(err)
 	}
-	//_,err := onet.GlobalProtocolRegister(WaitpeersName, protocol)
 }
 
 // TemplateProtocol holds the state of a given protocol.

@@ -15,6 +15,9 @@ import (
 
 // StartIPFS starts an IPFS instance for the given service
 func (s *Service) StartIPFS() {
+
+	fmt.Println("HEEEEY")
+
 	// get config path
 	// e.g $GOPATH/src/github.com/dedis/student_19_cruxIPFS/simulation/build
 	pwd, err := os.Getwd()
@@ -29,20 +32,12 @@ func (s *Service) StartIPFS() {
 		checkErr(CreateEmptyDir(configPath))
 	}
 
-	if LocalSim {
-		s.NodeWg.Done()
-
-		// all nodes wait until the configs folder is created and all nodes reach
-		// this stage
-		s.NodeWg.Wait()
-		time.Sleep(100 * time.Millisecond)
-		s.NodeWg.Add(1)
-	}
-
 	// set the port range allocated to s
+	fmt.Println("getting node id")
 	s.MinPort = BaseHostPort + s.getNodeID()*MaxPortNumberPerHost
 	s.MaxPort = s.MinPort + MaxPortNumberPerHost
 
+	fmt.Println("ports done")
 	s.ConfigPath = filepath.Join(configPath, s.Name)
 
 	// create own config home folder and ipfs config folder
@@ -52,8 +47,9 @@ func (s *Service) StartIPFS() {
 	// init ipfs in the desired folder
 	exec.Command("ipfs", "-c"+s.MyIPFSPath, "init").Run()
 
+	fmt.Println("go to edit")
 	// edit the ip in the config file
-	s.EditIPFSConfig()
+	EditIPFSConfig(s)
 
 	// start ipfs daemon
 	go func() {
@@ -62,15 +58,6 @@ func (s *Service) StartIPFS() {
 	}()
 	// wait until it has started
 	time.Sleep(IPFSStartupTime)
-
-	if LocalSim {
-		s.NodeWg.Done()
-		s.NodeWg.Wait()
-		time.Sleep(100 * time.Millisecond)
-	}
-	if s.Name == Node0 {
-		log.Lvl1("All IPFS instances successfully started")
-	}
 }
 
 // ExecReqIPFSInfo sends own IPFS instance information to the node asking for it
@@ -112,7 +99,6 @@ func (s *Service) ExecReqBootstrapCluster(env *network.Envelope) error {
 }
 
 func (s *Service) ExecReplyBootstrapCluster(env *network.Envelope) error {
-	s.ClusterWg.Done()
 	// ack cluster is ready
 	return nil
 }
@@ -140,9 +126,6 @@ func (s *Service) ManageClusters() {
 // LaunchCluster launches a cluster, leader first, and then bootstrap other
 // peers until the cluster is complete
 func (s *Service) LaunchCluster(nodes []string) {
-	if LocalSim {
-		s.NodeWg.Add(1)
-	}
 	// create cluster dir
 	clusterPath := filepath.Join(s.ConfigPath, ClusterFolderPrefix+s.Name)
 
@@ -167,7 +150,6 @@ func (s *Service) LaunchCluster(nodes []string) {
 					Secret:     secret,
 				}
 				// send request
-				s.ClusterWg.Add(1)
 				e := s.SendRaw(node.ServerIdentity, &req)
 				if e != nil {
 					panic(e)
@@ -175,12 +157,6 @@ func (s *Service) LaunchCluster(nodes []string) {
 				break
 			}
 		}
-	}
-	s.ClusterWg.Wait()
-
-	if LocalSim {
-		s.NodeWg.Done()
-		s.NodeWg.Wait()
 	}
 	if s.Name == Node0 {
 		log.Lvl1("All ipfs-cluster-service instances successfully started")
