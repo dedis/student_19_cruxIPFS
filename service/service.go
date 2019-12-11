@@ -9,6 +9,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"strconv"
 	"strings"
 	"sync"
 
@@ -272,18 +273,10 @@ func newService(c *onet.Context) (onet.Service, error) {
 }
 
 func (s *Service) getNodeID() int {
-	fmt.Println(s.Name, NodeName)
-
-	fmt.Println(len(strings.Split(s.Name, NodeName)), strings.Split(s.Name, NodeName))
-	//_, err := strconv.Atoi(strings.Split(s.Name, NodeName)[1])
-
-	/*
-		n, err := strconv.Atoi(s.Nodes.GetServerIdentityToName(
-			s.ServerIdentity())[len(NodeName):])
-	*/
-	//checkErr(err)
-
-	return 0
+	n, err := strconv.Atoi(s.Nodes.GetServerIdentityToName(
+		s.ServerIdentity())[len(NodeName):])
+	checkErr(err)
+	return n
 }
 
 // GetService Returns the Current SERVICE

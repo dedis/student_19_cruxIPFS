@@ -1,6 +1,8 @@
 package service
 
 import (
+	"sync"
+
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/log"
 )
@@ -24,8 +26,8 @@ func NewStartIPFSProtocol(n *onet.TreeNodeInstance, getServ ServiceFn) (
 
 // Start sends the Announce-message to all children
 func (p *StartIPFSProtocol) Start() error {
-	log.Lvl3(p.ServerIdentity(), "Starting WaitpeersProtocol")
-	return p.SendTo(p.TreeNode(), &StartIPFSAnnounce{"ready!"})
+	log.Lvl1("Starting IPFS instances")
+	return p.SendTo(p.TreeNode(), &StartIPFSAnnounce{})
 }
 
 // Dispatch implements the main logic of the protocol. The function is only
@@ -36,60 +38,34 @@ func (p *StartIPFSProtocol) Dispatch() error {
 
 	ann := <-p.announceChan
 
-	service := p.GetService()
-	service.getNodeID()
+	if !p.IsLeaf() {
+		// send request to children
+		p.SendToChildren(&ann.StartIPFSAnnounce)
 
-	if p.IsLeaf() {
-		return p.SendToParent(&StartIPFSReply{true})
-	}
-	p.SendToChildren(&ann.StartIPFSAnnounce)
-	<-p.repliesChan
-	if !p.IsRoot() {
-		return p.SendToParent(&StartIPFSReply{true})
-	}
-	p.Ready <- true
-	log.Lvl1("Root is done")
+		// waitgroup to wait own ipfs instance
+		wg := sync.WaitGroup{}
+		wg.Add(1)
+		go func() {
+			// start ipfs
+			p.GetService().StartIPFS()
+			wg.Done()
+		}()
 
-	/*
-		if !p.IsLeaf() {
-			err := p.SendToChildren(&ann.WaitpeersAnnounce)
-			log.Lvl1(p.ServerIdentity(), "sent request")
-			checkErr(err)
-		}
+		// wait for children replies
+		<-p.repliesChan
+		wg.Wait()
+
 		if !p.IsRoot() {
-			log.Lvl1(p.ServerIdentity(), "sending response")
-			time.Sleep(2 * time.Second)
-			err := p.SendToParent(&WaitpeersReply{true})
-			checkErr(err)
-			<-p.repliesChan
-			log.Lvl1("Child is done")
-			p.Ready <- true
-			p.Done()
-		} else {
-			<-p.repliesChan
-			p.SendToChildren(&WaitpeersReply{true})
-			log.Lvl1("Root is done")
-			p.Ready <- true
-			p.Done()
-		}
-		/*
-			ann := <-p.announceChan
-			if p.IsLeaf() {
-				return p.SendToParent(&Reply{1})
-			}
-			p.SendToChildren(&ann.Announce)
+			return p.SendToParent(&StartIPFSReply{true})
+		} // root
+		p.Ready <- true
+		log.Lvl1("All IPFS instances started successfully")
+		return nil
 
-			replies := <-p.repliesChan
-			n := 1
-			for _, c := range replies {
-				n += c.ChildrenCount
-			}
-
-			if !p.IsRoot() {
-				return p.SendToParent(&Reply{n})
-			}
-
-			p.ChildCount <- n
-	*/
-	return nil
+	}
+	// node is a leaf
+	// start ipfs
+	p.GetService().StartIPFS()
+	// send ok to parent when it's done
+	return p.SendToParent(&StartIPFSReply{true})
 }

@@ -202,3 +202,71 @@ type replyWrapperStartIPFS struct {
 	*onet.TreeNode
 	StartIPFSReply
 }
+
+// LaunchClustersProtocol structure
+type LaunchClustersProtocol struct {
+	*onet.TreeNodeInstance
+	announceChan chan announceWrapperLaunchClusters
+	repliesChan  chan []replyWrapperLaunchClusters
+	Ready        chan bool
+	GetService   ServiceFn
+}
+
+// LaunchClustersAnnounce is used to pass a message to all children.
+type LaunchClustersAnnounce struct {
+	Message string
+}
+
+// announceWrapperLaunchClusters just contains Announce and the data necessary
+// to identify and process the message in onet.
+type announceWrapperLaunchClusters struct {
+	*onet.TreeNode
+	LaunchClustersAnnounce
+}
+
+// LaunchClustersReply returns true when ready.
+type LaunchClustersReply struct {
+	Ready bool
+}
+
+// replyWrapperLaunchClusters just contains Reply and the data necessary to
+// identify and process the message in onet.
+type replyWrapperLaunchClusters struct {
+	*onet.TreeNode
+	LaunchClustersReply
+}
+
+// ClusterBootstrapProtocol structure
+type ClusterBootstrapProtocol struct {
+	*onet.TreeNodeInstance
+	announceChan chan announceWrapperClusterBootstrap
+	repliesChan  chan []replyWrapperClusterBootstrap
+	Ready        chan bool
+	GetService   ServiceFn
+}
+
+// ClusterBootstrapAnnounce is used to pass a message to all children.
+type ClusterBootstrapAnnounce struct {
+	SenderName string
+	Bootstrap  string
+	Secret     string
+}
+
+// announceWrapperClusterBootstrap just contains Announce and the data necessary
+// to identify and process the message in onet.
+type announceWrapperClusterBootstrap struct {
+	*onet.TreeNode
+	ClusterBootstrapAnnounce
+}
+
+// ClusterBootstrapReply returns true when ready.
+type ClusterBootstrapReply struct {
+	Ready bool
+}
+
+// replyWrapperClusterBootstrap just contains Reply and the data necessary to
+// identify and process the message in onet.
+type replyWrapperClusterBootstrap struct {
+	*onet.TreeNode
+	ClusterBootstrapReply
+}

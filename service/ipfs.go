@@ -16,28 +16,26 @@ import (
 // StartIPFS starts an IPFS instance for the given service
 func (s *Service) StartIPFS() {
 
-	fmt.Println("HEEEEY")
-
 	// get config path
 	// e.g $GOPATH/src/github.com/dedis/student_19_cruxIPFS/simulation/build
 	pwd, err := os.Getwd()
 	checkErr(err)
 	configPath := filepath.Join(pwd, ConfigsFolder)
 
-	if !LocalSim {
-		// if not local, everyone create its own configs directory
-		checkErr(CreateEmptyDir(configPath))
-	} else if s.Name == Node0 {
-		// only node 0, create the empty folder
-		checkErr(CreateEmptyDir(configPath))
-	}
+	/*
+		if !LocalSim {
+			// if not local, everyone create its own configs directory
+			checkErr(CreateEmptyDir(configPath))
+		} else if s.Name == Node0 {
+			// only node 0, create the empty folder
+			checkErr(CreateEmptyDir(configPath))
+		}
+	*/
 
 	// set the port range allocated to s
-	fmt.Println("getting node id")
 	s.MinPort = BaseHostPort + s.getNodeID()*MaxPortNumberPerHost
 	s.MaxPort = s.MinPort + MaxPortNumberPerHost
 
-	fmt.Println("ports done")
 	s.ConfigPath = filepath.Join(configPath, s.Name)
 
 	// create own config home folder and ipfs config folder
@@ -47,9 +45,8 @@ func (s *Service) StartIPFS() {
 	// init ipfs in the desired folder
 	exec.Command("ipfs", "-c"+s.MyIPFSPath, "init").Run()
 
-	fmt.Println("go to edit")
 	// edit the ip in the config file
-	EditIPFSConfig(s)
+	s.EditIPFSConfig()
 
 	// start ipfs daemon
 	go func() {

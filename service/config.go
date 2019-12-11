@@ -13,7 +13,7 @@ import (
 )
 
 // EditIPFSConfig edit the ipfs configuration file (mainly the ip)
-func EditIPFSConfig(s *Service) {
+func (s *Service) EditIPFSConfig() {
 	addr := IPVersion + s.MyIP + TransportProtocol
 
 	// select available ports

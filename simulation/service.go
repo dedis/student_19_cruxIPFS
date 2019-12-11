@@ -6,7 +6,6 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
-	"sync"
 
 	"github.com/BurntSushi/toml"
 
@@ -23,8 +22,6 @@ import (
 /*
  * Defines the simulation for the service-template
  */
-
-var wg sync.WaitGroup
 
 func init() {
 	onet.SimulationRegister(cruxIPFS.ServiceName, NewSimulationService)
@@ -45,8 +42,7 @@ func NewSimulationService(config string) (onet.Simulation, error) {
 func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	*onet.SimulationConfig, error) {
 
-	nodeNb := len(hosts) - 1
-	SetNodePaths(nodeNb)
+	SetNodePaths(len(hosts))
 
 	app.Copy(dir, filepath.Join(DATAFOLDER, NODEPATHREMOTE))
 	app.Copy(dir, "../clean.sh")
@@ -58,9 +54,6 @@ func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	if err != nil {
 		return nil, err
 	}
-
-	wg = sync.WaitGroup{}
-
 	return sc, nil
 }
 
@@ -109,22 +102,15 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 	log.Lvl1("Entering 'Run'")
 
-	if strings.Contains(s.Nodes.GetServerIdentityToName(
-		config.Server.ServerIdentity), "node_") {
-		myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
+	myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
 
-		pi, err := myService.CreateProtocol(service.StartIPFSName, config.Tree)
-		if err != nil {
-			fmt.Println(err)
-		}
-		pi.Start()
-
-		<-pi.(*service.StartIPFSProtocol).Ready
-
-	} else {
-		log.Error("ONET failed")
+	pi, err := myService.CreateProtocol(service.StartIPFSName, config.Tree)
+	if err != nil {
+		fmt.Println(err)
 	}
+	pi.Start()
 
+	<-pi.(*service.StartIPFSProtocol).Ready
 	/*
 
 		//fmt.Println(<-pi.(protocol.WaitpeersProtocol).Ready)
@@ -204,9 +190,9 @@ func (s *IPFSSimulation) InitializeMaps(config *onet.SimulationConfig, isLocalTe
 
 	if isLocalTest {
 		for i := range s.Nodes.All {
-			//treeNode := config.Tree.List()[i]
+			treeNode := config.Tree.List()[i]
 			// quick fix
-			treeNode := config.Tree.List()[i+1]
+			//treeNode := config.Tree.List()[i+1]
 			s.Nodes.All[i].ServerIdentity = treeNode.ServerIdentity
 			s.Nodes.ServerIdentityToName[treeNode.ServerIdentity.ID] = s.Nodes.All[i].Name
 			ServerIdentityToName[treeNode.ServerIdentity] = s.Nodes.All[i].Name
