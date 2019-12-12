@@ -72,7 +72,7 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 
 	s.ReadNodeInfo(false)
 
-	mymap := s.InitializeMaps(config, true)
+	mymap := s.initializeMaps(config, true)
 
 	myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
 
@@ -115,6 +115,7 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 	return nil
 }
 
+// ReadNodeInfo read node information
 func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool) {
 	_, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
@@ -134,6 +135,7 @@ func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool) {
 	*/
 }
 
+// ReadNodesFromFile read nodes information from a text file
 func (s *IPFSSimulation) ReadNodesFromFile(filename string) {
 	s.Nodes.All = make([]*gentree.LocalityNode, 0)
 
@@ -153,11 +155,11 @@ func (s *IPFSSimulation) ReadNodesFromFile(filename string) {
 
 		tokens := strings.Split(line, " ")
 		coords := strings.Split(tokens[1], ",")
-		name, x_str, y_str, IP, level_str := tokens[0], coords[0], coords[1], tokens[2], tokens[3]
+		name, xstr, ystr, IP, levelstr := tokens[0], coords[0], coords[1], tokens[2], tokens[3]
 
-		x, _ := strconv.ParseFloat(x_str, 64)
-		y, _ := strconv.ParseFloat(y_str, 64)
-		level, err := strconv.Atoi(level_str)
+		x, _ := strconv.ParseFloat(xstr, 64)
+		y, _ := strconv.ParseFloat(ystr, 64)
+		level, err := strconv.Atoi(levelstr)
 
 		if err != nil {
 			log.Lvl1("Error", err)
@@ -171,7 +173,7 @@ func (s *IPFSSimulation) ReadNodesFromFile(filename string) {
 	}
 }
 
-func (s *IPFSSimulation) InitializeMaps(config *onet.SimulationConfig, isLocalTest bool) map[*network.ServerIdentity]string {
+func (s *IPFSSimulation) initializeMaps(config *onet.SimulationConfig, isLocalTest bool) map[*network.ServerIdentity]string {
 
 	s.Nodes.ServerIdentityToName = make(map[network.ServerIdentityID]string)
 	ServerIdentityToName := make(map[*network.ServerIdentity]string)

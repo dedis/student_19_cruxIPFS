@@ -51,8 +51,8 @@ func saveState(filename string, ipfs []service.IPFSInformation,
 			str += pids[1] + strconv.Itoa(ci.RestAPIPort)
 			str += pids[2] + strconv.Itoa(ci.IPFSProxyPort)
 			str += pids[3] + strconv.Itoa(ci.ClusterPort)
+			str += "\n"
 		}
-		str += "\n"
 	}
 
 	ioutil.WriteFile(filename, []byte(str), 0)
