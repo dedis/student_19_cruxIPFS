@@ -18,8 +18,6 @@ import (
 func init() {
 	_, err := onet.GlobalProtocolRegister(Name, NewProtocol)
 	checkErr(err)
-	_, err = onet.GlobalProtocolRegister(WaitpeersName, NewWaitpeersProtocol)
-	checkErr(err)
 }
 
 func checkErr(err error) {

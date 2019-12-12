@@ -65,7 +65,8 @@ type Service struct {
 	StartIPFSProt onet.ProtocolInstance
 }
 
-type ServiceFn func() *Service
+// FnService function that returns the service of that node
+type FnService func() *Service
 
 // storage is used to save our data.
 type storage struct {
@@ -98,27 +99,6 @@ type IPFSInformation struct {
 	SwarmPort   int
 	APIPort     int
 	GatewayPort int
-}
-
-// ReqIPFSInfo IPFS information request packet
-type ReqIPFSInfo struct {
-	SenderName string
-}
-
-// ReplyIPFSInfo IPFS information reply packet
-type ReplyIPFSInfo struct {
-	SenderName string
-	IPFSInfo   IPFSInformation
-}
-
-type ReqBootstrapCluster struct {
-	SenderName string
-	Bootstrap  string
-	Secret     string
-}
-
-type ReplyBootstrapCluster struct {
-	SenderName string
 }
 
 // Name can be used from other packages to refer to this protocol.
@@ -186,7 +166,7 @@ type StartIPFSProtocol struct {
 	announceChan  chan announceWrapperStartIPFS
 	repliesChan   chan []replyWrapperStartIPFS
 	Ready         chan bool
-	GetService    ServiceFn
+	GetService    FnService
 	IPFSInstances []IPFSInformation
 	Clusters      []ClusterInfo
 }
@@ -216,39 +196,6 @@ type replyWrapperStartIPFS struct {
 	StartIPFSReply
 }
 
-// LaunchClustersProtocol structure
-type LaunchClustersProtocol struct {
-	*onet.TreeNodeInstance
-	announceChan chan announceWrapperLaunchClusters
-	repliesChan  chan []replyWrapperLaunchClusters
-	Ready        chan bool
-	GetService   ServiceFn
-}
-
-// LaunchClustersAnnounce is used to pass a message to all children.
-type LaunchClustersAnnounce struct {
-	Message string
-}
-
-// announceWrapperLaunchClusters just contains Announce and the data necessary
-// to identify and process the message in onet.
-type announceWrapperLaunchClusters struct {
-	*onet.TreeNode
-	LaunchClustersAnnounce
-}
-
-// LaunchClustersReply returns true when ready.
-type LaunchClustersReply struct {
-	Ready bool
-}
-
-// replyWrapperLaunchClusters just contains Reply and the data necessary to
-// identify and process the message in onet.
-type replyWrapperLaunchClusters struct {
-	*onet.TreeNode
-	LaunchClustersReply
-}
-
 // ClusterBootstrapProtocol structure
 type ClusterBootstrapProtocol struct {
 	*onet.TreeNodeInstance
@@ -256,7 +203,7 @@ type ClusterBootstrapProtocol struct {
 	repliesChan  chan []replyWrapperClusterBootstrap
 	Ready        chan bool
 	Info         ClusterInfo
-	GetService   ServiceFn
+	GetService   FnService
 }
 
 // ClusterBootstrapAnnounce is used to pass a message to all children.

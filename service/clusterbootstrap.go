@@ -13,7 +13,7 @@ import (
 var _ onet.ProtocolInstance = (*ClusterBootstrapProtocol)(nil)
 
 // NewClusterBootstrapProtocol initialises the structure for use in one round
-func NewClusterBootstrapProtocol(n *onet.TreeNodeInstance, getServ ServiceFn) (
+func NewClusterBootstrapProtocol(n *onet.TreeNodeInstance, getServ FnService) (
 	onet.ProtocolInstance, error) {
 	t := &ClusterBootstrapProtocol{
 		TreeNodeInstance: n,

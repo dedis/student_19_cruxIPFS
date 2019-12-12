@@ -43,12 +43,6 @@ func init() {
 	execReqPingsMsgID = network.RegisterMessage(&cruxIPFS.ReqPings{})
 	execReplyPingsMsgID = network.RegisterMessage(&cruxIPFS.ReplyPings{})
 
-	execReqIPFSInfoMsgID = network.RegisterMessage(ReqIPFSInfo{})
-	execReplyIPFSInfoMsgID = network.RegisterMessage(ReplyIPFSInfo{})
-
-	execReqBootstrapClusterMsgID = network.RegisterMessage(ReqBootstrapCluster{})
-	execReplyBootstrapClusterMsgID = network.RegisterMessage(ReplyBootstrapCluster{})
-
 	network.RegisterMessage(&storage{})
 }
 
@@ -140,55 +134,6 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 	s.Nodes = AuxNodes
 	s.GraphTree = ARATreeStruct
 	s.BinaryTree = ARAOnetTrees
-
-	/*
-		if s.Name == Node0 {
-			// print ping distances
-			for _, n := range s.Nodes.All {
-				str := n.Name + "\n"
-				str += "Cluster: " + fmt.Sprintln(n.Cluster)
-				str += "Bunch: " + fmt.Sprintln(n.Bunch)
-				log.Lvl1(str)
-			}
-		}
-		/*
-
-			pi, err := s.CreateProtocol(StartIPFSName, s.OnetTree)
-			if err != nil {
-				fmt.Println(err)
-			}
-			pi.Start()
-
-
-				pi, err := s.CreateProtocol(StartIPFSName, s.OnetTree)
-				if err != nil {
-					fmt.Println(err)
-				}
-				pi.(*StartIPFSProtocol).Service = s
-				s.StartIPFSProt = pi
-				log.Lvl1("Protocol", pi)
-				pi.Start()
-
-				/*
-					if s.Name == "node_4" {
-						//tree := s.BinaryTree[s.Name][len(s.BinaryTree[s.Name])-1]
-						tree := req.Roster.GenerateNaryTreeWithRoot(len(req.Roster.List)-1, s.ServerIdentity())
-						pi, err := s.CreateProtocol(protocol.WaitpeersName, tree)
-						if err != nil {
-							fmt.Println(err)
-						}
-						pi.Start()
-						//<-pi.(*protocol.WaitpeersProtocol).Ready
-					}
-	*/
-
-	/*
-		s.StartIPFS()
-		s.ManageClusters()
-		if s.Name == Node0 {
-			log.Lvl1("All cluster instances successfully started")
-		}
-	*/
 }
 
 // NewProtocol is called on all nodes of a Tree (except the root, since it is
@@ -245,14 +190,6 @@ func newService(c *onet.Context) (onet.Service, error) {
 
 	s.RegisterProcessorFunc(execReqPingsMsgID, s.ExecReqPings)
 	s.RegisterProcessorFunc(execReplyPingsMsgID, s.ExecReplyPings)
-
-	s.RegisterProcessorFunc(execReqIPFSInfoMsgID, s.ExecReqIPFSInfo)
-	s.RegisterProcessorFunc(execReplyIPFSInfoMsgID, s.ExecReplyIPFSInfo)
-
-	s.RegisterProcessorFunc(execReqBootstrapClusterMsgID,
-		s.ExecReqBootstrapCluster)
-	s.RegisterProcessorFunc(execReplyBootstrapClusterMsgID,
-		s.ExecReplyBootstrapCluster)
 
 	_, err := s.ProtocolRegister(StartIPFSName, func(n *onet.TreeNodeInstance) (
 		onet.ProtocolInstance, error) {

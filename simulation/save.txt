@@ -4,466 +4,466 @@
 node_0:
   IP           : 127.0.0.1
   Swarm Port   : 14000
-  API Port     : 14002
-  Gateway Port : 14003
-
-node_8:
-  IP           : 127.0.0.1
-  Swarm Port   : 14800
-  API Port     : 14802
-  Gateway Port : 14803
-
-node_5:
-  IP           : 127.0.0.1
-  Swarm Port   : 14500
-  API Port     : 14502
-  Gateway Port : 14503
-
-node_9:
-  IP           : 127.0.0.1
-  Swarm Port   : 14900
-  API Port     : 14902
-  Gateway Port : 14903
-
-node_1:
-  IP           : 127.0.0.1
-  Swarm Port   : 14100
-  API Port     : 14102
-  Gateway Port : 14103
+  API Port     : 14001
+  Gateway Port : 14002
 
 node_3:
   IP           : 127.0.0.1
   Swarm Port   : 14300
-  API Port     : 14302
-  Gateway Port : 14303
+  API Port     : 14301
+  Gateway Port : 14302
 
-node_2:
+node_9:
   IP           : 127.0.0.1
-  Swarm Port   : 14200
-  API Port     : 14202
-  Gateway Port : 14203
-
-node_7:
-  IP           : 127.0.0.1
-  Swarm Port   : 14700
-  API Port     : 14702
-  Gateway Port : 14703
+  Swarm Port   : 14900
+  API Port     : 14901
+  Gateway Port : 14902
 
 node_4:
   IP           : 127.0.0.1
   Swarm Port   : 14400
-  API Port     : 14402
-  Gateway Port : 14403
+  API Port     : 14401
+  Gateway Port : 14402
+
+node_5:
+  IP           : 127.0.0.1
+  Swarm Port   : 14500
+  API Port     : 14501
+  Gateway Port : 14502
+
+node_8:
+  IP           : 127.0.0.1
+  Swarm Port   : 14800
+  API Port     : 14801
+  Gateway Port : 14802
 
 node_6:
   IP           : 127.0.0.1
   Swarm Port   : 14600
-  API Port     : 14602
-  Gateway Port : 14603
+  API Port     : 14601
+  Gateway Port : 14602
+
+node_2:
+  IP           : 127.0.0.1
+  Swarm Port   : 14200
+  API Port     : 14201
+  Gateway Port : 14202
+
+node_1:
+  IP           : 127.0.0.1
+  Swarm Port   : 14100
+  API Port     : 14101
+  Gateway Port : 14102
+
+node_7:
+  IP           : 127.0.0.1
+  Swarm Port   : 14700
+  API Port     : 14701
+  Gateway Port : 14702
 
 
 ##### Clusters #####
 
 Cluster leader : node_0
-Secret         : 497d9653964b8dbbd9022eab98b4e63a3c2599aa49343646b8118a2819704445
+Secret         : eb1d9223b809f94ba85a0191700cfceda75dd18be92215cf138e36a8e8772800
 Size           : 1
 Hosts          : 
   node_0
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14004
-  IPFS Proxy Port : 14005
-  Cluster Port    : 14006
-
-Cluster leader : node_9
-Secret         : 7ec8818d68204a72eabf89f0f92c7fbd5b1ec11ae77a7e35f0d7dd226a39aa84
-Size           : 1
-Hosts          : 
-  node_9
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14904
-  IPFS Proxy Port : 14905
-  Cluster Port    : 14906
+  RestAPI Port    : 14003
+  IPFS Proxy Port : 14004
+  Cluster Port    : 14005
 
 Cluster leader : node_3
-Secret         : 77b7166b57cfe3a9d2f3effafac18bf17fd2c42568fb7bc2600e10181935bc44
+Secret         : ff9ca8ad369a863a5cc901cba86d8a8eedd3194acf84548b836228b611eb4244
 Size           : 1
 Hosts          : 
   node_3
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14304
-  IPFS Proxy Port : 14305
-  Cluster Port    : 14306
+  RestAPI Port    : 14303
+  IPFS Proxy Port : 14304
+  Cluster Port    : 14305
+
+Cluster leader : node_9
+Secret         : 2c11243f721eaf06c577a58343f54d155558151fd49a68b49fb1508a3a4ec3b0
+Size           : 1
+Hosts          : 
+  node_9
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14903
+  IPFS Proxy Port : 14904
+  Cluster Port    : 14905
 
 Cluster leader : node_1
-Secret         : 2b25f06a4d62350a1dc9f8ac0cce924d3d66cc5f27736df635f15b272b340231
+Secret         : b6bdd719f5cb659e769994e7cbff149c4c6b2b292f0af5f33d04d5b0e3aadc3a
+Size           : 1
+Hosts          : 
+  node_1
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14106
+  IPFS Proxy Port : 14107
+  Cluster Port    : 14108
+
+Cluster leader : node_1
+Secret         : b857a3d878e2c1f376f09af8296449ed2e7c27c963527331d5813f74ba4ebef4
 Size           : 2
 Hosts          : 
   node_1
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14104
-  IPFS Proxy Port : 14105
-  Cluster Port    : 14106
+  RestAPI Port    : 14103
+  IPFS Proxy Port : 14104
+  Cluster Port    : 14105
 
   node_9
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14907
-  IPFS Proxy Port : 14908
-  Cluster Port    : 14909
+  RestAPI Port    : 14906
+  IPFS Proxy Port : 14907
+  Cluster Port    : 14908
 
-Cluster leader : node_1
-Secret         : 1ad776453d9b2af7dbee5deb956032d4dd5cfae3d51639cb7dff4e5d22279b8b
+Cluster leader : node_6
+Secret         : 0c6a0070eb646baa57f3bd3e297ed03df114fb745ff7b950750050d516502254
 Size           : 1
 Hosts          : 
-  node_1
+  node_6
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14107
-  IPFS Proxy Port : 14108
-  Cluster Port    : 14109
+  RestAPI Port    : 14606
+  IPFS Proxy Port : 14607
+  Cluster Port    : 14608
+
+Cluster leader : node_6
+Secret         : 4b50eb8a1eacb129773306b9d0a3d0032e0a8893ba4bbacf7f7f3867c3b732ae
+Size           : 3
+Hosts          : 
+  node_6
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14603
+  IPFS Proxy Port : 14604
+  Cluster Port    : 14605
+
+  node_8
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14812
+  IPFS Proxy Port : 14813
+  Cluster Port    : 14814
+
+  node_7
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14712
+  IPFS Proxy Port : 14713
+  Cluster Port    : 14714
+
+Cluster leader : node_7
+Secret         : 64e83bd6641b85c3fc009f25515d8002b0e814d6d2778be7f08350776b9a0eac
+Size           : 1
+Hosts          : 
+  node_7
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14706
+  IPFS Proxy Port : 14707
+  Cluster Port    : 14708
+
+Cluster leader : node_7
+Secret         : a97519e43f5c08448122c38ff3f356aab65c30a987a6e463d4f7b61f4cb165e1
+Size           : 3
+Hosts          : 
+  node_7
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14703
+  IPFS Proxy Port : 14704
+  Cluster Port    : 14705
+
+  node_6
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14609
+  IPFS Proxy Port : 14610
+  Cluster Port    : 14611
+
+  node_8
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14815
+  IPFS Proxy Port : 14816
+  Cluster Port    : 14817
 
 Cluster leader : node_2
-Secret         : eb16001ce40720e544b04afeba07fb3a21d14307ca9bedca9067c35d5412a5c9
+Secret         : 3614742c6bffd8b93fb980029129fcc967c0231db223091576e5ed710c3d92b0
 Size           : 1
 Hosts          : 
   node_2
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14207
-  IPFS Proxy Port : 14208
-  Cluster Port    : 14209
+  RestAPI Port    : 14203
+  IPFS Proxy Port : 14204
+  Cluster Port    : 14205
 
 Cluster leader : node_2
-Secret         : 9ad54a5777cc5b53d780bbe5e6872993c2af49bacbd25e9368b15424490e1511
+Secret         : 018a57793c7cd81fa18962cc979620e491c9b180eb7cf0f2fc20ec25fc8c1acb
 Size           : 2
 Hosts          : 
   node_2
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14204
-  IPFS Proxy Port : 14205
-  Cluster Port    : 14206
+  RestAPI Port    : 14206
+  IPFS Proxy Port : 14207
+  Cluster Port    : 14208
 
   node_7
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14710
-  IPFS Proxy Port : 14711
-  Cluster Port    : 14712
-
-Cluster leader : node_6
-Secret         : e20c0ec8ecb213037de17cf34678116607cfa03b5674a4fe3a7075a4c6fa6009
-Size           : 1
-Hosts          : 
-  node_6
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14607
-  IPFS Proxy Port : 14608
-  Cluster Port    : 14609
-
-Cluster leader : node_6
-Secret         : 43e818ba497ee53fb63c08ce603347be29709a634a049e25f29e10fd17fe9f2c
-Size           : 3
-Hosts          : 
-  node_6
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14604
-  IPFS Proxy Port : 14605
-  Cluster Port    : 14606
-
-  node_8
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14813
-  IPFS Proxy Port : 14814
-  Cluster Port    : 14815
-
-  node_7
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14713
-  IPFS Proxy Port : 14714
-  Cluster Port    : 14715
-
-Cluster leader : node_7
-Secret         : 96511e29f122a574d9a00db117ee539f21f14771560f7a41e8e75e68606ed6a4
-Size           : 1
-Hosts          : 
-  node_7
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14707
-  IPFS Proxy Port : 14708
-  Cluster Port    : 14709
-
-Cluster leader : node_7
-Secret         : e8220c41e027f1d31183b42fe8c70f9ebb5862a859cd76acb6b8da11fc8aa21f
-Size           : 3
-Hosts          : 
-  node_7
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14704
-  IPFS Proxy Port : 14705
-  Cluster Port    : 14706
-
-  node_6
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14610
-  IPFS Proxy Port : 14611
-  Cluster Port    : 14612
-
-  node_8
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14816
-  IPFS Proxy Port : 14817
-  Cluster Port    : 14818
+  RestAPI Port    : 14715
+  IPFS Proxy Port : 14716
+  Cluster Port    : 14717
 
 Cluster leader : node_8
-Secret         : 2ac0a07bd543797400a8cdee724f294d086f6c4e1358122f0fdf3eb2ef712962
+Secret         : 565ac4f6adaadd887416d16da747230c2ec56a2704d48a5ccef111db09c123f4
 Size           : 1
 Hosts          : 
   node_8
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14804
-  IPFS Proxy Port : 14805
-  Cluster Port    : 14806
+  RestAPI Port    : 14803
+  IPFS Proxy Port : 14804
+  Cluster Port    : 14805
 
 Cluster leader : node_8
-Secret         : 92d252b502ad9672bdac3e3b33c409fd3931e1d9b5f592734471a38af76d1a3d
+Secret         : d76eaa35be62881a8189d608bf5abf7219ee282573f17d5eb54c7cea9c84c645
 Size           : 3
 Hosts          : 
   node_8
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14807
-  IPFS Proxy Port : 14808
-  Cluster Port    : 14809
+  RestAPI Port    : 14806
+  IPFS Proxy Port : 14807
+  Cluster Port    : 14808
 
   node_6
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14616
-  IPFS Proxy Port : 14617
-  Cluster Port    : 14618
+  RestAPI Port    : 14612
+  IPFS Proxy Port : 14613
+  Cluster Port    : 14614
 
   node_7
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14716
-  IPFS Proxy Port : 14717
-  Cluster Port    : 14718
+  RestAPI Port    : 14721
+  IPFS Proxy Port : 14722
+  Cluster Port    : 14723
 
 Cluster leader : node_5
-Secret         : 99cd793936c1d4528087c7e4f430ca6100a37f3251ae998b73b39be638f2af95
+Secret         : 1c88ab6380ac19be830e9ed2eed28b2d30436a2a0481051f94ff57d58b6e89db
 Size           : 1
 Hosts          : 
   node_5
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14510
-  IPFS Proxy Port : 14511
-  Cluster Port    : 14512
+  RestAPI Port    : 14509
+  IPFS Proxy Port : 14510
+  Cluster Port    : 14511
 
 Cluster leader : node_5
-Secret         : f8af8a1f9d96c5bfd878ad6a699d23058a2a036d30613360210fe4b493c1a4ca
+Secret         : 12bfdedba1459081a73d761b0ff071a40c76cab52694914b6d45f1b2c7c78408
 Size           : 3
 Hosts          : 
   node_5
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14507
-  IPFS Proxy Port : 14508
-  Cluster Port    : 14509
-
-  node_0
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14013
-  IPFS Proxy Port : 14014
-  Cluster Port    : 14015
+  RestAPI Port    : 14503
+  IPFS Proxy Port : 14504
+  Cluster Port    : 14505
 
   node_2
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14216
-  IPFS Proxy Port : 14217
-  Cluster Port    : 14218
+  RestAPI Port    : 14209
+  IPFS Proxy Port : 14210
+  Cluster Port    : 14211
+
+  node_0
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14009
+  IPFS Proxy Port : 14010
+  Cluster Port    : 14011
 
 Cluster leader : node_5
-Secret         : dd97cc7cfc62993cf669cc6e23d33c0f2a7129bbefd7e1cef062b79c3ff89358
+Secret         : 15f5de35f4e52424eef3d46eedee22615264236806c15d9348be1fa63882097b
 Size           : 10
 Hosts          : 
   node_5
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14504
-  IPFS Proxy Port : 14505
-  Cluster Port    : 14506
-
-  node_9
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14913
-  IPFS Proxy Port : 14914
-  Cluster Port    : 14915
+  RestAPI Port    : 14506
+  IPFS Proxy Port : 14507
+  Cluster Port    : 14508
 
   node_1
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14113
-  IPFS Proxy Port : 14114
-  Cluster Port    : 14115
-
-  node_6
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14625
-  IPFS Proxy Port : 14626
-  Cluster Port    : 14627
-
-  node_2
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14213
-  IPFS Proxy Port : 14214
-  Cluster Port    : 14215
-
-  node_4
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14416
-  IPFS Proxy Port : 14417
-  Cluster Port    : 14418
-
-  node_0
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14010
-  IPFS Proxy Port : 14011
-  Cluster Port    : 14012
-
-  node_8
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14819
-  IPFS Proxy Port : 14820
-  Cluster Port    : 14821
-
-  node_3
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14316
-  IPFS Proxy Port : 14317
-  Cluster Port    : 14318
+  RestAPI Port    : 14109
+  IPFS Proxy Port : 14110
+  Cluster Port    : 14111
 
   node_7
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14722
-  IPFS Proxy Port : 14723
-  Cluster Port    : 14724
-
-Cluster leader : node_4
-Secret         : 5c46a2fb4877b3de9c996912b14cd357a995d66955cc5d1539dd7393da19fe1a
-Size           : 3
-Hosts          : 
-  node_4
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14407
-  IPFS Proxy Port : 14408
-  Cluster Port    : 14409
-
-  node_3
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14307
-  IPFS Proxy Port : 14308
-  Cluster Port    : 14309
+  RestAPI Port    : 14718
+  IPFS Proxy Port : 14719
+  Cluster Port    : 14720
 
   node_6
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14613
-  IPFS Proxy Port : 14614
-  Cluster Port    : 14615
+  RestAPI Port    : 14621
+  IPFS Proxy Port : 14622
+  Cluster Port    : 14623
+
+  node_0
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14012
+  IPFS Proxy Port : 14013
+  Cluster Port    : 14014
+
+  node_4
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14415
+  IPFS Proxy Port : 14416
+  Cluster Port    : 14417
+
+  node_3
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14309
+  IPFS Proxy Port : 14310
+  Cluster Port    : 14311
+
+  node_8
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14818
+  IPFS Proxy Port : 14819
+  Cluster Port    : 14820
+
+  node_9
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14912
+  IPFS Proxy Port : 14913
+  Cluster Port    : 14914
+
+  node_2
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14215
+  IPFS Proxy Port : 14216
+  Cluster Port    : 14217
 
 Cluster leader : node_4
-Secret         : fa03f9a36d82c9388f6a207e3cab83bd552dd22fb1e2cbf798ade94a8ade51fd
+Secret         : 4e97ec8c2ad0aa601caf4fcfea87363f5216e9ee6de346927944b10517155efe
 Size           : 1
 Hosts          : 
   node_4
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14413
-  IPFS Proxy Port : 14414
-  Cluster Port    : 14415
+  RestAPI Port    : 14406
+  IPFS Proxy Port : 14407
+  Cluster Port    : 14408
 
 Cluster leader : node_4
-Secret         : e64ce5ff21ed2f32210769a49219c6efd3199fec54907a9e3bf10402ab105731
+Secret         : 177b2a3862a47c05ad0fdf5066edd27738ad083ee939c12dbeed9bb473b430e2
+Size           : 3
+Hosts          : 
+  node_4
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14409
+  IPFS Proxy Port : 14410
+  Cluster Port    : 14411
+
+  node_3
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14312
+  IPFS Proxy Port : 14313
+  Cluster Port    : 14314
+
+  node_6
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14615
+  IPFS Proxy Port : 14616
+  Cluster Port    : 14617
+
+Cluster leader : node_4
+Secret         : d4992dc04ca7c86c28b1c5f5be8b5a6920c926227b231c108e3cd61fe1b89e5b
 Size           : 10
 Hosts          : 
   node_4
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14404
-  IPFS Proxy Port : 14405
-  Cluster Port    : 14406
-
-  node_2
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14210
-  IPFS Proxy Port : 14211
-  Cluster Port    : 14212
-
-  node_5
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14513
-  IPFS Proxy Port : 14514
-  Cluster Port    : 14515
+  RestAPI Port    : 14403
+  IPFS Proxy Port : 14404
+  Cluster Port    : 14405
 
   node_0
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14007
-  IPFS Proxy Port : 14008
-  Cluster Port    : 14009
-
-  node_8
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14810
-  IPFS Proxy Port : 14811
-  Cluster Port    : 14812
-
-  node_3
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14313
-  IPFS Proxy Port : 14314
-  Cluster Port    : 14315
-
-  node_7
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14719
-  IPFS Proxy Port : 14720
-  Cluster Port    : 14721
-
-  node_9
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14910
-  IPFS Proxy Port : 14911
-  Cluster Port    : 14912
+  RestAPI Port    : 14006
+  IPFS Proxy Port : 14007
+  Cluster Port    : 14008
 
   node_1
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14110
-  IPFS Proxy Port : 14111
-  Cluster Port    : 14112
+  RestAPI Port    : 14112
+  IPFS Proxy Port : 14113
+  Cluster Port    : 14114
+
+  node_3
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14306
+  IPFS Proxy Port : 14307
+  Cluster Port    : 14308
+
+  node_5
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14512
+  IPFS Proxy Port : 14513
+  Cluster Port    : 14514
+
+  node_9
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14909
+  IPFS Proxy Port : 14910
+  Cluster Port    : 14911
+
+  node_2
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14212
+  IPFS Proxy Port : 14213
+  Cluster Port    : 14214
+
+  node_7
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14709
+  IPFS Proxy Port : 14710
+  Cluster Port    : 14711
+
+  node_8
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14809
+  IPFS Proxy Port : 14810
+  Cluster Port    : 14811
 
   node_6
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14622
-  IPFS Proxy Port : 14623
-  Cluster Port    : 14624
+  RestAPI Port    : 14618
+  IPFS Proxy Port : 14619
+  Cluster Port    : 14620
 
 Cluster leader : node_4
-Secret         : 5ceede851013678ea37a27ea329fb1ecbd247509bc6f843b1d3b36d358949005
+Secret         : 2f6bb9c0d1f43a9b90adc1a29890677d2f1cacf23e3ec5d456f6b116622042c8
 Size           : 5
 Hosts          : 
   node_4
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14410
-  IPFS Proxy Port : 14411
-  Cluster Port    : 14412
-
-  node_6
-  IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14619
-  IPFS Proxy Port : 14620
-  Cluster Port    : 14621
+  RestAPI Port    : 14412
+  IPFS Proxy Port : 14413
+  Cluster Port    : 14414
 
   node_3
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14310
-  IPFS Proxy Port : 14311
-  Cluster Port    : 14312
+  RestAPI Port    : 14315
+  IPFS Proxy Port : 14316
+  Cluster Port    : 14317
 
   node_8
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14822
-  IPFS Proxy Port : 14823
-  Cluster Port    : 14824
+  RestAPI Port    : 14821
+  IPFS Proxy Port : 14822
+  Cluster Port    : 14823
+
+  node_6
+  IP              : /ip4/127.0.0.1/tcp/
+  RestAPI Port    : 14624
+  IPFS Proxy Port : 14625
+  Cluster Port    : 14626
 
   node_7
   IP              : /ip4/127.0.0.1/tcp/
-  RestAPI Port    : 14725
-  IPFS Proxy Port : 14726
-  Cluster Port    : 14727
+  RestAPI Port    : 14724
+  IPFS Proxy Port : 14725
+  Cluster Port    : 14726

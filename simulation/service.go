@@ -83,14 +83,11 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 		Roster:               config.Roster,
 	}
 
-	if strings.Contains(s.Nodes.GetServerIdentityToName(
-		config.Server.ServerIdentity), "node_") {
-		myService.InitRequest(serviceReq)
+	myService.InitRequest(serviceReq)
 
-		for _, trees := range myService.BinaryTree {
-			for _, tree := range trees {
-				config.Overlay.RegisterTree(tree)
-			}
+	for _, trees := range myService.BinaryTree {
+		for _, tree := range trees {
+			config.Overlay.RegisterTree(tree)
 		}
 	}
 
@@ -126,13 +123,6 @@ func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool) {
 	} else {
 		s.ReadNodesFromFile(NODEPATHREMOTE)
 	}
-
-	/*
-		for _, nodeRef := range s.Nodes.All {
-			node := nodeRef
-			log.Lvl1(node.Name, node.X, node.Y, node.IP)
-		}
-	*/
 }
 
 // ReadNodesFromFile read nodes information from a text file

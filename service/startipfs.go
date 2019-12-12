@@ -11,7 +11,7 @@ import (
 var _ onet.ProtocolInstance = (*StartIPFSProtocol)(nil)
 
 // NewStartIPFSProtocol initialises the structure for use in one round
-func NewStartIPFSProtocol(n *onet.TreeNodeInstance, getServ ServiceFn) (
+func NewStartIPFSProtocol(n *onet.TreeNodeInstance, getServ FnService) (
 	onet.ProtocolInstance, error) {
 	t := &StartIPFSProtocol{
 		TreeNodeInstance: n,
