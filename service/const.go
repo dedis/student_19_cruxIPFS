@@ -54,4 +54,6 @@ const (
 	WaitpeersName = "WaitPeers"
 	// StartIPFSName name of StartIPFS protocol
 	StartIPFSName = "StartIPFS"
+	// ClusterBootstrapName name of ClusterBootstrap protocol
+	ClusterBootstrapName = "ClusterBootstrap"
 )

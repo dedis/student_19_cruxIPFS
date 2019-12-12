@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"path/filepath"
 	"strconv"
 
@@ -11,7 +12,7 @@ import (
 // Check that *StartIPFSProtocol implements onet.ProtocolInstance
 var _ onet.ProtocolInstance = (*ClusterBootstrapProtocol)(nil)
 
-// NewLaunchClustersProtocol initialises the structure for use in one round
+// NewClusterBootstrapProtocol initialises the structure for use in one round
 func NewClusterBootstrapProtocol(n *onet.TreeNodeInstance, getServ ServiceFn) (
 	onet.ProtocolInstance, error) {
 	t := &ClusterBootstrapProtocol{
@@ -27,7 +28,7 @@ func NewClusterBootstrapProtocol(n *onet.TreeNodeInstance, getServ ServiceFn) (
 
 // Start sends the Announce-message to all children
 func (p *ClusterBootstrapProtocol) Start() error {
-	log.Lvl3(p.ServerIdentity(), "Starting ClusterBootstrapProtocol")
+	log.Lvl1(p.GetService().Name, "starting an ARA")
 	return p.SendTo(p.TreeNode(), &ClusterBootstrapAnnounce{})
 }
 
@@ -35,6 +36,8 @@ func (p *ClusterBootstrapProtocol) Start() error {
 // called once. The protocol is considered finished when Dispatch returns and
 // Done is called.
 func (p *ClusterBootstrapProtocol) Dispatch() error {
+	// the tree should have a branching factor of n-1, with n being the number
+	// of nodes
 	defer p.Done()
 
 	ann := <-p.announceChan
@@ -48,23 +51,40 @@ func (p *ClusterBootstrapProtocol) Dispatch() error {
 		secret, info, err := s.SetupClusterLeader(clusterPath, DefaultReplMin,
 			DefaultReplMax)
 		checkErr(err)
-		bootstrap := info.IP + strconv.Itoa(info.ClusterPort)
-		return p.SendToChildren(&ClusterBootstrapAnnounce{
-			SenderName: s.Name,
-			Bootstrap:  bootstrap,
-			Secret:     secret,
-		})
-	}
 
-	if p.IsLeaf() {
-		return p.SendToParent(&ClusterBootstrapReply{true})
+		p.Info = ClusterInfo{
+			Leader: s.Name,
+			Secret: secret,
+			Size:   len(p.TreeNodeInstance.Children()) + 1,
+			Instances: make([]ClusterInstance,
+				len(p.TreeNodeInstance.Children())+1),
+		}
+		p.Info.Instances[0] = *info
+
+		if len(p.TreeNodeInstance.Children()) > 0 {
+			bootstrap := info.IP + strconv.Itoa(info.ClusterPort)
+			p.SendToChildren(&ClusterBootstrapAnnounce{
+				SenderName: s.Name,
+				Bootstrap:  bootstrap,
+				Secret:     secret,
+			})
+			replies := <-p.repliesChan
+			for i := 0; i < len(replies); i++ {
+				p.Info.Instances[i+1] = *replies[i].Cluster
+			}
+		}
+		p.Ready <- true
+		return nil
 	}
-	p.SendToChildren(&ann.ClusterBootstrapAnnounce)
-	<-p.repliesChan
-	if !p.IsRoot() {
-		return p.SendToParent(&ClusterBootstrapReply{true})
+	// leaf
+	clusterPath := filepath.Join(s.ConfigPath,
+		ClusterFolderPrefix+ann.SenderName+"-"+ann.Secret)
+
+	// bootstrap peer
+	cluster, err := s.SetupClusterSlave(clusterPath, ann.Bootstrap, ann.Secret,
+		DefaultReplMin, DefaultReplMax)
+	if err != nil {
+		fmt.Println("Error slave:", err)
 	}
-	p.Ready <- true
-	log.Lvl1("Root is done")
-	return nil
+	return p.SendToParent(&ClusterBootstrapReply{Cluster: cluster})
 }

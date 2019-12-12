@@ -37,35 +37,90 @@ func (p *StartIPFSProtocol) Dispatch() error {
 	defer p.Done()
 
 	ann := <-p.announceChan
+	s := p.GetService()
 
 	if !p.IsLeaf() {
 		// send request to children
-		p.SendToChildren(&ann.StartIPFSAnnounce)
+		p.SendToChildren(&StartIPFSAnnounce{Message: "IPFS"})
 
 		// waitgroup to wait own ipfs instance
 		wg := sync.WaitGroup{}
 		wg.Add(1)
 		go func() {
 			// start ipfs
-			p.GetService().StartIPFS()
+			s.StartIPFS()
 			wg.Done()
 		}()
 
 		// wait for children replies
-		<-p.repliesChan
+		ipfsReplies := <-p.repliesChan
 		wg.Wait()
 
+		p.IPFSInstances = make([]IPFSInformation, len(ipfsReplies)+1)
+		p.IPFSInstances[0] = s.MyIPFS
+		for i := 0; i < len(ipfsReplies); i++ {
+			p.IPFSInstances[i+1] = *ipfsReplies[i].IPFS
+		}
+
 		if !p.IsRoot() {
-			return p.SendToParent(&StartIPFSReply{true})
+			return p.SendToParent(&StartIPFSReply{IPFS: &s.MyIPFS})
 		} // root
-		p.Ready <- true
 		log.Lvl1("All IPFS instances started successfully")
+
+		p.Clusters = make([]ClusterInfo, 0)
+		// start cluster instances on the root
+		p.SendToChildren(&StartIPFSAnnounce{Message: "Clusters"})
+
+		wg.Add(1)
+		go func() {
+			// ugly
+			p.Clusters = append(p.Clusters, s.startClusters()...)
+			wg.Done()
+		}()
+		// wait for children replies
+		replies := <-p.repliesChan
+		wg.Wait()
+		for _, r := range replies {
+			p.Clusters = append(p.Clusters, *r.Clusters...)
+		}
+		p.Ready <- true
+
 		return nil
 
 	}
 	// node is a leaf
-	// start ipfs
-	p.GetService().StartIPFS()
-	// send ok to parent when it's done
-	return p.SendToParent(&StartIPFSReply{true})
+	if ann.Message == "IPFS" {
+		// start ipfs
+		s.StartIPFS()
+		// send ok to parent when it's done
+		p.SendToParent(&StartIPFSReply{IPFS: &s.MyIPFS})
+		ann = <-p.announceChan
+		if ann.Message == "Clusters" {
+			info := s.startClusters()
+			return p.SendToParent(&StartIPFSReply{Clusters: &info})
+		}
+	}
+	return nil
+}
+
+func (s *Service) startClusters() []ClusterInfo {
+	list := make([]ClusterInfo, 0)
+	listMutex := sync.Mutex{}
+	wg := sync.WaitGroup{}
+	// iterate over all ARA trees where node is the root
+	for _, tree := range s.BinaryTree[s.Name] {
+		wg.Add(1)
+		go func(t *onet.Tree) {
+			pi, err := s.CreateProtocol(ClusterBootstrapName, t)
+			checkErr(err)
+			pi.Start()
+			<-pi.(*ClusterBootstrapProtocol).Ready
+			listMutex.Lock()
+			list = append(list, pi.(*ClusterBootstrapProtocol).Info)
+			listMutex.Unlock()
+			wg.Done()
+		}(tree)
+	}
+	wg.Wait()
+	return list
 }

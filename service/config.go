@@ -36,6 +36,7 @@ func (s *Service) EditIPFSConfig() {
 
 	// filling my IPFS info
 	s.MyIPFS = IPFSInformation{
+		Name:        s.Name,
 		IP:          s.MyIP,
 		SwarmPort:   (*ports)[0],
 		APIPort:     (*ports)[1],
@@ -138,18 +139,18 @@ func MakeJSONArray(elements []string) string {
 func (s *Service) SetupClusterLeader(path string,
 	replmin, replmax int) (string, *ClusterInstance, error) {
 
-	err := CreateEmptyDir(path)
-	if err != nil {
-		return "", nil, err
-	}
-
 	// generate random secret
 	key := make([]byte, 32)
-	_, err = rand.Read(key)
+	_, err := rand.Read(key)
 	if err != nil {
 		return "", nil, errors.New("could not generate secret")
 	}
 	secret := hex.EncodeToString(key)
+
+	path = path + "-" + secret
+	if CreateEmptyDir(path) != nil {
+		return "", nil, err
+	}
 
 	/*
 		// path for config files
@@ -159,7 +160,7 @@ func (s *Service) SetupClusterLeader(path string,
 			return "", nil, err
 		}
 	*/
-
+	s.PortMutex.Lock()
 	ints, err := GetNextAvailablePorts(s.MinPort, s.MaxPort, ClusterPortNumber)
 	if err != nil {
 		return "", nil, err
@@ -167,6 +168,7 @@ func (s *Service) SetupClusterLeader(path string,
 
 	// set the ports that the cluster will use
 	ports := ClusterInstance{
+		HostName:      s.Name,
 		IP:            IPVersion + s.MyIP + TransportProtocol,
 		IPFSAPIPort:   s.MyIPFS.APIPort,
 		RestAPIPort:   (*ints)[0],
@@ -195,11 +197,12 @@ func (s *Service) SetupClusterLeader(path string,
 		fmt.Println(s.Name + " cluster leader crashed")
 	}()
 
-	addr := IPVersion + s.MyIP + TransportProtocol + strconv.Itoa(ports.RestAPIPort)
-	log.Lvl1("Started ipfs-cluster leader at " + addr)
-
 	// wait for the daemon to be launched
 	time.Sleep(ClusterStartupTime)
+	s.PortMutex.Unlock()
+
+	addr := IPVersion + s.MyIP + TransportProtocol + strconv.Itoa(ports.RestAPIPort)
+	log.Lvl1("Started ipfs-cluster leader at " + addr)
 
 	return secret, &ports, nil
 }
@@ -238,6 +241,7 @@ func (s *Service) SetupClusterSlave(path, bootstrap, secret string,
 
 	// set the ports that the cluster will use
 	ports := ClusterInstance{
+		HostName:      s.Name,
 		IP:            IPVersion + s.MyIP + TransportProtocol,
 		IPFSAPIPort:   s.MyIPFS.APIPort,
 		RestAPIPort:   (*ints)[0],

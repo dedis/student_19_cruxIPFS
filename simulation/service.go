@@ -100,8 +100,6 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 // Run is used on the destination machines and runs a number of
 // rounds
 func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
-	log.Lvl1("Entering 'Run'")
-
 	myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
 
 	pi, err := myService.CreateProtocol(service.StartIPFSName, config.Tree)
@@ -111,19 +109,9 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 	pi.Start()
 
 	<-pi.(*service.StartIPFSProtocol).Ready
-	/*
+	saveState("../save.txt", pi.(*service.StartIPFSProtocol).IPFSInstances,
+		pi.(*service.StartIPFSProtocol).Clusters)
 
-		//fmt.Println(<-pi.(protocol.WaitpeersProtocol).Ready)
-
-			size := config.Tree.Size()
-			log.Lvl2("Size is:", size, "rounds:", s.Rounds)
-			//c := template.NewClient()
-			for round := 0; round < s.Rounds; round++ {
-				log.Lvl1("Starting round", round)
-				round := monitor.NewTimeMeasure("round")
-				round.Record()
-			}
-	*/
 	return nil
 }
 

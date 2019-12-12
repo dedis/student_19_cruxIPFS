@@ -22,16 +22,6 @@ func (s *Service) StartIPFS() {
 	checkErr(err)
 	configPath := filepath.Join(pwd, ConfigsFolder)
 
-	/*
-		if !LocalSim {
-			// if not local, everyone create its own configs directory
-			checkErr(CreateEmptyDir(configPath))
-		} else if s.Name == Node0 {
-			// only node 0, create the empty folder
-			checkErr(CreateEmptyDir(configPath))
-		}
-	*/
-
 	// set the port range allocated to s
 	s.MinPort = BaseHostPort + s.getNodeID()*MaxPortNumberPerHost
 	s.MaxPort = s.MinPort + MaxPortNumberPerHost

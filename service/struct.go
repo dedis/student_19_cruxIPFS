@@ -73,8 +73,17 @@ type storage struct {
 	sync.Mutex
 }
 
+// ClusterInfo information about a given cluster
+type ClusterInfo struct {
+	Leader    string
+	Secret    string
+	Size      int
+	Instances []ClusterInstance
+}
+
 // ClusterInstance details of a cluster
 type ClusterInstance struct {
+	HostName      string
 	IP            string
 	IPFSAPIPort   int
 	RestAPIPort   int
@@ -84,6 +93,7 @@ type ClusterInstance struct {
 
 // IPFSInformation structure containing information about an IPFS instance
 type IPFSInformation struct {
+	Name        string
 	IP          string
 	SwarmPort   int
 	APIPort     int
@@ -173,10 +183,12 @@ type replyWrapperWaitpeers struct {
 // StartIPFSProtocol structure
 type StartIPFSProtocol struct {
 	*onet.TreeNodeInstance
-	announceChan chan announceWrapperStartIPFS
-	repliesChan  chan []replyWrapperStartIPFS
-	Ready        chan bool
-	GetService   ServiceFn
+	announceChan  chan announceWrapperStartIPFS
+	repliesChan   chan []replyWrapperStartIPFS
+	Ready         chan bool
+	GetService    ServiceFn
+	IPFSInstances []IPFSInformation
+	Clusters      []ClusterInfo
 }
 
 // StartIPFSAnnounce is used to pass a message to all children.
@@ -193,7 +205,8 @@ type announceWrapperStartIPFS struct {
 
 // StartIPFSReply returns true when ready.
 type StartIPFSReply struct {
-	Ready bool
+	IPFS     *IPFSInformation
+	Clusters *[]ClusterInfo
 }
 
 // replyWrapper just contains Reply and the data necessary to identify and
@@ -242,6 +255,7 @@ type ClusterBootstrapProtocol struct {
 	announceChan chan announceWrapperClusterBootstrap
 	repliesChan  chan []replyWrapperClusterBootstrap
 	Ready        chan bool
+	Info         ClusterInfo
 	GetService   ServiceFn
 }
 
@@ -261,7 +275,7 @@ type announceWrapperClusterBootstrap struct {
 
 // ClusterBootstrapReply returns true when ready.
 type ClusterBootstrapReply struct {
-	Ready bool
+	Cluster *ClusterInstance
 }
 
 // replyWrapperClusterBootstrap just contains Reply and the data necessary to

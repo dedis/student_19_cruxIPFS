@@ -141,44 +141,45 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 	s.GraphTree = ARATreeStruct
 	s.BinaryTree = ARAOnetTrees
 
-	if s.Name == Node0 {
-		// print ping distances
-		for _, n := range s.Nodes.All {
-			str := n.Name + "\n"
-			str += "Cluster: " + fmt.Sprintln(n.Cluster)
-			str += "Bunch: " + fmt.Sprintln(n.Bunch)
-			log.Lvl1(str)
-		}
-	}
 	/*
-
-		pi, err := s.CreateProtocol(StartIPFSName, s.OnetTree)
-		if err != nil {
-			fmt.Println(err)
+		if s.Name == Node0 {
+			// print ping distances
+			for _, n := range s.Nodes.All {
+				str := n.Name + "\n"
+				str += "Cluster: " + fmt.Sprintln(n.Cluster)
+				str += "Bunch: " + fmt.Sprintln(n.Bunch)
+				log.Lvl1(str)
+			}
 		}
-		pi.Start()
-
+		/*
 
 			pi, err := s.CreateProtocol(StartIPFSName, s.OnetTree)
 			if err != nil {
 				fmt.Println(err)
 			}
-			pi.(*StartIPFSProtocol).Service = s
-			s.StartIPFSProt = pi
-			log.Lvl1("Protocol", pi)
 			pi.Start()
 
-			/*
-				if s.Name == "node_4" {
-					//tree := s.BinaryTree[s.Name][len(s.BinaryTree[s.Name])-1]
-					tree := req.Roster.GenerateNaryTreeWithRoot(len(req.Roster.List)-1, s.ServerIdentity())
-					pi, err := s.CreateProtocol(protocol.WaitpeersName, tree)
-					if err != nil {
-						fmt.Println(err)
-					}
-					pi.Start()
-					//<-pi.(*protocol.WaitpeersProtocol).Ready
+
+				pi, err := s.CreateProtocol(StartIPFSName, s.OnetTree)
+				if err != nil {
+					fmt.Println(err)
 				}
+				pi.(*StartIPFSProtocol).Service = s
+				s.StartIPFSProt = pi
+				log.Lvl1("Protocol", pi)
+				pi.Start()
+
+				/*
+					if s.Name == "node_4" {
+						//tree := s.BinaryTree[s.Name][len(s.BinaryTree[s.Name])-1]
+						tree := req.Roster.GenerateNaryTreeWithRoot(len(req.Roster.List)-1, s.ServerIdentity())
+						pi, err := s.CreateProtocol(protocol.WaitpeersName, tree)
+						if err != nil {
+							fmt.Println(err)
+						}
+						pi.Start()
+						//<-pi.(*protocol.WaitpeersProtocol).Ready
+					}
 	*/
 
 	/*
@@ -258,7 +259,16 @@ func newService(c *onet.Context) (onet.Service, error) {
 
 		return NewStartIPFSProtocol(n, s.GetService)
 	})
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
 
+	_, err = s.ProtocolRegister(ClusterBootstrapName,
+		func(n *onet.TreeNodeInstance) (onet.ProtocolInstance, error) {
+
+			return NewClusterBootstrapProtocol(n, s.GetService)
+		})
 	if err != nil {
 		log.Error(err)
 		return nil, err
