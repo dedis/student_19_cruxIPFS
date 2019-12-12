@@ -275,7 +275,7 @@ type announceWrapperClusterBootstrap struct {
 
 // ClusterBootstrapReply returns true when ready.
 type ClusterBootstrapReply struct {
-	Cluster *ClusterInstance
+	Cluster *[]ClusterInstance
 }
 
 // replyWrapperClusterBootstrap just contains Reply and the data necessary to

@@ -53,11 +53,9 @@ func (p *ClusterBootstrapProtocol) Dispatch() error {
 		checkErr(err)
 
 		p.Info = ClusterInfo{
-			Leader: s.Name,
-			Secret: secret,
-			Size:   len(p.TreeNodeInstance.Children()) + 1,
-			Instances: make([]ClusterInstance,
-				len(p.TreeNodeInstance.Children())+1),
+			Leader:    s.Name,
+			Secret:    secret,
+			Instances: make([]ClusterInstance, 1),
 		}
 		p.Info.Instances[0] = *info
 
@@ -70,11 +68,32 @@ func (p *ClusterBootstrapProtocol) Dispatch() error {
 			})
 			replies := <-p.repliesChan
 			for i := 0; i < len(replies); i++ {
-				p.Info.Instances[i+1] = *replies[i].Cluster
+				p.Info.Instances = append(p.Info.Instances,
+					*replies[i].Cluster...)
 			}
 		}
+		p.Info.Size = len(p.Info.Instances)
 		p.Ready <- true
 		return nil
+	} else if !p.IsLeaf() {
+		p.SendToChildren(&ann.ClusterBootstrapAnnounce)
+		replies := <-p.repliesChan
+
+		clusterPath := filepath.Join(s.ConfigPath,
+			ClusterFolderPrefix+ann.SenderName+"-"+ann.Secret)
+
+		// bootstrap peer
+		cluster, err := s.SetupClusterSlave(clusterPath, ann.Bootstrap, ann.Secret,
+			DefaultReplMin, DefaultReplMax)
+		if err != nil {
+			fmt.Println("Error slave:", err)
+		}
+		instances := make([]ClusterInstance, 0)
+		for _, r := range replies {
+			instances = append(instances, *r.Cluster...)
+		}
+		instances = append(instances, *cluster)
+		return p.SendToParent(&ClusterBootstrapReply{Cluster: &instances})
 	}
 	// leaf
 	clusterPath := filepath.Join(s.ConfigPath,
@@ -86,5 +105,6 @@ func (p *ClusterBootstrapProtocol) Dispatch() error {
 	if err != nil {
 		fmt.Println("Error slave:", err)
 	}
-	return p.SendToParent(&ClusterBootstrapReply{Cluster: cluster})
+	return p.SendToParent(&ClusterBootstrapReply{
+		Cluster: &[]ClusterInstance{*cluster}})
 }
