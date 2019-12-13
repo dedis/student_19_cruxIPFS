@@ -41,12 +41,17 @@ func NewSimulationService(config string) (onet.Simulation, error) {
 // Setup creates the tree used for that simulation
 func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	*onet.SimulationConfig, error) {
+	log.Lvl1("Starting Setup()")
 
 	SetNodePaths(len(hosts))
 
 	app.Copy(dir, filepath.Join(DATAFOLDER, NODEPATHREMOTE))
 	app.Copy(dir, "../clean.sh")
 	app.Copy(dir, "pings.txt")
+	app.Copy(dir, "prescript.sh")
+	app.Copy(dir, "local_nodes.txt")
+	app.Copy(dir, "install/ipfs")
+	app.Copy(dir, "install/ipfs-cluster-service")
 
 	sc := &onet.SimulationConfig{}
 	s.CreateRoster(sc, hosts, 2000)
@@ -62,6 +67,8 @@ func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 // SimulationBFTree structure which will load the roster- and the
 // tree-structure to speed up the first round.
 func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
+	log.Lvl1("Starting Node()")
+
 	index, _ := config.Roster.Search(config.Server.ServerIdentity.ID)
 	if index < 0 {
 		log.Fatal("Didn't find this node in roster")
@@ -97,6 +104,8 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 // Run is used on the destination machines and runs a number of
 // rounds
 func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
+	log.Lvl1("Starting Run()")
+
 	myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
 
 	pi, err := myService.CreateProtocol(service.StartIPFSName, config.Tree)
@@ -119,9 +128,11 @@ func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool) {
 		log.Fatal(err)
 	}
 	if isLocalTest {
+		log.Lvl1("NODEPATHLOCAL:", NODEPATHLOCAL)
 		s.ReadNodesFromFile(NODEPATHLOCAL)
 	} else {
-		s.ReadNodesFromFile(NODEPATHREMOTE)
+		log.Lvl1("NODEPATHREMOTE:", "nodes_local_11.txt")
+		s.ReadNodesFromFile("nodes_local_11.txt")
 	}
 }
 

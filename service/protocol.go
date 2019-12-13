@@ -13,11 +13,23 @@ node will only use the `Handle`-methods, and not call `Start` again.
 import (
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/log"
+	"go.dedis.ch/onet/v3/network"
 )
 
 func init() {
 	_, err := onet.GlobalProtocolRegister(Name, NewProtocol)
 	checkErr(err)
+	for _, i := range []interface{}{
+		Announce{},
+		Reply{},
+		StartIPFSAnnounce{},
+		StartIPFSReply{},
+		ClusterBootstrapAnnounce{},
+		ClusterBootstrapReply{},
+	} {
+		network.RegisterMessage(i)
+	}
+
 }
 
 func checkErr(err error) {

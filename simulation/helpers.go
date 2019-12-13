@@ -7,12 +7,15 @@ import (
 	"strings"
 
 	"github.com/dedis/student_19_cruxIPFS/service"
+	"go.dedis.ch/onet/v3/log"
 )
 
 // SetNodePaths set the node paths for remote and local node files
 func SetNodePaths(n int) {
 	NODEPATHREMOTE = NODEPATHNAME + strconv.Itoa(n) + ".txt"
+	log.Lvl1("NODEPATHREMOTE:", NODEPATHREMOTE)
 	NODEPATHLOCAL = filepath.Join("..", DATAFOLDER, NODEPATHREMOTE)
+	log.Lvl1("NODEPATHLOCAL:", NODEPATHLOCAL)
 }
 
 func saveState(filename string, ipfs []service.IPFSInformation,
@@ -66,8 +69,8 @@ func alignIds(ids []string, indent int) []string {
 		}
 	}
 	for i, t := range ids {
-		ids[i] = "\n"+strings.Repeat(" ", indent) + t +
-		 strings.Repeat(" ", max-len(t)) + " : "
+		ids[i] = "\n" + strings.Repeat(" ", indent) + t +
+			strings.Repeat(" ", max-len(t)) + " : "
 	}
 	return ids
 }

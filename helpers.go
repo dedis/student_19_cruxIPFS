@@ -13,7 +13,7 @@ import (
 // CheckErr checks for an error and prints it
 func CheckErr(e error) {
 	if e != nil && e != io.EOF {
-		fmt.Print(e)
+		fmt.Println(e)
 		panic(e)
 	}
 }
@@ -21,6 +21,10 @@ func CheckErr(e error) {
 // ReadFileLineByLine reads a file line by line
 func ReadFileLineByLine(configFilePath string) func() string {
 	f, err := os.Open(configFilePath)
+	if err != nil {
+		fmt.Println(err, configFilePath)
+	}
+
 	//defer close(f)
 	CheckErr(err)
 	reader := bufio.NewReader(f)
