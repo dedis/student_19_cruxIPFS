@@ -9,7 +9,6 @@ import (
 	"errors"
 	"fmt"
 	"math"
-	"os"
 	"strconv"
 	"strings"
 	"sync"
@@ -126,11 +125,11 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 
 	//log.LLvl1("called init service on", s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.ServerIdentity())
 
-	_, err := os.Stat(PingsFile)
-	s.getPings(err == nil)
+	//_, err := os.Stat(PingsFile)
+	//s.getPings(err == nil)
 	//os.IsNotExist(err))
 
-	//s.getPings(false)
+	s.getPings(false)
 	if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == Node0 {
 		s.printDistances("Ping distances")
 	}

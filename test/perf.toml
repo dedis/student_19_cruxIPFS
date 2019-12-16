@@ -1,0 +1,9 @@
+Simulation = "TestService"
+Servers = 2
+Bf = 1
+Rounds = 1
+Suite = "Ed25519"
+Prescript = ""
+
+Depth
+1

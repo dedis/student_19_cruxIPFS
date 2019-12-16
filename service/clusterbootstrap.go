@@ -28,7 +28,7 @@ func NewClusterBootstrapProtocol(n *onet.TreeNodeInstance, getServ FnService) (
 
 // Start sends the Announce-message to all children
 func (p *ClusterBootstrapProtocol) Start() error {
-	log.Lvl1(p.GetService().Name, "starting an ARA")
+	log.Lvl2(p.GetService().Name, "starting an ARA")
 	return p.SendTo(p.TreeNode(), &ClusterBootstrapAnnounce{})
 }
 

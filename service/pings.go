@@ -145,7 +145,9 @@ func (s *Service) getPings(readFromFile bool) {
 
 		// wit for ping replies from everyone but myself
 		for s.NrPingAnswers != len(s.Nodes.All)-1 {
-			//log.LLvl1(s.Nodes.GetServerIdentityToName(s.ServerIdentity()), "got pings", s.NrPingAnswers)
+			if s.Name == "node_1" {
+				log.LLvl1(s.Nodes.GetServerIdentityToName(s.ServerIdentity()), "got pings", s.NrPingAnswers)
+			}
 			time.Sleep(5 * time.Second)
 		}
 

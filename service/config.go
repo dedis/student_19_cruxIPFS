@@ -95,6 +95,9 @@ func GetClusterVariables(path, ip, secret, peername string,
 	// edit the secret
 	cmd += GetEnvVar("CLUSTER_SECRET", secret)
 
+	cmd += GetEnvVar("CLUSTER_REPLICATIONFACTORMIN", "3")
+	cmd += GetEnvVar("CLUSTER_REPLICATIONFACTORMAX", "3")
+
 	// replace IPFS API port (5001)
 	cmd += GetEnvVar("CLUSTER_IPFSPROXY_NODEMULTIADDRESS", apiIPFSAddr) // 5001
 	cmd += GetEnvVar("CLUSTER_IPFSHTTP_NODEMULTIADDRESS", apiIPFSAddr)  // 5001
@@ -194,7 +197,7 @@ func (s *Service) SetupClusterLeader(path string,
 	cmd = "ipfs-cluster-service -c " + path + " daemon"
 	go func() {
 		exec.Command("bash", "-c", cmd).Run()
-		fmt.Println(s.Name + " cluster leader crashed")
+		log.Lvl1(s.Name + " cluster leader crashed")
 	}()
 
 	// wait for the daemon to be launched
@@ -202,7 +205,7 @@ func (s *Service) SetupClusterLeader(path string,
 	s.PortMutex.Unlock()
 
 	addr := IPVersion + s.MyIP + TransportProtocol + strconv.Itoa(ports.RestAPIPort)
-	log.Lvl1("Started ipfs-cluster leader at " + addr)
+	log.Lvl2("Started ipfs-cluster leader at " + addr)
 
 	return secret, &ports, nil
 }
@@ -273,7 +276,7 @@ func (s *Service) SetupClusterSlave(path, bootstrap, secret string,
 	s.PortMutex.Unlock()
 
 	addr := ports.IP + strconv.Itoa(ports.RestAPIPort)
-	log.Lvl1("Started ipfs-cluster slave at " + addr)
+	log.Lvl2("Started ipfs-cluster slave at " + addr)
 
 	return &ports, nil
 }

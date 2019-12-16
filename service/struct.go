@@ -160,15 +160,20 @@ type replyWrapperWaitpeers struct {
 	WaitpeersReply
 }
 
+// NodeInfo contains ipfs and ipfs-cluster information for a given node
+type NodeInfo struct {
+	IPFS     IPFSInformation
+	Clusters []ClusterInfo
+}
+
 // StartIPFSProtocol structure
 type StartIPFSProtocol struct {
 	*onet.TreeNodeInstance
-	announceChan  chan announceWrapperStartIPFS
-	repliesChan   chan []replyWrapperStartIPFS
-	Ready         chan bool
-	GetService    FnService
-	IPFSInstances []IPFSInformation
-	Clusters      []ClusterInfo
+	announceChan chan announceWrapperStartIPFS
+	repliesChan  chan []replyWrapperStartIPFS
+	Ready        chan bool
+	GetService   FnService
+	Nodes        map[string]*NodeInfo
 }
 
 // StartIPFSAnnounce is used to pass a message to all children.

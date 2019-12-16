@@ -11,6 +11,7 @@ import (
 
 	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
 	"github.com/dedis/student_19_cruxIPFS/gentree"
+	"github.com/dedis/student_19_cruxIPFS/operations"
 	"github.com/dedis/student_19_cruxIPFS/service"
 
 	"go.dedis.ch/onet/v3"
@@ -113,9 +114,9 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 	pi.Start()
 
 	<-pi.(*service.StartIPFSProtocol).Ready
-	saveState("../save.txt", pi.(*service.StartIPFSProtocol).IPFSInstances,
-		pi.(*service.StartIPFSProtocol).Clusters)
+	operations.SaveState(cruxIPFS.SaveFile, pi.(*service.StartIPFSProtocol).Nodes)
 
+	operations.Test0()
 	return nil
 }
 

@@ -56,10 +56,16 @@ func (p *StartIPFSProtocol) Dispatch() error {
 		ipfsReplies := <-p.repliesChan
 		wg.Wait()
 
-		p.IPFSInstances = make([]IPFSInformation, len(ipfsReplies)+1)
-		p.IPFSInstances[0] = s.MyIPFS
+		p.Nodes = make(map[string]*NodeInfo)
+		p.Nodes[s.Name] = &NodeInfo{
+			IPFS:     s.MyIPFS,
+			Clusters: make([]ClusterInfo, 0),
+		}
 		for i := 0; i < len(ipfsReplies); i++ {
-			p.IPFSInstances[i+1] = *ipfsReplies[i].IPFS
+			p.Nodes[ipfsReplies[i].IPFS.Name] = &NodeInfo{
+				IPFS:     *ipfsReplies[i].IPFS,
+				Clusters: make([]ClusterInfo, 0),
+			}
 		}
 
 		if !p.IsRoot() {
@@ -67,21 +73,23 @@ func (p *StartIPFSProtocol) Dispatch() error {
 		} // root
 		log.Lvl1("All IPFS instances started successfully")
 
-		p.Clusters = make([]ClusterInfo, 0)
 		// start cluster instances on the root
 		p.SendToChildren(&StartIPFSAnnounce{Message: "Clusters"})
 
 		wg.Add(1)
 		go func() {
-			// ugly
-			p.Clusters = append(p.Clusters, s.startClusters()...)
+			p.Nodes[s.Name].Clusters = append(p.Nodes[s.Name].Clusters,
+				s.startClusters()...)
 			wg.Done()
 		}()
 		// wait for children replies
 		replies := <-p.repliesChan
 		wg.Wait()
 		for _, r := range replies {
-			p.Clusters = append(p.Clusters, *r.Clusters...)
+			for _, c := range *(r.Clusters) {
+				p.Nodes[c.Leader].Clusters =
+					append(p.Nodes[c.Leader].Clusters, c)
+			}
 		}
 		p.Ready <- true
 
