@@ -3,6 +3,7 @@ package service
 import (
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"os/exec"
 	"strconv"
 	"strings"
@@ -218,14 +219,11 @@ func (s *Service) getPings(readFromFile bool) {
 			}
 		}
 
-		// ping node_0 node_1 = 19.314
-		if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == Node0 {
-			s.printDistances("Ping distances")
-		}
+		s.writePingsToFile()
 
 	} else {
 		// read from file lines of form "node_19 node_7 : 321"
-		readLine := cruxIPFS.ReadFileLineByLine("pings.txt")
+		readLine := cruxIPFS.ReadFileLineByLine(PingsFile)
 
 		for true {
 			line := readLine()
@@ -250,9 +248,6 @@ func (s *Service) getPings(readFromFile bool) {
 			}
 
 			s.PingDistances[src][dst] = pingTime
-		}
-		if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == Node0 {
-			s.printDistances("Ping distances")
 		}
 	}
 }
@@ -314,17 +309,30 @@ func (s *Service) measureOwnPings() {
 func (s *Service) printDistances(str string) {
 	str += "\n       | "
 	for i := 0; i < len(s.Nodes.All); i++ {
-		str += "  node_" + strconv.Itoa(i) + "  |"
+		str += "  " + NodeName + strconv.Itoa(i) + "  |"
 	}
 	str += "\n"
 	for i := 0; i < len(s.Nodes.All); i++ {
-		name1 := "node_" + strconv.Itoa(i)
+		name1 := NodeName + strconv.Itoa(i)
 		str += name1 + " | "
 		for j := 0; j < len(s.Nodes.All); j++ {
-			name2 := "node_" + strconv.Itoa(j)
+			name2 := NodeName + strconv.Itoa(j)
 			str += fmt.Sprintf(" %f |", s.PingDistances[name1][name2])
 		}
 		str += "\n"
 	}
 	log.Lvl1(str)
+}
+
+func (s *Service) writePingsToFile() {
+	str := ""
+	for i := 0; i < len(s.Nodes.All); i++ {
+		name1 := NodeName + strconv.Itoa(i)
+		for j := 0; j < len(s.Nodes.All); j++ {
+			name2 := NodeName + strconv.Itoa(j)
+			str += fmt.Sprintf("%s %s : %f\n", name1, name2,
+				s.PingDistances[name1][name2])
+		}
+	}
+	ioutil.WriteFile(PingsFile, []byte(str), defaultFileMode)
 }

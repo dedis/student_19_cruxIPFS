@@ -46,8 +46,6 @@ func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	SetNodePaths(len(hosts))
 
 	app.Copy(dir, filepath.Join(DATAFOLDER, NODEPATHREMOTE))
-	app.Copy(dir, "../clean.sh")
-	app.Copy(dir, "pings.txt")
 	app.Copy(dir, "prescript.sh")
 	app.Copy(dir, "local_nodes.txt")
 	app.Copy(dir, "install/ipfs")
@@ -128,10 +126,10 @@ func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool) {
 		log.Fatal(err)
 	}
 	if isLocalTest {
-		log.Lvl1("NODEPATHLOCAL:", NODEPATHLOCAL)
+		//log.Lvl1("NODEPATHLOCAL:", NODEPATHLOCAL)
 		s.ReadNodesFromFile(NODEPATHLOCAL)
 	} else {
-		log.Lvl1("NODEPATHREMOTE:", "nodes_local_11.txt")
+		//log.Lvl1("NODEPATHREMOTE:", "nodes_local_11.txt")
 		s.ReadNodesFromFile("nodes_local_11.txt")
 	}
 }

@@ -56,4 +56,7 @@ const (
 	StartIPFSName = "StartIPFS"
 	// ClusterBootstrapName name of ClusterBootstrap protocol
 	ClusterBootstrapName = "ClusterBootstrap"
+
+	// PingsFile File with stored pings
+	PingsFile = "../pings.txt"
 )
