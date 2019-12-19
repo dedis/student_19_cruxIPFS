@@ -87,6 +87,7 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 		ServerIdentityToName: mymap,
 		OnetTree:             config.Tree,
 		Roster:               config.Roster,
+		Cruxified:            true,
 	}
 
 	myService.InitRequest(serviceReq)

@@ -276,36 +276,8 @@ func (s *Service) SetupClusterSlave(path, bootstrap, secret string,
 	s.PortMutex.Unlock()
 
 	addr := ports.IP + strconv.Itoa(ports.RestAPIPort)
+	//log.Lvl1("ipfs-cluster-service -c " + path + " daemon --bootstrap " + bootstrap)
 	log.Lvl2("Started ipfs-cluster slave at " + addr)
 
 	return &ports, nil
 }
-
-/*
-// Protocol to start all clusters in an ARA
-func Protocol(configPath, nodeID, ip string, replmin, replmax int) error {
-
-	// for all ARAs (trees ?) where nodeID is the leader: do
-
-	// setup the leader of the cluster
-	secret, p, err := SetupClusterLeader(configPath, "master", ip,
-		replmin, replmax)
-	bootstrap := p.IP + strconv.Itoa(p.ClusterPort)
-	if err != nil {
-		return err
-	}
-	// for all nodes in this ARA
-	_, err = SetupClusterSlave(configPath, "slave1", ip, bootstrap, secret,
-		replmin, replmax)
-	if err != nil {
-		return err
-	}
-	_, err = SetupClusterSlave(configPath, "slave2", ip, bootstrap, secret,
-		replmin, replmax)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-*/

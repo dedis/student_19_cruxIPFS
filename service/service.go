@@ -123,13 +123,17 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 		return
 	}
 
+	if !req.Cruxified {
+		return
+	}
+
 	//log.LLvl1("called init service on", s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.ServerIdentity())
 
 	//_, err := os.Stat(PingsFile)
 	//s.getPings(err == nil)
 	//os.IsNotExist(err))
 
-	s.getPings(false)
+	s.getPings(true)
 	if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == Node0 {
 		s.printDistances("Ping distances")
 	}

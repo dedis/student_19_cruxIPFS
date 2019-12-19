@@ -4,9 +4,9 @@ package operations
 //ma "github.com/multiformats/go-multiaddr"
 
 import (
+	"context"
 	"fmt"
 	"io/ioutil"
-	"math"
 	"os"
 	"path/filepath"
 	"strings"
@@ -21,61 +21,57 @@ import (
 var nodes = make(map[string]*Node)
 
 // Read the given filename from the given node
-func Read(node, filename string) time.Duration {
+func Read(node, filename string) map[string]time.Duration {
 	if len(nodes) == 0 {
 		nodes = LoadClusterInstances(cruxIPFS.SaveFile)
 	}
 	if n, ok := nodes[node]; ok {
-		var min time.Duration = math.MaxInt64
-		//var max time.Duration
 		mutex := &sync.Mutex{}
 		wg := sync.WaitGroup{}
 		wg.Add(len(n.Clients))
+		results := make(map[string]time.Duration)
 
-		for _, c := range n.Clients {
-			go func(c0 client.Client, m *sync.Mutex) {
+		for i, c := range n.Clients {
+			go func(c0 client.Client, m *sync.Mutex, i int) {
 				t := readFile(c0, filename)
 				m.Lock()
-				if t < min {
-					min = t
-				}
+				results[n.Secrets[i]] = t
 				m.Unlock()
-				log.Lvl1("time", t)
 				wg.Done()
-			}(c, mutex)
+			}(c, mutex, i)
 		}
 		wg.Wait()
-		return min
+		return results
 	}
 	panic(node + "do not exist")
 }
 
 // Write the given filename from the given node
-func Write(node, filename string) (string, time.Duration) {
+func Write(node, filename string) (string, map[string]time.Duration) {
 	if len(nodes) == 0 {
 		nodes = LoadClusterInstances(cruxIPFS.SaveFile)
 	}
 	if n, ok := nodes[node]; ok {
-		var sum time.Duration
 		mutex := &sync.Mutex{}
 		wg := sync.WaitGroup{}
 		wg.Add(len(n.Clients))
 		name := ""
+		results := make(map[string]time.Duration)
 
-		for _, c := range n.Clients {
-			go func(c0 client.Client, m *sync.Mutex) {
-				n, t := writeFile(c0, filepath.Join(fileFolder, filename))
+		for i, c := range n.Clients {
+			go func(c0 client.Client, m *sync.Mutex, i int) {
+				n0, t := writeFile(c0, filepath.Join(fileFolder, filename))
 				m.Lock()
-				sum += t
-				name = n
+				results[n.Secrets[i]] = t
 				m.Unlock()
-				log.Lvl1("time", t)
-
+				if name == "" {
+					name = n0
+				}
 				wg.Done()
-			}(c, mutex)
+			}(c, mutex, i)
 		}
 		wg.Wait()
-		return name, sum
+		return name, results
 	}
 	panic(node + "do not exist")
 }
@@ -103,4 +99,16 @@ func printNodes() {
 		}
 	}
 	log.Lvl1(str)
+}
+
+// ListPeers of a client
+func ListPeers(c client.Client) {
+	ctx := context.Background()
+	peers, err := c.Peers(ctx)
+	checkErr(err)
+
+	fmt.Printf("\nPeers in the Cluster:\n")
+	for _, p := range peers {
+		fmt.Printf("%s: %s\n", p.Peername, p.Addresses[0])
+	}
 }

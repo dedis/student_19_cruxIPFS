@@ -18,7 +18,6 @@ func writeFile(c client.Client, path string) (string, time.Duration) {
 	if err != nil {
 		log.Lvl1(err)
 	}
-
 	out := make(chan *api.AddedOutput)
 	paths := []string{path}
 	start := time.Now()

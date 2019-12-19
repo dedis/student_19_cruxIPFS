@@ -27,6 +27,7 @@ type InitRequest struct {
 	ServerIdentityToName map[*network.ServerIdentity]string
 	OnetTree             *onet.Tree
 	Roster               *onet.Roster
+	Cruxified            bool
 }
 
 // InitResponse packet

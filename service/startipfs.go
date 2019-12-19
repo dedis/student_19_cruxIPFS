@@ -86,9 +86,11 @@ func (p *StartIPFSProtocol) Dispatch() error {
 		replies := <-p.repliesChan
 		wg.Wait()
 		for _, r := range replies {
-			for _, c := range *(r.Clusters) {
-				p.Nodes[c.Leader].Clusters =
-					append(p.Nodes[c.Leader].Clusters, c)
+			if r.Clusters != nil {
+				for _, c := range *(r.Clusters) {
+					p.Nodes[c.Leader].Clusters =
+						append(p.Nodes[c.Leader].Clusters, c)
+				}
 			}
 		}
 		p.Ready <- true
