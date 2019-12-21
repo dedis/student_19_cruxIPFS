@@ -326,6 +326,19 @@ func (s *Service) printDistances(str string) {
 	log.Lvl1(str)
 }
 
+func (s *Service) printPings() {
+	str := "\n"
+	for i := 0; i < len(s.Nodes.All); i++ {
+		name1 := NodeName + strconv.Itoa(i)
+		for j := 0; j < len(s.Nodes.All); j++ {
+			name2 := NodeName + strconv.Itoa(j)
+			str += fmt.Sprintf("ping %s %s = %f\n", name1, name2,
+				s.PingDistances[name1][name2])
+		}
+	}
+	log.Lvl1(str)
+}
+
 func (s *Service) writePingsToFile() {
 	str := ""
 	for i := 0; i < len(s.Nodes.All); i++ {

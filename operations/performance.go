@@ -3,10 +3,12 @@ package operations
 import (
 	"fmt"
 	"math"
+	"math/rand"
 	"strconv"
 	"time"
 
 	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
+	"github.com/dedis/student_19_cruxIPFS/service"
 	"go.dedis.ch/onet/v3/log"
 )
 
@@ -16,24 +18,24 @@ var nodesN = 2
 func Test0() {
 	for i := 0; i < 100; i++ {
 		f := "file" + strconv.Itoa(i) + ".txt"
-		/*
-			r0 := rand.Intn(nodesN)
-			nodeW := service.NodeName + strconv.Itoa(r0)
-			r1 := rand.Intn(nodesN - 1)
-			if r1 >= r0 {
-				r1++
-			}
-			nodeR := service.NodeName + strconv.Itoa(r1)
-		*/
-		nodeW := "node_0"
-		nodeR := "node_1"
+
+		r0 := rand.Intn(nodesN)
+		nodeW := service.NodeName + strconv.Itoa(r0)
+		r1 := rand.Intn(nodesN - 1)
+		if r1 >= r0 {
+			r1++
+		}
+		nodeR := service.NodeName + strconv.Itoa(r1)
+
+		//nodeW := "node_0"
+		//nodeR := "node_1"
 		NewFile(f)
 		n, res0 := Write(nodeW, f)
 		res1 := Read(nodeR, n)
 
 		min := time.Duration(math.MaxInt64)
 		max := time.Duration(0)
-		str := ""
+		str := "\n"
 		for cluster, t0 := range res0 {
 			if t1, ok := res1[cluster]; ok {
 				sum := t0 + t1
@@ -46,7 +48,10 @@ func Test0() {
 				}
 			}
 		}
-		str += fmt.Sprintln("min:", min, "max:", max)
+		id := "optime-" + nodeW + "-" + nodeR
+		str += fmt.Sprintln(id, min.Milliseconds())
+		//str += fmt.Sprintln("min:", id, min.Milliseconds())
+		//str += fmt.Sprintln("max:", id, max.Milliseconds())
 		log.Lvl1(str)
 	}
 	log.Lvl1("\nDone!")

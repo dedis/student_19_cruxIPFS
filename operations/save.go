@@ -1,7 +1,6 @@
 package operations
 
 import (
-	"fmt"
 	"io/ioutil"
 	"strconv"
 	"strings"
@@ -160,9 +159,6 @@ func LoadClusterInstances(filename string) map[string]*Node {
 
 			}
 		}
-	}
-	for _, n := range nodes {
-		fmt.Println(n.Name, n.Secrets)
 	}
 	return nodes
 }

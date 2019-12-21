@@ -123,10 +123,6 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 		return
 	}
 
-	if !req.Cruxified {
-		return
-	}
-
 	//log.LLvl1("called init service on", s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.ServerIdentity())
 
 	//_, err := os.Stat(PingsFile)
@@ -135,7 +131,12 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 
 	s.getPings(true)
 	if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == Node0 {
-		s.printDistances("Ping distances")
+		//s.printDistances("Ping distances")
+		s.printPings()
+	}
+
+	if !req.Cruxified {
+		return
 	}
 
 	AuxNodes, dist2, ARATreeStruct, ARAOnetTrees := ARAgen.GenARAs(s.Nodes,

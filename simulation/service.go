@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/BurntSushi/toml"
 
@@ -117,6 +118,8 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 	<-pi.(*service.StartIPFSProtocol).Ready
 	operations.SaveState(cruxIPFS.SaveFile, pi.(*service.StartIPFSProtocol).Nodes)
 
+	// wait for some time for clusters to converge
+	time.Sleep(20 * time.Second)
 	operations.Test0()
 	return nil
 }
