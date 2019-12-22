@@ -48,7 +48,8 @@ const (
 	// NodeName name of a node instance
 	NodeName = "node_"
 	// Node0 name of the first node
-	Node0 = NodeName + "0"
+	Node0                = NodeName + "0"
+	ClusterConsensusMode = "raft"
 
 	// WaitpeersName name of WaitPeers protocol
 	WaitpeersName = "WaitPeers"

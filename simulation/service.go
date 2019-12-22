@@ -50,8 +50,8 @@ func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 
 	app.Copy(dir, filepath.Join(DATAFOLDER, NODEPATHREMOTE))
 	app.Copy(dir, "prescript.sh")
-	app.Copy(dir, "nodes_local_11.txt")
-	app.Copy(dir, "local_nodes.txt")
+	app.Copy(dir, "nodes.txt")
+	//app.Copy(dir, "local_nodes.txt")
 	app.Copy(dir, "install/ipfs")
 	app.Copy(dir, "install/ipfs-cluster-service")
 
@@ -139,13 +139,16 @@ func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool, config onet.SimulationCo
 	if err != nil {
 		log.Fatal(err)
 	}
-	if isLocalTest {
-		//log.Lvl1("NODEPATHLOCAL:", NODEPATHLOCAL)
-		s.ReadNodesFromFile(NODEPATHLOCAL, config)
-	} else {
-		//log.Lvl1("NODEPATHREMOTE:", "nodes_local_11.txt")
-		s.ReadNodesFromFile("nodes_local_11.txt", config)
-	}
+	s.ReadNodesFromFile("nodes.txt", config)
+	/*
+		if isLocalTest {
+			//log.Lvl1("NODEPATHLOCAL:", NODEPATHLOCAL)
+			s.ReadNodesFromFile(NODEPATHLOCAL, config)
+		} else {
+			//log.Lvl1("NODEPATHREMOTE:", "nodes_local_11.txt")
+			s.ReadNodesFromFile("nodes_local_11.txt", config)
+		}
+	*/
 }
 
 // ReadNodesFromFile read nodes information from a text file
