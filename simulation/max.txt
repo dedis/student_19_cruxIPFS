@@ -1,100 +1,20 @@
-3386
-3743
-2644
-3431
-3001
-4268
-4309
-5807
-7822
-3592
-6442
-3796
-4273
-3583
-3107
-5087
-6314
-3928
-3848
-7484
-4167
-4023
-4456
-3562
-5976
-3415
-5283
-4745
-3878
-3860
-3237
-3383
-4798
-3800
-4412
-5567
-3170
-3240
-3900
-5473
-3624
-4389
-2740
-4798
-4846
-4211
-3651
-4370
-3829
-4954
-3439
-3053
-4783
-2801
-4000
-2851
-2966
-5155
-3447
-3166
-4557
-3980
-3797
-3413
-6541
-3856
-6795
-5072
-4147
-4630
-4565
-3764
-4196
-3870
-4329
-3184
-3327
-3588
-3091
-3700
-5534
-6695
-4570
-3922
-3485
-4021
-3811
-2962
-3134
-3382
-3542
-4331
-3805
-2755
-4942
-3616
-3174
-4408
-3501
-3377
+maxoptime-node_1-node_10 163
+maxoptime-node_7-node_5 53
+maxoptime-node_1-node_2 602
+maxoptime-node_1-node_7 286
+maxoptime-node_2-node_5 649
+maxoptime-node_7-node_8 345
+maxoptime-node_5-node_8 730
+maxoptime-node_10-node_2 278
+maxoptime-node_9-node_7 96
+maxoptime-node_2-node_8 222
+maxoptime-node_0-node_3 505
+maxoptime-node_8-node_3 275
+maxoptime-node_0-node_2 132
+maxoptime-node_8-node_1 267
+maxoptime-node_2-node_9 341
+maxoptime-node_7-node_2 44
+maxoptime-node_6-node_4 234
+maxoptime-node_3-node_0 204
+maxoptime-node_3-node_0 308
+maxoptime-node_3-node_7 128

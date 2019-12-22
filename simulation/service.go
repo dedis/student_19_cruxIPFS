@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -49,13 +50,21 @@ func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 
 	app.Copy(dir, filepath.Join(DATAFOLDER, NODEPATHREMOTE))
 	app.Copy(dir, "prescript.sh")
+	app.Copy(dir, "nodes_local_11.txt")
 	app.Copy(dir, "local_nodes.txt")
 	app.Copy(dir, "install/ipfs")
 	app.Copy(dir, "install/ipfs-cluster-service")
 
+	b, err := ioutil.ReadFile("../detergen/details.txt")
+	if err != nil {
+		log.Error(err)
+	}
+	log.Lvl1("\ndetails: simulation, mode: " +
+		service.ClusterConsensusMode + ", " + string(b))
+
 	sc := &onet.SimulationConfig{}
 	s.CreateRoster(sc, hosts, 2000)
-	err := s.CreateTree(sc)
+	err = s.CreateTree(sc)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +86,7 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 
 	//config.Overlay.RegisterTree()
 
-	s.ReadNodeInfo(false)
+	s.ReadNodeInfo(false, *config)
 
 	mymap := s.initializeMaps(config, true)
 
@@ -125,27 +134,27 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 }
 
 // ReadNodeInfo read node information
-func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool) {
+func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool, config onet.SimulationConfig) {
 	_, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
 		log.Fatal(err)
 	}
 	if isLocalTest {
 		//log.Lvl1("NODEPATHLOCAL:", NODEPATHLOCAL)
-		s.ReadNodesFromFile(NODEPATHLOCAL)
+		s.ReadNodesFromFile(NODEPATHLOCAL, config)
 	} else {
 		//log.Lvl1("NODEPATHREMOTE:", "nodes_local_11.txt")
-		s.ReadNodesFromFile("nodes_local_11.txt")
+		s.ReadNodesFromFile("nodes_local_11.txt", config)
 	}
 }
 
 // ReadNodesFromFile read nodes information from a text file
-func (s *IPFSSimulation) ReadNodesFromFile(filename string) {
+func (s *IPFSSimulation) ReadNodesFromFile(filename string, config onet.SimulationConfig) {
 	s.Nodes.All = make([]*gentree.LocalityNode, 0)
 
 	readLine := cruxIPFS.ReadFileLineByLine(filename)
 
-	for true {
+	for i := 0; i < len(config.Roster.List); i++ {
 		line := readLine()
 		//fmt.Println(line)
 		if line == "" {
