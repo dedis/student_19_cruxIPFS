@@ -18,12 +18,12 @@ op=$(cat $2/min.txt | wc -l)
 
 #echo "$2 experiment" > ../../reports/results/$1/experiment.txt
 
-cp $2/details.txt ../../reports/results/$1/experiment.txt
+cat $2/details.txt > ../../reports/results/$1/experiment.txt
 
 echo "$nodes nodes" >> ../../reports/results/$1/experiment.txt
 echo "$op operations" >> ../../reports/results/$1/experiment.txt
 
 cp plot/*.pdf ../../reports/results/$1/graphs
-cp $2/out_pings.txt $2/min.txt $2/max.txt ../../reports/results/$1/data
+cp $2/out_pings.txt simulation/min.txt $2/max.txt ../../reports/results/$1/data
 
 rm plot/*.pdf

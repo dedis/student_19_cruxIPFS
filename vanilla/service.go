@@ -77,7 +77,7 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 
 	//config.Overlay.RegisterTree()
 
-	s.ReadNodeInfo(false)
+	s.ReadNodeInfo(false, *config)
 
 	mymap := s.initializeMaps(config, true)
 
@@ -118,32 +118,35 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 
 	time.Sleep(20 * time.Second)
 
-	operations.Test0()
+	operations.Test1(100)
 	return nil
 }
 
 // ReadNodeInfo read node information
-func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool) {
+func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool, config onet.SimulationConfig) {
 	_, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
 		log.Fatal(err)
 	}
-	if isLocalTest {
-		//log.Lvl1("NODEPATHLOCAL:", NODEPATHLOCAL)
-		s.ReadNodesFromFile(NODEPATHLOCAL)
-	} else {
-		//log.Lvl1("NODEPATHREMOTE:", "nodes_local_11.txt")
-		s.ReadNodesFromFile("nodes_local_11.txt")
-	}
+	s.ReadNodesFromFile("nodes.txt", config)
+	/*
+		if isLocalTest {
+			//log.Lvl1("NODEPATHLOCAL:", NODEPATHLOCAL)
+			s.ReadNodesFromFile(NODEPATHLOCAL, config)
+		} else {
+			//log.Lvl1("NODEPATHREMOTE:", "nodes_local_11.txt")
+			s.ReadNodesFromFile("nodes_local_11.txt", config)
+		}
+	*/
 }
 
 // ReadNodesFromFile read nodes information from a text file
-func (s *IPFSSimulation) ReadNodesFromFile(filename string) {
+func (s *IPFSSimulation) ReadNodesFromFile(filename string, config onet.SimulationConfig) {
 	s.Nodes.All = make([]*gentree.LocalityNode, 0)
 
 	readLine := cruxIPFS.ReadFileLineByLine(filename)
 
-	for true {
+	for i := 0; i < len(config.Roster.List); i++ {
 		line := readLine()
 		//fmt.Println(line)
 		if line == "" {

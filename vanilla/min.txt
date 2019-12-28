@@ -1,100 +1,100 @@
-2.377450826
-2.021249922
-3.185284165
-2.909464639
-2.380895427
-2.300091298
-2.210385142
-3.571247426
-2.420824708
-2.065063955
-2.064011244
-2.416917191
-2.416702599
-2.205787864
-2.206176926
-2.4163007
-3.355295749
-3.440211306
-2.416155539
-2.41640074
-2.189588931
-4.546533508
-2.278213544
-2.28253762
-2.206149802
-2.064238843
-2.416316783
-2.416283875
-2.06476254
-2.416441699
-2.41640556
-2.206160972
-3.016030927
-2.205668848
-2.206257658
-2.064427215
-2.064272074
-2.064563186
-2.416743775
-2.416686108
-2.416773407
-2.416445835
-2.20581857
-2.20582827
-3.323561927
-2.277830618
-2.064146309
-2.064177275
-2.064577309
-2.415967407
-2.417271406
-2.584180991
-2.275975856
-2.064631551
-1.45922091
-3.259499144
-2.416566079
-2.965433339
-2.064877915
-1.866951166
-1.807343281
-2.417532116
-2.416111316
-2.416150888
-2.417735395
-2.655137669
-2.206318619
-2.544091735
-3.0269412
-2.064648531
-2.064684778
-2.064211142
-2.938640822
-2.416467383
-2.416522169
-2.416151669
-2.206339451
-2.205786284
-2.276953933
-3.043830552
-1.408036276
-1.407684469
-1.440585283
-4.057281218
-2.416036667
-2.593643632
-2.06474831
-2.064479863
-2.939424003
-2.416522891
-3.010781229
-2.989738941
-2.205763568
-1.807383884
-2.206105798
-3.801940151
-2.416718014
-2.065105545
-2.021253981
-3.139173669
+minoptime-node_2-node_1 730
+minoptime-node_7-node_9 1094
+minoptime-node_2-node_7 944
+minoptime-node_3-node_0 407
+minoptime-node_7-node_3 679
+minoptime-node_3-node_0 401
+minoptime-node_12-node_0 1257
+minoptime-node_4-node_12 459
+minoptime-node_9-node_0 778
+minoptime-node_4-node_1 324
+minoptime-node_11-node_7 939
+minoptime-node_6-node_10 863
+minoptime-node_11-node_4 833
+minoptime-node_7-node_9 1519
+minoptime-node_9-node_8 1473
+minoptime-node_5-node_10 1485
+minoptime-node_1-node_5 744
+minoptime-node_11-node_12 952
+minoptime-node_0-node_1 501
+minoptime-node_12-node_3 1067
+minoptime-node_6-node_5 1221
+minoptime-node_10-node_8 1293
+minoptime-node_9-node_1 1598
+minoptime-node_9-node_10 1513
+minoptime-node_0-node_2 525
+minoptime-node_1-node_8 1275
+minoptime-node_12-node_2 1508
+minoptime-node_11-node_2 915
+minoptime-node_6-node_0 483
+minoptime-node_7-node_1 1221
+minoptime-node_6-node_3 390
+minoptime-node_12-node_6 1011
+minoptime-node_12-node_1 908
+minoptime-node_3-node_5 825
+minoptime-node_11-node_4 1070
+minoptime-node_1-node_4 732
+minoptime-node_6-node_10 1189
+minoptime-node_1-node_10 1515
+minoptime-node_6-node_9 767
+minoptime-node_4-node_5 912
+minoptime-node_2-node_8 607
+minoptime-node_2-node_8 1048
+minoptime-node_7-node_11 2198
+minoptime-node_0-node_9 1020
+minoptime-node_5-node_3 2151
+minoptime-node_9-node_3 1102
+minoptime-node_7-node_8 650
+minoptime-node_9-node_6 1086
+minoptime-node_8-node_12 545
+minoptime-node_7-node_0 556
+minoptime-node_3-node_6 642
+minoptime-node_6-node_4 685
+minoptime-node_8-node_2 568
+minoptime-node_10-node_1 1765
+minoptime-node_11-node_3 964
+minoptime-node_10-node_6 1436
+minoptime-node_4-node_7 591
+minoptime-node_2-node_0 1115
+minoptime-node_5-node_1 964
+minoptime-node_8-node_3 587
+minoptime-node_4-node_2 704
+minoptime-node_1-node_5 945
+minoptime-node_11-node_10 1503
+minoptime-node_4-node_0 477
+minoptime-node_2-node_8 894
+minoptime-node_12-node_10 1303
+minoptime-node_9-node_11 1653
+minoptime-node_12-node_6 701
+minoptime-node_8-node_0 297
+minoptime-node_1-node_10 1169
+minoptime-node_12-node_2 1043
+minoptime-node_10-node_12 975
+minoptime-node_1-node_9 1048
+minoptime-node_6-node_10 992
+minoptime-node_1-node_9 946
+minoptime-node_12-node_6 1999
+minoptime-node_4-node_3 677
+minoptime-node_11-node_10 1671
+minoptime-node_11-node_12 833
+minoptime-node_5-node_12 1111
+minoptime-node_9-node_8 1131
+minoptime-node_6-node_3 424
+minoptime-node_0-node_7 732
+minoptime-node_2-node_7 953
+minoptime-node_5-node_7 996
+minoptime-node_3-node_9 1318
+minoptime-node_5-node_7 1019
+minoptime-node_1-node_5 656
+minoptime-node_7-node_10 1445
+minoptime-node_5-node_7 1111
+minoptime-node_1-node_0 717
+minoptime-node_3-node_0 401
+minoptime-node_6-node_11 1133
+minoptime-node_10-node_7 1517
+minoptime-node_1-node_11 1023
+minoptime-node_9-node_2 1225
+minoptime-node_3-node_1 574
+minoptime-node_6-node_7 685
+minoptime-node_2-node_10 1399
+minoptime-node_1-node_10 1420

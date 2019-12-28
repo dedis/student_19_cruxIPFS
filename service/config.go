@@ -185,6 +185,9 @@ func (s *Service) SetupClusterLeader(path string,
 
 	// init command to be run
 	cmd := vars + "ipfs-cluster-service -c " + path + " init"
+	if ClusterConsensusMode == "crdt" {
+		cmd += " --consensus crdt"
+	}
 	o, err := exec.Command("bash", "-c", cmd).Output()
 	if err != nil {
 		fmt.Println(cmd)
@@ -258,6 +261,9 @@ func (s *Service) SetupClusterSlave(path, bootstrap, secret string,
 
 	// init command to be run
 	cmd := vars + "ipfs-cluster-service -c " + path + " init"
+	if ClusterConsensusMode == "crdt" {
+		cmd += " --consensus crdt"
+	}
 	err = exec.Command("bash", "-c", cmd).Run()
 	if err != nil {
 		log.Lvl1(err)

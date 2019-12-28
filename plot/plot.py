@@ -395,7 +395,17 @@ if __name__ == '__main__':
 
     xdata, ydata = compute_data_points(load_latencies('../simulation/out_pings.txt'), load_optime('../simulation/min.txt'))
     scatter_plot(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Cruxified IPFS', True)
-    plt.savefig('plot.pdf', format='pdf', dpi=1000)
+    plt.savefig('plot_min.pdf', format='pdf', dpi=1000)
+
+    xdata, ydata = compute_data_points(load_latencies('../vanilla/out_pings.txt'), load_optime('../vanilla/min.txt'))
+    scatter_plot(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Cruxified IPFS', True)
+    plt.savefig('plot_vanilla.pdf', format='pdf', dpi=1000)
+
+    xdata, ydata = compute_data_points(load_latencies('../simulation/out_pings.txt'), load_optime('../simulation/max.txt'))
+    scatter_plot(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Cruxified IPFS', True)
+    plt.savefig('plot_max.pdf', format='pdf', dpi=1000)
+
+
 
     """
     xdata, ydata = compute_data_points(load_latencies('../../config/30_random_D120/pings.txt'), load_optime('optime_crux_wide.txt'))

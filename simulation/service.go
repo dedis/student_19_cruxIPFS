@@ -44,7 +44,6 @@ func NewSimulationService(config string) (onet.Simulation, error) {
 // Setup creates the tree used for that simulation
 func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	*onet.SimulationConfig, error) {
-	log.Lvl1("Starting Setup()")
 
 	SetNodePaths(len(hosts))
 
@@ -76,7 +75,6 @@ func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 // SimulationBFTree structure which will load the roster- and the
 // tree-structure to speed up the first round.
 func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
-	log.Lvl1("Starting Node()")
 
 	index, _ := config.Roster.Search(config.Server.ServerIdentity.ID)
 	if index < 0 {
@@ -114,8 +112,6 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 // Run is used on the destination machines and runs a number of
 // rounds
 func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
-	log.Lvl1("Starting Run()")
-
 	myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
 
 	pi, err := myService.CreateProtocol(service.StartIPFSName, config.Tree)
@@ -129,7 +125,7 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 
 	// wait for some time for clusters to converge
 	time.Sleep(20 * time.Second)
-	operations.Test0()
+	operations.Test1(100)
 	return nil
 }
 
