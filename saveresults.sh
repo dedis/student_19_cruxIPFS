@@ -16,8 +16,6 @@ n=$(cat $2/out_pings.txt | wc -l)
 nodes=$(echo "sqrt($n)" | bc)
 op=$(cat $2/min.txt | wc -l)
 
-#echo "$2 experiment" > ../../reports/results/$1/experiment.txt
-
 cat $2/details.txt > ../../reports/results/$1/experiment.txt
 
 echo "$nodes nodes" >> ../../reports/results/$1/experiment.txt
