@@ -22,10 +22,6 @@ import (
 	"go.dedis.ch/onet/v3/network"
 )
 
-/*
- * Defines the simulation for the service-template
- */
-
 func init() {
 	onet.SimulationRegister(cruxIPFS.ServiceName, NewSimulationService)
 }
@@ -125,7 +121,7 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 
 	// wait for some time for clusters to converge
 	time.Sleep(20 * time.Second)
-	operations.Test1(100)
+	operations.Test1(100, 13)
 	return nil
 }
 

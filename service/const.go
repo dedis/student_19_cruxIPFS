@@ -3,15 +3,13 @@ package service
 import "time"
 
 const (
-	// LocalSim simulation is local
-	LocalSim = true
+	// ClusterConsensusMode "raft" or "crdt"
+	ClusterConsensusMode = "crdt"
 
-	//DefaultIPFSAPIPort DefaultIPFSAPIPort
-	DefaultIPFSAPIPort = 5001
-	// DefaultIPFSGatewayPort DefaultIPFSGatewayPort
-	DefaultIPFSGatewayPort = 8080
-	// DefaultIPFSSwarmPort DefaultIPFSSwarmPort
-	DefaultIPFSSwarmPort = 4001
+	// DefaultReplMin ipfs cluster minimal replication factor
+	DefaultReplMin = 2
+	// DefaultReplMax ipfs cluster maximal replication factor
+	DefaultReplMax = 3
 
 	// BaseHostPort first port allocated to a node
 	BaseHostPort = 14000
@@ -28,11 +26,6 @@ const (
 	// ClusterPortNumber number of ports used by an ipfs cluster instance
 	ClusterPortNumber = 3
 
-	// DefaultReplMin ipfs cluster minimal replication factor
-	DefaultReplMin = 2
-	// DefaultReplMax ipfs cluster maximal replication factor
-	DefaultReplMax = 3
-
 	// IPFSStartupTime IPFSStartupTime
 	IPFSStartupTime = 13 * time.Second
 	// ClusterStartupTime ClusterStartupTime
@@ -48,8 +41,7 @@ const (
 	// NodeName name of a node instance
 	NodeName = "node_"
 	// Node0 name of the first node
-	Node0                = NodeName + "0"
-	ClusterConsensusMode = "crdt"
+	Node0 = NodeName + "0"
 
 	// WaitpeersName name of WaitPeers protocol
 	WaitpeersName = "WaitPeers"

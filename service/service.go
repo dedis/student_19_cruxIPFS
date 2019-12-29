@@ -29,12 +29,6 @@ var templateID onet.ServiceID
 var execReqPingsMsgID network.MessageTypeID
 var execReplyPingsMsgID network.MessageTypeID
 
-var execReqIPFSInfoMsgID network.MessageTypeID
-var execReplyIPFSInfoMsgID network.MessageTypeID
-
-var execReqBootstrapClusterMsgID network.MessageTypeID
-var execReplyBootstrapClusterMsgID network.MessageTypeID
-
 func init() {
 	var err error
 	templateID, err = onet.RegisterNewService(cruxIPFS.ServiceName, newService)
@@ -48,15 +42,13 @@ func init() {
 
 // InitRequest init the tree
 func (s *Service) InitRequest(req *cruxIPFS.InitRequest) (*cruxIPFS.InitResponse, error) {
-	//log.Lvl1("here", s.ServerIdentity().String())
-
-	s.Setup(req)
+	s.setup(req)
 
 	return &cruxIPFS.InitResponse{}, nil
 }
 
 // Setup IPFS cluster ARAs
-func (s *Service) Setup(req *cruxIPFS.InitRequest) {
+func (s *Service) setup(req *cruxIPFS.InitRequest) {
 
 	// copied from nyle
 	log.Lvl3("Setup service")
@@ -100,8 +92,6 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 			if node == node2 {
 				s.Nodes.ClusterBunchDistances[node][node2] = 0
 			}
-
-			//log.LLvl1("init map", node.Name, node2.Name)
 		}
 	}
 
@@ -118,12 +108,6 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 	s.MyIP = myip[0]
 
 	s.Name = s.Nodes.GetServerIdentityToName(s.ServerIdentity())
-
-	if s.Name == "" {
-		return
-	}
-
-	//log.LLvl1("called init service on", s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.ServerIdentity())
 
 	//_, err := os.Stat(PingsFile)
 	//s.getPings(err == nil)
@@ -193,7 +177,6 @@ func (s *Service) tryLoad() error {
 // running on. Saving and loading can be done using the context. The data will
 // be stored in memory for tests and simulations, and on disk for real deployments.
 func newService(c *onet.Context) (onet.Service, error) {
-	//log.LLvl1("new service")
 
 	s := &Service{
 		ServiceProcessor: onet.NewServiceProcessor(c),

@@ -9,15 +9,13 @@ import (
 	"strings"
 	"time"
 
-	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
 	"github.com/dedis/student_19_cruxIPFS/service"
 	"go.dedis.ch/onet/v3/log"
 )
 
-var nodesN = 13
-
-// Test0 perf test
-func Test0() {
+// Test0 perf test takes random nodes (non reproductible), output max and min
+// time when performing an operation (write + read)
+func Test0(nodesN int) {
 	for i := 0; i < 100; i++ {
 		f := "file" + strconv.Itoa(i) + ".txt"
 
@@ -51,7 +49,6 @@ func Test0() {
 			}
 		}
 		id := "optime-" + nodeW + "-" + nodeR
-		//str += fmt.Sprintln(id, min.Milliseconds())
 		str += fmt.Sprintln("min"+id, min.Milliseconds())
 		str += fmt.Sprintln("max"+id, max.Milliseconds())
 		log.Lvl1(str)
@@ -59,10 +56,11 @@ func Test0() {
 	log.Lvl1("\nDone!")
 }
 
-func genSequence(n int) []byte {
+// genSequence generate a random sequence of nOps pairs among nodesN nodes
+func genSequence(nOps, nodesN int) []byte {
 	log.Lvl1("Generating new sequence")
 	str := ""
-	for i := 0; i < n; i++ {
+	for i := 0; i < nOps; i++ {
 		r0 := rand.Intn(nodesN)
 		nodeW := service.NodeName + strconv.Itoa(r0)
 		r1 := rand.Intn(nodesN - 1)
@@ -76,15 +74,17 @@ func genSequence(n int) []byte {
 	return []byte(str)
 }
 
-func Test1(n int) {
+// Test1 try to load an existing sequence, if sequence does not match generate a
+// new one. Performance tests, yield min and max operation time (write + read)
+func Test1(nOps, nodesN int) {
 	ops, err := ioutil.ReadFile(sequenceName)
 	if err != nil {
-		ops = genSequence(n)
+		ops = genSequence(nOps, nodesN)
 	}
 
 	lines := strings.Split(string(ops), "\n")
-	if len(lines)-1 != n {
-		ops = genSequence(n)
+	if len(lines)-1 != nOps {
+		ops = genSequence(nOps, nodesN)
 		lines = strings.Split(string(ops), "\n")
 	}
 	for i, l := range lines {
@@ -94,8 +94,8 @@ func Test1(n int) {
 		f := "file" + strconv.Itoa(i) + ".txt"
 
 		NewFile(f)
-		n, res0 := Write(nodeW, f)
-		res1 := Read(nodeR, n)
+		cid, res0 := Write(nodeW, f)
+		res1 := Read(nodeR, cid)
 
 		min := time.Duration(math.MaxInt64)
 		max := time.Duration(0)
@@ -113,7 +113,6 @@ func Test1(n int) {
 			}
 		}
 		id := "optime-" + nodeW + "-" + nodeR
-		//str += fmt.Sprintln(id, min.Milliseconds())
 		str += fmt.Sprintln("min"+id, min.Milliseconds())
 		str += fmt.Sprintln("max"+id, max.Milliseconds())
 		log.Lvl1(str)
@@ -121,19 +120,46 @@ func Test1(n int) {
 	log.Lvl1("\nDone!")
 }
 
-func Test2() {
-	nodes := LoadClusterInstances(cruxIPFS.SaveFile)
-	fmt.Println("Round 1")
-	for _, n := range nodes {
-		fmt.Println(len(n.Clients))
-		ListPeers(n.Clients[0])
+func Test2(nOps, nodesN int) {
+	ops, err := ioutil.ReadFile(sequenceName)
+	if err != nil {
+		ops = genSequence(nOps, nodesN)
 	}
 
-	time.Sleep(10 * time.Second)
-	fmt.Println("Round 2")
-	for _, n := range nodes {
-		fmt.Println(len(n.Clients))
-		ListPeers(n.Clients[0])
+	lines := strings.Split(string(ops), "\n")
+	if len(lines)-1 != nOps {
+		ops = genSequence(nOps, nodesN)
+		lines = strings.Split(string(ops), "\n")
 	}
+	for i, l := range lines {
+		nodes := strings.Split(l, " ")
+		nodeW := nodes[0]
+		nodeR := nodes[1]
+		f := "file" + strconv.Itoa(i) + ".txt"
 
+		NewFile(f)
+		cid, res0 := Write(nodeW, f)
+		res1 := Read(nodeR, cid)
+
+		min := time.Duration(math.MaxInt64)
+		max := time.Duration(0)
+		str := "\n"
+		for cluster, t0 := range res0 {
+			if t1, ok := res1[cluster]; ok {
+				sum := t0 + t1
+				//str += fmt.Sprintln("write:", t0, "read:", t1, "total:", sum)
+				if sum < min {
+					min = sum
+				}
+				if sum > max {
+					max = sum
+				}
+			}
+		}
+		id := "optime-" + nodeW + "-" + nodeR
+		str += fmt.Sprintln("min"+id, min.Milliseconds())
+		str += fmt.Sprintln("max"+id, max.Milliseconds())
+		log.Lvl1(str)
+	}
+	log.Lvl1("\nDone!")
 }
