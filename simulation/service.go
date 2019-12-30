@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -21,10 +22,6 @@ import (
 	"go.dedis.ch/onet/v3/network"
 )
 
-/*
- * Defines the simulation for the service-template
- */
-
 func init() {
 	onet.SimulationRegister(cruxIPFS.ServiceName, NewSimulationService)
 }
@@ -43,19 +40,26 @@ func NewSimulationService(config string) (onet.Simulation, error) {
 // Setup creates the tree used for that simulation
 func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	*onet.SimulationConfig, error) {
-	log.Lvl1("Starting Setup()")
 
 	SetNodePaths(len(hosts))
 
 	app.Copy(dir, filepath.Join(DATAFOLDER, NODEPATHREMOTE))
 	app.Copy(dir, "prescript.sh")
-	app.Copy(dir, "local_nodes.txt")
+	app.Copy(dir, "nodes.txt")
+	//app.Copy(dir, "local_nodes.txt")
 	app.Copy(dir, "install/ipfs")
 	app.Copy(dir, "install/ipfs-cluster-service")
 
+	b, err := ioutil.ReadFile("../detergen/details.txt")
+	if err != nil {
+		log.Error(err)
+	}
+	log.Lvl1("\ndetails: simulation, mode: " +
+		service.ClusterConsensusMode + ", " + string(b))
+
 	sc := &onet.SimulationConfig{}
 	s.CreateRoster(sc, hosts, 2000)
-	err := s.CreateTree(sc)
+	err = s.CreateTree(sc)
 	if err != nil {
 		return nil, err
 	}
@@ -67,7 +71,6 @@ func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 // SimulationBFTree structure which will load the roster- and the
 // tree-structure to speed up the first round.
 func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
-	log.Lvl1("Starting Node()")
 
 	index, _ := config.Roster.Search(config.Server.ServerIdentity.ID)
 	if index < 0 {
@@ -77,7 +80,7 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 
 	//config.Overlay.RegisterTree()
 
-	s.ReadNodeInfo(false)
+	s.ReadNodeInfo(false, *config)
 
 	mymap := s.initializeMaps(config, true)
 
@@ -105,8 +108,6 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 // Run is used on the destination machines and runs a number of
 // rounds
 func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
-	log.Lvl1("Starting Run()")
-
 	myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
 
 	pi, err := myService.CreateProtocol(service.StartIPFSName, config.Tree)
@@ -120,32 +121,35 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 
 	// wait for some time for clusters to converge
 	time.Sleep(20 * time.Second)
-	operations.Test0()
+	operations.Test2(100, 13)
 	return nil
 }
 
 // ReadNodeInfo read node information
-func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool) {
+func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool, config onet.SimulationConfig) {
 	_, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
 		log.Fatal(err)
 	}
-	if isLocalTest {
-		//log.Lvl1("NODEPATHLOCAL:", NODEPATHLOCAL)
-		s.ReadNodesFromFile(NODEPATHLOCAL)
-	} else {
-		//log.Lvl1("NODEPATHREMOTE:", "nodes_local_11.txt")
-		s.ReadNodesFromFile("nodes_local_11.txt")
-	}
+	s.ReadNodesFromFile("nodes.txt", config)
+	/*
+		if isLocalTest {
+			//log.Lvl1("NODEPATHLOCAL:", NODEPATHLOCAL)
+			s.ReadNodesFromFile(NODEPATHLOCAL, config)
+		} else {
+			//log.Lvl1("NODEPATHREMOTE:", "nodes_local_11.txt")
+			s.ReadNodesFromFile("nodes_local_11.txt", config)
+		}
+	*/
 }
 
 // ReadNodesFromFile read nodes information from a text file
-func (s *IPFSSimulation) ReadNodesFromFile(filename string) {
+func (s *IPFSSimulation) ReadNodesFromFile(filename string, config onet.SimulationConfig) {
 	s.Nodes.All = make([]*gentree.LocalityNode, 0)
 
 	readLine := cruxIPFS.ReadFileLineByLine(filename)
 
-	for true {
+	for i := 0; i < len(config.Roster.List); i++ {
 		line := readLine()
 		//fmt.Println(line)
 		if line == "" {

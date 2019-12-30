@@ -1,0 +1,1 @@
+details: simulation, mode: raft, K=2, N=5, R=5, D=120
