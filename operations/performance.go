@@ -123,13 +123,18 @@ func Test1(nOps, nodesN int) {
 func Test2(nOps, nodesN int) {
 	ops, err := ioutil.ReadFile(sequenceName)
 	if err != nil {
+		log.Lvl1("Error in reading operation sequence file")
 		ops = genSequence(nOps, nodesN)
 	}
 
 	lines := strings.Split(string(ops), "\n")
 	if len(lines)-1 != nOps {
+		log.Lvl1("Operation number do not match target")
+		log.Lvl1("Got:", len(lines)-1, "Target:", nOps)
 		ops = genSequence(nOps, nodesN)
 		lines = strings.Split(string(ops), "\n")
+		log.Lvl1("After generation")
+		log.Lvl1("Got:", len(lines)-1, "Target:", nOps)
 	}
 	for i, l := range lines {
 		nodes := strings.Split(l, " ")
@@ -144,8 +149,13 @@ func Test2(nOps, nodesN int) {
 		min := time.Duration(math.MaxInt64)
 		max := time.Duration(0)
 		str := "\n"
+		strread := ""
+		strwrite := ""
 		for cluster, t0 := range res0 {
 			if t1, ok := res1[cluster]; ok {
+				strread += fmt.Sprintf("%d ", t0.Milliseconds())
+				strwrite += fmt.Sprintf("%d ", t1.Milliseconds())
+
 				sum := t0 + t1
 				//str += fmt.Sprintln("write:", t0, "read:", t1, "total:", sum)
 				if sum < min {
@@ -159,6 +169,9 @@ func Test2(nOps, nodesN int) {
 		id := "optime-" + nodeW + "-" + nodeR
 		str += fmt.Sprintln("min"+id, min.Milliseconds())
 		str += fmt.Sprintln("max"+id, max.Milliseconds())
+		str += strread + "\n"
+		str += strwrite + "\n"
+
 		log.Lvl1(str)
 	}
 	log.Lvl1("\nDone!")

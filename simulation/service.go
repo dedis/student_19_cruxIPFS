@@ -121,7 +121,7 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 
 	// wait for some time for clusters to converge
 	time.Sleep(20 * time.Second)
-	operations.Test1(100, 13)
+	operations.Test2(100, 13)
 	return nil
 }
 
