@@ -1,7 +1,6 @@
 package gentree
 
 import (
-	"bufio"
 	"crypto/sha256"
 	"encoding/hex"
 	"errors"
@@ -12,7 +11,6 @@ import (
 	"sort"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/satori/go.uuid"
@@ -20,13 +18,6 @@ import (
 	"go.dedis.ch/onet/v3/log"
 	"go.dedis.ch/onet/v3/network"
 )
-
-// TreeConverter is a structure for converting between a recursive tree (graph)
-// and a binary tree.
-type TreeConverter struct {
-	BinaryTree    *onet.Tree
-	RecursiveTree *onet.Tree
-}
 
 // ToRecursiveTreeNode finds the equivalent tree node in the recursive tree.
 func (t *TreeConverter) ToRecursiveTreeNode(target *onet.TreeNode) (*onet.TreeNode, error) {
@@ -36,36 +27,6 @@ func (t *TreeConverter) ToRecursiveTreeNode(target *onet.TreeNode) (*onet.TreeNo
 // ToBinaryTreeNode finds the equivalent tree node in the binary tree.
 func (t *TreeConverter) ToBinaryTreeNode(target *onet.TreeNode) (*onet.TreeNode, error) {
 	return findTreeNode(t.BinaryTree, target)
-}
-
-// LocalityNode represents a locality preserving node.
-type LocalityNode struct {
-	Name                string
-	IP                  map[string]bool
-	X                   float64
-	Y                   float64
-	Level               int
-	ADist               []float64 // ADist[l] - minimum distance to level l
-	PDist               []string  // pDist[l] - the node at level l whose distance from the crt Node isADist[l]
-	Cluster             map[string]bool
-	Bunch               map[string]bool
-	OptimalCluster      map[string]bool
-	OptimalBunch        map[string]bool
-	Rings               []string
-	NrOwnRings          int
-	ServerIdentity      *network.ServerIdentity
-	AvailablePortsStart int
-	AvailablePortsEnd   int
-	NextPort            int
-	NextPortMtx         sync.Mutex
-}
-
-// LocalityNodes is a list of LocalityNode
-type LocalityNodes struct {
-	All                   []*LocalityNode
-	ServerIdentityToName  map[network.ServerIdentityID]string
-	ClusterBunchDistances map[*LocalityNode]map[*LocalityNode]float64
-	Links                 map[*LocalityNode]map[*LocalityNode]map[*LocalityNode]bool
 }
 
 // GetByIP gets the node by IP.
@@ -90,6 +51,7 @@ func (ns LocalityNodes) GetByServerIdentityIP(ip string) *LocalityNode {
 	return nil
 }
 
+/*
 func (ns LocalityNodes) OccupyNextPort(ip string) int {
 
 	port := -1
@@ -105,7 +67,9 @@ func (ns LocalityNodes) OccupyNextPort(ip string) int {
 	}
 	return port
 }
+*/
 
+/*
 func (ns LocalityNodes) OccupyNextPortByName(name string) int {
 
 	port := -1
@@ -119,6 +83,7 @@ func (ns LocalityNodes) OccupyNextPortByName(name string) int {
 	}
 	return port
 }
+*/
 
 // GetByName gets the node by name.
 func (ns LocalityNodes) GetByName(name string) *LocalityNode {
@@ -182,13 +147,15 @@ func CreateLocalityGraph(all LocalityNodes, randomCoords, randomLevels bool, lev
 
 	randSrc := rand.New(rand.NewSource(time.Now().UnixNano()))
 
-	if randomCoords {
-		//Computes random coordinates
-		for _, n := range nodes {
-			n.X = randSrc.Float64() * 500
-			n.Y = randSrc.Float64() * 500
+	/*
+		if randomCoords {
+			//Computes random coordinates
+			for _, n := range nodes {
+				n.X = randSrc.Float64() * 500
+				n.Y = randSrc.Float64() * 500
+			}
 		}
-	}
+	*/
 
 	if randomLevels {
 		//Computes random levels
@@ -207,14 +174,14 @@ func CreateLocalityGraph(all LocalityNodes, randomCoords, randomLevels bool, lev
 		for _, v1 := range nodes {
 
 			var node *LocalityNode
-			distance := math.MaxFloat64
+			var distance float64
 			min := math.MaxFloat64
 
 			for _, v2 := range nodes {
 
 				if v2.Level >= i {
 
-					distance = ComputeDist(v1, v2, pingDist)
+					distance = pingDist[v1.Name][v2.Name]
 
 					if distance < min {
 						min = distance
@@ -233,7 +200,7 @@ func CreateLocalityGraph(all LocalityNodes, randomCoords, randomLevels bool, lev
 
 			for _, v2 := range nodes {
 
-				d := ComputeDist(v1, v2, pingDist)
+				d := pingDist[v1.Name][v2.Name]
 
 				//log.LLvl1("assigning", v1.Name, v2.Name)
 
@@ -269,59 +236,45 @@ func CreateLocalityGraph(all LocalityNodes, randomCoords, randomLevels bool, lev
 
 				v1.OptimalCluster[v2.Name] = true
 				v1.Cluster[v2.Name] = true
-				all.ClusterBunchDistances[v1][v2] = ComputeDist(v1, v2, pingDist)
-				all.ClusterBunchDistances[v2][v1] = ComputeDist(v1, v2, pingDist)
+				all.ClusterBunchDistances[v1][v2] = pingDist[v1.Name][v2.Name]
+				all.ClusterBunchDistances[v2][v1] = pingDist[v1.Name][v2.Name]
 			}
 		}
 	}
-
 	/*
-		for _, n := range all.All {
-			log.LLvl1(n.Name, "cluster=", n.Cluster, "bunch=", n.Bunch)
-		}
-	*/
 
-	// write to file
-	file, _ := os.Create("Specs/original.txt")
-	w := bufio.NewWriter(file)
-	w.WriteString(strconv.Itoa(len(all.All)) + "\n")
-	for _, node := range all.All {
-		w.WriteString(fmt.Sprint(node.X) + " " + fmt.Sprint(node.Y) + "\n")
+			// write to file
+			file, _ := os.Create("Specs/original.txt")
+			w := bufio.NewWriter(file)
+			w.WriteString(strconv.Itoa(len(all.All)) + "\n")
+			for _, node := range all.All {
+				w.WriteString(fmt.Sprint(node.X) + " " + fmt.Sprint(node.Y) + "\n")
 
-	}
-
-	for _, node := range all.All {
-		for clusterNodeName, exists := range node.Cluster {
-			if exists {
-				name1 := strings.Split(node.Name, "_")[1]
-				name2 := strings.Split(clusterNodeName, "_")[1]
-
-				w.WriteString(name1 + " " + name2 + "\n")
 			}
-		}
-	}
 
-	w.Flush()
-	file.Close()
+			for _, node := range all.All {
+				for clusterNodeName, exists := range node.Cluster {
+					if exists {
+						name1 := strings.Split(node.Name, "_")[1]
+						name2 := strings.Split(clusterNodeName, "_")[1]
 
-	file, _ = os.Create("nodes_read.txt")
-	w = bufio.NewWriter(file)
-	for _, node := range all.All {
-		w.WriteString(node.Name + " " + fmt.Sprint(node.X) + "," + fmt.Sprint(node.Y) + " 127.0.0.1 " + strconv.Itoa(node.Level) + "\n")
-
-	}
-
-	w.Flush()
-	file.Close()
-
-	/*
-		for x,y := range all.ClusterBunchDistances {
-			for z, d := range y {
-				if d != math.MaxFloat64 {
-					log.LLvl1("sanity-check", x.Name, z.Name, d)
+						w.WriteString(name1 + " " + name2 + "\n")
+					}
 				}
 			}
-		}
+
+			w.Flush()
+			file.Close()
+
+				file, _ = os.Create("nodes_read.txt")
+				w = bufio.NewWriter(file)
+					for _, node := range all.All {
+						w.WriteString(node.Name + " " + fmt.Sprint(node.X) + "," + fmt.Sprint(node.Y) + " 127.0.0.1 " + strconv.Itoa(node.Level) + "\n")
+
+					}
+
+				w.Flush()
+		file.Close()
 	*/
 
 }
@@ -340,44 +293,7 @@ func checkDistance(distance float64, lvl int, lvls int, Adist []float64) bool {
 	return true
 }
 
-// GenerateRings TODO documentation
 /*
-func GenerateRings(allNodes LocalityNodes) {
-	for _, node := range allNodes.All {
-		GenerateClusterRings(node, allNodes)
-		GenerateBunchRings(node, allNodes)
-	}
-}
-func GenerateClusterRings(node *LocalityNode, allNodes LocalityNodes) {
-	maxDist := 0.0
-	for clusterNodeName := range node.Cluster {
-		crtDist := ComputeDist(node, allNodes.GetByName(clusterNodeName))
-		if crtDist > maxDist {
-			maxDist = crtDist
-		}
-	}
-	log.Lvl1("node maxdist", node.Name, maxDist)
-	radiuses := GenerateRadius(maxDist)
-	for i := range radiuses {
-		node.Rings = append(node.Rings, generateRingID(node.Name, i))
-	}
-	node.NrOwnRings = len(node.Rings)
-	log.Lvl1(node.Name, "rings", node.NrOwnRings)
-}
-func GenerateBunchRings(node *LocalityNode, allNodes LocalityNodes) {
-	for bunchNodeName := range node.Bunch {
-		crtDist := ComputeDist(node, allNodes.GetByName(bunchNodeName))
-		ringID := getRingIDFromDistance(crtDist)
-		log.Lvl1(node.Name, bunchNodeName, ringID, allNodes.GetByName(bunchNodeName).NrOwnRings)
-		// join ringID and all biggerw rings of node bunchNode
-		for i := ringID; i < allNodes.GetByName(bunchNodeName).NrOwnRings; i++ {
-			log.Lvl1("adding ring", generateRingID(bunchNodeName, i))
-			node.Rings = append(node.Rings, generateRingID(bunchNodeName, i))
-		}
-	}
-}
-*/
-
 //Computes the Euclidian distance between two nodes
 func ComputeDist(v1 *LocalityNode, v2 *LocalityNode, pingDist map[string]map[string]float64) float64 {
 	if len(pingDist) == 0 {
@@ -387,6 +303,7 @@ func ComputeDist(v1 *LocalityNode, v2 *LocalityNode, pingDist map[string]map[str
 	}
 	return pingDist[v1.Name][v2.Name]
 }
+*/
 
 func GenerateRadius(maxDist float64) []float64 {
 	multiplier := 1.0
@@ -409,27 +326,6 @@ func GenerateRadius(maxDist float64) []float64 {
 	}
 
 	radiuses = append(radiuses, maxDist)
-
-	//radiuses = []float64{10.0,16.0,32.0,64.0}
-
-	//radiuses = []float64{20.0, 30.0, 50.0, 80.0, 100.0, 130.0, 150.0, 200.0, 300.0, 500.0, 1000.0, 10000.0}
-
-	//radiuses = []float64{10000.0}
-
-	//radiuses = []float64{20.0, 50.0, 100.0, 300.0, 500.0, 10000.0}
-	//--->radiuses = []float64{15.0, 100.0, 10000.0}
-
-	// radiuses = []float64{10, 30, 70, 100, 10000.0}
-
-	///////// redis exp radiuses = []float64{5, 10, 20, 10000.0}
-
-	//radiuses = []float64{30.0, 300, 10000.0}
-
-	//-- prev radiuses =[]float64{5.0,10.0,15.0,20.0,25.0,30.0,100.0}
-
-	//radiuses = []float64{30.0, 300, 10000.0}
-
-	//log.LLvl1(radiuses)
 
 	return radiuses
 }
@@ -725,11 +621,13 @@ func CreateOnetLPTree(all LocalityNodes, rootName string, BunchLowerBound int) (
 	file, _ := os.Create("Specs/optimized.txt")
 	fmt.Fprintf(file, strconv.Itoa(len(all.All))+"\n")
 
-	//Prints coordinates of all nodes into the file
-	for _, n := range all.All {
+	/*
+		//Prints coordinates of all nodes into the file
+		for _, n := range all.All {
 
-		fmt.Fprintf(file, fmt.Sprint(n.X)+" "+fmt.Sprint(n.Y)+"\n")
-	}
+			fmt.Fprintf(file, fmt.Sprint(n.X)+" "+fmt.Sprint(n.Y)+"\n")
+		}
+	*/
 
 	//Distance between nodes after Optimisation
 	Dist2 := AproximateDistanceOracle(all)
@@ -944,13 +842,16 @@ func CreateOnetRings(all LocalityNodes, rootName string, dist2 map[*LocalityNode
 
 		//Creates a file where we can write
 		file, _ := os.Create("Specs/result" + strconv.Itoa(countt) + ".txt")
-		fmt.Fprintf(file, strconv.Itoa(len(all.All))+"\n")
+		/*
 
-		//Prints coordinates of all nodes into the file
-		for _, n := range all.All {
+			fmt.Fprintf(file, strconv.Itoa(len(all.All))+"\n")
 
-			fmt.Fprintf(file, fmt.Sprint(n.X)+" "+fmt.Sprint(n.Y)+"\n")
-		}
+			//Prints coordinates of all nodes into the file
+			for _, n := range all.All {
+
+				fmt.Fprintf(file, fmt.Sprint(n.X)+" "+fmt.Sprint(n.Y)+"\n")
+			}
+		*/
 
 		AllowedNodes := make(map[string]bool)
 		var Filterr []*LocalityNode

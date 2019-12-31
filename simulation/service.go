@@ -37,7 +37,6 @@ func NewSimulationService(config string) (onet.Simulation, error) {
 	return es, nil
 }
 
-// Setup creates the tree used for that simulation
 func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	*onet.SimulationConfig, error) {
 
@@ -46,7 +45,6 @@ func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	app.Copy(dir, filepath.Join(DATAFOLDER, NODEPATHREMOTE))
 	app.Copy(dir, "prescript.sh")
 	app.Copy(dir, "nodes.txt")
-	//app.Copy(dir, "local_nodes.txt")
 	app.Copy(dir, "install/ipfs")
 	app.Copy(dir, "install/ipfs-cluster-service")
 
@@ -66,10 +64,6 @@ func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	return sc, nil
 }
 
-// Node can be used to initialize each node before it will be run
-// by the server. Here we call the 'Node'-method of the
-// SimulationBFTree structure which will load the roster- and the
-// tree-structure to speed up the first round.
 func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 
 	index, _ := config.Roster.Search(config.Server.ServerIdentity.ID)
@@ -105,8 +99,6 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 	return s.SimulationBFTree.Node(config)
 }
 
-// Run is used on the destination machines and runs a number of
-// rounds
 func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 	myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
 
@@ -121,7 +113,7 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 
 	// wait for some time for clusters to converge
 	time.Sleep(20 * time.Second)
-	operations.Test2(100, 13)
+	operations.Test2(100, len(myService.Nodes.All))
 	return nil
 }
 
@@ -163,10 +155,10 @@ func (s *IPFSSimulation) ReadNodesFromFile(filename string, config onet.Simulati
 
 		tokens := strings.Split(line, " ")
 		coords := strings.Split(tokens[1], ",")
-		name, xstr, ystr, IP, levelstr := tokens[0], coords[0], coords[1], tokens[2], tokens[3]
+		name, _, _, _, levelstr := tokens[0], coords[0], coords[1], tokens[2], tokens[3]
 
-		x, _ := strconv.ParseFloat(xstr, 64)
-		y, _ := strconv.ParseFloat(ystr, 64)
+		//x, _ := strconv.ParseFloat(xstr, 64)
+		//y, _ := strconv.ParseFloat(ystr, 64)
 		level, err := strconv.Atoi(levelstr)
 
 		if err != nil {
@@ -176,7 +168,7 @@ func (s *IPFSSimulation) ReadNodesFromFile(filename string, config onet.Simulati
 
 		//	log.Lvl1("reqd node level", name, level_str, "lvl", level)
 
-		myNode := cruxIPFS.CreateNode(name, x, y, IP, level)
+		myNode := gentree.CreateNode(name, level)
 		s.Nodes.All = append(s.Nodes.All, myNode)
 	}
 }
@@ -189,8 +181,6 @@ func (s *IPFSSimulation) initializeMaps(config *onet.SimulationConfig, isLocalTe
 	if isLocalTest {
 		for i := range s.Nodes.All {
 			treeNode := config.Tree.List()[i]
-			// quick fix
-			//treeNode := config.Tree.List()[i+1]
 			s.Nodes.All[i].ServerIdentity = treeNode.ServerIdentity
 			s.Nodes.ServerIdentityToName[treeNode.ServerIdentity.ID] = s.Nodes.All[i].Name
 			ServerIdentityToName[treeNode.ServerIdentity] = s.Nodes.All[i].Name
@@ -203,7 +193,6 @@ func (s *IPFSSimulation) initializeMaps(config *onet.SimulationConfig, isLocalTe
 			node.ServerIdentity = treeNode.ServerIdentity
 			s.Nodes.ServerIdentityToName[treeNode.ServerIdentity.ID] = node.Name
 			ServerIdentityToName[treeNode.ServerIdentity] = node.Name
-			//log.Lvl1("associating", treeNode.ServerIdentity.String(), "to", node.Name)
 		}
 	}
 

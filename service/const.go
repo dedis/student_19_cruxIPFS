@@ -4,7 +4,7 @@ import "time"
 
 const (
 	// ClusterConsensusMode "raft" or "crdt"
-	ClusterConsensusMode = "crdt"
+	ClusterConsensusMode = "raft"
 
 	// DefaultReplMin ipfs cluster minimal replication factor
 	DefaultReplMin = 2

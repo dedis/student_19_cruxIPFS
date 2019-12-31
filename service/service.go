@@ -14,7 +14,6 @@ import (
 	"sync"
 
 	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
-	"github.com/dedis/student_19_cruxIPFS/ARAgen"
 	"github.com/dedis/student_19_cruxIPFS/gentree"
 
 	"go.dedis.ch/onet/v3"
@@ -78,7 +77,7 @@ func (s *Service) setup(req *cruxIPFS.InitRequest) {
 	s.Nodes.All = nodes
 	s.Nodes.ClusterBunchDistances = make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]float64)
 	s.Nodes.Links = make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]map[*gentree.LocalityNode]bool)
-	s.GraphTree = make(map[string][]ARAgen.GraphTree)
+	s.GraphTree = make(map[string][]gentree.GraphTree)
 	s.BinaryTree = make(map[string][]*onet.Tree)
 
 	// allocate distances
@@ -123,7 +122,7 @@ func (s *Service) setup(req *cruxIPFS.InitRequest) {
 		return
 	}
 
-	AuxNodes, dist2, ARATreeStruct, ARAOnetTrees := ARAgen.GenARAs(s.Nodes,
+	AuxNodes, dist2, ARATreeStruct, ARAOnetTrees := gentree.GenARAs(s.Nodes,
 		s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.PingDistances, 3)
 
 	s.Distances = dist2

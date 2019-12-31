@@ -5,7 +5,6 @@ import (
 	"os"
 	"sync"
 
-	"github.com/dedis/student_19_cruxIPFS/ARAgen"
 	"github.com/dedis/student_19_cruxIPFS/gentree"
 
 	"go.dedis.ch/onet/v3"
@@ -27,7 +26,7 @@ type Service struct {
 	Nodes        gentree.LocalityNodes
 	LocalityTree *onet.Tree
 	Parents      []*onet.TreeNode
-	GraphTree    map[string][]ARAgen.GraphTree
+	GraphTree    map[string][]gentree.GraphTree
 	BinaryTree   map[string][]*onet.Tree
 	alive        bool
 	Distances    map[*gentree.LocalityNode]map[*gentree.LocalityNode]float64

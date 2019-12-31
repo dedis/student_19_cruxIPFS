@@ -120,6 +120,10 @@ func Test1(nOps, nodesN int) {
 	log.Lvl1("\nDone!")
 }
 
+// Test2 measure nOps write + read operation between pairs of nodes among a set
+// of nodesN nodes. It first tries to read the operation sequence (to reproduce)
+// the same sequence as a previous experiment, if does not exist or invalid
+// format, generate a new sequence
 func Test2(nOps, nodesN int) {
 	ops, err := ioutil.ReadFile(sequenceName)
 	if err != nil {
@@ -135,6 +139,18 @@ func Test2(nOps, nodesN int) {
 		lines = strings.Split(string(ops), "\n")
 		log.Lvl1("After generation")
 		log.Lvl1("Got:", len(lines)-1, "Target:", nOps)
+	} else {
+		for _, l := range lines[:len(lines)-1] {
+			k, err := strconv.Atoi(
+				strings.Split(l, " ")[0][len(service.NodeName):])
+			checkErr(err)
+			if k >= nodesN {
+				log.Lvl1("Node names do not match old sequence")
+				ops = genSequence(nOps, nodesN)
+				lines = strings.Split(string(ops), "\n")
+				break
+			}
+		}
 	}
 	for i, l := range lines {
 		nodes := strings.Split(l, " ")

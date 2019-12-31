@@ -118,7 +118,7 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 
 	time.Sleep(20 * time.Second)
 
-	operations.Test1(100)
+	operations.Test1(100, 13)
 	return nil
 }
 
@@ -173,7 +173,7 @@ func (s *IPFSSimulation) ReadNodesFromFile(filename string, config onet.Simulati
 
 		//	log.Lvl1("reqd node level", name, level_str, "lvl", level)
 
-		myNode := cruxIPFS.CreateNode(name, x, y, IP, level)
+		myNode := gentree.CreateNode(name, x, y, IP, level)
 		s.Nodes.All = append(s.Nodes.All, myNode)
 	}
 }

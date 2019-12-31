@@ -565,13 +565,10 @@ func checkErr(e error) {
 
 func shortestNSRoutes() {
 	dist, N, R, directions, ipLInks := readNodes()
-	//dist, N, _,_ := readNodes()
-	//pings := readPings()
 
 	file7, _ := os.Create("shortest.txt")
 	w7 := bufio.NewWriter(file7)
 	shortest, next := floydWarshall(N, R, dist)
-	//shortest, _ := floydWarshall(N, dist)
 
 	for n1, m := range shortest {
 		for n2, d := range m {
@@ -584,23 +581,7 @@ func shortestNSRoutes() {
 	w7.Flush()
 	file7.Close()
 
-	//ping node_34 node_15 = 16.64
-	//ping node_34 node_24 = 20.64
-	//ping node_34 node_41 = 12.32
-
 	fmt.Println(shortest)
-
-	/*
-		for i := 0 ; i < len(dist); i++ {
-			namei := "node_" + strconv.Itoa(i)
-			for j := 0; j < len(dist); j++ {
-				namej := "node_" + strconv.Itoa(j)
-
-				if pings[namei][namej] > shortest[namei][namej] {
-					//fmt.Println("TIV ", namei, namej, pings[namei][namej], shortest[namei][namej])
-				}
-			}
-		}*/
 
 	firstLinks := printShortestNsPaths(N, R, shortest, next, directions)
 
@@ -608,7 +589,6 @@ func shortestNSRoutes() {
 
 	for i := 0; i < N; i++ {
 		namei := "node_" + strconv.Itoa(i)
-		//fmt.Println("here on", namei, "with main", firstLinks[namei])
 		fmt.Println(namei, ipLInks[namei][firstLinks[namei]])
 	}
 
@@ -628,18 +608,6 @@ type DeterNode struct {
 //type myNodes []DeterNode
 
 var MAX_IFACES = 4
-
-/*
-func (s myNodes) Len() int {
-	return len(s)
-}
-func (s myNodes) Swap(i, j int) {
-	s[i], s[j] = s[j], s[i]
-}
-func (s myNodes) Less(i, j int) bool {
-	return math.Pow(s[i].X, 2.0) + math.Pow(s[i].Y, 2.0) < math.Pow(s[j].X, 2.0) + math.Pow(s[j].Y, 2.0)
-}
-*/
 
 func dist(a DeterNode, b DeterNode) float64 {
 	return math.Sqrt(math.Pow(float64(a.X-b.X), 2.0) + math.Pow(float64(a.Y-b.Y), 2.0))
@@ -748,10 +716,7 @@ func genAndPrintRndRouters(N int, R int, SpaceMax int, K int, zeroY bool, trueLa
 			idx2 := strconv.Itoa(peerIdx)
 
 			// generate random latency in 2-10 ms
-			//min := 0.0
-
 			dist := dist(routers[i], routers[peerIdx])
-			//dist := RndSrc.Float64() * 5.0 + 2.0
 
 			// round distance to closest integer
 			if dist < 1 {
@@ -762,30 +727,9 @@ func genAndPrintRndRouters(N int, R int, SpaceMax int, K int, zeroY bool, trueLa
 
 			fmt.Println("generated", dist)
 
-			//l := ""
-
-			/*
-				// check if triangle inequality stuff
-				for j := 0 ; j < N ; j++ {
-					// do they connect through j? then add that as constraint
-					nameJ := nodes[j].Name
-					if nodes[i].Links[nameJ] && nodes[peerIdx].Links[nameJ] {
-						min = nodes[i].Dist[nameJ] + nodes[peerIdx].Dist[nameJ]
-						l += nameJ
-					}
-				}
-				if min != 0 {
-					log.LLvl1(i, peerIdx, "have min", min, "through node", l)
-					dist = min
-				}
-			*/
-
 			w2.WriteString("set link" + strconv.Itoa(linkNr) + " [$ns duplex-link $router(" + idx1 + ") $router(" + idx2 + ") 100Mb " + fmt.Sprintf("%f", dist) + "ms DropTail]\n")
 			w2.WriteString("tb-set-ip-link $router(" + idx1 + ") $link" + strconv.Itoa(linkNr) + " 10.1." + strconv.Itoa(linkNr+1) + ".2\n")
 			w2.WriteString("tb-set-ip-link $router(" + idx2 + ") $link" + strconv.Itoa(linkNr) + " 10.1." + strconv.Itoa(linkNr+1) + ".3\n")
-
-			//w2.WriteString("tb-set-ip-link $site(" + idx1 + ") $link" + strconv.Itoa(linkNr) + " 10.1." + strconv.Itoa(i+1) + "." + strconv.Itoa(len(nodes[i].IP) + 2)+ "\n")
-			//w2.WriteString("tb-set-ip-link $site(" + idx2 + ") $link" + strconv.Itoa(linkNr) + " 10.1." + strconv.Itoa(peerIdx+1) + "." + strconv.Itoa(len(nodes[peerIdx].IP) + 2) + "\n")
 
 			routers[i].Links[peerName] = true
 			routers[peerIdx].Links[routers[i].Name] = true
@@ -794,9 +738,6 @@ func genAndPrintRndRouters(N int, R int, SpaceMax int, K int, zeroY bool, trueLa
 
 			routers[i].IP = append(routers[i].IP, "10.1."+strconv.Itoa(linkNr+1)+".2")
 			routers[peerIdx].IP = append(routers[peerIdx].IP, "10.1."+strconv.Itoa(linkNr+1)+".3")
-
-			//nodes[i].IP = append(nodes[i].IP, "10.1." + strconv.Itoa(i+1) + "." + strconv.Itoa(len(nodes[i].IP) + 2))
-			//nodes[peerIdx].IP = append(nodes[peerIdx].IP, "10.1." + strconv.Itoa(peerIdx+1) + "." + strconv.Itoa(len(nodes[peerIdx].IP) + 2))
 
 			log.LLvl1(i, peerIdx, dist)
 
@@ -808,17 +749,10 @@ func genAndPrintRndRouters(N int, R int, SpaceMax int, K int, zeroY bool, trueLa
 	// connect two nodes to their corresponding router through a link of latency 0, respectively random latencies
 
 	for i := 0; i < N; i++ {
-		//routerIdx := strconv.Itoa(i/2)
 		routerIdx := strconv.Itoa(i)
 		nodeIdx := strconv.Itoa(i)
 
 		latency := 0
-
-		/*
-			if i %2 == 1 {
-				latency = RndSrc.Intn(1) + 2
-			}
-		*/
 
 		w2.WriteString("set link" + strconv.Itoa(linkNr) + " [$ns duplex-link $router(" + routerIdx + ") $site(" + nodeIdx + ") 100Mb " + fmt.Sprintf("%d", latency) + "ms DropTail]\n")
 		w2.WriteString("tb-set-ip-link $router(" + routerIdx + ") $link" + strconv.Itoa(linkNr) + " 10.1." + strconv.Itoa(linkNr+1) + ".2\n")
@@ -831,12 +765,7 @@ func genAndPrintRndRouters(N int, R int, SpaceMax int, K int, zeroY bool, trueLa
 
 	w2.WriteString("\n")
 	// OSPF routing
-	//w2.WriteString("$ns rtproto Session\n")
 	w2.WriteString(lastPart)
-	//w2.WriteString("$ns rtproto Manual\n")
-
-	//w2.WriteString("\n")
-	//w2.WriteString("$ns run")
 
 	w2.Flush()
 

@@ -367,7 +367,7 @@ func recursive(all LocalityNodes, A *LocalityNode, B *LocalityNode, Attributes *
 		Attributes.Bridges[c] = make(map[*LocalityNode]bool)
 	}
 
-	for c, _ := range GetChildren(all, A) {
+	for c := range GetChildren(all, A) {
 
 		if c == B {
 
@@ -464,19 +464,21 @@ func approxDistance(all LocalityNodes, nodeU *LocalityNode, nodeV *LocalityNode)
 	i := 0
 
 	for {
-		found := false
+		//found := false
 
 		//log.LLvl1("w=", w.Name, "i=", i)
 
 		if nodeV.Bunch[w.Name] {
-			found = true
+			//found = true
 			break
 		}
 
 		i++
-		if found {
-			break
-		}
+		/*
+			if found {
+				break
+			}
+		*/
 
 		aux := nodeU
 		nodeU = nodeV

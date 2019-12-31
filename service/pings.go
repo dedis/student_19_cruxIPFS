@@ -105,6 +105,8 @@ func (s *Service) ExecReplyPings(env *network.Envelope) error {
 
 func (s *Service) getPings(readFromFile bool) {
 	if !readFromFile {
+		log.Lvl1("Computing new ping distances")
+
 		// measure pings to other nodes
 		s.measureOwnPings()
 		s.DonePing = true

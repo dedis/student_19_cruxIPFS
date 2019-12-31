@@ -240,7 +240,7 @@ func (s *Service) SetupClusterLeader(path string,
 	s.PortMutex.Unlock()
 
 	addr := IPVersion + s.MyIP + TransportProtocol + strconv.Itoa(ports.RestAPIPort)
-	log.Lvl2("Started ipfs-cluster leader at " + addr)
+	log.Lvl1("Started ipfs-cluster leader at " + addr)
 
 	return secret, &ports, nil
 }
@@ -300,7 +300,7 @@ func (s *Service) SetupClusterSlave(path, bootstrap, secret string,
 
 	addr := ports.IP + strconv.Itoa(ports.RestAPIPort)
 	//log.Lvl1("ipfs-cluster-service -c " + path + " daemon --bootstrap " + bootstrap)
-	log.Lvl2("Started ipfs-cluster slave at " + addr)
+	log.Lvl1("Started ipfs-cluster slave at " + addr)
 
 	return &ports, nil
 }
