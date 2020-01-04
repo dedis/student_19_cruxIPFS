@@ -14,9 +14,8 @@ import (
 	"go.dedis.ch/onet/v3/log"
 )
 
-// StartIPFS starts an IPFS instance for the given service
-func (s *Service) StartIPFS() {
-
+// setIPFSVariables set service variables useful for IPFS and config folders
+func (s *Service) setIPFSVariables() {
 	// get config path
 	// e.g $GOPATH/src/github.com/dedis/student_19_cruxIPFS/simulation/build
 	pwd, err := os.Getwd()
@@ -32,28 +31,38 @@ func (s *Service) StartIPFS() {
 
 	// create own config home folder and ipfs config folder
 	s.MyIPFSPath = filepath.Join(s.ConfigPath, IPFSFolder)
-	checkErr(CreateEmptyDir(s.MyIPFSPath))
 
-	ou, err := exec.Command("ipfs", "-c"+s.MyIPFSPath, "init").Output()
+	s.MyIPFS = make([]IPFSInformation, 0)
+}
+
+// StartIPFS starts an IPFS instance for the given service
+// return the multiaddress of the IPFS API
+func (s *Service) StartIPFS(secret string) string {
+	path := s.MyIPFSPath + "-" + secret
+	checkErr(CreateEmptyDir(path))
+
+	ou, err := exec.Command("ipfs", "-c"+path, "init").Output()
 	if err != nil {
 		log.Lvl1(string(ou))
 		log.Error(err)
 	}
 
 	// edit the ip in the config file
-	s.EditIPFSConfig()
+	ipfsAPI := s.EditIPFSConfig(path)
 
 	// start ipfs daemon
 	go func() {
-		exec.Command("ipfs", "-c"+s.MyIPFSPath, "daemon").Run()
+		exec.Command("ipfs", "-c"+path, "daemon").Run()
 		fmt.Println("ipfs at ip", s.Name, "crashed")
 	}()
 	// wait until it has started
 	time.Sleep(IPFSStartupTime)
+	return ipfsAPI
 }
 
 // EditIPFSConfig edit the ipfs configuration file (mainly the ip)
-func (s *Service) EditIPFSConfig() {
+// returns the API address of the IPFS instance
+func (s *Service) EditIPFSConfig(path string) string {
 	addr := IPVersion + s.MyIP + TransportProtocol
 
 	// select available ports
@@ -70,18 +79,19 @@ func (s *Service) EditIPFSConfig() {
 	// /ip4/127.0.0.1/tcp/8080
 	Gateway := MakeJSONElem(addr + strconv.Itoa((*ports)[2]))
 
-	EditIPFSField(s.MyIPFSPath, "Addresses.API", API)
-	EditIPFSField(s.MyIPFSPath, "Addresses.Gateway", Gateway)
-	EditIPFSField(s.MyIPFSPath, "Addresses.Swarm", Swarm)
+	EditIPFSField(path, "Addresses.API", API)
+	EditIPFSField(path, "Addresses.Gateway", Gateway)
+	EditIPFSField(path, "Addresses.Swarm", Swarm)
 
 	// filling my IPFS info
-	s.MyIPFS = IPFSInformation{
+	s.MyIPFS = append(s.MyIPFS, IPFSInformation{
 		Name:        s.Name,
 		IP:          s.MyIP,
 		SwarmPort:   (*ports)[0],
 		APIPort:     (*ports)[1],
 		GatewayPort: (*ports)[2],
-	}
+	})
+	return API
 
 }
 
@@ -97,7 +107,7 @@ func EditIPFSField(path, field, value string) {
 }
 
 // SetClusterLeaderConfig set the configs for the leader of a cluster
-func (s *Service) SetClusterLeaderConfig(path string,
+func (s *Service) SetClusterLeaderConfig(path, apiIPFSAddr string,
 	replmin, replmax int, ports ClusterInstance) (
 	string, string, error) {
 
@@ -109,17 +119,17 @@ func (s *Service) SetClusterLeaderConfig(path string,
 	}
 	secret := hex.EncodeToString(key)
 
-	vars := GetClusterVariables(path, s.MyIP, s.Name, secret,
+	vars := GetClusterVariables(path, s.MyIP, s.Name, secret, apiIPFSAddr,
 		replmin, replmax, ports)
 	return vars, secret, nil
 }
 
 // GetClusterVariables get the cluster variables
-func GetClusterVariables(path, ip, secret, peername string,
+func GetClusterVariables(path, ip, secret, peername, apiIPFSAddr string,
 	replmin, replmax int, ports ClusterInstance) string {
 
-	apiIPFSAddr := IPVersion + ip +
-		TransportProtocol + strconv.Itoa(ports.IPFSAPIPort) // 5001
+	//apiIPFSAddr := IPVersion + ip +
+	//	TransportProtocol + strconv.Itoa(ports.IPFSAPIPort) // 5001
 	restAPIAddr := IPVersion + ip +
 		TransportProtocol + strconv.Itoa(ports.RestAPIPort) // 9094
 	IPFSProxyAddr := IPVersion + ip +
@@ -179,19 +189,11 @@ func MakeJSONArray(elements []string) string {
 }
 
 // SetupClusterLeader setup a cluster instance for the ARA leader
-func (s *Service) SetupClusterLeader(path string,
+func (s *Service) SetupClusterLeader(path, secret, apiIPFSAddr string,
 	replmin, replmax int) (string, *ClusterInstance, error) {
 
-	// generate random secret
-	key := make([]byte, 32)
-	_, err := rand.Read(key)
-	if err != nil {
-		return "", nil, errors.New("could not generate secret")
-	}
-	secret := hex.EncodeToString(key)
-
 	path = path + "-" + secret
-	if CreateEmptyDir(path) != nil {
+	if err := CreateEmptyDir(path); err != nil {
 		return "", nil, err
 	}
 
@@ -205,15 +207,15 @@ func (s *Service) SetupClusterLeader(path string,
 	ports := ClusterInstance{
 		HostName:      s.Name,
 		IP:            IPVersion + s.MyIP + TransportProtocol,
-		IPFSAPIPort:   s.MyIPFS.APIPort,
+		IPFSAPIAddr:   apiIPFSAddr,
 		RestAPIPort:   (*ints)[0],
 		IPFSProxyPort: (*ints)[1],
 		ClusterPort:   (*ints)[2],
 	}
 
 	// get the environment variables to set cluster configs
-	vars := GetClusterVariables(path, s.MyIP, secret, s.Name, replmin, replmax,
-		ports)
+	vars := GetClusterVariables(path, s.MyIP, secret, s.Name, apiIPFSAddr,
+		replmin, replmax, ports)
 
 	// init command to be run
 	cmd := vars + "ipfs-cluster-service -c " + path + " init"
@@ -240,13 +242,13 @@ func (s *Service) SetupClusterLeader(path string,
 	s.PortMutex.Unlock()
 
 	addr := IPVersion + s.MyIP + TransportProtocol + strconv.Itoa(ports.RestAPIPort)
-	log.Lvl1("Started ipfs-cluster leader at " + addr)
+	log.Lvl2("Started ipfs-cluster leader at " + addr)
 
 	return secret, &ports, nil
 }
 
 // SetupClusterSlave setup a cluster slave instance
-func (s *Service) SetupClusterSlave(path, bootstrap, secret string,
+func (s *Service) SetupClusterSlave(path, bootstrap, secret, apiIPFSAddr string,
 	replmin, replmax int) (*ClusterInstance, error) {
 
 	err := CreateEmptyDir(path)
@@ -266,14 +268,14 @@ func (s *Service) SetupClusterSlave(path, bootstrap, secret string,
 	ports := ClusterInstance{
 		HostName:      s.Name,
 		IP:            IPVersion + s.MyIP + TransportProtocol,
-		IPFSAPIPort:   s.MyIPFS.APIPort,
+		IPFSAPIAddr:   apiIPFSAddr,
 		RestAPIPort:   (*ints)[0],
 		IPFSProxyPort: (*ints)[1],
 		ClusterPort:   (*ints)[2],
 	}
 
 	// get the environment variables to set cluster configs
-	vars := GetClusterVariables(path, s.MyIP, secret, s.Name,
+	vars := GetClusterVariables(path, s.MyIP, secret, s.Name, apiIPFSAddr,
 		replmin, replmax, ports)
 
 	// init command to be run
@@ -300,7 +302,40 @@ func (s *Service) SetupClusterSlave(path, bootstrap, secret string,
 
 	addr := ports.IP + strconv.Itoa(ports.RestAPIPort)
 	//log.Lvl1("ipfs-cluster-service -c " + path + " daemon --bootstrap " + bootstrap)
-	log.Lvl1("Started ipfs-cluster slave at " + addr)
+	log.Lvl2("Started ipfs-cluster slave at " + addr)
 
 	return &ports, nil
+}
+
+// StartIPFSAndCluster starts an IPFS instance along with the cluster instance
+// empty secret means that this instance is the cluster leader
+// if leader, returns secret and bootstrap address for slaves
+func (s *Service) StartIPFSAndCluster(leader, secret, bootstrap string) (
+	string, *ClusterInstance) {
+
+	clusterPath := filepath.Join(s.ConfigPath,
+		ClusterFolderPrefix+leader+"-"+secret)
+
+	// if no secret -> this instance is the leader
+	if secret == "" {
+		secret = genSecret()
+	}
+
+	// start ipfs and get the multiaddr of the IPFS API
+	apiIPFSAddr := s.StartIPFS(secret)
+
+	var err error
+	var instance *ClusterInstance
+	if bootstrap == "" {
+		// leader
+		_, instance, err = s.SetupClusterLeader(clusterPath, secret, apiIPFSAddr,
+			DefaultReplMin, DefaultReplMax)
+	} else {
+		// slave
+		instance, err = s.SetupClusterSlave(clusterPath, bootstrap, secret, apiIPFSAddr,
+			DefaultReplMin, DefaultReplMax)
+	}
+	checkErr(err)
+
+	return secret, instance
 }

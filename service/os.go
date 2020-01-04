@@ -1,6 +1,8 @@
 package service
 
 import (
+	"crypto/rand"
+	"encoding/hex"
 	"errors"
 	"io/ioutil"
 	"os"
@@ -11,6 +13,12 @@ import (
 
 // default file mode for files that the program writes to the system
 const defaultFileMode os.FileMode = 0777
+
+func checkErr(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
 
 // CreateEmptyDir create an empty directory at the given path
 func CreateEmptyDir(path string) error {
@@ -86,4 +94,12 @@ func WriteConfig(path string, config string) error {
 		return err
 	}
 	return nil
+}
+
+func genSecret() string {
+	// generate random secret
+	key := make([]byte, 32)
+	_, err := rand.Read(key)
+	checkErr(err)
+	return hex.EncodeToString(key)
 }

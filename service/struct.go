@@ -57,7 +57,7 @@ type Service struct {
 	MyIPFSPath string // path to ipfs config folder of that service
 	MinPort    int    // port range allocated to this node
 	MaxPort    int
-	MyIPFS     IPFSInformation            // own ipfs information
+	MyIPFS     []IPFSInformation          // own ipfs information
 	OtherIPFS  map[string]IPFSInformation // node_x -> IP, ports etc.
 
 	OnetTree      *onet.Tree
@@ -85,7 +85,7 @@ type ClusterInfo struct {
 type ClusterInstance struct {
 	HostName      string
 	IP            string
-	IPFSAPIPort   int
+	IPFSAPIAddr   string
 	RestAPIPort   int
 	IPFSProxyPort int
 	ClusterPort   int
@@ -99,9 +99,6 @@ type IPFSInformation struct {
 	APIPort     int
 	GatewayPort int
 }
-
-// Name can be used from other packages to refer to this protocol.
-const Name = "Template"
 
 // Announce is used to pass a message to all children.
 type Announce struct {
@@ -232,6 +229,42 @@ type ClusterBootstrapReply struct {
 // replyWrapperClusterBootstrap just contains Reply and the data necessary to
 // identify and process the message in onet.
 type replyWrapperClusterBootstrap struct {
+	*onet.TreeNode
+	ClusterBootstrapReply
+}
+
+// StartAllProtocol structure
+type StartAllProtocol struct {
+	*onet.TreeNodeInstance
+	announceChan chan announceWrapperStartAll
+	repliesChan  chan []replyWrapperStartAll
+	Ready        chan bool
+	Info         ClusterInfo
+	GetService   FnService
+}
+
+// StartAllAnnounce is used to pass a message to all children.
+type StartAllAnnounce struct {
+	SenderName string
+	Bootstrap  string
+	Secret     string
+}
+
+// announceWrapperClusterBootstrap just contains Announce and the data necessary
+// to identify and process the message in onet.
+type announceWrapperStartAll struct {
+	*onet.TreeNode
+	ClusterBootstrapAnnounce
+}
+
+// StartAllReply returns true when ready.
+type StartAllReply struct {
+	Cluster *[]ClusterInstance
+}
+
+// replyWrapperClusterBootstrap just contains Reply and the data necessary to
+// identify and process the message in onet.
+type replyWrapperStartAll struct {
 	*onet.TreeNode
 	ClusterBootstrapReply
 }

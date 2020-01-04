@@ -43,13 +43,19 @@ func (p *ClusterBootstrapProtocol) Dispatch() error {
 	ann := <-p.announceChan
 	s := p.GetService()
 
+	apiIPFSAddr := IPVersion + s.MyIPFS[0].IP +
+		TransportProtocol + strconv.Itoa(s.MyIPFS[0].APIPort) // 5001
+
 	if p.IsRoot() {
-		// create cluster dir
+		// set cluster path
 		clusterPath := filepath.Join(s.ConfigPath, ClusterFolderPrefix+s.Name)
 
+		// generate secret
+		secret := genSecret()
+
 		// start cluster leader
-		secret, info, err := s.SetupClusterLeader(clusterPath, DefaultReplMin,
-			DefaultReplMax)
+		secret, info, err := s.SetupClusterLeader(clusterPath, secret,
+			apiIPFSAddr, DefaultReplMin, DefaultReplMax)
 		checkErr(err)
 
 		p.Info = ClusterInfo{
@@ -83,8 +89,8 @@ func (p *ClusterBootstrapProtocol) Dispatch() error {
 			ClusterFolderPrefix+ann.SenderName+"-"+ann.Secret)
 
 		// bootstrap peer
-		cluster, err := s.SetupClusterSlave(clusterPath, ann.Bootstrap, ann.Secret,
-			DefaultReplMin, DefaultReplMax)
+		cluster, err := s.SetupClusterSlave(clusterPath, ann.Bootstrap,
+			ann.Secret, apiIPFSAddr, DefaultReplMin, DefaultReplMax)
 		if err != nil {
 			fmt.Println("Error slave:", err)
 		}
@@ -101,7 +107,7 @@ func (p *ClusterBootstrapProtocol) Dispatch() error {
 
 	// bootstrap peer
 	cluster, err := s.SetupClusterSlave(clusterPath, ann.Bootstrap, ann.Secret,
-		DefaultReplMin, DefaultReplMax)
+		apiIPFSAddr, DefaultReplMin, DefaultReplMax)
 	if err != nil {
 		fmt.Println("Error slave:", err)
 	}

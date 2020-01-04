@@ -36,7 +36,20 @@ func init() {
 	execReqPingsMsgID = network.RegisterMessage(&cruxIPFS.ReqPings{})
 	execReplyPingsMsgID = network.RegisterMessage(&cruxIPFS.ReplyPings{})
 
-	network.RegisterMessage(&storage{})
+	//network.RegisterMessage(&storage{})
+
+	for _, i := range []interface{}{
+		Announce{},
+		Reply{},
+		StartIPFSAnnounce{},
+		StartIPFSReply{},
+		ClusterBootstrapAnnounce{},
+		ClusterBootstrapReply{},
+		&storage{},
+	} {
+		network.RegisterMessage(i)
+	}
+
 }
 
 // InitRequest init the tree
@@ -117,6 +130,8 @@ func (s *Service) setup(req *cruxIPFS.InitRequest) {
 		//s.printDistances("Ping distances")
 		s.printPings()
 	}
+
+	s.setIPFSVariables()
 
 	if !req.Cruxified {
 		return

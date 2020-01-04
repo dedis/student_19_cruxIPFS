@@ -48,7 +48,7 @@ func (p *StartIPFSProtocol) Dispatch() error {
 		wg.Add(1)
 		go func() {
 			// start ipfs
-			s.StartIPFS()
+			s.StartIPFS("")
 			wg.Done()
 		}()
 
@@ -58,7 +58,7 @@ func (p *StartIPFSProtocol) Dispatch() error {
 
 		p.Nodes = make(map[string]*NodeInfo)
 		p.Nodes[s.Name] = &NodeInfo{
-			IPFS:     s.MyIPFS,
+			IPFS:     s.MyIPFS[0],
 			Clusters: make([]ClusterInfo, 0),
 		}
 		for i := 0; i < len(ipfsReplies); i++ {
@@ -69,7 +69,7 @@ func (p *StartIPFSProtocol) Dispatch() error {
 		}
 
 		if !p.IsRoot() {
-			return p.SendToParent(&StartIPFSReply{IPFS: &s.MyIPFS})
+			return p.SendToParent(&StartIPFSReply{IPFS: &s.MyIPFS[0]})
 		} // root
 		log.Lvl1("All IPFS instances started successfully")
 
@@ -101,9 +101,9 @@ func (p *StartIPFSProtocol) Dispatch() error {
 	// node is a leaf
 	if ann.Message == "IPFS" {
 		// start ipfs
-		s.StartIPFS()
+		s.StartIPFS("")
 		// send ok to parent when it's done
-		p.SendToParent(&StartIPFSReply{IPFS: &s.MyIPFS})
+		p.SendToParent(&StartIPFSReply{IPFS: &s.MyIPFS[0]})
 		ann = <-p.announceChan
 		if ann.Message == "Clusters" {
 			info := s.startClusters()

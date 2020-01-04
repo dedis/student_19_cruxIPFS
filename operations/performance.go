@@ -152,7 +152,7 @@ func Test2(nOps, nodesN int) {
 			}
 		}
 	}
-	for i, l := range lines {
+	for i, l := range lines[:len(lines)-1] {
 		nodes := strings.Split(l, " ")
 		nodeW := nodes[0]
 		nodeR := nodes[1]

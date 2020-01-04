@@ -1,6 +1,6 @@
 Simulation = "IPFS"
-Servers = 5
-Bf = 4
+Servers = 13
+Bf = 12
 Rounds = 1
 Suite = "Ed25519"
 Prescript = "prescript.sh"
