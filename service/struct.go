@@ -254,7 +254,7 @@ type StartAllAnnounce struct {
 // to identify and process the message in onet.
 type announceWrapperStartAll struct {
 	*onet.TreeNode
-	ClusterBootstrapAnnounce
+	StartAllAnnounce
 }
 
 // StartAllReply returns true when ready.
@@ -266,5 +266,5 @@ type StartAllReply struct {
 // identify and process the message in onet.
 type replyWrapperStartAll struct {
 	*onet.TreeNode
-	ClusterBootstrapReply
+	StartAllReply
 }

@@ -36,8 +36,6 @@ func init() {
 	execReqPingsMsgID = network.RegisterMessage(&cruxIPFS.ReqPings{})
 	execReplyPingsMsgID = network.RegisterMessage(&cruxIPFS.ReplyPings{})
 
-	//network.RegisterMessage(&storage{})
-
 	for _, i := range []interface{}{
 		Announce{},
 		Reply{},
@@ -45,6 +43,8 @@ func init() {
 		StartIPFSReply{},
 		ClusterBootstrapAnnounce{},
 		ClusterBootstrapReply{},
+		StartAllAnnounce{},
+		StartAllReply{},
 		&storage{},
 	} {
 		network.RegisterMessage(i)
@@ -125,7 +125,7 @@ func (s *Service) setup(req *cruxIPFS.InitRequest) {
 	//s.getPings(err == nil)
 	//os.IsNotExist(err))
 
-	s.getPings(true)
+	s.getPings(false)
 	if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == Node0 {
 		//s.printDistances("Ping distances")
 		s.printPings()
@@ -144,6 +144,26 @@ func (s *Service) setup(req *cruxIPFS.InitRequest) {
 	s.Nodes = AuxNodes
 	s.GraphTree = ARATreeStruct
 	s.BinaryTree = ARAOnetTrees
+
+	list := make([]ClusterInfo, 0)
+	listMutex := sync.Mutex{}
+	wg := sync.WaitGroup{}
+	// iterate over all ARA trees where node is the root
+	for _, tree := range s.BinaryTree[s.Name] {
+		wg.Add(1)
+		go func(t *onet.Tree) {
+			pi, err := s.CreateProtocol(StartAllName, t)
+			checkErr(err)
+			pi.Start()
+			<-pi.(*StartAllProtocol).Ready
+			listMutex.Lock()
+			list = append(list, pi.(*StartAllProtocol).Info)
+			listMutex.Unlock()
+			wg.Done()
+		}(tree)
+	}
+	wg.Wait()
+
 }
 
 // NewProtocol is called on all nodes of a Tree (except the root, since it is
@@ -214,6 +234,16 @@ func newService(c *onet.Context) (onet.Service, error) {
 		func(n *onet.TreeNodeInstance) (onet.ProtocolInstance, error) {
 
 			return NewClusterBootstrapProtocol(n, s.GetService)
+		})
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	_, err = s.ProtocolRegister(StartAllName,
+		func(n *onet.TreeNodeInstance) (onet.ProtocolInstance, error) {
+
+			return NewStartAllProtocol(n, s.GetService)
 		})
 	if err != nil {
 		log.Error(err)

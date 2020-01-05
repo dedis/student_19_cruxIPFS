@@ -1,8 +1,6 @@
 package service
 
 import (
-	"fmt"
-	"path/filepath"
 	"strconv"
 
 	"go.dedis.ch/onet/v3"
@@ -41,8 +39,8 @@ func (p *StartAllProtocol) Dispatch() error {
 	ann := <-p.announceChan
 	s := p.GetService()
 
-	apiIPFSAddr := IPVersion + s.MyIPFS[0].IP +
-		TransportProtocol + strconv.Itoa(s.MyIPFS[0].APIPort) // 5001
+	//apiIPFSAddr := IPVersion + s.MyIPFS[0].IP +
+	//	TransportProtocol + strconv.Itoa(s.MyIPFS[0].APIPort) // 5001
 
 	if p.IsRoot() {
 		// generate secret
@@ -61,7 +59,7 @@ func (p *StartAllProtocol) Dispatch() error {
 
 		if len(p.TreeNodeInstance.Children()) > 0 {
 			bootstrap := instance.IP + strconv.Itoa(instance.ClusterPort)
-			p.SendToChildren(&ClusterBootstrapAnnounce{
+			p.SendToChildren(&StartAllAnnounce{
 				SenderName: s.Name,
 				Bootstrap:  bootstrap,
 				Secret:     secret,
@@ -76,35 +74,26 @@ func (p *StartAllProtocol) Dispatch() error {
 		p.Ready <- true
 		return nil
 	} else if !p.IsLeaf() {
-		p.SendToChildren(&ann.ClusterBootstrapAnnounce)
+		// not root nor leaf
+		p.SendToChildren(&ann.StartAllAnnounce)
 		replies := <-p.repliesChan
 
-		clusterPath := filepath.Join(s.ConfigPath,
-			ClusterFolderPrefix+ann.SenderName+"-"+ann.Secret)
-
 		// bootstrap peer
-		cluster, err := s.SetupClusterSlave(clusterPath, ann.Bootstrap,
-			ann.Secret, apiIPFSAddr, DefaultReplMin, DefaultReplMax)
-		if err != nil {
-			fmt.Println("Error slave:", err)
-		}
+		instance := s.StartIPFSAndCluster(ann.SenderName, ann.Secret,
+			ann.Bootstrap)
+
 		instances := make([]ClusterInstance, 0)
 		for _, r := range replies {
 			instances = append(instances, *r.Cluster...)
 		}
-		instances = append(instances, *cluster)
-		return p.SendToParent(&ClusterBootstrapReply{Cluster: &instances})
+		instances = append(instances, *instance)
+		return p.SendToParent(&StartAllReply{Cluster: &instances})
 	}
 	// leaf
-	clusterPath := filepath.Join(s.ConfigPath,
-		ClusterFolderPrefix+ann.SenderName+"-"+ann.Secret)
 
 	// bootstrap peer
-	cluster, err := s.SetupClusterSlave(clusterPath, ann.Bootstrap, ann.Secret,
-		apiIPFSAddr, DefaultReplMin, DefaultReplMax)
-	if err != nil {
-		fmt.Println("Error slave:", err)
-	}
-	return p.SendToParent(&ClusterBootstrapReply{
-		Cluster: &[]ClusterInstance{*cluster}})
+	instance := s.StartIPFSAndCluster(ann.SenderName, ann.Secret,
+		ann.Bootstrap)
+	return p.SendToParent(&StartAllReply{
+		Cluster: &[]ClusterInstance{*instance}})
 }

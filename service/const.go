@@ -43,12 +43,12 @@ const (
 	// Node0 name of the first node
 	Node0 = NodeName + "0"
 
-	// WaitpeersName name of WaitPeers protocol
-	WaitpeersName = "WaitPeers"
 	// StartIPFSName name of StartIPFS protocol
 	StartIPFSName = "StartIPFS"
 	// ClusterBootstrapName name of ClusterBootstrap protocol
 	ClusterBootstrapName = "ClusterBootstrap"
+	// StartAllName name of the StartAll protocol
+	StartAllName = "StartAll"
 
 	// PingsFile File with stored pings
 	PingsFile = "../pings.txt"

@@ -22,13 +22,15 @@ import (
 	"go.dedis.ch/onet/v3/network"
 )
 
+const cruxified = true
+
 func init() {
-	onet.SimulationRegister(cruxIPFS.ServiceName, NewSimulationService)
+	onet.SimulationRegister(cruxIPFS.ServiceName, NewIPFSSimulation)
 }
 
-// NewSimulationService returns the new simulation, where all fields are
+// NewIPFSSimulation returns the new simulation, where all fields are
 // initialised using the config-file
-func NewSimulationService(config string) (onet.Simulation, error) {
+func NewIPFSSimulation(config string) (onet.Simulation, error) {
 	es := &IPFSSimulation{}
 	_, err := toml.Decode(config, es)
 	if err != nil {
@@ -70,8 +72,6 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 	}
 	log.Lvl3("Initializing node-index", index)
 
-	//config.Overlay.RegisterTree()
-
 	s.ReadNodeInfo(false, *config)
 
 	mymap := s.initializeMaps(config, true)
@@ -83,15 +83,21 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 		ServerIdentityToName: mymap,
 		OnetTree:             config.Tree,
 		Roster:               config.Roster,
-		Cruxified:            true,
+		Cruxified:            cruxified,
 	}
 
 	myService.InitRequest(serviceReq)
 
-	for _, trees := range myService.BinaryTree {
-		for _, tree := range trees {
-			config.Overlay.RegisterTree(tree)
+	if cruxified {
+		for _, trees := range myService.BinaryTree {
+			for _, tree := range trees {
+				config.Overlay.RegisterTree(tree)
+			}
 		}
+	} else {
+		bt := make(map[string][]*onet.Tree)
+		bt[service.Node0] = []*onet.Tree{config.Tree}
+		myService.BinaryTree = bt
 	}
 
 	return s.SimulationBFTree.Node(config)
