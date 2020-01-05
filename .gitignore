@@ -1,9 +1,6 @@
 *.iml
 .tags*
-build/
-simulation/simulation
-simulation/deter.toml
-simulation/build
-vanilla/build
-vanilla/vanilla
 .idea
+
+data/
+detergen/detergen
