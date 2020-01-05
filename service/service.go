@@ -13,7 +13,6 @@ import (
 	"strings"
 	"sync"
 
-	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
 	"github.com/dedis/student_19_cruxIPFS/gentree"
 
 	"go.dedis.ch/onet/v3"
@@ -30,15 +29,13 @@ var execReplyPingsMsgID network.MessageTypeID
 
 func init() {
 	var err error
-	templateID, err = onet.RegisterNewService(cruxIPFS.ServiceName, newService)
+	templateID, err = onet.RegisterNewService(ServiceName, newService)
 	log.ErrFatal(err)
 
-	execReqPingsMsgID = network.RegisterMessage(&cruxIPFS.ReqPings{})
-	execReplyPingsMsgID = network.RegisterMessage(&cruxIPFS.ReplyPings{})
+	execReqPingsMsgID = network.RegisterMessage(&ReqPings{})
+	execReplyPingsMsgID = network.RegisterMessage(&ReplyPings{})
 
 	for _, i := range []interface{}{
-		Announce{},
-		Reply{},
 		StartIPFSAnnounce{},
 		StartIPFSReply{},
 		ClusterBootstrapAnnounce{},
@@ -55,16 +52,16 @@ func init() {
 }
 
 // InitRequest init the tree
-func (s *Service) InitRequest(req *cruxIPFS.InitRequest) (
-	*cruxIPFS.InitResponse, error) {
+func (s *Service) InitRequest(req *InitRequest) (
+	*InitResponse, error) {
 
 	s.setup(req)
 
-	return &cruxIPFS.InitResponse{}, nil
+	return &InitResponse{}, nil
 }
 
 // Setup IPFS cluster ARAs
-func (s *Service) setup(req *cruxIPFS.InitRequest) {
+func (s *Service) setup(req *InitRequest) {
 
 	// copied from nyle
 	log.Lvl3("Setup service")

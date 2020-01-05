@@ -1,19 +1,16 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
-	"time"
 
 	"github.com/BurntSushi/toml"
 
 	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
 	"github.com/dedis/student_19_cruxIPFS/gentree"
-	"github.com/dedis/student_19_cruxIPFS/operations"
 	"github.com/dedis/student_19_cruxIPFS/service"
 
 	"go.dedis.ch/onet/v3"
@@ -25,7 +22,7 @@ import (
 const cruxified = true
 
 func init() {
-	onet.SimulationRegister(cruxIPFS.ServiceName, NewIPFSSimulation)
+	onet.SimulationRegister(service.ServiceName, NewIPFSSimulation)
 }
 
 // NewIPFSSimulation returns the new simulation, where all fields are
@@ -45,12 +42,12 @@ func NewIPFSSimulation(config string) (onet.Simulation, error) {
 func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	*onet.SimulationConfig, error) {
 
-	app.Copy(dir, "prescript.sh")
-	app.Copy(dir, "nodes.txt")
+	app.Copy(dir, prescriptLocation)
+	app.Copy(dir, nodesLocation)
 	app.Copy(dir, ipfsLocation)
 	app.Copy(dir, ipfsClusterLocation)
 
-	b, err := ioutil.ReadFile("../detergen/details.txt")
+	b, err := ioutil.ReadFile(gendetailsLocation)
 	if err != nil {
 		log.Error(err)
 	}
@@ -75,9 +72,9 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 
 	mymap := s.initializeMaps(config, true)
 
-	myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
+	myService := config.GetService(service.ServiceName).(*service.Service)
 
-	serviceReq := &cruxIPFS.InitRequest{
+	serviceReq := &service.InitRequest{
 		Nodes:                s.Nodes.All,
 		ServerIdentityToName: mymap,
 		OnetTree:             config.Tree,
@@ -105,22 +102,24 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 // Run is run on a single node. Execute performance tests and output results to
 // stdout, output needs to be parsed by an external script
 func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
-	myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
+	/*
+		myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
 
-	pi, err := myService.CreateProtocol(service.StartInstancesName, config.Tree)
-	if err != nil {
-		fmt.Println(err)
-	}
-	pi.Start()
+		pi, err := myService.CreateProtocol(service.StartInstancesName, config.Tree)
+		if err != nil {
+			fmt.Println(err)
+		}
+		pi.Start()
 
-	<-pi.(*service.StartInstancesProtocol).Ready
+		<-pi.(*service.StartInstancesProtocol).Ready
 
-	operations.SaveState(cruxIPFS.SaveFile,
-		pi.(*service.StartInstancesProtocol).Nodes)
+		operations.SaveState(cruxIPFS.SaveFile,
+			pi.(*service.StartInstancesProtocol).Nodes)
 
-	// wait for some time for clusters to converge
-	time.Sleep(20 * time.Second)
-	operations.Test2(100, len(myService.Nodes.All))
+		// wait for some time for clusters to converge
+		time.Sleep(20 * time.Second)
+		operations.Test2(100, len(myService.Nodes.All))
+	*/
 	return nil
 }
 
@@ -131,7 +130,7 @@ func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool,
 	if err != nil {
 		log.Fatal(err)
 	}
-	s.ReadNodesFromFile("nodes.txt", config)
+	s.ReadNodesFromFile(nodesFile, config)
 }
 
 // ReadNodesFromFile read nodes information from a text file
@@ -152,7 +151,7 @@ func (s *IPFSSimulation) ReadNodesFromFile(filename string,
 		}
 
 		tokens := strings.Split(line, " ")
-		name, levelstr := tokens[0], tokens[3]
+		name, levelstr := tokens[0], tokens[4]
 
 		level, err := strconv.Atoi(levelstr)
 

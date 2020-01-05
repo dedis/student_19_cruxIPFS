@@ -19,7 +19,7 @@ import (
 func (s *Service) ExecReqPings(env *network.Envelope) error {
 
 	// Parse message
-	req, ok := env.Msg.(*cruxIPFS.ReqPings)
+	req, ok := env.Msg.(*ReqPings)
 	if !ok {
 		log.Error(s.ServerIdentity(), "failed to cast to ReqPings")
 		return errors.New(s.ServerIdentity().String() +
@@ -42,7 +42,7 @@ func (s *Service) ExecReqPings(env *network.Envelope) error {
 	log.Lvl3("sending", reply)
 	requesterIdentity := s.Nodes.GetByName(req.SenderName).ServerIdentity
 
-	e := s.SendRaw(requesterIdentity, &cruxIPFS.ReplyPings{
+	e := s.SendRaw(requesterIdentity, &ReplyPings{
 		Pings:      reply,
 		SenderName: myName,
 	})
@@ -59,7 +59,7 @@ func (s *Service) ExecReqPings(env *network.Envelope) error {
 func (s *Service) ExecReplyPings(env *network.Envelope) error {
 
 	// Parse message
-	req, ok := env.Msg.(*cruxIPFS.ReplyPings)
+	req, ok := env.Msg.(*ReplyPings)
 	if !ok {
 		log.Error(s.ServerIdentity(), "failed to cast to ReplyPings")
 		return errors.New(s.ServerIdentity().String() +
@@ -139,7 +139,7 @@ func (s *Service) getPings(readFromFile bool) {
 			if node.Name !=
 				s.Nodes.GetServerIdentityToName(s.ServerIdentity()) {
 
-				e := s.SendRaw(node.ServerIdentity, &cruxIPFS.ReqPings{
+				e := s.SendRaw(node.ServerIdentity, &ReqPings{
 					SenderName: s.Nodes.GetServerIdentityToName(
 						s.ServerIdentity())})
 

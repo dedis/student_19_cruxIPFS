@@ -43,6 +43,9 @@ const (
 	// Node0 name of the first node
 	Node0 = NodeName + "0"
 
+	// ServiceName name of the service
+	ServiceName = "IPFS"
+
 	// StartIPFSName name of StartIPFS protocol
 	StartIPFSName = "StartIPFS"
 	// ClusterBootstrapName name of ClusterBootstrap protocol

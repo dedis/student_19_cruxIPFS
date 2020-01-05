@@ -8,6 +8,7 @@ import (
 	"github.com/dedis/student_19_cruxIPFS/gentree"
 
 	"go.dedis.ch/onet/v3"
+	"go.dedis.ch/onet/v3/network"
 	"go.dedis.ch/onet/v3/simul/monitor"
 )
 
@@ -100,60 +101,28 @@ type IPFSInformation struct {
 	GatewayPort int
 }
 
-// Announce is used to pass a message to all children.
-type Announce struct {
-	Message string
+// InitRequest packet
+type InitRequest struct {
+	Nodes                []*gentree.LocalityNode
+	ServerIdentityToName map[*network.ServerIdentity]string
+	OnetTree             *onet.Tree
+	Roster               *onet.Roster
+	Cruxified            bool
 }
 
-// announceWrapper just contains Announce and the data necessary to identify
-// and process the message in onet.
-type announceWrapper struct {
-	*onet.TreeNode
-	Announce
+// InitResponse packet
+type InitResponse struct {
 }
 
-// Reply returns the count of all children.
-type Reply struct {
-	ChildrenCount int
+// ReqPings request packet for ping service
+type ReqPings struct {
+	SenderName string
 }
 
-// replyWrapper just contains Reply and the data necessary to identify and
-// process the message in onet.
-type replyWrapper struct {
-	*onet.TreeNode
-	Reply
-}
-
-// WaitpeersProtocol structure
-type WaitpeersProtocol struct {
-	*onet.TreeNodeInstance
-	announceChan chan announceWrapperWaitpeers
-	repliesChan  chan []replyWrapperWaitpeers
-	Ready        chan bool
-}
-
-// WaitpeersAnnounce is used to pass a message to all children.
-type WaitpeersAnnounce struct {
-	Message string
-}
-
-// announceWrapperWaitpeers just contains Announce and the data necessary to
-// identify and process the message in onet.
-type announceWrapperWaitpeers struct {
-	*onet.TreeNode
-	WaitpeersAnnounce
-}
-
-// WaitpeersReply returns true when ready.
-type WaitpeersReply struct {
-	Ready bool
-}
-
-// replyWrapper just contains Reply and the data necessary to identify and
-// process the message in onet.
-type replyWrapperWaitpeers struct {
-	*onet.TreeNode
-	WaitpeersReply
+// ReplyPings reply packet for ping service
+type ReplyPings struct {
+	Pings      string
+	SenderName string
 }
 
 // NodeInfo contains ipfs and ipfs-cluster information for a given node

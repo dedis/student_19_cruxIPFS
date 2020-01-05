@@ -1,4 +1,4 @@
-package template
+package cruxIPFS
 
 import (
 	"bufio"
@@ -11,7 +11,6 @@ import (
 // CheckErr checks for an error and prints it
 func CheckErr(e error) {
 	if e != nil && e != io.EOF {
-		fmt.Println(e)
 		panic(e)
 	}
 }
