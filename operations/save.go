@@ -32,9 +32,11 @@ func SaveState(filename string, instances map[string]*service.NodeInfo) {
 		ii := i.IPFS
 		str += ii.Name + ":"
 		str += ids[0] + ii.IP
-		str += ids[1] + strconv.Itoa(ii.SwarmPort)
-		str += ids[2] + strconv.Itoa(ii.APIPort)
-		str += ids[3] + strconv.Itoa(ii.GatewayPort)
+		if ii.SwarmPort > 0 {
+			str += ids[1] + strconv.Itoa(ii.SwarmPort)
+			str += ids[2] + strconv.Itoa(ii.APIPort)
+			str += ids[3] + strconv.Itoa(ii.GatewayPort)
+		}
 		str += ids[4] + strconv.Itoa(len(i.Clusters))
 		str += ids[5]
 

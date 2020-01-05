@@ -105,7 +105,9 @@ func (s *Service) ExecReplyPings(env *network.Envelope) error {
 
 func (s *Service) getPings(readFromFile bool) {
 	if !readFromFile {
-		log.Lvl1("Computing new ping distances")
+		if s.Name == Node0 {
+			log.Lvl1("Computing new ping distances")
+		}
 
 		// measure pings to other nodes
 		s.measureOwnPings()
@@ -191,28 +193,30 @@ func (s *Service) getPings(readFromFile bool) {
 		log.Lvl3(s.Nodes.GetServerIdentityToName(s.ServerIdentity()),
 			"has all pings, starting tree gen")
 
-		// check TIV just once
-		// painful, but run floyd warshall and build the static routes
-		// ifrst, let's solve the k means mistery
+		/*
+			// check TIV just once
+			// painful, but run floyd warshall and build the static routes
+			// ifrst, let's solve the k means mistery
 
-		if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == Node0 {
-			for n1, m := range s.PingDistances {
-				for n2, d := range m {
-					//bestDist
-					for k := 0; k < len(s.Nodes.All); k++ {
-						namek := NodeName + strconv.Itoa(k)
-						if d > s.PingDistances[n1][namek]+
-							s.PingDistances[namek][n2] {
-							log.LLvl1("TIV!", n1, n2, "through", namek,
-								"original:", s.PingDistances[n1][n2], ">",
-								s.PingDistances[n1][namek], "+",
-								s.PingDistances[namek][n2])
-							break
+			if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == Node0 {
+				for n1, m := range s.PingDistances {
+					for n2, d := range m {
+						//bestDist
+						for k := 0; k < len(s.Nodes.All); k++ {
+							namek := NodeName + strconv.Itoa(k)
+							if d > s.PingDistances[n1][namek]+
+								s.PingDistances[namek][n2] {
+								log.LLvl1("TIV!", n1, n2, "through", namek,
+									"original:", s.PingDistances[n1][n2], ">",
+									s.PingDistances[n1][namek], "+",
+									s.PingDistances[namek][n2])
+								break
+							}
 						}
 					}
 				}
 			}
-		}
+		*/
 
 		s.writePingsToFile()
 

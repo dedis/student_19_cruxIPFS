@@ -8,12 +8,12 @@ import (
 )
 
 // Check that *StartIPFSProtocol implements onet.ProtocolInstance
-var _ onet.ProtocolInstance = (*StartAllProtocol)(nil)
+var _ onet.ProtocolInstance = (*StartARAProtocol)(nil)
 
-// NewStartAllProtocol initialises the structure for use in one round
-func NewStartAllProtocol(n *onet.TreeNodeInstance, getServ FnService) (
+// NewStartARAProtocol initialises the structure for use in one round
+func NewStartARAProtocol(n *onet.TreeNodeInstance, getServ FnService) (
 	onet.ProtocolInstance, error) {
-	t := &StartAllProtocol{
+	t := &StartARAProtocol{
 		TreeNodeInstance: n,
 		Ready:            make(chan bool),
 		GetService:       getServ,
@@ -25,22 +25,19 @@ func NewStartAllProtocol(n *onet.TreeNodeInstance, getServ FnService) (
 }
 
 // Start sends the Announce-message to all children
-func (p *StartAllProtocol) Start() error {
+func (p *StartARAProtocol) Start() error {
 	log.Lvl2("Starting an ARA with root", p.GetService().Name)
-	return p.SendTo(p.TreeNode(), &StartAllAnnounce{})
+	return p.SendTo(p.TreeNode(), &StartARAAnnounce{})
 }
 
 // Dispatch implements the main logic of the protocol. The function is only
 // called once. The protocol is considered finished when Dispatch returns and
 // Done is called.
-func (p *StartAllProtocol) Dispatch() error {
+func (p *StartARAProtocol) Dispatch() error {
 	defer p.Done()
 
 	ann := <-p.announceChan
 	s := p.GetService()
-
-	//apiIPFSAddr := IPVersion + s.MyIPFS[0].IP +
-	//	TransportProtocol + strconv.Itoa(s.MyIPFS[0].APIPort) // 5001
 
 	if p.IsRoot() {
 		// generate secret
@@ -59,7 +56,7 @@ func (p *StartAllProtocol) Dispatch() error {
 
 		if len(p.TreeNodeInstance.Children()) > 0 {
 			bootstrap := instance.IP + strconv.Itoa(instance.ClusterPort)
-			p.SendToChildren(&StartAllAnnounce{
+			p.SendToChildren(&StartARAAnnounce{
 				SenderName: s.Name,
 				Bootstrap:  bootstrap,
 				Secret:     secret,
@@ -75,7 +72,7 @@ func (p *StartAllProtocol) Dispatch() error {
 		return nil
 	} else if !p.IsLeaf() {
 		// not root nor leaf
-		p.SendToChildren(&ann.StartAllAnnounce)
+		p.SendToChildren(&ann.StartARAAnnounce)
 		replies := <-p.repliesChan
 
 		// bootstrap peer
@@ -87,13 +84,13 @@ func (p *StartAllProtocol) Dispatch() error {
 			instances = append(instances, *r.Cluster...)
 		}
 		instances = append(instances, *instance)
-		return p.SendToParent(&StartAllReply{Cluster: &instances})
+		return p.SendToParent(&StartARAReply{Cluster: &instances})
 	}
 	// leaf
 
 	// bootstrap peer
 	instance := s.StartIPFSAndCluster(ann.SenderName, ann.Secret,
 		ann.Bootstrap)
-	return p.SendToParent(&StartAllReply{
+	return p.SendToParent(&StartARAReply{
 		Cluster: &[]ClusterInstance{*instance}})
 }

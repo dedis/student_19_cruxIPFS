@@ -1,8 +1,15 @@
 package main
 
+import "path/filepath"
+
 const (
-	// NODEPATHNAME filename for node files
-	NODEPATHNAME = "nodes_local_"
-	// DATAFOLDER folder containing data
-	DATAFOLDER = "data"
+	installFolder = "install"
 )
+
+var ipfsLocation string
+var ipfsClusterLocation string
+
+func init() {
+	ipfsLocation = filepath.Join(installFolder, "ipfs")
+	ipfsClusterLocation = filepath.Join(installFolder, "ipfs-cluster-service")
+}

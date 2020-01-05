@@ -233,38 +233,70 @@ type replyWrapperClusterBootstrap struct {
 	ClusterBootstrapReply
 }
 
-// StartAllProtocol structure
-type StartAllProtocol struct {
+// StartARAProtocol structure
+type StartARAProtocol struct {
 	*onet.TreeNodeInstance
-	announceChan chan announceWrapperStartAll
-	repliesChan  chan []replyWrapperStartAll
+	announceChan chan announceWrapperStartARA
+	repliesChan  chan []replyWrapperStartARA
 	Ready        chan bool
 	Info         ClusterInfo
 	GetService   FnService
 }
 
-// StartAllAnnounce is used to pass a message to all children.
-type StartAllAnnounce struct {
+// StartARAAnnounce is used to pass a message to all children.
+type StartARAAnnounce struct {
 	SenderName string
 	Bootstrap  string
 	Secret     string
 }
 
-// announceWrapperClusterBootstrap just contains Announce and the data necessary
+// announceWrapperStartARA just contains Announce and the data necessary
 // to identify and process the message in onet.
-type announceWrapperStartAll struct {
+type announceWrapperStartARA struct {
 	*onet.TreeNode
-	StartAllAnnounce
+	StartARAAnnounce
 }
 
-// StartAllReply returns true when ready.
-type StartAllReply struct {
+// StartARAReply returns true when ready.
+type StartARAReply struct {
 	Cluster *[]ClusterInstance
 }
 
-// replyWrapperClusterBootstrap just contains Reply and the data necessary to
+// replyWrapperStartARA just contains Reply and the data necessary to
 // identify and process the message in onet.
-type replyWrapperStartAll struct {
+type replyWrapperStartARA struct {
 	*onet.TreeNode
-	StartAllReply
+	StartARAReply
+}
+
+// StartInstancesProtocol structure
+type StartInstancesProtocol struct {
+	*onet.TreeNodeInstance
+	announceChan chan announceWrapperStartInstances
+	repliesChan  chan []replyWrapperStartInstances
+	Ready        chan bool
+	GetService   FnService
+	Nodes        map[string]*NodeInfo
+}
+
+// StartInstancesAnnounce is used to pass a message to all children.
+type StartInstancesAnnounce struct{}
+
+// announceWrapperStartInstances just contains Announce and the data necessary
+// to identify and process the message in onet.
+type announceWrapperStartInstances struct {
+	*onet.TreeNode
+	StartInstancesAnnounce
+}
+
+// StartInstancesReply returns true when ready.
+type StartInstancesReply struct {
+	Node *NodeInfo
+}
+
+// replyWrapperStartInstances just contains Reply and the data necessary to
+// identify and process the message in onet.
+type replyWrapperStartInstances struct {
+	*onet.TreeNode
+	StartInstancesReply
 }

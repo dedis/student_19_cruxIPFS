@@ -43,8 +43,10 @@ func init() {
 		StartIPFSReply{},
 		ClusterBootstrapAnnounce{},
 		ClusterBootstrapReply{},
-		StartAllAnnounce{},
-		StartAllReply{},
+		StartARAAnnounce{},
+		StartARAReply{},
+		StartInstancesAnnounce{},
+		StartInstancesReply{},
 		&storage{},
 	} {
 		network.RegisterMessage(i)
@@ -53,7 +55,9 @@ func init() {
 }
 
 // InitRequest init the tree
-func (s *Service) InitRequest(req *cruxIPFS.InitRequest) (*cruxIPFS.InitResponse, error) {
+func (s *Service) InitRequest(req *cruxIPFS.InitRequest) (
+	*cruxIPFS.InitResponse, error) {
+
 	s.setup(req)
 
 	return &cruxIPFS.InitResponse{}, nil
@@ -88,15 +92,19 @@ func (s *Service) setup(req *cruxIPFS.InitRequest) {
 		nodes[gentree.NodeNameToInt(n.Name)] = n
 	}
 	s.Nodes.All = nodes
-	s.Nodes.ClusterBunchDistances = make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]float64)
-	s.Nodes.Links = make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]map[*gentree.LocalityNode]bool)
+	s.Nodes.ClusterBunchDistances =
+		make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]float64)
+	s.Nodes.Links = make(map[*gentree.
+		LocalityNode]map[*gentree.LocalityNode]map[*gentree.LocalityNode]bool)
 	s.GraphTree = make(map[string][]gentree.GraphTree)
 	s.BinaryTree = make(map[string][]*onet.Tree)
 
 	// allocate distances
 	for _, node := range s.Nodes.All {
-		s.Nodes.ClusterBunchDistances[node] = make(map[*gentree.LocalityNode]float64)
-		s.Nodes.Links[node] = make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]bool)
+		s.Nodes.ClusterBunchDistances[node] =
+			make(map[*gentree.LocalityNode]float64)
+		s.Nodes.Links[node] =
+			make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]bool)
 		for _, node2 := range s.Nodes.All {
 			s.Nodes.ClusterBunchDistances[node][node2] = math.MaxFloat64
 			s.Nodes.Links[node][node2] = make(map[*gentree.LocalityNode]bool)
@@ -137,33 +145,22 @@ func (s *Service) setup(req *cruxIPFS.InitRequest) {
 		return
 	}
 
+	maxLvl := 0
+	for _, n := range s.Nodes.All {
+		if n.Level > maxLvl {
+			maxLvl = n.Level
+		}
+	}
+	maxLvl++
+
 	AuxNodes, dist2, ARATreeStruct, ARAOnetTrees := gentree.GenARAs(s.Nodes,
-		s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.PingDistances, 3)
+		s.Nodes.GetServerIdentityToName(s.ServerIdentity()),
+		s.PingDistances, maxLvl)
 
 	s.Distances = dist2
 	s.Nodes = AuxNodes
 	s.GraphTree = ARATreeStruct
 	s.BinaryTree = ARAOnetTrees
-
-	list := make([]ClusterInfo, 0)
-	listMutex := sync.Mutex{}
-	wg := sync.WaitGroup{}
-	// iterate over all ARA trees where node is the root
-	for _, tree := range s.BinaryTree[s.Name] {
-		wg.Add(1)
-		go func(t *onet.Tree) {
-			pi, err := s.CreateProtocol(StartAllName, t)
-			checkErr(err)
-			pi.Start()
-			<-pi.(*StartAllProtocol).Ready
-			listMutex.Lock()
-			list = append(list, pi.(*StartAllProtocol).Info)
-			listMutex.Unlock()
-			wg.Done()
-		}(tree)
-	}
-	wg.Wait()
-
 }
 
 // NewProtocol is called on all nodes of a Tree (except the root, since it is
@@ -240,10 +237,20 @@ func newService(c *onet.Context) (onet.Service, error) {
 		return nil, err
 	}
 
-	_, err = s.ProtocolRegister(StartAllName,
+	_, err = s.ProtocolRegister(StartARAName,
 		func(n *onet.TreeNodeInstance) (onet.ProtocolInstance, error) {
 
-			return NewStartAllProtocol(n, s.GetService)
+			return NewStartARAProtocol(n, s.GetService)
+		})
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	_, err = s.ProtocolRegister(StartInstancesName,
+		func(n *onet.TreeNodeInstance) (onet.ProtocolInstance, error) {
+
+			return NewStartInstancesProtocol(n, s.GetService)
 		})
 	if err != nil {
 		log.Error(err)

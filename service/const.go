@@ -47,8 +47,10 @@ const (
 	StartIPFSName = "StartIPFS"
 	// ClusterBootstrapName name of ClusterBootstrap protocol
 	ClusterBootstrapName = "ClusterBootstrap"
-	// StartAllName name of the StartAll protocol
-	StartAllName = "StartAll"
+	// StartARAName name of the StartARA protocol
+	StartARAName = "StartARA"
+	// StartInstancesName name of the StartInstancesName protocol
+	StartInstancesName = "StartInstances"
 
 	// PingsFile File with stored pings
 	PingsFile = "../pings.txt"

@@ -39,14 +39,16 @@ func NewIPFSSimulation(config string) (onet.Simulation, error) {
 	return es, nil
 }
 
+// Setup the IPFSSimulation, copies files to remote host (deterlab), load
+// simulation parameters and create roster and config tree
+// This function is run on a single node
 func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	*onet.SimulationConfig, error) {
 
-	app.Copy(dir, filepath.Join(DATAFOLDER, NODEPATHREMOTE))
 	app.Copy(dir, "prescript.sh")
 	app.Copy(dir, "nodes.txt")
-	app.Copy(dir, "install/ipfs")
-	app.Copy(dir, "install/ipfs-cluster-service")
+	app.Copy(dir, ipfsLocation)
+	app.Copy(dir, ipfsClusterLocation)
 
 	b, err := ioutil.ReadFile("../detergen/details.txt")
 	if err != nil {
@@ -64,13 +66,10 @@ func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	return sc, nil
 }
 
+// Node is run on all nodes, it reads nodes information (mostly the level for
+// ARA generation), and initialize the service (computing/loading ping distance,
+// generating ARAs, starting ipfs and clusters)
 func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
-
-	index, _ := config.Roster.Search(config.Server.ServerIdentity.ID)
-	if index < 0 {
-		log.Fatal("Didn't find this node in roster")
-	}
-	log.Lvl3("Initializing node-index", index)
 
 	s.ReadNodeInfo(false, *config)
 
@@ -103,17 +102,21 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 	return s.SimulationBFTree.Node(config)
 }
 
+// Run is run on a single node. Execute performance tests and output results to
+// stdout, output needs to be parsed by an external script
 func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 	myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
 
-	pi, err := myService.CreateProtocol(service.StartIPFSName, config.Tree)
+	pi, err := myService.CreateProtocol(service.StartInstancesName, config.Tree)
 	if err != nil {
 		fmt.Println(err)
 	}
 	pi.Start()
 
-	<-pi.(*service.StartIPFSProtocol).Ready
-	operations.SaveState(cruxIPFS.SaveFile, pi.(*service.StartIPFSProtocol).Nodes)
+	<-pi.(*service.StartInstancesProtocol).Ready
+
+	operations.SaveState(cruxIPFS.SaveFile,
+		pi.(*service.StartInstancesProtocol).Nodes)
 
 	// wait for some time for clusters to converge
 	time.Sleep(20 * time.Second)
@@ -122,34 +125,25 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 }
 
 // ReadNodeInfo read node information
-func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool, config onet.SimulationConfig) {
+func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool,
+	config onet.SimulationConfig) {
 	_, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
 		log.Fatal(err)
 	}
 	s.ReadNodesFromFile("nodes.txt", config)
-	/*
-		if isLocalTest {
-			//log.Lvl1("NODEPATHLOCAL:", NODEPATHLOCAL)
-			s.ReadNodesFromFile(NODEPATHLOCAL, config)
-		} else {
-			//log.Lvl1("NODEPATHREMOTE:", "nodes_local_11.txt")
-			s.ReadNodesFromFile("nodes_local_11.txt", config)
-		}
-	*/
 }
 
 // ReadNodesFromFile read nodes information from a text file
-func (s *IPFSSimulation) ReadNodesFromFile(filename string, config onet.SimulationConfig) {
+func (s *IPFSSimulation) ReadNodesFromFile(filename string,
+	config onet.SimulationConfig) {
 	s.Nodes.All = make([]*gentree.LocalityNode, 0)
 
 	readLine := cruxIPFS.ReadFileLineByLine(filename)
 
 	for i := 0; i < len(config.Roster.List); i++ {
 		line := readLine()
-		//fmt.Println(line)
 		if line == "" {
-			//fmt.Println("end")
 			break
 		}
 
@@ -158,14 +152,12 @@ func (s *IPFSSimulation) ReadNodesFromFile(filename string, config onet.Simulati
 		}
 
 		tokens := strings.Split(line, " ")
-		coords := strings.Split(tokens[1], ",")
-		name, _, _, _, levelstr := tokens[0], coords[0], coords[1], tokens[2], tokens[3]
+		name, levelstr := tokens[0], tokens[3]
 
 		level, err := strconv.Atoi(levelstr)
 
 		if err != nil {
-			log.Lvl1("Error", err)
-
+			log.Error(err)
 		}
 
 		myNode := gentree.CreateNode(name, level)
@@ -173,7 +165,8 @@ func (s *IPFSSimulation) ReadNodesFromFile(filename string, config onet.Simulati
 	}
 }
 
-func (s *IPFSSimulation) initializeMaps(config *onet.SimulationConfig, isLocalTest bool) map[*network.ServerIdentity]string {
+func (s *IPFSSimulation) initializeMaps(config *onet.SimulationConfig,
+	isLocalTest bool) map[*network.ServerIdentity]string {
 
 	s.Nodes.ServerIdentityToName = make(map[network.ServerIdentityID]string)
 	ServerIdentityToName := make(map[*network.ServerIdentity]string)
@@ -182,9 +175,9 @@ func (s *IPFSSimulation) initializeMaps(config *onet.SimulationConfig, isLocalTe
 		for i := range s.Nodes.All {
 			treeNode := config.Tree.List()[i]
 			s.Nodes.All[i].ServerIdentity = treeNode.ServerIdentity
-			s.Nodes.ServerIdentityToName[treeNode.ServerIdentity.ID] = s.Nodes.All[i].Name
+			s.Nodes.ServerIdentityToName[treeNode.ServerIdentity.ID] =
+				s.Nodes.All[i].Name
 			ServerIdentityToName[treeNode.ServerIdentity] = s.Nodes.All[i].Name
-			//log.Lvl1("associating", treeNode.ServerIdentity.String(), "to", s.Nodes.All[i].Name)
 		}
 	} else {
 		for _, treeNode := range config.Tree.List() {
