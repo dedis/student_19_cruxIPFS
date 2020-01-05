@@ -1,7 +1,9 @@
 package service
 
 import (
-	"sync"
+	"fmt"
+	"path/filepath"
+	"strconv"
 
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/log"
@@ -26,7 +28,7 @@ func NewStartAllProtocol(n *onet.TreeNodeInstance, getServ FnService) (
 
 // Start sends the Announce-message to all children
 func (p *StartAllProtocol) Start() error {
-	log.Lvl1("Starting IPFS instances")
+	log.Lvl2("Starting an ARA with root", p.GetService().Name)
 	return p.SendTo(p.TreeNode(), &StartAllAnnounce{})
 }
 
@@ -36,104 +38,73 @@ func (p *StartAllProtocol) Start() error {
 func (p *StartAllProtocol) Dispatch() error {
 	defer p.Done()
 
-	/*
+	ann := <-p.announceChan
+	s := p.GetService()
 
-		ann := <-p.announceChan
-		s := p.GetService()
+	apiIPFSAddr := IPVersion + s.MyIPFS[0].IP +
+		TransportProtocol + strconv.Itoa(s.MyIPFS[0].APIPort) // 5001
 
-			if !p.IsLeaf() {
-				// send request to children
-				p.SendToChildren(&StartAllAnnounce{Message: "IPFS"})
+	if p.IsRoot() {
+		// generate secret
+		secret := genSecret()
 
-				// waitgroup to wait own ipfs instance
-				wg := sync.WaitGroup{}
-				wg.Add(1)
-				go func() {
-					// start ipfs
-					s.StartIPFS()
-					wg.Done()
-				}()
+		// starting IPFS and cluster instance
+		instance := s.StartIPFSAndCluster(s.Name, secret, "")
 
-				// wait for children replies
-				ipfsReplies := <-p.repliesChan
-				wg.Wait()
+		// adding information to cluster info
+		p.Info = ClusterInfo{
+			Leader:    s.Name,
+			Secret:    secret,
+			Instances: make([]ClusterInstance, 1),
+		}
+		p.Info.Instances[0] = *instance
 
-				p.Nodes = make(map[string]*NodeInfo)
-				p.Nodes[s.Name] = &NodeInfo{
-					IPFS:     s.MyIPFS,
-					Clusters: make([]ClusterInfo, 0),
-				}
-				for i := 0; i < len(ipfsReplies); i++ {
-					p.Nodes[ipfsReplies[i].IPFS.Name] = &NodeInfo{
-						IPFS:     *ipfsReplies[i].IPFS,
-						Clusters: make([]ClusterInfo, 0),
-					}
-				}
-
-				if !p.IsRoot() {
-					return p.SendToParent(&StartIPFSReply{IPFS: &s.MyIPFS})
-				} // root
-				log.Lvl1("All IPFS instances started successfully")
-
-				// start cluster instances on the root
-				p.SendToChildren(&StartIPFSAnnounce{Message: "Clusters"})
-
-				wg.Add(1)
-				go func() {
-					p.Nodes[s.Name].Clusters = append(p.Nodes[s.Name].Clusters,
-						s.startClusters()...)
-					wg.Done()
-				}()
-				// wait for children replies
-				replies := <-p.repliesChan
-				wg.Wait()
-				for _, r := range replies {
-					if r.Clusters != nil {
-						for _, c := range *(r.Clusters) {
-							p.Nodes[c.Leader].Clusters =
-								append(p.Nodes[c.Leader].Clusters, c)
-						}
-					}
-				}
-				p.Ready <- true
-
-				return nil
-
+		if len(p.TreeNodeInstance.Children()) > 0 {
+			bootstrap := instance.IP + strconv.Itoa(instance.ClusterPort)
+			p.SendToChildren(&ClusterBootstrapAnnounce{
+				SenderName: s.Name,
+				Bootstrap:  bootstrap,
+				Secret:     secret,
+			})
+			replies := <-p.repliesChan
+			for i := 0; i < len(replies); i++ {
+				p.Info.Instances = append(p.Info.Instances,
+					*replies[i].Cluster...)
 			}
-			// node is a leaf
-			if ann.Message == "IPFS" {
-				// start ipfs
-				s.StartIPFS()
-				// send ok to parent when it's done
-				p.SendToParent(&StartIPFSReply{IPFS: &s.MyIPFS})
-				ann = <-p.announceChan
-				if ann.Message == "Clusters" {
-					info := s.startClusters()
-					return p.SendToParent(&StartIPFSReply{Clusters: &info})
-				}
-			}
-	*/
-	return nil
-}
+		}
+		p.Info.Size = len(p.Info.Instances)
+		p.Ready <- true
+		return nil
+	} else if !p.IsLeaf() {
+		p.SendToChildren(&ann.ClusterBootstrapAnnounce)
+		replies := <-p.repliesChan
 
-func (s *Service) startClusters1() []ClusterInfo {
-	list := make([]ClusterInfo, 0)
-	listMutex := sync.Mutex{}
-	wg := sync.WaitGroup{}
-	// iterate over all ARA trees where node is the root
-	for _, tree := range s.BinaryTree[s.Name] {
-		wg.Add(1)
-		go func(t *onet.Tree) {
-			pi, err := s.CreateProtocol(ClusterBootstrapName, t)
-			checkErr(err)
-			pi.Start()
-			<-pi.(*ClusterBootstrapProtocol).Ready
-			listMutex.Lock()
-			list = append(list, pi.(*ClusterBootstrapProtocol).Info)
-			listMutex.Unlock()
-			wg.Done()
-		}(tree)
+		clusterPath := filepath.Join(s.ConfigPath,
+			ClusterFolderPrefix+ann.SenderName+"-"+ann.Secret)
+
+		// bootstrap peer
+		cluster, err := s.SetupClusterSlave(clusterPath, ann.Bootstrap,
+			ann.Secret, apiIPFSAddr, DefaultReplMin, DefaultReplMax)
+		if err != nil {
+			fmt.Println("Error slave:", err)
+		}
+		instances := make([]ClusterInstance, 0)
+		for _, r := range replies {
+			instances = append(instances, *r.Cluster...)
+		}
+		instances = append(instances, *cluster)
+		return p.SendToParent(&ClusterBootstrapReply{Cluster: &instances})
 	}
-	wg.Wait()
-	return list
+	// leaf
+	clusterPath := filepath.Join(s.ConfigPath,
+		ClusterFolderPrefix+ann.SenderName+"-"+ann.Secret)
+
+	// bootstrap peer
+	cluster, err := s.SetupClusterSlave(clusterPath, ann.Bootstrap, ann.Secret,
+		apiIPFSAddr, DefaultReplMin, DefaultReplMax)
+	if err != nil {
+		fmt.Println("Error slave:", err)
+	}
+	return p.SendToParent(&ClusterBootstrapReply{
+		Cluster: &[]ClusterInstance{*cluster}})
 }

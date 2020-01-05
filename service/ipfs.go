@@ -309,12 +309,12 @@ func (s *Service) SetupClusterSlave(path, bootstrap, secret, apiIPFSAddr string,
 
 // StartIPFSAndCluster starts an IPFS instance along with the cluster instance
 // empty secret means that this instance is the cluster leader
-// if leader, returns secret and bootstrap address for slaves
-func (s *Service) StartIPFSAndCluster(leader, secret, bootstrap string) (
-	string, *ClusterInstance) {
+// if leader, returns secret and the started instance information containing
+// bootstrap address for slaves
+func (s *Service) StartIPFSAndCluster(leader, secret,
+	bootstrap string) *ClusterInstance {
 
-	clusterPath := filepath.Join(s.ConfigPath,
-		ClusterFolderPrefix+leader+"-"+secret)
+	clusterPath := filepath.Join(s.ConfigPath, leader+"-"+secret)
 
 	// if no secret -> this instance is the leader
 	if secret == "" {
@@ -337,5 +337,5 @@ func (s *Service) StartIPFSAndCluster(leader, secret, bootstrap string) (
 	}
 	checkErr(err)
 
-	return secret, instance
+	return instance
 }

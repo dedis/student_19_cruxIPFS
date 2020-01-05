@@ -261,7 +261,8 @@ def compute_data_points2(x_c, y_c, optime_data):
     return xdata, ydata
 
 def scatter_plot(xs, ys, xlabel, ylabel, title, leg=False):
-    width = 505.89
+    #width = 505.89
+    width = 1000
 
     fig, ax = plt.subplots(1, 1, figsize=set_size(width, fraction=0.5))
     plt.tight_layout()
@@ -284,8 +285,8 @@ def scatter_plot(xs, ys, xlabel, ylabel, title, leg=False):
         #np.min([ax.get_xlim(), ax.get_ylim()]),  # min of both axes
         np.min([0, 0]),  # min of both axes
         #np.max([ax.get_xlim(), ax.get_ylim()]),  # max of both axes
-        #np.max([500, 500]),  # max of both axes
-        np.max([1024, 1024]),  # max of both axes
+        np.max([8000, 500]),  # max of both axes
+        #np.max([1024, 1024]),  # max of both axes
         #np.max([50, 50]),  # max of both axes
     ]
 
@@ -313,7 +314,7 @@ def scatter_plot(xs, ys, xlabel, ylabel, title, leg=False):
     #ax.set_aspect('equal')
     #ax.set_xlim(lims)
 
-    ax.set_ylim([1, 3000.0])
+    ax.set_ylim([1, 8000.0])
     ax.set_xlim([1, 500])
     #ax.set_xlim([1, 70])
 
@@ -394,15 +395,15 @@ if __name__ == '__main__':
     '''
 
     xdata, ydata = compute_data_points(load_latencies('../simulation/out_pings.txt'), load_optime('../simulation/min.txt'))
-    scatter_plot(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Cruxified IPFS', True)
+    scatter_plot(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Min Cruxified IPFS', True)
     plt.savefig('plot_min.pdf', format='pdf', dpi=1000)
 
     xdata, ydata = compute_data_points(load_latencies('../vanilla/out_pings.txt'), load_optime('../vanilla/min.txt'))
-    scatter_plot(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Cruxified IPFS', True)
+    scatter_plot(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Vanilla IPFS', True)
     plt.savefig('plot_vanilla.pdf', format='pdf', dpi=1000)
 
     xdata, ydata = compute_data_points(load_latencies('../simulation/out_pings.txt'), load_optime('../simulation/max.txt'))
-    scatter_plot(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Cruxified IPFS', True)
+    scatter_plot(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Max Cruxified IPFS', True)
     plt.savefig('plot_max.pdf', format='pdf', dpi=1000)
 
 

@@ -3,6 +3,7 @@ package operations
 import (
 	"context"
 	"os"
+	"sync"
 	"time"
 
 	"github.com/ipfs/ipfs-cluster/api"
@@ -18,22 +19,29 @@ func writeFile(c client.Client, path string) (string, time.Duration) {
 	if err != nil {
 		log.Lvl1(err)
 	}
-	out := make(chan *api.AddedOutput)
+	cids := make(chan string, 10)
+	out := make(chan *api.AddedOutput, 1)
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func(ch chan string) {
+		defer wg.Done()
+		for v := range out {
+			if v == nil {
+				ch <- ""
+				return
+			}
+			ch <- v.Cid.String()
+		}
+	}(cids)
+
 	paths := []string{path}
 	start := time.Now()
-	go func() {
-		err := c.Add(ctx, paths, api.DefaultAddParams(), out)
-		if err != nil {
-			log.Lvl1(err)
-		}
-	}()
-	ao := <-out
+	c.Add(ctx, paths, api.DefaultAddParams(), out)
+	wg.Wait()
+	name := <-cids
 	t := time.Now()
-	//fmt.Printf("\nAdded %s: %s\n", filepath.Base(path), ao.Name)
-	//fmt.Println(ao.Cid, ao.Size, ao.Bytes)
-	if ao == nil {
-		log.Lvl1("ao==nil")
-		return "", t.Sub(start)
+	if name == "" {
+		log.Lvl1("nil return after write")
 	}
-	return ao.Cid.String(), t.Sub(start)
+	return name, t.Sub(start)
 }

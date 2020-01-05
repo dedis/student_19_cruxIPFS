@@ -40,8 +40,6 @@ func NewSimulationService(config string) (onet.Simulation, error) {
 func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	*onet.SimulationConfig, error) {
 
-	SetNodePaths(len(hosts))
-
 	app.Copy(dir, filepath.Join(DATAFOLDER, NODEPATHREMOTE))
 	app.Copy(dir, "prescript.sh")
 	app.Copy(dir, "nodes.txt")
@@ -157,16 +155,12 @@ func (s *IPFSSimulation) ReadNodesFromFile(filename string, config onet.Simulati
 		coords := strings.Split(tokens[1], ",")
 		name, _, _, _, levelstr := tokens[0], coords[0], coords[1], tokens[2], tokens[3]
 
-		//x, _ := strconv.ParseFloat(xstr, 64)
-		//y, _ := strconv.ParseFloat(ystr, 64)
 		level, err := strconv.Atoi(levelstr)
 
 		if err != nil {
 			log.Lvl1("Error", err)
 
 		}
-
-		//	log.Lvl1("reqd node level", name, level_str, "lvl", level)
 
 		myNode := gentree.CreateNode(name, level)
 		s.Nodes.All = append(s.Nodes.All, myNode)
