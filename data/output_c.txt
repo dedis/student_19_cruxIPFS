@@ -1,0 +1,13 @@
+1 : build.go:53 (simul.startBuild)           - Deploying to deterlab
+1 : deterlab.go:138 (platform.(*Deterlab).Build) - Building for guissou users.deterlab.net SAFER  simulDir= /mnt/guillaume/Documents/epfl/ipfs/repos/student_19_cruxIPFS/simulation
+1 : deterlab.go:194 (platform.(*Deterlab).Build) - Build is finished after 2.266356276s
+1 : build.go:144 (simul.RunTests)            - Running test with config: map[bf:9 depth:1 prescript:"prescript.sh" rounds:1 servers:10 simulation:"IPFS" suite:"Ed25519"]
+1 : deterlab.go:218 (platform.(*Deterlab).Cleanup.func1) - NOT-Normal error from cleanup cmd: exit status 1
+1 : service.go:54 (main.(*IPFSSimulation).Setup) - 
+details: simulation, mode: raft, K=3
+ N=10
+ R=10
+ D=120
+
+1 : deterlab.go:305 (platform.(*Deterlab).Deploy) - Copying over to guissou @ users.deterlab.net
+1 : build.go:150 (simul.RunTests)            - Test results: {Stats: hosts = 10 bf = 9 depth = 1 prescript = prescript.sh rounds = 1 servers = 10 suite = Ed25519 }

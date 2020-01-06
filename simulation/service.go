@@ -120,6 +120,7 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 		time.Sleep(20 * time.Second)
 		operations.Test2(100, len(myService.Nodes.All))
 	*/
+	log.Lvl1("Done")
 	return nil
 }
 

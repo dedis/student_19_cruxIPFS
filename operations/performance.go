@@ -53,7 +53,6 @@ func Test0(nodesN int) {
 		str += fmt.Sprintln("max"+id, max.Milliseconds())
 		log.Lvl1(str)
 	}
-	log.Lvl1("\nDone!")
 }
 
 // genSequence generate a random sequence of nOps pairs among nodesN nodes
@@ -117,7 +116,6 @@ func Test1(nOps, nodesN int) {
 		str += fmt.Sprintln("max"+id, max.Milliseconds())
 		log.Lvl1(str)
 	}
-	log.Lvl1("\nDone!")
 }
 
 // Test2 measure nOps write + read operation between pairs of nodes among a set
@@ -190,5 +188,4 @@ func Test2(nOps, nodesN int) {
 
 		log.Lvl1(str)
 	}
-	log.Lvl1("\nDone!")
 }
