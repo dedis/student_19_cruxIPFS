@@ -204,8 +204,6 @@ func CreateLocalityGraph(all LocalityNodes, randomCoords, randomLevels bool,
 
 				d := pingDist[v1.Name][v2.Name]
 
-				//log.LLvl1("assigning", v1.Name, v2.Name)
-
 				if v2.Level >= i {
 
 					if checkDistance(d, i, levels, v1.ADist) && v2 != v1 {

@@ -37,8 +37,9 @@ while test $# -gt 0; do
       echo "-l, --local                 run simulation locally"
       #echo "-K                          specify the number of ARA levels"
       #echo "-N                          specify the number of nodes"
-      echo "-m, --mode=MODE             specifiy ipfs-cluster mode (raft/crdt)"
       echo "-p, --pings                 specify to compute new ping distances"
+      echo "-m, --mode=MODE             specifiy ipfs-cluster mode (raft/crdt)"
+      echo "-o, --operations=O          specify the number of operations to perform (int)"
       exit 0
       ;;
 

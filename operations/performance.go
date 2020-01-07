@@ -158,7 +158,7 @@ func Test2(nOps, nodesN int) {
 		f := "file" + strconv.Itoa(i) + ".txt"
 
 		NewFile(f)
-		cid, res0 := Write2(nodeW, f)
+		cid, res0 := Write(nodeW, f)
 		res1 := Read(nodeR, cid)
 
 		min := time.Duration(math.MaxInt64)

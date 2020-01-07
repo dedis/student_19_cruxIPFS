@@ -90,16 +90,16 @@ def load_latencies(fname='1/pings.txt'):
         for j in range (0, n):
             key = str(i) + "_" + str(j)
             dist = out[key]
-            for k in range (0, n):
-                key1 = str(i) + "_" + str(k)
-                key2 = str(k) + "_" + str(j)
-                dist1 = out[key1]
-                dist2 = out[key2]
-                if dist > dist1 + dist2:
-                    print("!!!!", str(i) + "_" + str(j) + "=" + str(dist) +"    " + str(i) + "_" + str(k) + "=" + str(dist1) + "    " +str(k) + "_" + str(j) + "=" + str(dist2))
+            #for k in range (0, n):
+                #key1 = str(i) + "_" + str(k)
+                #key2 = str(k) + "_" + str(j)
+                #dist1 = out[key1]
+                #dist2 = out[key2]
+                #if dist > dist1 + dist2:
+                    #print("!!!!", str(i) + "_" + str(j) + "=" + str(dist) +"    " + str(i) + "_" + str(k) + "=" + str(dist1) + "    " +str(k) + "_" + str(j) + "=" + str(dist2))
 
 
-    #print(out)
+                    #print(out)
     return out
 
 def compute_latencies(fname='coords.txt'):
@@ -314,15 +314,18 @@ def scatter_plot(xs, ys, xlabel, ylabel, title, leg=False):
     #ax.set_aspect('equal')
     #ax.set_xlim(lims)
 
+    #ax.set_ylim([200, 8000.0])
+    #ax.set_xlim([32, 256])
     ax.set_ylim([1, 8000.0])
-    ax.set_xlim([1, 500])
+    ax.set_xlim([1, 256])
+
     #ax.set_xlim([1, 70])
 
     bins = np.arange(min(xs), max(xs), 2)
     percentilef = lambda v: np.percentile(v, 50, axis=0)
-    print(xs)
-    print(ys)
-    print(bin)
+    #print(xs)
+    #print(ys)
+    #print(bin)
     means = binned_statistic(xs, ys, statistic = percentilef, bins = bins)[0]
     ax.plot(bins[:-1], means, 'go', alpha=0.2, markersize = 4, label="50th percentile")
     percentilef = lambda v: np.percentile(v, 95, axis=0)
