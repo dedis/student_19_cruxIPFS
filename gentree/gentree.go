@@ -320,7 +320,7 @@ func GenerateRadius(maxDist float64) []float64 {
 			}
 			if crtMaxRadius > maxDist && prevRadius > maxDist {
 		*/
-		if crtMaxRadius > 256 {
+		if crtMaxRadius > 2048 {
 			break
 		}
 		radiuses = append(radiuses, crtMaxRadius)

@@ -780,7 +780,8 @@ func genAndPrintRndRouters(N int, R int, SpaceMax int, K int, zeroY bool,
 		routers[i].IP = make([]string, 0)
 		routers[i].Level = 0
 		routers[i].X = RndSrc.Float64() * float64(SpaceMax)
-		routers[i].Y = RndSrc.Float64() * float64(2)
+		routers[i].Y = RndSrc.Float64() * float64(SpaceMax)
+		//routers[i].Y = RndSrc.Float64() * float64(2)
 
 	}
 
@@ -987,7 +988,7 @@ func main() {
 
 	genAndPrintRndRouters(*N, *R, *SpaceMax, *K, true, true)
 	shortestNSRoutes()
-	str := fmt.Sprintf("K=%d\n N=%d\n R=%d\n D=%d\n", *K, *N, *R, *SpaceMax)
-	ioutil.WriteFile("../data/gen/gendetails.txt", []byte(str), 0777)
+	str := fmt.Sprintf("K=%d\nN=%d\nR=%d\nD=%d\n", *K, *N, *R, *SpaceMax)
+	ioutil.WriteFile("../data/gen/details.txt", []byte(str), 0777)
 
 }

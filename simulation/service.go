@@ -146,7 +146,7 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 		pi.(*service.StartInstancesProtocol).Nodes)
 
 	// wait for some time for clusters to converge
-	time.Sleep(2 * time.Minute)
+	time.Sleep(3 * time.Minute)
 	operations.Test2(nOps, len(myService.Nodes.All))
 
 	log.Lvl1("Done")

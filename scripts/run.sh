@@ -206,6 +206,12 @@ if ! [ -f "$DETFILE" ]; then
         t=$d_t
     fi
 
+    # ops
+    if [[ $f_ops -ne -1 ]]; then
+        ops=$f_ops
+    fi
+
+
     pings=true
 
     # read detergen details

@@ -14,9 +14,7 @@ const (
 	ipfsCtlFile     = "ipfs-cluster-ctl"
 	prescriptFile   = "prescript.sh"
 	nodesFile       = "nodes.txt"
-	genFolder       = "gen"
 	detailsFile     = "details.txt"
-	gendetailsFile  = "gendetails.txt"
 )
 
 var dataLocation string
@@ -27,7 +25,6 @@ var ipfsClusterLocation string
 var ipfsCtlLocation string
 var prescriptLocation string
 var nodesLocation string
-var gendetailsLocation string
 var simdetailsLocation string
 
 var mode = "raft"
@@ -45,6 +42,5 @@ func init() {
 	ipfsCtlLocation = filepath.Join(installLocation, ipfsCtlFile)
 	prescriptLocation = filepath.Join(scriptLocation, prescriptFile)
 	nodesLocation = filepath.Join(dataLocation, nodesFile)
-	gendetailsLocation = filepath.Join(dataLocation, genFolder, gendetailsFile)
 	simdetailsLocation = filepath.Join(dataLocation, detailsFile)
 }

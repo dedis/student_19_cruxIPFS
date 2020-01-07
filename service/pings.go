@@ -264,7 +264,7 @@ func (s *Service) measureOwnPings() {
 			for {
 
 				peerName := node.Name
-				pingCmdStr := "ping -W 150 -q -c 3 -i 1 " +
+				pingCmdStr := "ping -W 150 -q -c 3 -i 5 " +
 					node.ServerIdentity.Address.Host() + " | tail -n 1"
 				pingCmd := exec.Command("sh", "-c", pingCmdStr)
 				pingOutput, err := pingCmd.Output()
@@ -297,7 +297,8 @@ func (s *Service) measureOwnPings() {
 					log.Fatal("Problem when parsing pings")
 				}
 
-				s.OwnPings[peerName] = float64(avgPing / 2.0)
+				s.OwnPings[peerName] = float64(avgPing)
+				//s.OwnPings[peerName] = float64(avgPing / 2.0)
 
 				break
 			}

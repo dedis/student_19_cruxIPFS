@@ -78,7 +78,8 @@ def load_latencies(fname='1/pings.txt'):
             node_dst = splitted[2].split('_')[1]
             key = node_src + "_" + node_dst
             val = float(splitted[4])
-            out[key] = 2*val
+            #out[key] = 2*val
+            out[key] = val
             n += 1
     n = int(math.sqrt(n))
 
@@ -317,7 +318,7 @@ def scatter_plot(xs, ys, xlabel, ylabel, title, leg=False):
     #ax.set_ylim([200, 8000.0])
     #ax.set_xlim([32, 256])
     ax.set_ylim([1, 8000.0])
-    ax.set_xlim([1, 256])
+    ax.set_xlim([1, 1000])
 
     #ax.set_xlim([1, 70])
 

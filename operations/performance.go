@@ -132,19 +132,14 @@ func Test2(nOps, nodesN int) {
 
 	lines := strings.Split(string(ops), "\n")
 	if len(lines)-1 != nOps {
-		log.Lvl1("Operation number do not match target")
-		log.Lvl1("Got:", len(lines)-1, "Target:", nOps)
 		ops = genSequence(nOps, nodesN)
 		lines = strings.Split(string(ops), "\n")
-		log.Lvl1("After generation")
-		log.Lvl1("Got:", len(lines)-1, "Target:", nOps)
 	} else {
 		for _, l := range lines[:len(lines)-1] {
 			k, err := strconv.Atoi(
 				strings.Split(l, " ")[0][len(service.NodeName):])
 			checkErr(err)
 			if k >= nodesN {
-				log.Lvl1("Node names do not match old sequence")
 				ops = genSequence(nOps, nodesN)
 				lines = strings.Split(string(ops), "\n")
 				break
@@ -172,7 +167,6 @@ func Test2(nOps, nodesN int) {
 				strwrite += fmt.Sprintf("%d ", t1.Milliseconds())
 
 				sum := t0 + t1
-				//str += fmt.Sprintln("write:", t0, "read:", t1, "total:", sum)
 				if sum < min {
 					min = sum
 				}

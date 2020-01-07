@@ -1,209 +1,238 @@
 1 : build.go:53 (simul.startBuild)           - Deploying to deterlab
 1 : deterlab.go:138 (platform.(*Deterlab).Build) - Building for guissou users.deterlab.net SAFER  simulDir= /mnt/guillaume/Documents/epfl/ipfs/repos/student_19_cruxIPFS/simulation
-1 : deterlab.go:194 (platform.(*Deterlab).Build) - Build is finished after 4.54872006s
-1 : build.go:144 (simul.RunTests)            - Running test with config: map[bf:13 depth:1 prescript:"prescript.sh" rounds:1 servers:14 simulation:"IPFS" suite:"Ed25519"]
-1 : users.go:50 (main.main)                  - Cleaning up 22 hosts.
+1 : deterlab.go:194 (platform.(*Deterlab).Build) - Build is finished after 6.411833064s
+1 : build.go:144 (simul.RunTests)            - Running test with config: map[bf:14 depth:1 prescript:"prescript.sh" rounds:1 servers:15 simulation:"IPFS" suite:"Ed25519"]
+1 : users.go:50 (main.main)                  - Cleaning up 30 hosts.
 1 : deterlab.go:305 (platform.(*Deterlab).Deploy) - Copying over to guissou @ users.deterlab.net
-1 : users.go:120 (main.main)                 - starting 14 cothorities for a total of 14 processes.
+1 : users.go:120 (main.main)                 - starting 15 cothorities for a total of 15 processes.
 1 : runsimul.go:144 (platform.Simulate)      - Started counting children with timeout of 1s
-1 : runsimul.go:148 (platform.Simulate)      - Found all 14 children
-1 : pings.go:340 (service.(*Service).printPings) - 
+1 : runsimul.go:148 (platform.Simulate)      - Found all 15 children
+1 : pings.go:341 (service.(*Service).printPings) - 
 ping node_0 node_0 = 0.000000
-ping node_0 node_1 = 57.327500
-ping node_0 node_2 = 30.270250
-ping node_0 node_3 = 36.472250
-ping node_0 node_4 = 64.600000
-ping node_0 node_5 = 57.054250
-ping node_0 node_6 = 72.494250
-ping node_0 node_7 = 34.223750
-ping node_0 node_8 = 41.470250
-ping node_0 node_9 = 75.704250
-ping node_0 node_10 = 0.265750
-ping node_0 node_11 = 62.493500
-ping node_0 node_12 = 62.618250
-ping node_0 node_13 = 36.569250
-ping node_1 node_0 = 57.327500
+ping node_0 node_1 = 104.431000
+ping node_0 node_2 = 120.522000
+ping node_0 node_3 = 193.657000
+ping node_0 node_4 = 235.085000
+ping node_0 node_5 = 241.483500
+ping node_0 node_6 = 262.843500
+ping node_0 node_7 = 243.265000
+ping node_0 node_8 = 227.148500
+ping node_0 node_9 = 85.093500
+ping node_0 node_10 = 178.897000
+ping node_0 node_11 = 229.515000
+ping node_0 node_12 = 215.072000
+ping node_0 node_13 = 107.028000
+ping node_0 node_14 = 114.683000
+ping node_1 node_0 = 104.431000
 ping node_1 node_1 = 0.000000
-ping node_1 node_2 = 87.461750
-ping node_1 node_3 = 53.106750
-ping node_1 node_4 = 81.330250
-ping node_1 node_5 = 83.988250
-ping node_1 node_6 = 77.603000
-ping node_1 node_7 = 64.513750
-ping node_1 node_8 = 47.354250
-ping node_1 node_9 = 81.537250
-ping node_1 node_10 = 57.478500
-ping node_1 node_11 = 74.398750
-ping node_1 node_12 = 74.729750
-ping node_1 node_13 = 53.369500
-ping node_2 node_0 = 30.270250
-ping node_2 node_1 = 87.461750
+ping node_1 node_2 = 224.866000
+ping node_1 node_3 = 16.490000
+ping node_1 node_4 = 229.511500
+ping node_1 node_5 = 245.416500
+ping node_1 node_6 = 158.505000
+ping node_1 node_7 = 254.152500
+ping node_1 node_8 = 228.000000
+ping node_1 node_9 = 167.052500
+ping node_1 node_10 = 128.198000
+ping node_1 node_11 = 180.486500
+ping node_1 node_12 = 227.108500
+ping node_1 node_13 = 211.369500
+ping node_1 node_14 = 198.482000
+ping node_2 node_0 = 120.522000
+ping node_2 node_1 = 224.866000
 ping node_2 node_2 = 0.000000
-ping node_2 node_3 = 66.623500
-ping node_2 node_4 = 94.833500
-ping node_2 node_5 = 56.870500
-ping node_2 node_6 = 90.644750
-ping node_2 node_7 = 64.496000
-ping node_2 node_8 = 60.970000
-ping node_2 node_9 = 95.162750
-ping node_2 node_10 = 30.394500
-ping node_2 node_11 = 32.264750
-ping node_2 node_12 = 32.455500
-ping node_2 node_13 = 66.745250
-ping node_3 node_0 = 36.472250
-ping node_3 node_1 = 53.106750
-ping node_3 node_2 = 66.623500
+ping node_2 node_3 = 220.260000
+ping node_2 node_4 = 209.603500
+ping node_2 node_5 = 84.583000
+ping node_2 node_6 = 255.702500
+ping node_2 node_7 = 257.281500
+ping node_2 node_8 = 253.644000
+ping node_2 node_9 = 125.788000
+ping node_2 node_10 = 58.582500
+ping node_2 node_11 = 208.152500
+ping node_2 node_12 = 248.853000
+ping node_2 node_13 = 168.512000
+ping node_2 node_14 = 215.509000
+ping node_3 node_0 = 193.657000
+ping node_3 node_1 = 16.490000
+ping node_3 node_2 = 220.260000
 ping node_3 node_3 = 0.000000
-ping node_3 node_4 = 28.263000
-ping node_3 node_5 = 82.039000
-ping node_3 node_6 = 39.029500
-ping node_3 node_7 = 2.187250
-ping node_3 node_8 = 9.473750
-ping node_3 node_9 = 43.711750
-ping node_3 node_10 = 36.727250
-ping node_3 node_11 = 37.267750
-ping node_3 node_12 = 37.478750
-ping node_3 node_13 = 0.209250
-ping node_4 node_0 = 64.600000
-ping node_4 node_1 = 81.330250
-ping node_4 node_2 = 94.833500
-ping node_4 node_3 = 28.263000
+ping node_3 node_4 = 176.442000
+ping node_3 node_5 = 239.561000
+ping node_3 node_6 = 216.531500
+ping node_3 node_7 = 291.017500
+ping node_3 node_8 = 202.950000
+ping node_3 node_9 = 266.242500
+ping node_3 node_10 = 200.930000
+ping node_3 node_11 = 167.097000
+ping node_3 node_12 = 271.424000
+ping node_3 node_13 = 215.536500
+ping node_3 node_14 = 260.862000
+ping node_4 node_0 = 235.085000
+ping node_4 node_1 = 229.511500
+ping node_4 node_2 = 209.603500
+ping node_4 node_3 = 176.442000
 ping node_4 node_4 = 0.000000
-ping node_4 node_5 = 50.226750
-ping node_4 node_6 = 38.777500
-ping node_4 node_7 = 30.515000
-ping node_4 node_8 = 37.717000
-ping node_4 node_9 = 72.042750
-ping node_4 node_10 = 64.918500
-ping node_4 node_11 = 65.504500
-ping node_4 node_12 = 65.680750
-ping node_4 node_13 = 28.465750
-ping node_5 node_0 = 57.054250
-ping node_5 node_1 = 83.988250
-ping node_5 node_2 = 56.870500
-ping node_5 node_3 = 82.039000
-ping node_5 node_4 = 50.226750
+ping node_4 node_5 = 76.514000
+ping node_4 node_6 = 164.926500
+ping node_4 node_7 = 251.473000
+ping node_4 node_8 = 238.855000
+ping node_4 node_9 = 247.521500
+ping node_4 node_10 = 154.187500
+ping node_4 node_11 = 152.923000
+ping node_4 node_12 = 257.369000
+ping node_4 node_13 = 252.332500
+ping node_4 node_14 = 146.500500
+ping node_5 node_0 = 241.483500
+ping node_5 node_1 = 245.416500
+ping node_5 node_2 = 84.583000
+ping node_5 node_3 = 239.561000
+ping node_5 node_4 = 76.514000
 ping node_5 node_5 = 0.000000
-ping node_5 node_6 = 60.490750
-ping node_5 node_7 = 90.944500
-ping node_5 node_8 = 83.634500
-ping node_5 node_9 = 117.839000
-ping node_5 node_10 = 57.227500
-ping node_5 node_11 = 59.010750
-ping node_5 node_12 = 59.235000
-ping node_5 node_13 = 82.331250
-ping node_6 node_0 = 72.494250
-ping node_6 node_1 = 77.603000
-ping node_6 node_2 = 90.644750
-ping node_6 node_3 = 39.029500
-ping node_6 node_4 = 38.777500
-ping node_6 node_5 = 60.490750
+ping node_5 node_6 = 88.491500
+ping node_5 node_7 = 174.815000
+ping node_5 node_8 = 232.866500
+ping node_5 node_9 = 213.165500
+ping node_5 node_10 = 143.052500
+ping node_5 node_11 = 76.506000
+ping node_5 node_12 = 194.059500
+ping node_5 node_13 = 244.007000
+ping node_5 node_14 = 310.613000
+ping node_6 node_0 = 262.843500
+ping node_6 node_1 = 158.505000
+ping node_6 node_2 = 255.702500
+ping node_6 node_3 = 216.531500
+ping node_6 node_4 = 164.926500
+ping node_6 node_5 = 88.491500
 ping node_6 node_6 = 0.000000
-ping node_6 node_7 = 39.286500
-ping node_6 node_8 = 34.644000
-ping node_6 node_9 = 68.863750
-ping node_6 node_10 = 72.717000
-ping node_6 node_11 = 74.886000
-ping node_6 node_12 = 75.139750
-ping node_6 node_13 = 39.288250
-ping node_7 node_0 = 34.223750
-ping node_7 node_1 = 64.513750
-ping node_7 node_2 = 64.496000
-ping node_7 node_3 = 2.187250
-ping node_7 node_4 = 30.515000
-ping node_7 node_5 = 90.944500
-ping node_7 node_6 = 39.286500
+ping node_6 node_7 = 86.454500
+ping node_6 node_8 = 144.456000
+ping node_6 node_9 = 252.164000
+ping node_6 node_10 = 231.451500
+ping node_6 node_11 = 165.021500
+ping node_6 node_12 = 156.583000
+ping node_6 node_13 = 187.407000
+ping node_6 node_14 = 248.116500
+ping node_7 node_0 = 243.265000
+ping node_7 node_1 = 254.152500
+ping node_7 node_2 = 257.281500
+ping node_7 node_3 = 291.017500
+ping node_7 node_4 = 251.473000
+ping node_7 node_5 = 174.815000
+ping node_7 node_6 = 86.454500
 ping node_7 node_7 = 0.000000
-ping node_7 node_8 = 7.248750
-ping node_7 node_9 = 41.490000
-ping node_7 node_10 = 34.461750
-ping node_7 node_11 = 37.236750
-ping node_7 node_12 = 37.456250
-ping node_7 node_13 = 2.335750
-ping node_8 node_0 = 41.470250
-ping node_8 node_1 = 47.354250
-ping node_8 node_2 = 60.970000
-ping node_8 node_3 = 9.473750
-ping node_8 node_4 = 37.717000
-ping node_8 node_5 = 83.634500
-ping node_8 node_6 = 34.644000
-ping node_8 node_7 = 7.248750
+ping node_7 node_8 = 231.045000
+ping node_7 node_9 = 199.298000
+ping node_7 node_10 = 201.378500
+ping node_7 node_11 = 165.315000
+ping node_7 node_12 = 136.697500
+ping node_7 node_13 = 100.828500
+ping node_7 node_14 = 161.557000
+ping node_8 node_0 = 227.148500
+ping node_8 node_1 = 228.000000
+ping node_8 node_2 = 253.644000
+ping node_8 node_3 = 202.950000
+ping node_8 node_4 = 238.855000
+ping node_8 node_5 = 232.866500
+ping node_8 node_6 = 144.456000
+ping node_8 node_7 = 231.045000
 ping node_8 node_8 = 0.000000
-ping node_8 node_9 = 34.221250
-ping node_8 node_10 = 41.724750
-ping node_8 node_11 = 44.535000
-ping node_8 node_12 = 44.769750
-ping node_8 node_13 = 9.670500
-ping node_9 node_0 = 75.704250
-ping node_9 node_1 = 81.537250
-ping node_9 node_2 = 95.162750
-ping node_9 node_3 = 43.711750
-ping node_9 node_4 = 72.042750
-ping node_9 node_5 = 117.839000
-ping node_9 node_6 = 68.863750
-ping node_9 node_7 = 41.490000
-ping node_9 node_8 = 34.221250
+ping node_8 node_9 = 231.831500
+ping node_8 node_10 = 201.435000
+ping node_8 node_11 = 124.198500
+ping node_8 node_12 = 207.136500
+ping node_8 node_13 = 216.200000
+ping node_8 node_14 = 292.411500
+ping node_9 node_0 = 85.093500
+ping node_9 node_1 = 167.052500
+ping node_9 node_2 = 125.788000
+ping node_9 node_3 = 266.242500
+ping node_9 node_4 = 247.521500
+ping node_9 node_5 = 213.165500
+ping node_9 node_6 = 252.164000
+ping node_9 node_7 = 199.298000
+ping node_9 node_8 = 231.831500
 ping node_9 node_9 = 0.000000
-ping node_9 node_10 = 75.983500
-ping node_9 node_11 = 78.723000
-ping node_9 node_12 = 79.000750
-ping node_9 node_13 = 43.908250
-ping node_10 node_0 = 0.265750
-ping node_10 node_1 = 57.478500
-ping node_10 node_2 = 30.394500
-ping node_10 node_3 = 36.727250
-ping node_10 node_4 = 64.918500
-ping node_10 node_5 = 57.227500
-ping node_10 node_6 = 72.717000
-ping node_10 node_7 = 34.461750
-ping node_10 node_8 = 41.724750
-ping node_10 node_9 = 75.983500
+ping node_9 node_10 = 145.180500
+ping node_9 node_11 = 200.572000
+ping node_9 node_12 = 170.709000
+ping node_9 node_13 = 62.628500
+ping node_9 node_14 = 177.565000
+ping node_10 node_0 = 178.897000
+ping node_10 node_1 = 128.198000
+ping node_10 node_2 = 58.582500
+ping node_10 node_3 = 200.930000
+ping node_10 node_4 = 154.187500
+ping node_10 node_5 = 143.052500
+ping node_10 node_6 = 231.451500
+ping node_10 node_7 = 201.378500
+ping node_10 node_8 = 201.435000
+ping node_10 node_9 = 145.180500
 ping node_10 node_10 = 0.000000
-ping node_10 node_11 = 62.613500
-ping node_10 node_12 = 62.846750
-ping node_10 node_13 = 36.709750
-ping node_11 node_0 = 62.493500
-ping node_11 node_1 = 74.398750
-ping node_11 node_2 = 32.264750
-ping node_11 node_3 = 37.267750
-ping node_11 node_4 = 65.504500
-ping node_11 node_5 = 59.010750
-ping node_11 node_6 = 74.886000
-ping node_11 node_7 = 37.236750
-ping node_11 node_8 = 44.535000
-ping node_11 node_9 = 78.723000
-ping node_11 node_10 = 62.613500
+ping node_10 node_11 = 209.398000
+ping node_10 node_12 = 283.301500
+ping node_10 node_13 = 207.451500
+ping node_10 node_14 = 273.902500
+ping node_11 node_0 = 229.515000
+ping node_11 node_1 = 180.486500
+ping node_11 node_2 = 208.152500
+ping node_11 node_3 = 167.097000
+ping node_11 node_4 = 152.923000
+ping node_11 node_5 = 76.506000
+ping node_11 node_6 = 165.021500
+ping node_11 node_7 = 165.315000
+ping node_11 node_8 = 124.198500
+ping node_11 node_9 = 200.572000
+ping node_11 node_10 = 209.398000
 ping node_11 node_11 = 0.000000
-ping node_11 node_12 = 0.238500
-ping node_11 node_13 = 37.482500
-ping node_12 node_0 = 62.618250
-ping node_12 node_1 = 74.729750
-ping node_12 node_2 = 32.455500
-ping node_12 node_3 = 37.478750
-ping node_12 node_4 = 65.680750
-ping node_12 node_5 = 59.235000
-ping node_12 node_6 = 75.139750
-ping node_12 node_7 = 37.456250
-ping node_12 node_8 = 44.769750
-ping node_12 node_9 = 79.000750
-ping node_12 node_10 = 62.846750
-ping node_12 node_11 = 0.238500
+ping node_11 node_12 = 104.482500
+ping node_11 node_13 = 191.491500
+ping node_11 node_14 = 233.653000
+ping node_12 node_0 = 215.072000
+ping node_12 node_1 = 227.108500
+ping node_12 node_2 = 248.853000
+ping node_12 node_3 = 271.424000
+ping node_12 node_4 = 257.369000
+ping node_12 node_5 = 194.059500
+ping node_12 node_6 = 156.583000
+ping node_12 node_7 = 136.697500
+ping node_12 node_8 = 207.136500
+ping node_12 node_9 = 170.709000
+ping node_12 node_10 = 283.301500
+ping node_12 node_11 = 104.482500
 ping node_12 node_12 = 0.000000
-ping node_12 node_13 = 37.692500
-ping node_13 node_0 = 36.569250
-ping node_13 node_1 = 53.369500
-ping node_13 node_2 = 66.745250
-ping node_13 node_3 = 0.209250
-ping node_13 node_4 = 28.465750
-ping node_13 node_5 = 82.331250
-ping node_13 node_6 = 39.288250
-ping node_13 node_7 = 2.335750
-ping node_13 node_8 = 9.670500
-ping node_13 node_9 = 43.908250
-ping node_13 node_10 = 36.709750
-ping node_13 node_11 = 37.482500
-ping node_13 node_12 = 37.692500
+ping node_12 node_13 = 68.509500
+ping node_12 node_14 = 137.749000
+ping node_13 node_0 = 107.028000
+ping node_13 node_1 = 211.369500
+ping node_13 node_2 = 168.512000
+ping node_13 node_3 = 215.536500
+ping node_13 node_4 = 252.332500
+ping node_13 node_5 = 244.007000
+ping node_13 node_6 = 187.407000
+ping node_13 node_7 = 100.828500
+ping node_13 node_8 = 216.200000
+ping node_13 node_9 = 62.628500
+ping node_13 node_10 = 207.451500
+ping node_13 node_11 = 191.491500
+ping node_13 node_12 = 68.509500
 ping node_13 node_13 = 0.000000
+ping node_13 node_14 = 140.832000
+ping node_14 node_0 = 114.683000
+ping node_14 node_1 = 198.482000
+ping node_14 node_2 = 215.509000
+ping node_14 node_3 = 260.862000
+ping node_14 node_4 = 146.500500
+ping node_14 node_5 = 310.613000
+ping node_14 node_6 = 248.116500
+ping node_14 node_7 = 161.557000
+ping node_14 node_8 = 292.411500
+ping node_14 node_9 = 177.565000
+ping node_14 node_10 = 273.902500
+ping node_14 node_11 = 233.653000
+ping node_14 node_12 = 137.749000
+ping node_14 node_13 = 140.832000
+ping node_14 node_14 = 0.000000
 
 1 : runsimul.go:169 (platform.Simulate)      - Starting new node IPFS
 1 : startinstances.go:30 (service.(*StartInstancesProtocol).Start) - Starting IPFS and IPFS-Cluster instances
@@ -211,48 +240,48 @@ slave started
 1 : save.go:60 (operations.SaveState)        - 
 ##### IPFS instances #####
 
-node_5:
-  IP             : 10.1.13.3
-  Cluster number : 0
-  Clusters       : 
-node_7:
-  IP             : 10.1.17.3
-  Cluster number : 0
-  Clusters       : 
-node_8:
-  IP             : 10.1.17.2
-  Cluster number : 0
-  Clusters       : 
-node_11:
-  IP             : 10.1.23.2
-  Cluster number : 0
-  Clusters       : 
-node_3:
-  IP             : 10.1.11.2
-  Cluster number : 0
-  Clusters       : 
-node_4:
-  IP             : 10.1.11.3
+node_2:
+  IP             : 10.1.2.3
   Cluster number : 0
   Clusters       : 
 node_10:
-  IP             : 10.1.22.3
+  IP             : 10.1.17.3
   Cluster number : 0
   Clusters       : 
-node_9:
-  IP             : 10.1.19.3
+node_4:
+  IP             : 10.1.11.2
   Cluster number : 0
   Clusters       : 
-node_12:
-  IP             : 10.1.23.3
+node_5:
+  IP             : 10.1.12.3
   Cluster number : 0
   Clusters       : 
 node_1:
   IP             : 10.1.1.3
   Cluster number : 0
   Clusters       : 
-node_13:
-  IP             : 10.1.24.3
+node_9:
+  IP             : 10.1.15.3
+  Cluster number : 0
+  Clusters       : 
+node_14:
+  IP             : 10.1.26.3
+  Cluster number : 0
+  Clusters       : 
+node_11:
+  IP             : 10.1.18.2
+  Cluster number : 0
+  Clusters       : 
+node_3:
+  IP             : 10.1.11.3
+  Cluster number : 0
+  Clusters       : 
+node_12:
+  IP             : 10.1.20.3
+  Cluster number : 0
+  Clusters       : 
+node_8:
+  IP             : 10.1.14.3
   Cluster number : 0
   Clusters       : 
 node_0:
@@ -260,8 +289,8 @@ node_0:
   Cluster number : 1
   Clusters       : 
     Cluster leader : node_0
-    Secret         : 1c90dde847f802473ecbf694d5092111850c0fad14870742e330149ed91393fd
-    Size           : 14
+    Secret         : 2c21a736afec1b7002ac813a5aee96d999592ef6ee75b5171ab89eeb35c516d6
+    Size           : 15
     Hosts          : 
       node_0
         IP              : /ip4/10.1.1.2/tcp/
@@ -269,77 +298,41 @@ node_0:
         IPFS Proxy Port : 14004
         Cluster Port    : 14005
 
-      node_5
-        IP              : /ip4/10.1.13.3/tcp/
-        RestAPI Port    : 15003
-        IPFS Proxy Port : 15004
-        Cluster Port    : 15005
-
-      node_3
-        IP              : /ip4/10.1.11.2/tcp/
-        RestAPI Port    : 14603
-        IPFS Proxy Port : 14604
-        Cluster Port    : 14605
-
-      node_9
-        IP              : /ip4/10.1.19.3/tcp/
-        RestAPI Port    : 15803
-        IPFS Proxy Port : 15804
-        Cluster Port    : 15805
-
-      node_6
-        IP              : /ip4/10.1.16.3/tcp/
-        RestAPI Port    : 15203
-        IPFS Proxy Port : 15204
-        Cluster Port    : 15205
-
-      node_4
-        IP              : /ip4/10.1.11.3/tcp/
-        RestAPI Port    : 14803
-        IPFS Proxy Port : 14804
-        Cluster Port    : 14805
-
-      node_7
-        IP              : /ip4/10.1.17.3/tcp/
-        RestAPI Port    : 15403
-        IPFS Proxy Port : 15404
-        Cluster Port    : 15405
-
-      node_10
-        IP              : /ip4/10.1.22.3/tcp/
-        RestAPI Port    : 16003
-        IPFS Proxy Port : 16004
-        Cluster Port    : 16005
-
-      node_13
-        IP              : /ip4/10.1.24.3/tcp/
-        RestAPI Port    : 16603
-        IPFS Proxy Port : 16604
-        Cluster Port    : 16605
-
-      node_11
-        IP              : /ip4/10.1.23.2/tcp/
-        RestAPI Port    : 16203
-        IPFS Proxy Port : 16204
-        Cluster Port    : 16205
-
-      node_12
-        IP              : /ip4/10.1.23.3/tcp/
-        RestAPI Port    : 16403
-        IPFS Proxy Port : 16404
-        Cluster Port    : 16405
-
       node_2
         IP              : /ip4/10.1.2.3/tcp/
         RestAPI Port    : 14403
         IPFS Proxy Port : 14404
         Cluster Port    : 14405
 
+      node_10
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 16003
+        IPFS Proxy Port : 16004
+        Cluster Port    : 16005
+
+      node_3
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14603
+        IPFS Proxy Port : 14604
+        Cluster Port    : 14605
+
       node_8
-        IP              : /ip4/10.1.17.2/tcp/
+        IP              : /ip4/10.1.14.3/tcp/
         RestAPI Port    : 15603
         IPFS Proxy Port : 15604
         Cluster Port    : 15605
+
+      node_12
+        IP              : /ip4/10.1.20.3/tcp/
+        RestAPI Port    : 16403
+        IPFS Proxy Port : 16404
+        Cluster Port    : 16405
+
+      node_7
+        IP              : /ip4/10.1.13.3/tcp/
+        RestAPI Port    : 15403
+        IPFS Proxy Port : 15404
+        Cluster Port    : 15405
 
       node_1
         IP              : /ip4/10.1.1.3/tcp/
@@ -347,6019 +340,660 @@ node_0:
         IPFS Proxy Port : 14204
         Cluster Port    : 14205
 
-node_2:
-  IP             : 10.1.2.3
+      node_5
+        IP              : /ip4/10.1.12.3/tcp/
+        RestAPI Port    : 15003
+        IPFS Proxy Port : 15004
+        Cluster Port    : 15005
+
+      node_9
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15803
+        IPFS Proxy Port : 15804
+        Cluster Port    : 15805
+
+      node_6
+        IP              : /ip4/10.1.12.2/tcp/
+        RestAPI Port    : 15203
+        IPFS Proxy Port : 15204
+        Cluster Port    : 15205
+
+      node_4
+        IP              : /ip4/10.1.11.2/tcp/
+        RestAPI Port    : 14803
+        IPFS Proxy Port : 14804
+        Cluster Port    : 14805
+
+      node_11
+        IP              : /ip4/10.1.18.2/tcp/
+        RestAPI Port    : 16203
+        IPFS Proxy Port : 16204
+        Cluster Port    : 16205
+
+      node_13
+        IP              : /ip4/10.1.22.3/tcp/
+        RestAPI Port    : 16603
+        IPFS Proxy Port : 16604
+        Cluster Port    : 16605
+
+      node_14
+        IP              : /ip4/10.1.26.3/tcp/
+        RestAPI Port    : 16803
+        IPFS Proxy Port : 16804
+        Cluster Port    : 16805
+
+node_13:
+  IP             : 10.1.22.3
   Cluster number : 0
   Clusters       : 
 node_6:
-  IP             : 10.1.16.3
+  IP             : 10.1.12.2
+  Cluster number : 0
+  Clusters       : 
+node_7:
+  IP             : 10.1.13.3
   Cluster number : 0
   Clusters       : 
 
 1 : performance.go:126 (operations.Test2)    - Starting Test2
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_2 1492
-maxoptime-node_1-node_2 1492
-1147 
-344 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_2-node_8 2914
+maxoptime-node_2-node_8 2914
+1957 
+956 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_6 1221
-maxoptime-node_13-node_6 1221
-721 
-500 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_1-node_5 2495
+maxoptime-node_1-node_5 2495
+1710 
+784 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_0 1446
-maxoptime-node_3-node_0 1446
-1312 
-133 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_10-node_13 2245
+maxoptime-node_10-node_13 2245
+1996 
+248 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_2 1116
-maxoptime-node_4-node_2 1116
-982 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_5 1424
-maxoptime-node_4-node_5 1424
-1172 
-251 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_10 1259
-maxoptime-node_4-node_10 1259
-1234 
-25 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_10 1019
-maxoptime-node_8-node_10 1019
-1006 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_6 1273
-maxoptime-node_7-node_6 1273
-955 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_2 963
-maxoptime-node_7-node_2 963
-818 
-144 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_2 876
-maxoptime-node_3-node_2 876
-743 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_0 945
-maxoptime-node_10-node_0 945
-910 
-34 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_8 1487
-maxoptime-node_1-node_8 1487
-1297 
-189 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_11 1594
-maxoptime-node_1-node_11 1594
-1309 
-285 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_6 1417
-maxoptime-node_4-node_6 1417
-1112 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_0 1278
-maxoptime-node_7-node_0 1278
-1254 
-24 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_2 924
-maxoptime-node_13-node_2 924
-791 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_6 1049
-maxoptime-node_3-node_6 1049
-744 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_5 997
-maxoptime-node_7-node_5 997
-746 
-251 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_2 1423
-maxoptime-node_5-node_2 1423
-1279 
-144 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_1 1274
-maxoptime-node_13-node_1 1274
-1010 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_1-node_9 1907
+maxoptime-node_1-node_9 1907
+1642 
 264 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_5 1608
-maxoptime-node_6-node_5 1608
-1369 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_4 1506
-maxoptime-node_13-node_4 1506
-1212 
-293 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_10 766
-maxoptime-node_8-node_10 766
-741 
-24 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_2 870
-maxoptime-node_13-node_2 870
-737 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_3 940
-maxoptime-node_13-node_3 940
-749 
-191 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_10 1060
-maxoptime-node_5-node_10 1060
-1024 
-35 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_1 1269
-maxoptime-node_8-node_1 1269
-1016 
-253 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_6 1313
-maxoptime-node_2-node_6 1313
-984 
-328 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_9 1640
-maxoptime-node_5-node_9 1640
-1291 
-349 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_7 1515
-maxoptime-node_5-node_7 1515
-1343 
-171 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_5 1330
-maxoptime-node_1-node_5 1330
-1068 
-261 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_0 1270
-maxoptime-node_12-node_0 1270
-1246 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_4 1047
-maxoptime-node_7-node_4 1047
-753 
-294 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_3 1228
-maxoptime-node_5-node_3 1228
-1025 
-203 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_5 1538
-maxoptime-node_1-node_5 1538
-1298 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_12 1314
-maxoptime-node_8-node_12 1314
-1016 
-297 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_12 1474
-maxoptime-node_3-node_12 1474
-1200 
-274 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_4 1528
-maxoptime-node_7-node_4 1528
-1255 
-272 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_10 1158
-maxoptime-node_6-node_10 1158
-1144 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_10 767
-maxoptime-node_7-node_10 767
-754 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_10 992
-maxoptime-node_7-node_10 992
-979 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_2 1447
-maxoptime-node_5-node_2 1447
-1291 
-155 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_4 1355
-maxoptime-node_11-node_4 1355
-1072 
-283 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_5 1354
-maxoptime-node_1-node_5 1354
-1103 
-250 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_13 1390
-maxoptime-node_6-node_13 1390
-1208 
-181 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_7 1406
-maxoptime-node_6-node_7 1406
-1245 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_5 1040
-maxoptime-node_10-node_5 1040
-800 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_7 1282
-maxoptime-node_6-node_7 1282
-1133 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_5 1035
-maxoptime-node_13-node_5 1035
-795 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_12 1019
-maxoptime-node_13-node_12 1019
-744 
-274 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_10 1061
-maxoptime-node_5-node_10 1061
-1025 
-36 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_0 1359
-maxoptime-node_5-node_0 1359
-1335 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_1 1198
-maxoptime-node_0-node_1 1198
-934 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_5 846
-maxoptime-node_0-node_5 846
-584 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_5 1436
-maxoptime-node_4-node_5 1436
-1185 
-250 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_4 1062
-maxoptime-node_13-node_4 1062
-790 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_5 1463
-maxoptime-node_12-node_5 1463
-1212 
-251 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_12 1463
-maxoptime-node_13-node_12 1463
-1200 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_2 1390
-maxoptime-node_7-node_2 1390
-1256 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_11 1551
-maxoptime-node_2-node_11 1551
-1278 
-273 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_1 1310
-maxoptime-node_11-node_1 1310
-1068 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_10 1097
-maxoptime-node_12-node_10 1097
-1084 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_3 951
-maxoptime-node_13-node_3 951
-782 
-169 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_12 1033
-maxoptime-node_7-node_12 1033
-758 
-274 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_6 1262
-maxoptime-node_10-node_6 1262
-945 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_12 1462
-maxoptime-node_13-node_12 1462
-1199 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_7 1517
-maxoptime-node_5-node_7 1517
-1345 
-171 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_1 1022
-maxoptime-node_8-node_1 1022
-780 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_0 598
-maxoptime-node_10-node_0 598
-574 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_6 1262
-maxoptime-node_10-node_6 1262
-956 
-306 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_12 1231
-maxoptime-node_10-node_12 1231
-967 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_1 1177
-maxoptime-node_0-node_1 1177
-924 
-252 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_0 1228
-maxoptime-node_2-node_0 1228
-1213 
-14 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_4 1383
-maxoptime-node_11-node_4 1383
-1099 
-283 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_10 1438
-maxoptime-node_4-node_10 1438
-1391 
-47 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_8 1298
-maxoptime-node_12-node_8 1298
-1085 
-212 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_10 1314
-maxoptime-node_9-node_10 1314
-1300 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_6 1117
-maxoptime-node_3-node_6 1117
-788 
-328 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_3 1403
-maxoptime-node_2-node_3 1403
-1244 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_0 770
-maxoptime-node_3-node_0 770
-746 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_10 996
-maxoptime-node_8-node_10 996
-983 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_0 1234
-maxoptime-node_8-node_0 1234
-1222 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_7 987
-maxoptime-node_0-node_7 987
-837 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_8 865
-maxoptime-node_7-node_8 865
-686 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_5 1000
-maxoptime-node_8-node_5 1000
-738 
-261 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_13 1188
-maxoptime-node_5-node_13 1188
-1007 
-181 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_1 1477
-maxoptime-node_12-node_1 1477
-1235 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_6 1375
-maxoptime-node_1-node_6 1375
-1069 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_14-node_13 2445
+maxoptime-node_14-node_13 2445
+2206 
+238 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_12-node_3 2669
+maxoptime-node_12-node_3 2669
+2101 
+567 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_13-node_4 2089
+maxoptime-node_13-node_4 2089
+1584 
+505 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_6-node_14 2160
+maxoptime-node_6-node_14 2160
+1855 
 305 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_2 1189
-maxoptime-node_1-node_2 1189
-1045 
-144 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_1 1285
-maxoptime-node_12-node_1 1285
-1043 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_10 1222
-maxoptime-node_6-node_10 1222
-1208 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_6 1420
-maxoptime-node_4-node_6 1420
-1114 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_7 1426
-maxoptime-node_2-node_7 1426
-1254 
-172 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_5 1471
-maxoptime-node_11-node_5 1471
-1231 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_10 1334
-maxoptime-node_1-node_10 1334
-1309 
-24 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_11 1033
-maxoptime-node_3-node_11 1033
-748 
-284 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_13 1385
-maxoptime-node_2-node_13 1385
-1214 
-170 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_1 1353
-maxoptime-node_11-node_1 1353
-1100 
-252 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_7 1392
-maxoptime-node_6-node_7 1392
-1242 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_1 1338
-maxoptime-node_11-node_1 1338
-1084 
-253 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_1 1334
-maxoptime-node_11-node_1 1334
-1092 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_2 1109
-maxoptime-node_0-node_2 1109
-965 
-144 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_4 1582
-maxoptime-node_9-node_4 1582
-1299 
-283 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_11 1312
-maxoptime-node_5-node_11 1312
-1038 
-274 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_3 1448
-maxoptime-node_2-node_3 1448
-1268 
-180 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_1 1453
-maxoptime-node_3-node_1 1453
-1212 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_5 1354
-maxoptime-node_4-node_5 1354
-1102 
-251 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_9 1629
-maxoptime-node_5-node_9 1629
-1291 
-338 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_0 991
-maxoptime-node_7-node_0 991
-967 
-24 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_13 1161
-maxoptime-node_7-node_13 1161
-990 
-171 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_0 760
-maxoptime-node_7-node_0 760
-747 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_11 1042
-maxoptime-node_3-node_11 1042
-779 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_5 1373
-maxoptime-node_4-node_5 1373
-1134 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_2 1352
-maxoptime-node_6-node_2 1352
-1218 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_11 1119
-maxoptime-node_10-node_11 1119
-845 
-273 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_11 1395
-maxoptime-node_4-node_11 1395
-1132 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_6 1514
-maxoptime-node_11-node_6 1514
-1196 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_5 1434
-maxoptime-node_2-node_5 1434
-1194 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_1 1098
-maxoptime-node_10-node_1 1098
-834 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_2 977
-maxoptime-node_0-node_2 977
-844 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_9 1608
-maxoptime-node_5-node_9 1608
-1292 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_6 1540
-maxoptime-node_2-node_6 1540
-1235 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_6 1504
-maxoptime-node_3-node_6 1504
-1198 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_13 898
-maxoptime-node_3-node_13 898
-740 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_11 1372
-maxoptime-node_12-node_11 1372
-1109 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_6 1560
-maxoptime-node_11-node_6 1560
-1242 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_5 1930
-maxoptime-node_9-node_5 1930
-1678 
-251 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_13 1375
-maxoptime-node_2-node_13 1375
-1204 
-170 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_4 1115
-maxoptime-node_10-node_4 1115
-833 
-282 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_3 987
-maxoptime-node_8-node_3 987
-829 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_4 1564
-maxoptime-node_9-node_4 1564
-1293 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_3 1390
-maxoptime-node_11-node_3 1390
-1232 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_4 1173
-maxoptime-node_0-node_4 1173
-902 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_8 782
-maxoptime-node_10-node_8 782
-570 
-212 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_2 992
-maxoptime-node_10-node_2 992
-847 
-144 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_7 1093
-maxoptime-node_10-node_7 1093
-932 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_8 1288
-maxoptime-node_4-node_8 1288
-1109 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_9 1519
-maxoptime-node_2-node_9 1519
-1192 
-326 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_6 1268
-maxoptime-node_2-node_6 1268
-962 
-306 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_12 1131
-maxoptime-node_10-node_12 1131
-846 
-285 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_10 1032
-maxoptime-node_2-node_10 1032
-996 
-36 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_10 1275
-maxoptime-node_5-node_10 1275
-1261 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_12 1461
-maxoptime-node_3-node_12 1461
-1197 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_7 1359
-maxoptime-node_11-node_7 1359
-1198 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_0 1138
-maxoptime-node_1-node_0 1138
-1114 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_10 768
-maxoptime-node_7-node_10 768
-754 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_8 896
-maxoptime-node_7-node_8 896
-718 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_8 1199
-maxoptime-node_1-node_8 1199
-1020 
-179 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_4 1527
-maxoptime-node_7-node_4 1527
-1244 
-282 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_6 1731
-maxoptime-node_4-node_6 1731
-1414 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_6 1429
-maxoptime-node_4-node_6 1429
-1123 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_3 1295
-maxoptime-node_4-node_3 1295
-1103 
-192 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_13 1191
-maxoptime-node_5-node_13 1191
-1021 
-170 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_2 1260
-maxoptime-node_12-node_2 1260
-1104 
-156 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_8 1392
-maxoptime-node_12-node_8 1392
-1202 
-189 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_7 931
-maxoptime-node_8-node_7 931
-781 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_8 1191
-maxoptime-node_1-node_8 1191
-1012 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_8 1867
-maxoptime-node_9-node_8 1867
-1676 
-190 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_9 1582
-maxoptime-node_7-node_9 1582
-1255 
-327 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_13 994
-maxoptime-node_10-node_13 994
-834 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_6 983
-maxoptime-node_7-node_6 983
-665 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_13 1219
-maxoptime-node_11-node_13 1219
-1060 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_0 831
-maxoptime-node_8-node_0 831
-807 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_10 1247
-maxoptime-node_11-node_10 1247
-1233 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_7 1085
-maxoptime-node_0-node_7 1085
-936 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_10 1222
-maxoptime-node_11-node_10 1222
-1209 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_11 991
-maxoptime-node_3-node_11 991
-706 
-284 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_8 899
-maxoptime-node_13-node_8 899
-720 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_0 1274
-maxoptime-node_5-node_0 1274
-1262 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_10 1234
-maxoptime-node_3-node_10 1234
-1221 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_11 1235
-maxoptime-node_2-node_11 1235
-973 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_8 1008
-maxoptime-node_11-node_8 1008
-829 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_10 1144
-maxoptime-node_1-node_10 1144
-1130 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_8 1372
-maxoptime-node_12-node_8 1372
-1193 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_4 1581
-maxoptime-node_1-node_4 1581
-1298 
-282 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_6 1340
-maxoptime-node_13-node_6 1340
-1022 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_10 1101
-maxoptime-node_12-node_10 1101
-1087 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_0 1130
-maxoptime-node_4-node_0 1130
-1118 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_1 1557
-maxoptime-node_5-node_1 1557
-1294 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_4 1219
-maxoptime-node_0-node_4 1219
-947 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_6 1633
-maxoptime-node_5-node_6 1633
-1327 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_2 954
-maxoptime-node_8-node_2 954
-799 
-155 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_6 1501
-maxoptime-node_13-node_6 1501
-1195 
-306 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_10 1294
-maxoptime-node_2-node_10 1294
-1258 
-35 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_11 1498
-maxoptime-node_9-node_11 1498
-1224 
-273 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_8 1214
-maxoptime-node_13-node_8 1214
-1003 
-211 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_9 1642
-maxoptime-node_1-node_9 1642
-1314 
-327 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_8 869
-maxoptime-node_7-node_8 869
-691 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_5 1490
-maxoptime-node_6-node_5 1490
-1228 
-261 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_13 898
-maxoptime-node_3-node_13 898
-728 
-170 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_9 1154
-maxoptime-node_12-node_9 1154
-838 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_8 1383
-maxoptime-node_13-node_8 1383
-1204 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_5 1937
-maxoptime-node_9-node_5 1937
-1693 
-243 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_13 921
-maxoptime-node_8-node_13 921
-763 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_3 1531
-maxoptime-node_6-node_3 1531
-1372 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_13 867
-maxoptime-node_3-node_13 867
-707 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_5 1239
-maxoptime-node_2-node_5 1239
-999 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_8 896
-maxoptime-node_13-node_8 896
-717 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_7 1011
-maxoptime-node_0-node_7 1011
-839 
-171 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_10 1430
-maxoptime-node_4-node_10 1430
-1405 
-24 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_12 1341
-maxoptime-node_10-node_12 1341
-1045 
-296 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_12 1388
-maxoptime-node_1-node_12 1388
-1124 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_6 1605
-maxoptime-node_2-node_6 1605
-1278 
-327 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_13 1381
-maxoptime-node_11-node_13 1381
-1211 
-170 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_5 1454
-maxoptime-node_12-node_5 1454
-1215 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_2 1156
-maxoptime-node_1-node_2 1156
-1012 
-144 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_1 1549
-maxoptime-node_9-node_1 1549
-1307 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_12 1004
-maxoptime-node_13-node_12 1004
-742 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_0 764
-maxoptime-node_3-node_0 764
-729 
-34 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_4 992
-maxoptime-node_7-node_4 992
-709 
-282 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_0 1694
-maxoptime-node_9-node_0 1694
-1681 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_0 1215
-maxoptime-node_3-node_0 1215
-1202 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_9 1329
-maxoptime-node_13-node_9 1329
-1003 
-326 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_10 1386
-maxoptime-node_6-node_10 1386
-1373 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_13 1451
-maxoptime-node_9-node_13 1451
-1291 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_4 1321
-maxoptime-node_1-node_4 1321
-1038 
-282 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_10 1292
-maxoptime-node_5-node_10 1292
-1278 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_7 805
-maxoptime-node_10-node_7 805
-655 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_12 1511
-maxoptime-node_6-node_12 1511
-1248 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_5 1192
-maxoptime-node_0-node_5 1192
-953 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_7 1398
-maxoptime-node_12-node_7 1398
-1249 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_7 1365
-maxoptime-node_13-node_7 1365
-1216 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_0 1151
-maxoptime-node_4-node_0 1151
-1138 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_5 1222
-maxoptime-node_7-node_5 1222
-983 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_7 1172
-maxoptime-node_3-node_7 1172
-1023 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_7 1440
-maxoptime-node_9-node_7 1440
-1291 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_11 996
-maxoptime-node_13-node_11 996
-711 
-285 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_12 1513
-maxoptime-node_6-node_12 1513
-1238 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_2-node_13 1952
+maxoptime-node_2-node_13 1952
+1725 
+227 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_5-node_2 2295
+maxoptime-node_5-node_2 2295
+2019 
 275 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_6 1139
-maxoptime-node_8-node_6 1139
-810 
-328 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_10 1295
-maxoptime-node_6-node_10 1295
-1258 
-36 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_6 1554
-maxoptime-node_11-node_6 1554
-1248 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_6 1587
-maxoptime-node_2-node_6 1587
-1281 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_2 1458
-maxoptime-node_1-node_2 1458
-1313 
-144 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_6 1391
-maxoptime-node_11-node_6 1391
-1084 
-306 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_2 1393
-maxoptime-node_6-node_2 1393
-1260 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_3 1441
-maxoptime-node_5-node_3 1441
-1260 
-180 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_0 741
-maxoptime-node_3-node_0 741
-727 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_5 1261
-maxoptime-node_2-node_5 1261
-1000 
-261 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_7 1364
-maxoptime-node_12-node_7 1364
-1203 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_8 1278
-maxoptime-node_1-node_8 1278
-1055 
-223 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_10 1237
-maxoptime-node_7-node_10 1237
-1223 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_11 1544
-maxoptime-node_2-node_11 1544
-1282 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_13 946
-maxoptime-node_10-node_13 946
-776 
-170 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_7 1506
-maxoptime-node_6-node_7 1506
-1346 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_4 1350
-maxoptime-node_12-node_4 1350
-1078 
-272 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_8 914
-maxoptime-node_3-node_8 914
-735 
-179 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_12 1019
-maxoptime-node_13-node_12 1019
-732 
-287 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_7 1279
-maxoptime-node_4-node_7 1279
-1129 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_6 1515
-maxoptime-node_2-node_6 1515
-1198 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_12 1591
-maxoptime-node_1-node_12 1591
-1316 
-274 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_0 1106
-maxoptime-node_1-node_0 1106
-1082 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_3 1150
-maxoptime-node_5-node_3 1150
-991 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_1 1281
-maxoptime-node_5-node_1 1281
-1017 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_9 1352
-maxoptime-node_1-node_9 1352
-1025 
-327 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_5 930
-maxoptime-node_7-node_5 930
-680 
-250 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_6 1023
-maxoptime-node_7-node_6 1023
-705 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_12 1871
-maxoptime-node_5-node_12 1871
-1608 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_11 1472
-maxoptime-node_2-node_11 1472
-1199 
-273 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_11 1288
-maxoptime-node_8-node_11 1288
-1026 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_7 1239
-maxoptime-node_12-node_7 1239
-1089 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_4 1591
-maxoptime-node_5-node_4 1591
-1297 
-293 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_7 821
-maxoptime-node_0-node_7 821
-649 
-171 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_3 851
-maxoptime-node_7-node_3 851
-693 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_10 1652
-maxoptime-node_5-node_10 1652
-1627 
-24 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_12 1076
-maxoptime-node_8-node_12 1076
-812 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_4 1351
-maxoptime-node_11-node_4 1351
-1079 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_4 1237
-maxoptime-node_5-node_4 1237
-965 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_12 1011
-maxoptime-node_13-node_12 1011
-748 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_12 1673
-maxoptime-node_4-node_12 1673
-1410 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_2 980
-maxoptime-node_11-node_2 980
-825 
-155 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_8 899
-maxoptime-node_7-node_8 899
-720 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_10 1004
-maxoptime-node_2-node_10 1004
-979 
-24 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_1 937
-maxoptime-node_10-node_1 937
-696 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_9 1155
-maxoptime-node_10-node_9 1155
-829 
-326 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_12 1868
-maxoptime-node_5-node_12 1868
-1604 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_9 1505
-maxoptime-node_4-node_9 1505
-1190 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_1 1369
-maxoptime-node_12-node_1 1369
-1127 
-242 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_2 1148
-maxoptime-node_13-node_2 1148
-1015 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_12 1449
-maxoptime-node_2-node_12 1449
-1186 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_4 1016
-maxoptime-node_13-node_4 1016
-744 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_6 1020
-maxoptime-node_13-node_6 1020
-702 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_3 883
-maxoptime-node_13-node_3 883
-725 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_3 1146
-maxoptime-node_2-node_3 1146
-976 
-169 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_10 1631
-maxoptime-node_5-node_10 1631
-1617 
-14 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_7 1801
-maxoptime-node_5-node_7 1801
-1629 
-171 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_13 1091
-maxoptime-node_0-node_13 1091
-919 
-172 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_2 1416
-maxoptime-node_9-node_2 1416
-1271 
-144 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_9 1435
-maxoptime-node_1-node_9 1435
-1108 
-326 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_11 1153
-maxoptime-node_0-node_11 1153
-858 
-295 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_5 1078
-maxoptime-node_10-node_5 1078
-816 
-261 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_12 1706
-maxoptime-node_9-node_12 1706
-1431 
-274 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_6 1030
-maxoptime-node_3-node_6 1030
-713 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_4 1363
-maxoptime-node_12-node_4 1363
-1092 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_6 1554
-maxoptime-node_2-node_6 1554
-1247 
-306 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_11 1510
-maxoptime-node_2-node_11 1510
-1248 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_12 1495
-maxoptime-node_6-node_12 1495
-1209 
-285 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_4 1046
-maxoptime-node_0-node_4 1046
-774 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_11 1072
-maxoptime-node_8-node_11 1072
-809 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_4 1014
-maxoptime-node_3-node_4 1014
-720 
-293 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_1 1624
-maxoptime-node_6-node_1 1624
-1360 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_0 1013
-maxoptime-node_7-node_0 1013
-987 
-25 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_2 1420
-maxoptime-node_9-node_2 1420
-1286 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_6 1046
-maxoptime-node_7-node_6 1046
-729 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_13 927
-maxoptime-node_7-node_13 927
-746 
-181 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_8 1278
-maxoptime-node_1-node_8 1278
-1077 
-200 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_4 1455
-maxoptime-node_2-node_4 1455
-1183 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_8 1468
-maxoptime-node_5-node_8 1468
-1289 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_13 1284
-maxoptime-node_4-node_13 1284
-1125 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_1 950
-maxoptime-node_13-node_1 950
-708 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_2 1582
-maxoptime-node_9-node_2 1582
-1437 
-144 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_10 1064
-maxoptime-node_8-node_10 1064
-1028 
-35 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_10 840
-maxoptime-node_0-node_10 840
-826 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_11 999
-maxoptime-node_3-node_11 999
-737 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_8 906
-maxoptime-node_3-node_8 906
-716 
-189 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_9 1439
-maxoptime-node_4-node_9 1439
-1101 
-337 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_5 1446
-maxoptime-node_8-node_5 1446
-1207 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_1 1487
-maxoptime-node_11-node_1 1487
-1245 
-242 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_11 1153
-maxoptime-node_6-node_11 1153
-891 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_6 1580
-maxoptime-node_2-node_6 1580
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_8-node_6 2545
+maxoptime-node_8-node_6 2545
+1984 
+561 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_12-node_3 2547
+maxoptime-node_12-node_3 2547
+1991 
+555 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_7-node_6 2558
+maxoptime-node_7-node_6 2558
+2008 
+549 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_0-node_10 1746
+maxoptime-node_0-node_10 1746
+1341 
+404 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_1-node_11 2078
+maxoptime-node_1-node_11 2078
+1584 
+493 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_2-node_12 1956
+maxoptime-node_2-node_12 1956
+1400 
+555 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_9-node_6 2280
+maxoptime-node_9-node_6 2280
+1730 
+549 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_12-node_7 2949
+maxoptime-node_12-node_7 2949
+2345 
+604 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_0-node_5 2113
+maxoptime-node_0-node_5 2113
+1509 
+604 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_13-node_10 1978
+maxoptime-node_13-node_10 1978
+1585 
+392 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_4-node_8 2587
+maxoptime-node_4-node_8 2587
+1978 
+609 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_13-node_1 1721
+maxoptime-node_13-node_1 1721
+1465 
+255 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_13-node_4 1780
+maxoptime-node_13-node_4 1780
 1274 
-306 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_3 949
-maxoptime-node_10-node_3 949
-779 
-169 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_1 980
-maxoptime-node_13-node_1 980
-739 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_7 1355
-maxoptime-node_2-node_7 1355
-1195 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_2 1429
-maxoptime-node_9-node_2 1429
-1284 
-145 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_7 1180
-maxoptime-node_1-node_7 1180
-1030 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_3 1391
-maxoptime-node_2-node_3 1391
-1232 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_0 1082
-maxoptime-node_1-node_0 1082
-1058 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_0 1367
-maxoptime-node_6-node_0 1367
-1355 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_3 1226
-maxoptime-node_11-node_3 1226
-1068 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_9 1527
-maxoptime-node_3-node_9 1527
-1201 
-326 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_0 1677
-maxoptime-node_9-node_0 1677
-1664 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_6 1453
-maxoptime-node_12-node_6 1453
-1114 
-338 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_12 1300
-maxoptime-node_5-node_12 1300
-1026 
-274 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_3 1596
-maxoptime-node_9-node_3 1596
-1426 
-169 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_1 1608
-maxoptime-node_6-node_1 1608
-1355 
-252 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_1 1322
-maxoptime-node_11-node_1 1322
-1081 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_5 977
-maxoptime-node_7-node_5 977
-715 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_10 1060
-maxoptime-node_12-node_10 1060
-1036 
-24 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_9 1546
-maxoptime-node_8-node_9 1546
-1230 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_11 1468
-maxoptime-node_4-node_11 1468
-1183 
-284 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_6 1448
-maxoptime-node_4-node_6 1448
-1142 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_11 1489
-maxoptime-node_9-node_11 1489
-1227 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_4 1696
-maxoptime-node_9-node_4 1696
-1414 
-282 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_2 1536
-maxoptime-node_9-node_2 1536
-1403 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_6 1011
-maxoptime-node_7-node_6 1011
-705 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_2 844
-maxoptime-node_7-node_2 844
-711 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_10 943
-maxoptime-node_9-node_10 943
-929 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_5 1284
-maxoptime-node_11-node_5 1284
-1044 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_12 1507
-maxoptime-node_2-node_12 1507
-1232 
-275 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_7 1392
-maxoptime-node_11-node_7 1392
-1231 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_2 888
-maxoptime-node_13-node_2 888
-743 
-144 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_8 1133
-maxoptime-node_10-node_8 1133
-933 
-200 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_3 1072
-maxoptime-node_0-node_3 1072
-913 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_9 1305
-maxoptime-node_7-node_9 1305
-989 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_7 885
-maxoptime-node_3-node_7 885
-736 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_11 1515
-maxoptime-node_6-node_11 1515
-1252 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_12 1031
-maxoptime-node_0-node_12 1031
-768 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_3 1405
-maxoptime-node_12-node_3 1405
-1247 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_5 1202
-maxoptime-node_0-node_5 1202
-962 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_0 815
-maxoptime-node_8-node_0 815
-780 
-34 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_1 1074
-maxoptime-node_8-node_1 1074
-810 
-264 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_1 993
-maxoptime-node_3-node_1 993
-752 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_4 1315
-maxoptime-node_13-node_4 1315
-1033 
-282 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_7 1172
-maxoptime-node_13-node_7 1172
-1022 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_11 975
-maxoptime-node_7-node_11 975
-713 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_13 1870
-maxoptime-node_9-node_13 1870
-1688 
-181 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_0 1248
-maxoptime-node_11-node_0 1248
-1235 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_9 1115
-maxoptime-node_8-node_9 1115
-789 
-326 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_0 994
-maxoptime-node_1-node_0 994
-982 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_12 1569
-maxoptime-node_2-node_12 1569
-1284 
-285 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_10 841
-maxoptime-node_8-node_10 841
-805 
-36 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_11 1271
-maxoptime-node_3-node_11 1271
-1008 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_4 1082
-maxoptime-node_0-node_4 1082
-810 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_2 1160
-maxoptime-node_1-node_2 1160
-1015 
-145 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_3 1157
-maxoptime-node_2-node_3 1157
-988 
-169 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_0 1221
-maxoptime-node_8-node_0 1221
-1198 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_12 1280
-maxoptime-node_5-node_12 1280
-1016 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_5 907
-maxoptime-node_2-node_5 907
-656 
-251 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_2 882
-maxoptime-node_7-node_2 882
-749 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_10 1254
-maxoptime-node_12-node_10 1254
-1240 
-14 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_12 1389
-maxoptime-node_4-node_12 1389
-1125 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_7 1264
-maxoptime-node_1-node_7 1264
-1103 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_0 1148
-maxoptime-node_4-node_0 1148
-1136 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_1 1191
-maxoptime-node_10-node_1 1191
-950 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_6 1153
-maxoptime-node_0-node_6 1153
-825 
-328 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_10 1060
-maxoptime-node_11-node_10 1060
-1047 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_1 1856
-maxoptime-node_5-node_1 1856
-1603 
-252 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_5 1045
-maxoptime-node_13-node_5 1045
-794 
-251 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_9 1661
-maxoptime-node_5-node_9 1661
-1334 
-326 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_6 1432
-maxoptime-node_1-node_6 1432
-1115 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_13 1018
-maxoptime-node_10-node_13 1018
-847 
-171 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_5 1375
-maxoptime-node_4-node_5 1375
-1123 
-251 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_5 980
-maxoptime-node_3-node_5 980
-740 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_8 1231
-maxoptime-node_1-node_8 1231
-1041 
-190 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_3 786
-maxoptime-node_10-node_3 786
-616 
-169 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_11 1391
-maxoptime-node_6-node_11 1391
-1106 
-285 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_0 1224
-maxoptime-node_3-node_0 1224
-1211 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_0 1429
-maxoptime-node_4-node_0 1429
-1416 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_12 1516
-maxoptime-node_9-node_12 1516
-1230 
-285 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_8 951
-maxoptime-node_3-node_8 951
-751 
-200 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_0 1245
-maxoptime-node_6-node_0 1245
-1233 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_9 1069
-maxoptime-node_3-node_9 1069
-753 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_0 768
-maxoptime-node_7-node_0 768
-755 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_1 1029
-maxoptime-node_8-node_1 1029
-788 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_6 1269
-maxoptime-node_2-node_6 1269
-962 
-306 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_3 950
-maxoptime-node_0-node_3 950
-792 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_2 1218
-maxoptime-node_11-node_2 1218
-1073 
-145 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_7 902
-maxoptime-node_13-node_7 902
-742 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_13 1415
-maxoptime-node_6-node_13 1415
-1256 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_13 910
-maxoptime-node_8-node_13 910
-751 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_6 1499
-maxoptime-node_12-node_6 1499
-1193 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_13 952
-maxoptime-node_8-node_13 952
-793 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_2 834
-maxoptime-node_7-node_2 834
-689 
-144 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_0 1062
-maxoptime-node_12-node_0 1062
-1038 
-24 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_5 998
-maxoptime-node_0-node_5 998
-758 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_7 1233
-maxoptime-node_11-node_7 1233
-1083 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_4 1165
-maxoptime-node_0-node_4 1165
-860 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_0 765
-maxoptime-node_7-node_0 765
-752 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_7 900
-maxoptime-node_8-node_7 900
-750 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_3 834
-maxoptime-node_8-node_3 834
-675 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_1 1667
-maxoptime-node_4-node_1 1667
-1403 
-264 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_6 1561
-maxoptime-node_7-node_6 1561
-1255 
-306 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_6 1562
-maxoptime-node_9-node_6 1562
-1256 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_1 1008
-maxoptime-node_8-node_1 1008
-766 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_5 1140
-maxoptime-node_11-node_5 1140
-889 
-251 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_2 1394
-maxoptime-node_6-node_2 1394
-1249 
-144 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_11 1230
-maxoptime-node_10-node_11 1230
-967 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_6 1411
-maxoptime-node_1-node_6 1411
-1106 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_5 978
-maxoptime-node_3-node_5 978
-738 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_13 1452
-maxoptime-node_5-node_13 1452
-1270 
-181 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_2 1538
-maxoptime-node_4-node_2 1538
-1404 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_10 1021
-maxoptime-node_8-node_10 1021
-986 
-35 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_12 1880
-maxoptime-node_5-node_12 1880
-1605 
-275 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_0 976
-maxoptime-node_9-node_0 976
-951 
-24 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_5 1204
-maxoptime-node_2-node_5 1204
-964 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_8 1200
-maxoptime-node_1-node_8 1200
-1021 
-179 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_7 1273
-maxoptime-node_4-node_7 1273
-1113 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_8 820
-maxoptime-node_2-node_8 820
-642 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_1 1668
-maxoptime-node_9-node_1 1668
-1427 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_3 850
-maxoptime-node_7-node_3 850
-680 
-169 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_3 940
-maxoptime-node_13-node_3 940
-781 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_0 1188
-maxoptime-node_4-node_0 1188
-1175 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_2 1343
-maxoptime-node_11-node_2 1343
-1210 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_2 878
-maxoptime-node_7-node_2 878
-745 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_2 568
-maxoptime-node_3-node_2 568
-434 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_7 1485
-maxoptime-node_5-node_7 1485
-1336 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_2 1430
-maxoptime-node_9-node_2 1430
-1285 
-145 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_6 1068
-maxoptime-node_13-node_6 1068
-729 
-339 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_5 1362
-maxoptime-node_4-node_5 1362
-1111 
-251 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_9 1753
-maxoptime-node_4-node_9 1753
-1404 
-349 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_7 1451
-maxoptime-node_1-node_7 1451
-1301 
-150 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_13 1276
-maxoptime-node_12-node_13 1276
-1106 
-170 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_5 1317
-maxoptime-node_11-node_5 1317
-1077 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_9 1390
-maxoptime-node_1-node_9 1390
-1074 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_6 1054
-maxoptime-node_7-node_6 1054
-748 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_10 1216
-maxoptime-node_2-node_10 1216
-1192 
-24 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_8 619
-maxoptime-node_7-node_8 619
-418 
-201 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_3 1145
-maxoptime-node_2-node_3 1145
-975 
-170 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_1 1320
-maxoptime-node_12-node_1 1320
-1078 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_13 1198
-maxoptime-node_12-node_13 1198
-1038 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_6 1408
-maxoptime-node_11-node_6 1408
-1102 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_5 965
-maxoptime-node_3-node_5 965
-725 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_6 1082
-maxoptime-node_8-node_6 1082
-776 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_4 1342
-maxoptime-node_1-node_4 1342
-1070 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_5 1021
-maxoptime-node_3-node_5 1021
-770 
-251 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_1 1536
-maxoptime-node_5-node_1 1536
-1283 
-252 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_1 1012
-maxoptime-node_0-node_1 1012
-771 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_7 1249
-maxoptime-node_11-node_7 1249
-1077 
-171 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_3 1235
-maxoptime-node_11-node_3 1235
-1075 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_9 1328
-maxoptime-node_5-node_9 1328
-1013 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_10 733
-maxoptime-node_7-node_10 733
-719 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_3 1268
-maxoptime-node_12-node_3 1268
-1110 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_3 1353
-maxoptime-node_6-node_3 1353
-1195 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_5 1396
-maxoptime-node_9-node_5 1396
-1145 
-251 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_5 645
-maxoptime-node_7-node_5 645
-405 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_1 1036
-maxoptime-node_10-node_1 1036
-772 
-264 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_8 1855
-maxoptime-node_9-node_8 1855
-1676 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_8 1424
-maxoptime-node_7-node_8 1424
-1246 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_0 1440
-maxoptime-node_9-node_0 1440
-1416 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_0 1251
-maxoptime-node_6-node_0 1251
-1239 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_4 1885
-maxoptime-node_5-node_4 1885
-1592 
-293 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_11 1094
-maxoptime-node_8-node_11 1094
-808 
-285 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_3 1345
-maxoptime-node_4-node_3 1345
-1175 
-169 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_3 1114
-maxoptime-node_10-node_3 1114
-955 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_6 1476
-maxoptime-node_2-node_6 1476
-1170 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_7 1445
-maxoptime-node_5-node_7 1445
-1284 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_4 1392
-maxoptime-node_9-node_4 1392
-1121 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_7 1161
-maxoptime-node_1-node_7 1161
-1012 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_0 1130
-maxoptime-node_4-node_0 1130
-1094 
-35 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_1 1452
-maxoptime-node_8-node_1 1452
-1199 
-252 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_3 1583
-maxoptime-node_9-node_3 1583
-1413 
-169 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_8 1283
-maxoptime-node_4-node_8 1283
-1105 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_11 1531
-maxoptime-node_6-node_11 1531
-1268 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_2 1226
-maxoptime-node_1-node_2 1226
-1070 
-155 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_2 904
-maxoptime-node_13-node_2 904
-770 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_5 1435
-maxoptime-node_2-node_5 1435
-1172 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_0 1215
-maxoptime-node_13-node_0 1215
-1203 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_11 1461
-maxoptime-node_8-node_11 1461
-1198 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_10 1220
-maxoptime-node_2-node_10 1220
-1185 
-35 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_10 769
-maxoptime-node_8-node_10 769
-754 
-14 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_0 1274
-maxoptime-node_9-node_0 1274
-1261 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_7 1431
-maxoptime-node_9-node_7 1431
-1282 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_8 928
-maxoptime-node_7-node_8 928
-727 
-201 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_3 977
-maxoptime-node_8-node_3 977
-807 
-169 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_2 838
-maxoptime-node_8-node_2 838
-704 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_11 698
-maxoptime-node_3-node_11 698
-436 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_9 1631
-maxoptime-node_5-node_9 1631
-1293 
-337 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_13 1374
-maxoptime-node_2-node_13 1374
-1192 
-181 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_2 1132
-maxoptime-node_3-node_2 1132
-999 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_12 1389
-maxoptime-node_4-node_12 1389
-1103 
-286 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_1 1165
-maxoptime-node_10-node_1 1165
-923 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_8 1022
-maxoptime-node_4-node_8 1022
-844 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_12 1262
-maxoptime-node_3-node_12 1262
-998 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_0 991
-maxoptime-node_7-node_0 991
-968 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_3 1392
-maxoptime-node_2-node_3 1392
-1234 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_12 1011
-maxoptime-node_7-node_12 1011
-747 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_3 1836
-maxoptime-node_9-node_3 1836
-1678 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_7 921
-maxoptime-node_10-node_7 921
-760 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_1 1328
-maxoptime-node_12-node_1 1328
-1086 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_7 1553
-maxoptime-node_4-node_7 1553
-1404 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_9 1651
-maxoptime-node_5-node_9 1651
-1335 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_4 1563
-maxoptime-node_9-node_4 1563
-1291 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_6 1526
-maxoptime-node_2-node_6 1526
-1197 
-328 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_10 1239
-maxoptime-node_6-node_10 1239
-1226 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_3 1762
-maxoptime-node_5-node_3 1762
-1603 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_3 1230
-maxoptime-node_1-node_3 1230
-1072 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_2 1820
-maxoptime-node_9-node_2 1820
-1687 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_0 1110
-maxoptime-node_12-node_0 1110
-1086 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_9 1322
-maxoptime-node_8-node_9 1322
-1007 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_10 787
-maxoptime-node_12-node_10 787
-774 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_3 934
-maxoptime-node_8-node_3 934
-765 
-169 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_9 1231
-maxoptime-node_10-node_9 1231
-916 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_2 847
-maxoptime-node_7-node_2 847
-713 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_7 1385
-maxoptime-node_6-node_7 1385
-1224 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_9 1489
-maxoptime-node_4-node_9 1489
-1174 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_0 1649
-maxoptime-node_5-node_0 1649
-1614 
-34 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_8 1166
-maxoptime-node_2-node_8 1166
-987 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_2 882
-maxoptime-node_0-node_2 882
-748 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_8 951
-maxoptime-node_10-node_8 951
-772 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_1 1300
-maxoptime-node_5-node_1 1300
-1024 
-275 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_6 1004
-maxoptime-node_7-node_6 1004
-698 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_8 1515
-maxoptime-node_5-node_8 1515
-1336 
-179 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_8 1462
-maxoptime-node_5-node_8 1462
-1283 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_10 626
-maxoptime-node_0-node_10 626
-612 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_7 1172
-maxoptime-node_1-node_7 1172
-1022 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_4 1247
-maxoptime-node_0-node_4 1247
-954 
-293 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_1 999
-maxoptime-node_7-node_1 999
-757 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_2 1384
-maxoptime-node_9-node_2 1384
-1217 
-167 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_10 724
-maxoptime-node_7-node_10 724
-688 
-35 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_9 1530
-maxoptime-node_13-node_9 1530
-1203 
-326 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_9 1508
-maxoptime-node_2-node_9 1508
-1193 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_2 876
-maxoptime-node_13-node_2 876
-743 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_9 1303
-maxoptime-node_2-node_9 1303
-965 
-337 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_6 1576
-maxoptime-node_9-node_6 1576
-1270 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_0 639
-maxoptime-node_10-node_0 639
-627 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_6 1105
-maxoptime-node_3-node_6 1105
-799 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_9 1548
-maxoptime-node_11-node_9 1548
-1233 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_2 855
-maxoptime-node_13-node_2 855
-721 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_4 1516
-maxoptime-node_7-node_4 1516
-1244 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_8 1272
-maxoptime-node_12-node_8 1272
-1060 
-212 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_9 1323
-maxoptime-node_5-node_9 1323
-1008 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_8 1191
-maxoptime-node_5-node_8 1191
-1012 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_5 993
-maxoptime-node_13-node_5 993
-731 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_8 1462
-maxoptime-node_9-node_8 1462
-1283 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_12 1016
-maxoptime-node_13-node_12 1016
-730 
-285 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_6 1238
-maxoptime-node_10-node_6 1238
-932 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_1 1209
-maxoptime-node_10-node_1 1209
-956 
-252 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_8 1191
-maxoptime-node_13-node_8 1191
-1013 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_13 1384
-maxoptime-node_12-node_13 1384
-1202 
-181 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_7 895
-maxoptime-node_13-node_7 895
-735 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_13 930
-maxoptime-node_10-node_13 930
-770 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_10 1150
-maxoptime-node_4-node_10 1150
-1136 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_3 1016
-maxoptime-node_10-node_3 1016
-835 
-181 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_5 1204
-maxoptime-node_2-node_5 1204
-964 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_1 956
-maxoptime-node_13-node_1 956
-714 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_9 1040
-maxoptime-node_13-node_9 1040
-714 
-326 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_11 1390
-maxoptime-node_12-node_11 1390
-1105 
-284 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_3 1552
-maxoptime-node_4-node_3 1552
-1393 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_13 1105
-maxoptime-node_0-node_13 1105
-946 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_5 1440
-maxoptime-node_3-node_5 1440
-1199 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_4 1514
-maxoptime-node_6-node_4 1514
-1242 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_2 955
-maxoptime-node_0-node_2 955
-822 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_0 1258
-maxoptime-node_6-node_0 1258
-1234 
-24 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_11 1082
-maxoptime-node_8-node_11 1082
-819 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_10 1257
-maxoptime-node_11-node_10 1257
-1244 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_10 1238
-maxoptime-node_6-node_10 1238
-1225 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_5 967
-maxoptime-node_13-node_5 967
-726 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_2 1319
-maxoptime-node_11-node_2 1319
-1186 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_12 1476
-maxoptime-node_3-node_12 1476
-1201 
-274 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_2 1533
-maxoptime-node_6-node_2 1533
-1366 
-167 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_9 1467
-maxoptime-node_4-node_9 1467
-1152 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_3 1471
-maxoptime-node_5-node_3 1471
-1313 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_0 1038
-maxoptime-node_5-node_0 1038
-1013 
-25 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_5 1047
-maxoptime-node_8-node_5 1047
-807 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_5 1484
-maxoptime-node_2-node_5 1484
-1244 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_5 1476
-maxoptime-node_12-node_5 1476
-1236 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_9 1065
-maxoptime-node_8-node_9 1065
-750 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_5 1346
-maxoptime-node_12-node_5 1346
-1106 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_10 1317
-maxoptime-node_5-node_10 1317
-1280 
-36 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_2 1189
-maxoptime-node_1-node_2 1189
-1021 
-167 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_9 1385
-maxoptime-node_11-node_9 1385
-1036 
-348 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_10 1086
-maxoptime-node_11-node_10 1086
-1072 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_4 1546
-maxoptime-node_5-node_4 1546
-1251 
-294 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_11 1506
-maxoptime-node_7-node_11 1506
-1232 
-273 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_8 926
-maxoptime-node_7-node_8 926
-747 
-179 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_8 1803
-maxoptime-node_5-node_8 1803
-1603 
-200 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_5 1508
-maxoptime-node_2-node_5 1508
-1269 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_6 1248
-maxoptime-node_10-node_6 1248
-921 
+505 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_4-node_12 2351
+maxoptime-node_4-node_12 2351
+1807 
+544 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_12-node_7 2936
+maxoptime-node_12-node_7 2936
+2354 
+581 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_9-node_7 2669
+maxoptime-node_9-node_7 2669
+2098 
+570 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_10-node_12 2448
+maxoptime-node_10-node_12 2448
+1926 
+522 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_8-node_11 2503
+maxoptime-node_8-node_11 2503
+2010 
+493 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_13-node_14 1901
+maxoptime-node_13-node_14 1901
+1574 
 327 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_11 1021
-maxoptime-node_7-node_11 1021
-758 
-262 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_11-node_0 1845
+maxoptime-node_11-node_0 1845
+1799 
+46 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_4 1111
-maxoptime-node_1-node_4 1111
-838 
-272 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_0-node_11 1811
+maxoptime-node_0-node_11 1811
+1340 
+471 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_4 1535
-maxoptime-node_5-node_4 1535
-1263 
-271 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_1-node_5 2187
+maxoptime-node_1-node_5 2187
+1573 
+613 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_10 666
-maxoptime-node_2-node_10 666
-653 
-13 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_11-node_8 2393
+maxoptime-node_11-node_8 2393
+1783 
+610 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_11 1301
-maxoptime-node_1-node_11 1301
-1038 
-262 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_8-node_2 2286
+maxoptime-node_8-node_2 2286
+2011 
+275 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_12 1568
-maxoptime-node_9-node_12 1568
-1282 
-285 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_0 1238
-maxoptime-node_12-node_0 1238
-1225 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_10 1255
-maxoptime-node_6-node_10 1255
-1241 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_7 1361
-maxoptime-node_12-node_7 1361
-1178 
-183 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_3 1287
-maxoptime-node_6-node_3 1287
-1106 
-180 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_5 1018
-maxoptime-node_8-node_5 1018
-756 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_9 1917
-maxoptime-node_5-node_9 1917
-1601 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_9 1053
-maxoptime-node_7-node_9 1053
-737 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_6 1342
-maxoptime-node_11-node_6 1342
-1025 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_0 1382
-maxoptime-node_6-node_0 1382
-1369 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_8 1583
-maxoptime-node_9-node_8 1583
-1405 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_11 1096
-maxoptime-node_0-node_11 1096
-822 
-273 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_5 1078
-maxoptime-node_10-node_5 1078
-827 
-251 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_5 1046
-maxoptime-node_8-node_5 1046
-806 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_3 1178
-maxoptime-node_5-node_3 1178
-1019 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_7 954
-maxoptime-node_13-node_7 954
-804 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_5 1460
-maxoptime-node_9-node_5 1460
-1219 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_12 1100
-maxoptime-node_10-node_12 1100
-836 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_13 1276
-maxoptime-node_6-node_13 1276
-1095 
-181 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_10 1186
-maxoptime-node_2-node_10 1186
-1173 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_10 949
-maxoptime-node_0-node_10 949
-936 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_0 849
-maxoptime-node_10-node_0 849
-825 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_10 1051
-maxoptime-node_11-node_10 1051
-1038 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_0 765
-maxoptime-node_7-node_0 765
-752 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_3 929
-maxoptime-node_13-node_3 929
-770 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_13 1452
-maxoptime-node_5-node_13 1452
-1282 
-170 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_4 937
-maxoptime-node_8-node_4 937
-665 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_9 1651
-maxoptime-node_5-node_9 1651
-1335 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_5 1345
-maxoptime-node_12-node_5 1345
-1105 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_4 1448
-maxoptime-node_2-node_4 1448
-1176 
-272 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_10 1372
-maxoptime-node_6-node_10 1372
-1359 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_11 1084
-maxoptime-node_0-node_11 1084
-821 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_9 1876
-maxoptime-node_2-node_9 1876
-1561 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_3 1762
-maxoptime-node_5-node_3 1762
-1604 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_5 1022
-maxoptime-node_10-node_5 1022
-782 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_12 1263
-maxoptime-node_1-node_12 1263
-999 
-264 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_6 1423
-maxoptime-node_1-node_6 1423
-1106 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_6 1087
-maxoptime-node_13-node_6 1087
-781 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_12 1477
-maxoptime-node_13-node_12 1477
-1213 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_13 1359
-maxoptime-node_8-node_13 1359
-1200 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_1 1544
-maxoptime-node_5-node_1 1544
-1280 
-264 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_6 1335
-maxoptime-node_8-node_6 1335
-1007 
-328 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_8 1503
-maxoptime-node_9-node_8 1503
-1303 
-200 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_2 1225
-maxoptime-node_12-node_2 1225
-1068 
-157 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_2 1396
-maxoptime-node_9-node_2 1396
-1262 
-134 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_12 1634
-maxoptime-node_5-node_12 1634
-1337 
-297 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_2 837
-maxoptime-node_7-node_2 837
-703 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_8 1278
-maxoptime-node_1-node_8 1278
-1099 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_5 1021
-maxoptime-node_13-node_5 1021
-781 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_13 1084
-maxoptime-node_0-node_13 1084
-925 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_7 1350
-maxoptime-node_3-node_7 1350
-1178 
-172 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_12 1272
-maxoptime-node_1-node_12 1272
-1009 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_5 1504
-maxoptime-node_6-node_5 1504
-1241 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_2 856
-maxoptime-node_7-node_2 856
-722 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_2 1373
-maxoptime-node_6-node_2 1373
-1239 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_10 1060
-maxoptime-node_1-node_10 1060
-1024 
-35 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_2 833
-maxoptime-node_3-node_2 833
-699 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_2 979
-maxoptime-node_0-node_2 979
-845 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_0 982
-maxoptime-node_10-node_0 982
-957 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_13-node_0 1721
+maxoptime-node_13-node_0 1721
+1696 
 25 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_12 1035
-maxoptime-node_13-node_12 1035
-772 
-263 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_2-node_3 2826
+maxoptime-node_2-node_3 2826
+2259 
+567 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_8 1158
-maxoptime-node_7-node_8 1158
-979 
-178 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_12-node_4 2447
+maxoptime-node_12-node_4 2447
+1942 
+504 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_3 1002
-maxoptime-node_11-node_3 1002
-820 
-181 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_7-node_8 2594
+maxoptime-node_7-node_8 2594
+2007 
+586 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_12 1089
-maxoptime-node_10-node_12 1089
-825 
-263 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_1-node_13 1982
+maxoptime-node_1-node_13 1982
+1733 
+248 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_1 1308
-maxoptime-node_12-node_1 1308
-1066 
-241 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_3-node_1 2066
+maxoptime-node_3-node_1 2066
+1833 
+232 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_3 1306
-maxoptime-node_4-node_3 1306
-1148 
-158 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_7-node_3 2483
+maxoptime-node_7-node_3 2483
+1938 
+544 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_12 1056
-maxoptime-node_13-node_12 1056
-792 
-263 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_11-node_3 2475
+maxoptime-node_11-node_3 2475
+1930 
+544 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_7 1753
-maxoptime-node_5-node_7 1753
-1604 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_1 980
-maxoptime-node_3-node_1 980
-738 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_12 1549
-maxoptime-node_5-node_12 1549
-1285 
-264 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_6 1330
-maxoptime-node_1-node_6 1330
-1024 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_6 1411
-maxoptime-node_1-node_6 1411
-1105 
-306 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_1 1083
-maxoptime-node_0-node_1 1083
-841 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_7 1508
-maxoptime-node_6-node_7 1508
-1359 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_10 759
-maxoptime-node_7-node_10 759
-745 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_8 1358
-maxoptime-node_12-node_8 1358
-1168 
-189 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_6 1078
-maxoptime-node_10-node_6 1078
-772 
-306 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_1 1320
-maxoptime-node_12-node_1 1320
-1078 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_6 1377
-maxoptime-node_11-node_6 1377
-1072 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_9 1160
-maxoptime-node_0-node_9 1160
-822 
-337 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_4 1252
-maxoptime-node_10-node_4 1252
-958 
-294 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_6 1540
-maxoptime-node_2-node_6 1540
-1235 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_1 1239
-maxoptime-node_3-node_1 1239
-998 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_13 1597
-maxoptime-node_9-node_13 1597
-1416 
-181 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_7 975
-maxoptime-node_10-node_7 975
-825 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_6 1454
-maxoptime-node_4-node_6 1454
-1137 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_8-node_14 2324
+maxoptime-node_8-node_14 2324
+2008 
 316 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_10 1044
-maxoptime-node_1-node_10 1044
-1031 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_1 1166
-maxoptime-node_0-node_1 1166
-914 
-252 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_3 1218
-maxoptime-node_11-node_3 1218
-1060 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_11 1572
-maxoptime-node_9-node_11 1572
-1287 
-284 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_12 1490
-maxoptime-node_6-node_12 1490
-1227 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_11 1256
-maxoptime-node_7-node_11 1256
-993 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_8 813
-maxoptime-node_0-node_8 813
-612 
-200 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_12 1535
-maxoptime-node_5-node_12 1535
-1272 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_6 1615
-maxoptime-node_9-node_6 1615
-1287 
-328 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_2 1154
-maxoptime-node_8-node_2 1154
-998 
-155 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_1 1510
-maxoptime-node_7-node_1 1510
-1246 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_8 1383
-maxoptime-node_13-node_8 1383
-1193 
-189 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_8 1596
-maxoptime-node_4-node_8 1596
-1418 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_4 999
-maxoptime-node_13-node_4 999
-716 
-283 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_0 1088
-maxoptime-node_11-node_0 1088
-1064 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_6 1308
-maxoptime-node_10-node_6 1308
-1003 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_0 1111
-maxoptime-node_1-node_0 1111
-1098 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_11 1320
-maxoptime-node_12-node_11 1320
-1046 
-274 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_12 1546
-maxoptime-node_5-node_12 1546
-1259 
-286 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_7 889
-maxoptime-node_3-node_7 889
-717 
-171 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_13 1359
-maxoptime-node_8-node_13 1359
-1198 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_10 1350
-maxoptime-node_1-node_10 1350
-1314 
-35 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_11 1199
-maxoptime-node_0-node_11 1199
-937 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_13 1367
-maxoptime-node_6-node_13 1367
-1208 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_0 737
-maxoptime-node_13-node_0 737
-714 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_11 1490
-maxoptime-node_6-node_11 1490
-1227 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_1 1007
-maxoptime-node_7-node_1 1007
-754 
-252 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_0 831
-maxoptime-node_8-node_0 831
-818 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_13 1553
-maxoptime-node_9-node_13 1553
-1394 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_3 1176
-maxoptime-node_8-node_3 1176
-995 
-180 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_11 1040
-maxoptime-node_8-node_11 1040
-777 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_10 1309
-maxoptime-node_9-node_10 1309
-1295 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_7 1407
-maxoptime-node_13-node_7 1407
-1257 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_3 1126
-maxoptime-node_4-node_3 1126
-967 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_0 1094
-maxoptime-node_1-node_0 1094
-1081 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_0 771
-maxoptime-node_3-node_0 771
-758 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_12 996
-maxoptime-node_13-node_12 996
-733 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_6 1401
-maxoptime-node_1-node_6 1401
-1096 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_5 1168
-maxoptime-node_11-node_5 1168
-905 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_4 1274
-maxoptime-node_7-node_4 1274
-992 
-282 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_7 1092
-maxoptime-node_0-node_7 1092
-942 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_0 1084
-maxoptime-node_1-node_0 1084
-1061 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_1 1919
-maxoptime-node_9-node_1 1919
-1678 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_1 1411
-maxoptime-node_2-node_1 1411
-1170 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_6 1232
-maxoptime-node_0-node_6 1232
-925 
-306 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_9 1523
-maxoptime-node_6-node_9 1523
-1185 
-337 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_3 1124
-maxoptime-node_2-node_3 1124
-965 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_6 1422
-maxoptime-node_12-node_6 1422
-1105 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_11 1368
-maxoptime-node_1-node_11 1368
-1094 
-273 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_8 994
-maxoptime-node_10-node_8 994
-816 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_12 1659
-maxoptime-node_4-node_12 1659
-1395 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_11 1304
-maxoptime-node_8-node_11 1304
-1008 
-295 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_3 1383
-maxoptime-node_2-node_3 1383
-1224 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_3 1455
-maxoptime-node_5-node_3 1455
-1296 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_8 1450
-maxoptime-node_6-node_8 1450
-1249 
-200 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_0 1451
-maxoptime-node_2-node_0 1451
-1439 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_11 1009
-maxoptime-node_7-node_11 1009
-747 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_5 1272
-maxoptime-node_12-node_5 1272
-1032 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_9 1046
-maxoptime-node_3-node_9 1046
-719 
-326 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_6 1180
-maxoptime-node_0-node_6 1180
-851 
-328 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_11 1554
-maxoptime-node_5-node_11 1554
-1292 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_12 1250
-maxoptime-node_2-node_12 1250
-986 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_3 1382
-maxoptime-node_11-node_3 1382
-1224 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_11 1491
-maxoptime-node_12-node_11 1491
-1228 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_11 1908
-maxoptime-node_9-node_11 1908
-1645 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_5 1312
-maxoptime-node_6-node_5 1312
-1072 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_5 1485
-maxoptime-node_7-node_5 1485
-1244 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_12 1236
-maxoptime-node_1-node_12 1236
-951 
-285 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_12 975
-maxoptime-node_7-node_12 975
-711 
-264 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_8 860
-maxoptime-node_7-node_8 860
-681 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_8 1456
-maxoptime-node_2-node_8 1456
-1277 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_5 1463
-maxoptime-node_11-node_5 1463
-1223 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_3 1574
-maxoptime-node_9-node_3 1574
-1416 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_9 1367
-maxoptime-node_8-node_9 1367
-1052 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_3 1417
-maxoptime-node_2-node_3 1417
-1236 
-180 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_9 1074
-maxoptime-node_7-node_9 1074
-758 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_11 1407
-maxoptime-node_9-node_11 1407
-1144 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_12 1479
-maxoptime-node_13-node_12 1479
-1215 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_3 1375
-maxoptime-node_13-node_3 1375
-1217 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_9 1057
-maxoptime-node_3-node_9 1057
-742 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_3 1183
-maxoptime-node_5-node_3 1183
-1024 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_2 1442
-maxoptime-node_9-node_2 1442
-1275 
-167 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_10 857
-maxoptime-node_8-node_10 857
-821 
-36 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_10 1127
-maxoptime-node_4-node_10 1127
-1114 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_1 1271
-maxoptime-node_8-node_1 1271
-1007 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_0 808
-maxoptime-node_10-node_0 808
-773 
-34 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_6 1553
-maxoptime-node_2-node_6 1553
-1247 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_3 1322
-maxoptime-node_4-node_3 1322
-1163 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_11 1465
-maxoptime-node_13-node_11 1465
-1202 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_3 1482
-maxoptime-node_5-node_3 1482
-1324 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_6 835
-maxoptime-node_0-node_6 835
-530 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_8 1449
-maxoptime-node_9-node_8 1449
-1271 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_10 1235
-maxoptime-node_6-node_10 1235
-1222 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_8 915
-maxoptime-node_3-node_8 915
-736 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_0 946
-maxoptime-node_10-node_0 946
-933 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_1 1501
-maxoptime-node_2-node_1 1501
-1260 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_4 1411
-maxoptime-node_1-node_4 1411
-1115 
-295 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_13 919
-maxoptime-node_7-node_13 919
-737 
-182 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_2 1092
-maxoptime-node_10-node_2 1092
-958 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_11 1518
-maxoptime-node_2-node_11 1518
-1233 
-284 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_10 1218
-maxoptime-node_13-node_10 1218
-1204 
-14 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_1 1452
-maxoptime-node_8-node_1 1452
-1198 
-253 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_10 706
-maxoptime-node_7-node_10 706
-693 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_10 834
-maxoptime-node_8-node_10 834
-820 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_2 1383
-maxoptime-node_12-node_2 1383
-1249 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_3 1140
-maxoptime-node_7-node_3 1140
-982 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_11 1100
-maxoptime-node_12-node_11 1100
-838 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_13 1393
-maxoptime-node_7-node_13 1393
-1234 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_5 1368
-maxoptime-node_12-node_5 1368
-1106 
-261 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_12 1505
-maxoptime-node_6-node_12 1505
-1240 
-264 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_5 987
-maxoptime-node_3-node_5 987
-747 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_8 1010
-maxoptime-node_4-node_8 1010
-809 
-201 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_3 1272
-maxoptime-node_4-node_3 1272
-1113 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_7 1002
-maxoptime-node_10-node_7 1002
-830 
-172 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_4 1365
-maxoptime-node_1-node_4 1365
-1094 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_0 1405
-maxoptime-node_6-node_0 1405
-1381 
-24 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_8 1359
-maxoptime-node_2-node_8 1359
-1170 
-189 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_11 1399
-maxoptime-node_4-node_11 1399
-1137 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_10 707
-maxoptime-node_13-node_10 707
-693 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_8 902
-maxoptime-node_13-node_8 902
-723 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_11 1018
-maxoptime-node_7-node_11 1018
-710 
-307 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_13 1346
-maxoptime-node_2-node_13 1346
-1187 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_0 796
-maxoptime-node_13-node_0 796
-783 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_8 1416
-maxoptime-node_12-node_8 1416
-1238 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_1 1075
-maxoptime-node_11-node_1 1075
-833 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_3 1473
-maxoptime-node_9-node_3 1473
-1292 
-181 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_12 1547
-maxoptime-node_5-node_12 1547
-1261 
-285 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_2 1539
-maxoptime-node_4-node_2 1539
-1406 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_8 1123
-maxoptime-node_10-node_8 1123
-945 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_10 759
-maxoptime-node_8-node_10 759
-745 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_7 1418
-maxoptime-node_9-node_7 1418
-1257 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_2 1261
-maxoptime-node_12-node_2 1261
-1105 
-155 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_3 907
-maxoptime-node_7-node_3 907
-749 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_9 1621
-maxoptime-node_5-node_9 1621
-1283 
-337 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_13 1432
-maxoptime-node_5-node_13 1432
-1273 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_8 1092
-maxoptime-node_0-node_8 1092
-914 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_8 1424
-maxoptime-node_6-node_8 1424
-1245 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_11 1552
-maxoptime-node_1-node_11 1552
-1289 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_6 1297
-maxoptime-node_7-node_6 1297
-969 
-327 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_1 1499
-maxoptime-node_11-node_1 1499
-1235 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_13 1196
-maxoptime-node_11-node_13 1196
-1037 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_10 1238
-maxoptime-node_3-node_10 1238
-1202 
-35 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_1 1330
-maxoptime-node_12-node_1 1330
-1088 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_12 1070
-maxoptime-node_13-node_12 1070
-805 
-264 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_2 1260
-maxoptime-node_4-node_2 1260
-1126 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_11 1307
-maxoptime-node_1-node_11 1307
-1032 
-274 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_11 1127
-maxoptime-node_10-node_11 1127
-842 
-285 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_1 1530
-maxoptime-node_9-node_1 1530
-1288 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_7 1554
-maxoptime-node_4-node_7 1554
-1405 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_0 883
-maxoptime-node_10-node_0 883
-847 
-35 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_5 1404
-maxoptime-node_4-node_5 1404
-1164 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_10 964
-maxoptime-node_1-node_10 964
-950 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_7 1395
-maxoptime-node_9-node_7 1395
-1246 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_11 954
-maxoptime-node_7-node_11 954
-691 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_4 1365
-maxoptime-node_1-node_4 1365
-1072 
-293 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_7 1264
-maxoptime-node_4-node_7 1264
-1114 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_0 1213
-maxoptime-node_11-node_0 1213
-1201 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_12 1576
-maxoptime-node_1-node_12 1576
-1302 
-274 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_13 1262
-maxoptime-node_11-node_13 1262
-1080 
-181 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_11 1501
-maxoptime-node_12-node_11 1501
-1238 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_1 1497
-maxoptime-node_6-node_1 1497
-1255 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_6 1295
-maxoptime-node_2-node_6 1295
-989 
-306 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_9 1106
-maxoptime-node_8-node_9 1106
-779 
-326 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_13 1250
-maxoptime-node_12-node_13 1250
-1091 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_13 1429
-maxoptime-node_2-node_13 1429
-1269 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_11 1384
-maxoptime-node_1-node_11 1384
-1120 
-264 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_0 1179
-maxoptime-node_4-node_0 1179
-1154 
-24 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_5 1440
-maxoptime-node_4-node_5 1440
-1177 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_13 1405
-maxoptime-node_6-node_13 1405
-1246 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_13 998
-maxoptime-node_0-node_13 998
-839 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_10 1375
-maxoptime-node_6-node_10 1375
-1361 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_5 1532
-maxoptime-node_2-node_5 1532
-1291 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_3 1229
-maxoptime-node_11-node_3 1229
-1049 
-180 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_2 902
-maxoptime-node_10-node_2 902
-768 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_10 1181
-maxoptime-node_4-node_10 1181
-1168 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_6 1528
-maxoptime-node_11-node_6 1528
-1222 
-306 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_0 1281
-maxoptime-node_2-node_0 1281
-1267 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_13 1564
-maxoptime-node_4-node_13 1564
-1393 
-170 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_12 1330
-maxoptime-node_5-node_12 1330
-1043 
-286 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_5 951
-maxoptime-node_7-node_5 951
-711 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_8 984
-maxoptime-node_13-node_8 984
-783 
-201 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_11 1058
-maxoptime-node_3-node_11 1058
-795 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_3 870
-maxoptime-node_7-node_3 870
-712 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_9 1418
-maxoptime-node_12-node_9 1418
-1079 
-338 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_10 1088
-maxoptime-node_11-node_10 1088
-1075 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_8 1173
-maxoptime-node_7-node_8 1173
-994 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_6 1317
-maxoptime-node_2-node_6 1317
-988 
-328 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_2 1002
-maxoptime-node_10-node_2 1002
-846 
-155 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_1 1100
-maxoptime-node_0-node_1 1100
-836 
-264 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_9 1708
-maxoptime-node_6-node_9 1708
-1381 
-326 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_5 1173
-maxoptime-node_10-node_5 1173
-933 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_4 1053
-maxoptime-node_3-node_4 1053
-782 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_11 1045
-maxoptime-node_7-node_11 1045
-760 
-284 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_3 869
-maxoptime-node_7-node_3 869
-710 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_0 988
-maxoptime-node_2-node_0 988
-964 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_2 1347
-maxoptime-node_8-node_2 1347
-1202 
-145 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_13 1362
-maxoptime-node_3-node_13 1362
-1202 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_5 957
-maxoptime-node_8-node_5 957
-717 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_8 1423
-maxoptime-node_11-node_8 1423
-1233 
-189 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_9 1595
-maxoptime-node_2-node_9 1595
-1280 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_13 1266
-maxoptime-node_12-node_13 1266
-1106 
-160 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_0 1393
-maxoptime-node_6-node_0 1393
-1358 
-34 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_11 851
-maxoptime-node_10-node_11 851
-588 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_12 1602
-maxoptime-node_5-node_12 1602
-1338 
-264 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_8 1016
-maxoptime-node_0-node_8 1016
-838 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_6 1623
-maxoptime-node_5-node_6 1623
-1305 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_2 1055
-maxoptime-node_10-node_2 1055
-922 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_0 794
-maxoptime-node_3-node_0 794
-781 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_4 1521
-maxoptime-node_2-node_4 1521
-1227 
-293 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_4 1536
-maxoptime-node_9-node_4 1536
-1264 
-272 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_5 1036
-maxoptime-node_8-node_5 1036
-796 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_13 952
-maxoptime-node_10-node_13 952
-770 
-182 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_9 1493
-maxoptime-node_8-node_9 1493
-1177 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_7 1416
-maxoptime-node_6-node_7 1416
-1244 
-171 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_13 958
-maxoptime-node_8-node_13 958
-798 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_2 1100
-maxoptime-node_10-node_2 1100
-967 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_3 1230
-maxoptime-node_1-node_3 1230
-1072 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_8 1369
-maxoptime-node_12-node_8 1369
-1191 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_3 979
-maxoptime-node_8-node_3 979
-821 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_4 1703
-maxoptime-node_9-node_4 1703
-1431 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_11 1696
-maxoptime-node_9-node_11 1696
-1433 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_13 1400
-maxoptime-node_2-node_13 1400
-1240 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_2 895
-maxoptime-node_7-node_2 895
-761 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_4 1496
-maxoptime-node_6-node_4 1496
-1224 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_12 1097
-maxoptime-node_0-node_12 1097
-834 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_10 862
-maxoptime-node_12-node_10 862
-826 
-36 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_3 902
-maxoptime-node_13-node_3 902
-721 
-181 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_0 861
-maxoptime-node_10-node_0 861
-848 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_7 1010
-maxoptime-node_10-node_7 1010
-860 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_2 1256
-maxoptime-node_4-node_2 1256
-1122 
-133 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_3 1123
-maxoptime-node_2-node_3 1123
-964 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_0 1013
-maxoptime-node_3-node_0 1013
-1000 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_1 1261
-maxoptime-node_8-node_1 1261
-1008 
-252 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_12 1531
-maxoptime-node_2-node_12 1531
-1234 
-297 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_0 1179
-maxoptime-node_4-node_0 1179
-1166 
-12 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_12 1369
-maxoptime-node_1-node_12 1369
-1106 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_1 1543
-maxoptime-node_2-node_1 1543
-1279 
-264 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_1 1169
-maxoptime-node_0-node_1 1169
-928 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_5 1168
-maxoptime-node_0-node_5 1168
-905 
-262 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_10 1238
-maxoptime-node_13-node_10 1238
-1213 
-24 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_7 1377
-maxoptime-node_6-node_7 1377
-1227 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_9 1436
-maxoptime-node_11-node_9 1436
-1086 
-349 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_12 1681
-maxoptime-node_4-node_12 1681
-1418 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_3 1092
-maxoptime-node_10-node_3 1092
-934 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_0 1228
-maxoptime-node_13-node_0 1228
-1204 
-23 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_0 1192
-maxoptime-node_8-node_0 1192
-1178 
-14 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_4 1505
-maxoptime-node_6-node_4 1505
-1222 
-283 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_6 1364
-maxoptime-node_1-node_6 1364
-1035 
-328 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_13 958
-maxoptime-node_8-node_13 958
-799 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_10 1044
-maxoptime-node_5-node_10 1044
-1031 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_3 962
-maxoptime-node_10-node_3 962
-781 
-180 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_4 1354
-maxoptime-node_12-node_4 1354
-1082 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_11 927
-maxoptime-node_2-node_11 927
-642 
-284 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_9 1138
-maxoptime-node_0-node_9 1138
-822 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_8 589
-maxoptime-node_3-node_8 589
-377 
-212 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_4 1100
-maxoptime-node_10-node_4 1100
-828 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_9 1552
-maxoptime-node_2-node_9 1552
-1236 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_5 1020
-maxoptime-node_3-node_5 1020
-780 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_8 1480
-maxoptime-node_1-node_8 1480
-1301 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_6 1714
-maxoptime-node_4-node_6 1714
-1408 
-305 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_10 1088
-maxoptime-node_11-node_10 1088
-1074 
-13 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_3 1244
-maxoptime-node_12-node_3 1244
-1085 
-158 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_13 1008
-maxoptime-node_10-node_13 1008
-825 
-182 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_1 1443
-maxoptime-node_3-node_1 1443
-1201 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_1 1566
-maxoptime-node_5-node_1 1566
-1324 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_0 1326
-maxoptime-node_9-node_0 1326
-1291 
-35 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_9 1533
-maxoptime-node_6-node_9 1533
-1218 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_5 1012
-maxoptime-node_13-node_5 1012
-772 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_10 1131
-maxoptime-node_12-node_10 1131
-1106 
-24 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_5 1645
-maxoptime-node_4-node_5 1645
-1405 
-240 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_5 1032
-maxoptime-node_13-node_5 1032
-792 
-239 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_12 1479
-maxoptime-node_2-node_12 1479
-1204 
-274 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_6 1029
-maxoptime-node_3-node_6 1029
-711 
-317 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_1 842
-maxoptime-node_0-node_1 842
-601 
-241 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_10 1278
-maxoptime-node_6-node_10 1278
-1242 
-35 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_5-node_7 1434
-maxoptime-node_5-node_7 1434
-1262 
-172 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_13 1447
-maxoptime-node_9-node_13 1447
-1288 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_5 968
-maxoptime-node_3-node_5 968
-716 
-251 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_12-node_13 1402
-maxoptime-node_12-node_13 1402
-1232 
-169 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_8-node_9 1063
-maxoptime-node_8-node_9 1063
-747 
-315 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_11-node_4 1528
-maxoptime-node_11-node_4 1528
-1234 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_11-node_13 1820
+maxoptime-node_11-node_13 1820
+1582 
+237 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_8-node_11 2500
+maxoptime-node_8-node_11 2500
+2006 
+494 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_6-node_5 2648
+maxoptime-node_6-node_5 2648
+2046 
+602 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_0-node_12 1880
+maxoptime-node_0-node_12 1880
+1347 
+533 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_12-node_14 2383
+maxoptime-node_12-node_14 2383
+2089 
 294 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_0 1148
-maxoptime-node_4-node_0 1148
-1135 
-12 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_10-node_2 1882
+maxoptime-node_10-node_2 1882
+1618 
+264 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_8 1392
-maxoptime-node_3-node_8 1392
-1202 
-189 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_0-node_4 1703
+maxoptime-node_0-node_4 1703
+1219 
+483 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_11 1464
-maxoptime-node_3-node_11 1464
-1202 
-262 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_0-node_4 1726
+maxoptime-node_0-node_4 1726
+1231 
+494 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_1 1188
-maxoptime-node_0-node_1 1188
-914 
-274 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_2-node_11 2610
+maxoptime-node_2-node_11 2610
+2139 
+471 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_1 976
-maxoptime-node_7-node_1 976
-734 
-241 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_10-node_1 1513
+maxoptime-node_10-node_1 1513
+1280 
+232 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_3-node_11 972
-maxoptime-node_3-node_11 972
-710 
-262 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_0-node_13 1683
+maxoptime-node_0-node_13 1683
+1434 
+249 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_1 1347
-maxoptime-node_4-node_1 1347
-1106 
-241 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_3-node_8 2190
+maxoptime-node_3-node_8 2190
+1580 
+609 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_4-node_12 1375
-maxoptime-node_4-node_12 1375
-1101 
-274 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_1-node_9 1493
+maxoptime-node_1-node_9 1493
+1196 
+297 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_10 1257
-maxoptime-node_6-node_10 1257
-1243 
-13 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_9-node_5 2106
+maxoptime-node_9-node_5 2106
+1537 
+569 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_10-node_0 1002
-maxoptime-node_10-node_0 1002
-990 
-12 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_2-node_10 2103
+maxoptime-node_2-node_10 2103
+1711 
+392 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_2-node_7 1397
-maxoptime-node_2-node_7 1397
-1248 
-149 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_6-node_11 2494
+maxoptime-node_6-node_11 2494
+2011 
+482 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_0-node_4 1044
-maxoptime-node_0-node_4 1044
-772 
-271 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_11-node_6 2146
+maxoptime-node_11-node_6 2146
+1584 
+561 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_13 1383
-maxoptime-node_7-node_13 1383
-1223 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_4 1486
-maxoptime-node_13-node_4 1486
-1214 
-271 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_13 1140
-maxoptime-node_7-node_13 1140
-981 
-159 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_12 1536
-maxoptime-node_9-node_12 1536
-1273 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_8 1451
-maxoptime-node_9-node_8 1451
-1272 
-178 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_1-node_12 1055
-maxoptime-node_1-node_12 1055
-792 
-263 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_13-node_7 1354
-maxoptime-node_13-node_7 1354
-1205 
-149 
-
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_9-node_6 2008
-maxoptime-node_9-node_6 2008
-1691 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_6-node_14 1998
+maxoptime-node_6-node_14 1998
+1680 
 317 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_6-node_8 1437
-maxoptime-node_6-node_8 1437
-1236 
-201 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_1-node_7 2349
+maxoptime-node_1-node_7 2349
+1745 
+604 
 
-1 : performance.go:190 (operations.Test2)    - 
-minoptime-node_7-node_4 1028
-maxoptime-node_7-node_4 1028
-746 
-282 
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_8-node_4 2380
+maxoptime-node_8-node_4 2380
+1876 
+504 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_4-node_12 2384
+maxoptime-node_4-node_12 2384
+1851 
+532 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_12-node_11 2548
+maxoptime-node_12-node_11 2548
+2077 
+471 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_10-node_13 1841
+maxoptime-node_10-node_13 1841
+1615 
+226 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_12-node_14 2293
+maxoptime-node_12-node_14 2293
+1986 
+306 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_8-node_13 2332
+maxoptime-node_8-node_13 2332
+2095 
+237 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_9-node_12 2264
+maxoptime-node_9-node_12 2264
+1742 
+522 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_9-node_7 2266
+maxoptime-node_9-node_7 2266
+1695 
+570 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_7-node_6 3012
+maxoptime-node_7-node_6 3012
+2473 
+538 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_11-node_12 2334
+maxoptime-node_11-node_12 2334
+1800 
+533 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_5-node_0 1812
+maxoptime-node_5-node_0 1812
+1777 
+35 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_11-node_10 2314
+maxoptime-node_11-node_10 2314
+1943 
+370 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_10-node_5 1847
+maxoptime-node_10-node_5 1847
+1256 
+590 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_4-node_13 2190
+maxoptime-node_4-node_13 2190
+1952 
+237 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_5-node_3 2592
+maxoptime-node_5-node_3 2592
+2025 
+567 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_6-node_0 1469
+maxoptime-node_6-node_0 1469
+1445 
+23 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_7-node_0 1930
+maxoptime-node_7-node_0 1930
+1917 
+12 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_7-node_8 2537
+maxoptime-node_7-node_8 2537
+1951 
+586 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_13-node_0 1457
+maxoptime-node_13-node_0 1457
+1444 
+12 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_12-node_14 2649
+maxoptime-node_12-node_14 2649
+2354 
+294 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_12-node_8 2954
+maxoptime-node_12-node_8 2954
+2334 
+620 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_3-node_11 2337
+maxoptime-node_3-node_11 2337
+1832 
+505 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_6-node_11 2886
+maxoptime-node_6-node_11 2886
+2415 
+471 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_5-node_0 1799
+maxoptime-node_5-node_0 1799
+1776 
+23 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_14-node_2 2443
+maxoptime-node_14-node_2 2443
+2156 
+287 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_7-node_1 2239
+maxoptime-node_7-node_1 2239
+1995 
+244 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_6-node_5 2581
+maxoptime-node_6-node_5 2581
+2011 
+569 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_10-node_12 2472
+maxoptime-node_10-node_12 2472
+1939 
+533 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_10-node_7 2220
+maxoptime-node_10-node_7 2220
+1616 
+603 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_5-node_8 2623
+maxoptime-node_5-node_8 2623
+2036 
+586 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_0-node_5 1642
+maxoptime-node_0-node_5 1642
+1062 
+580 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_7-node_0 2018
+maxoptime-node_7-node_0 2018
+2005 
+12 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_5-node_2 2187
+maxoptime-node_5-node_2 2187
+1933 
+253 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_14-node_2 2303
+maxoptime-node_14-node_2 2303
+2050 
+253 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_3-node_11 2476
+maxoptime-node_3-node_11 2476
+1993 
+482 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_5-node_13 2266
+maxoptime-node_5-node_13 2266
+2028 
+237 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_5-node_2 2029
+maxoptime-node_5-node_2 2029
+1776 
+253 
+
+1 : performance.go:184 (operations.Test2)    - 
+minoptime-node_9-node_0 1543
+maxoptime-node_9-node_0 1543
+1508 
+34 
 
 1 : service.go:152 (main.(*IPFSSimulation).Run) - Done
-1 : measure.go:265 (monitor.send)            - Couldn't send to monitor-sink: write tcp 192.168.3.198:35318->192.168.253.1:10008: write: broken pipe
-1 : measure.go:265 (monitor.send)            - Couldn't send to monitor-sink: write tcp 192.168.3.198:35318->192.168.253.1:10008: write: broken pipe
-1 : measure.go:265 (monitor.send)            - Couldn't send to monitor-sink: write tcp 192.168.3.198:35318->192.168.253.1:10008: write: broken pipe
-1 : measure.go:265 (monitor.send)            - Couldn't send to monitor-sink: write tcp 192.168.3.198:35318->192.168.253.1:10008: write: broken pipe
-1 : measure.go:265 (monitor.send)            - Couldn't send to monitor-sink: write tcp 192.168.3.198:35318->192.168.253.1:10008: write: broken pipe
