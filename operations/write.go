@@ -2,7 +2,10 @@ package operations
 
 import (
 	"context"
+	"fmt"
 	"os"
+	"os/exec"
+	"strings"
 	"sync"
 	"time"
 
@@ -44,4 +47,22 @@ func writeFile(c client.Client, path string) (string, time.Duration) {
 		log.Lvl1("nil return after write")
 	}
 	return name, t.Sub(start)
+}
+
+func writeFile2(host, path string) (string, time.Duration) {
+	_, err := os.Stat(path)
+	if err != nil {
+		log.Lvl1(err)
+	}
+	cmd := "ipfs-cluster-ctl --host " + host + " add " + path
+	fmt.Println(cmd)
+	start := time.Now()
+	o, err := exec.Command("bash", "-c", cmd).Output()
+	t := time.Now().Sub(start)
+	fmt.Println(string(o), t)
+	if err != nil {
+		fmt.Println(err)
+	}
+	name := strings.Split(string(o), " ")[1]
+	return name, t
 }

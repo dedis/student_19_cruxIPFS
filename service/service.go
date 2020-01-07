@@ -9,6 +9,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"os"
 	"strconv"
 	"strings"
 	"sync"
@@ -126,11 +127,11 @@ func (s *Service) setup(req *InitRequest) {
 
 	s.Name = s.Nodes.GetServerIdentityToName(s.ServerIdentity())
 
-	//_, err := os.Stat(PingsFile)
-	//s.getPings(err == nil)
+	_, err := os.Stat(PingsFile)
+	s.getPings(err == nil && !req.ComputePings)
 	//os.IsNotExist(err))
 
-	s.getPings(true)
+	//s.getPings(false)
 	if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == Node0 {
 		//s.printDistances("Ping distances")
 		s.printPings()

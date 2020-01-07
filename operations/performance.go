@@ -123,6 +123,7 @@ func Test1(nOps, nodesN int) {
 // the same sequence as a previous experiment, if does not exist or invalid
 // format, generate a new sequence
 func Test2(nOps, nodesN int) {
+	log.Lvl1("Starting Test2")
 	ops, err := ioutil.ReadFile(sequenceName)
 	if err != nil {
 		log.Lvl1("Error in reading operation sequence file")
@@ -157,7 +158,7 @@ func Test2(nOps, nodesN int) {
 		f := "file" + strconv.Itoa(i) + ".txt"
 
 		NewFile(f)
-		cid, res0 := Write(nodeW, f)
+		cid, res0 := Write2(nodeW, f)
 		res1 := Read(nodeR, cid)
 
 		min := time.Duration(math.MaxInt64)

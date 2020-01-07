@@ -81,3 +81,4 @@ fi
 cd ../detergen
 go build
 ./detergen -N $N -R $N -K $K -SpaceMax $D
+rm ../data/details.txt

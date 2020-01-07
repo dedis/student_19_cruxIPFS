@@ -1,9 +1,9 @@
 K=3
-N=12
-R=12
+N=14
+R=14
 D=120
 remote=true
 ops=100
-pings=f_pings
+pings=false
 mode=crdt
 cruxified=true

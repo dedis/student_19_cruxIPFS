@@ -2,28 +2,19 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"os"
 	"os/exec"
-	"path/filepath"
-	"strconv"
-	"strings"
 	"time"
 
 	"github.com/BurntSushi/toml"
 
 	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
-	"github.com/dedis/student_19_cruxIPFS/gentree"
 	"github.com/dedis/student_19_cruxIPFS/operations"
 	"github.com/dedis/student_19_cruxIPFS/service"
 
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/app"
 	"go.dedis.ch/onet/v3/log"
-	"go.dedis.ch/onet/v3/network"
 )
-
-const cruxified = true
 
 func init() {
 	onet.SimulationRegister(service.ServiceName, NewIPFSSimulation)
@@ -51,17 +42,11 @@ func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	app.Copy(dir, ipfsLocation)
 	app.Copy(dir, ipfsClusterLocation)
 	app.Copy(dir, ipfsCtlLocation)
-
-	b, err := ioutil.ReadFile(gendetailsLocation)
-	if err != nil {
-		log.Error(err)
-	}
-	log.Lvl1("\ndetails: simulation, mode: " +
-		service.ClusterConsensusMode + ", " + string(b))
+	app.Copy(dir, simdetailsLocation)
 
 	sc := &onet.SimulationConfig{}
 	s.CreateRoster(sc, hosts, 2000)
-	err = s.CreateTree(sc)
+	err := s.CreateTree(sc)
 	if err != nil {
 		return nil, err
 	}
@@ -75,6 +60,8 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 
 	s.ReadNodeInfo(false, *config)
 
+	parseParams()
+
 	mymap := s.initializeMaps(config, true)
 
 	myService := config.GetService(service.ServiceName).(*service.Service)
@@ -85,17 +72,21 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 		OnetTree:             config.Tree,
 		Roster:               config.Roster,
 		Cruxified:            cruxified,
+		ComputePings:         computePings,
+		Mode:                 mode,
 	}
 
 	myService.InitRequest(serviceReq)
 
 	if cruxified {
+		fmt.Println("Cruxified")
 		for _, trees := range myService.BinaryTree {
 			for _, tree := range trees {
 				config.Overlay.RegisterTree(tree)
 			}
 		}
 	} else {
+		fmt.Println("Vanilla")
 		bt := make(map[string][]*onet.Tree)
 		bt[service.Node0] = []*onet.Tree{config.Tree}
 		myService.BinaryTree = bt
@@ -159,76 +150,8 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 
 	// wait for some time for clusters to converge
 	time.Sleep(20 * time.Second)
-	operations.Test2(500, len(myService.Nodes.All))
+	operations.Test2(nOps, len(myService.Nodes.All))
 
 	log.Lvl1("Done")
 	return nil
-}
-
-// ReadNodeInfo read node information
-func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool,
-	config onet.SimulationConfig) {
-	_, err := filepath.Abs(filepath.Dir(os.Args[0]))
-	if err != nil {
-		log.Fatal(err)
-	}
-	s.ReadNodesFromFile(nodesFile, config)
-}
-
-// ReadNodesFromFile read nodes information from a text file
-func (s *IPFSSimulation) ReadNodesFromFile(filename string,
-	config onet.SimulationConfig) {
-	s.Nodes.All = make([]*gentree.LocalityNode, 0)
-
-	readLine := cruxIPFS.ReadFileLineByLine(filename)
-
-	for i := 0; i < len(config.Roster.List); i++ {
-		line := readLine()
-		if line == "" {
-			break
-		}
-
-		if strings.HasPrefix(line, "#") {
-			continue
-		}
-
-		tokens := strings.Split(line, " ")
-		name, levelstr := tokens[0], tokens[4]
-
-		level, err := strconv.Atoi(levelstr)
-
-		if err != nil {
-			log.Error(err)
-		}
-
-		myNode := gentree.CreateNode(name, level)
-		s.Nodes.All = append(s.Nodes.All, myNode)
-	}
-}
-
-func (s *IPFSSimulation) initializeMaps(config *onet.SimulationConfig,
-	isLocalTest bool) map[*network.ServerIdentity]string {
-
-	s.Nodes.ServerIdentityToName = make(map[network.ServerIdentityID]string)
-	ServerIdentityToName := make(map[*network.ServerIdentity]string)
-
-	if isLocalTest {
-		for i := range s.Nodes.All {
-			treeNode := config.Tree.List()[i]
-			s.Nodes.All[i].ServerIdentity = treeNode.ServerIdentity
-			s.Nodes.ServerIdentityToName[treeNode.ServerIdentity.ID] =
-				s.Nodes.All[i].Name
-			ServerIdentityToName[treeNode.ServerIdentity] = s.Nodes.All[i].Name
-		}
-	} else {
-		for _, treeNode := range config.Tree.List() {
-			serverIP := treeNode.ServerIdentity.Address.Host()
-			node := s.Nodes.GetByIP(serverIP)
-			node.ServerIdentity = treeNode.ServerIdentity
-			s.Nodes.ServerIdentityToName[treeNode.ServerIdentity.ID] = node.Name
-			ServerIdentityToName[treeNode.ServerIdentity] = node.Name
-		}
-	}
-
-	return ServerIdentityToName
 }

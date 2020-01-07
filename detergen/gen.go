@@ -820,8 +820,10 @@ func genAndPrintRndRouters(N int, R int, SpaceMax int, K int, zeroY bool,
 	w2.WriteString("for {set i 0} {$i < $n_nodes} {incr i} {\n")
 
 	w2.WriteString("\tset site($i) [$ns node]\n")
-	//w2.WriteString("\ttb-set-hardware $site($i) {MicroCloud}\n")
-	w2.WriteString("\ttb-set-hardware $site($i) {bpc2133}\n")
+	//w2.WriteString("\ttb-set-hardware $site($i) {MicroCloud}\n")dl380g3
+	//w2.WriteString("\ttb-set-hardware $site($i) {bpc2133}\n")
+	w2.WriteString("\ttb-set-hardware $site($i) {dl380g3}\n")
+
 	w2.WriteString("\ttb-set-node-os $site($i) Ubuntu1404-64-STD\n")
 
 	w2.WriteString("}\n")
@@ -832,6 +834,7 @@ func genAndPrintRndRouters(N int, R int, SpaceMax int, K int, zeroY bool,
 	w2.WriteString("\tset router($i) [$ns node]\n")
 	//w2.WriteString("\ttb-set-hardware $router($i) {MicroCloud}\n")
 	w2.WriteString("\ttb-set-hardware $router($i) {bpc2133}\n")
+	//w2.WriteString("\ttb-set-hardware $router($i) {dl380g3}\n")
 	w2.WriteString("\ttb-set-node-os $router($i) Ubuntu1404-64-STD\n")
 
 	w2.WriteString("}\n\n")
@@ -985,6 +988,6 @@ func main() {
 	genAndPrintRndRouters(*N, *R, *SpaceMax, *K, true, true)
 	shortestNSRoutes()
 	str := fmt.Sprintf("K=%d\n N=%d\n R=%d\n D=%d\n", *K, *N, *R, *SpaceMax)
-	ioutil.WriteFile("../data/gen/details.txt", []byte(str), 0777)
+	ioutil.WriteFile("../data/gen/gendetails.txt", []byte(str), 0777)
 
 }

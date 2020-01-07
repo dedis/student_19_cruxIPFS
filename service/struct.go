@@ -108,6 +108,8 @@ type InitRequest struct {
 	OnetTree             *onet.Tree
 	Roster               *onet.Roster
 	Cruxified            bool
+	ComputePings         bool
+	Mode                 string
 }
 
 // InitResponse packet

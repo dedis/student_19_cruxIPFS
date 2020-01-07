@@ -249,7 +249,7 @@ else
         K=$f_K
     fi
 
-    pings=f_pings
+    pings=$f_pings
 fi
 
 # generate ipfs.toml
@@ -366,6 +366,9 @@ mkdir $path'/graphs'
 cp '../data/ipfs.toml' $path
 cp '../data/nodes.txt' $path
 cp '../data/details.txt' $path
-cp '../plot/*.pdf' $path'/graphs'
-cp '../data/results/*' $path'/data'
+
+cp -r '../plot/.' $path'/graphs'
+rm $path'/graphs/plot.py'
+cp -r '../data/results/.' $path'/data'
+
 echo 'Results saved to '$path

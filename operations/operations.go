@@ -76,6 +76,39 @@ func Write(node, filename string) (string, map[string]time.Duration) {
 	panic(node + "do not exist")
 }
 
+func Write2(node, filename string) (string, map[string]time.Duration) {
+	if len(nodes) == 0 {
+		nodes = LoadClusterInstances(cruxIPFS.SaveFile)
+	}
+	if n, ok := nodes[node]; ok {
+		mutex := &sync.Mutex{}
+		wg := sync.WaitGroup{}
+		wg.Add(len(n.Addrs))
+		fmt.Println("len(n.Addrs)", len(n.Addrs))
+		name := ""
+		results := make(map[string]time.Duration)
+
+		for i, host := range n.Addrs {
+			func(h string, m *sync.Mutex, i int) {
+				fmt.Println("Op with", h)
+				n0, t := writeFile2(h, filepath.Join(fileFolder, filename))
+				m.Lock()
+				results[n.Secrets[i]] = t
+				m.Unlock()
+				if name == "" {
+					name = n0
+				}
+				wg.Done()
+			}(host, mutex, i)
+		}
+		fmt.Println("Waiting for hosts to finish")
+		wg.Wait()
+		return name, results
+	}
+	panic(node + "do not exist")
+
+}
+
 // NewFile write new file to disk
 func NewFile(filename string) {
 	os.Mkdir(fileFolder, defaultFileMode)

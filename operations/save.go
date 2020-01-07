@@ -1,6 +1,7 @@
 package operations
 
 import (
+	"fmt"
 	"io/ioutil"
 	"strconv"
 	"strings"
@@ -147,19 +148,32 @@ func LoadClusterInstances(filename string) map[string]*Node {
 			if _, ok := nodes[name]; ok {
 				nodes[name].Clients = append(nodes[name].Clients, c)
 				nodes[name].Secrets = append(nodes[name].Secrets, secret)
+				nodes[name].Addrs =
+					append(nodes[name].Addrs, apiAddr.String())
 			} else {
 				// node don't exist, create it and append address
 				cli := make([]client.Client, 1)
 				cli[0] = c
 				secrets := make([]string, 1)
 				secrets[0] = secret
+				addrs := make([]string, 1)
+				addrs[0] = apiAddr.String()
 				nodes[name] = &Node{
 					Name:    name,
 					Clients: cli,
 					Secrets: secrets,
+					Addrs:   addrs,
 				}
 
 			}
+		}
+	}
+	for _, n := range nodes {
+		if len(n.Clients) != len(n.Secrets) {
+			fmt.Println("Error:")
+			fmt.Println(len(n.Clients), "clients")
+			fmt.Println(len(n.Secrets), "secrets")
+			fmt.Println(len(n.Addrs), "addrs")
 		}
 	}
 	return nodes

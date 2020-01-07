@@ -9,4 +9,5 @@ type Node struct {
 	Name    string
 	Clients []client.Client
 	Secrets []string
+	Addrs   []string
 }
