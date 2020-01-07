@@ -20,7 +20,7 @@ const (
 	TransportProtocol = "/tcp/"
 
 	// MaxPortNumberPerHost max number of ports that a host can use
-	MaxPortNumberPerHost = 100
+	MaxPortNumberPerHost = 200
 	// IPFSPortNumber number of ports used by an IPFS instance
 	IPFSPortNumber = 3
 	// ClusterPortNumber number of ports used by an ipfs cluster instance

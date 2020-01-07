@@ -394,15 +394,15 @@ if __name__ == '__main__':
     plt.savefig('crux_loc_crdb_wide.pdf', format='pdf', dpi=1000)
     '''
 
-    xdata, ydata = compute_data_points(load_latencies('../simulation/out_pings.txt'), load_optime('../simulation/min.txt'))
+    xdata, ydata = compute_data_points(load_latencies('../data/results/pings.txt'), load_optime('../data/results/min.txt'))
     scatter_plot(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Min Cruxified IPFS', True)
     plt.savefig('plot_min.pdf', format='pdf', dpi=1000)
 
-    xdata, ydata = compute_data_points(load_latencies('../vanilla/out_pings.txt'), load_optime('../vanilla/min.txt'))
+    xdata, ydata = compute_data_points(load_latencies('../data/results/pings.txt'), load_optime('../data/results/vanilla.txt'))
     scatter_plot(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Vanilla IPFS', True)
     plt.savefig('plot_vanilla.pdf', format='pdf', dpi=1000)
 
-    xdata, ydata = compute_data_points(load_latencies('../simulation/out_pings.txt'), load_optime('../simulation/max.txt'))
+    xdata, ydata = compute_data_points(load_latencies('../data/results/pings.txt'), load_optime('../data/results/max.txt'))
     scatter_plot(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Max Cruxified IPFS', True)
     plt.savefig('plot_max.pdf', format='pdf', dpi=1000)
 

@@ -130,7 +130,7 @@ func (s *Service) setup(req *InitRequest) {
 	//s.getPings(err == nil)
 	//os.IsNotExist(err))
 
-	s.getPings(false)
+	s.getPings(true)
 	if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == Node0 {
 		//s.printDistances("Ping distances")
 		s.printPings()

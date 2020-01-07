@@ -47,11 +47,12 @@ func (p *ClusterBootstrapProtocol) Dispatch() error {
 		TransportProtocol + strconv.Itoa(s.MyIPFS[0].APIPort) // 5001
 
 	if p.IsRoot() {
-		// set cluster path
-		clusterPath := filepath.Join(s.ConfigPath, ClusterFolderPrefix+s.Name)
-
 		// generate secret
 		secret := genSecret()
+
+		// set cluster path
+		clusterPath := filepath.Join(s.ConfigPath,
+			ClusterFolderPrefix+s.Name+"-"+secret)
 
 		// start cluster leader
 		secret, info, err := s.SetupClusterLeader(clusterPath, secret,

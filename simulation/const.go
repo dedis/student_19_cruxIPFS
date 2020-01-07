@@ -11,6 +11,7 @@ const (
 	installFolder   = "install"
 	ipfsFile        = "ipfs"
 	ipfsClusterFile = "ipfs-cluster-service"
+	ipfsCtlFile     = "ipfs-cluster-ctl"
 	prescriptFile   = "prescript.sh"
 	nodesFile       = "nodes.txt"
 	genFolder       = "gen"
@@ -22,6 +23,7 @@ var scriptLocation string
 var installLocation string
 var ipfsLocation string
 var ipfsClusterLocation string
+var ipfsCtlLocation string
 var prescriptLocation string
 var nodesLocation string
 var gendetailsLocation string
@@ -32,6 +34,7 @@ func init() {
 	installLocation = filepath.Join(dataLocation, installFolder)
 	ipfsLocation = filepath.Join(installLocation, ipfsFile)
 	ipfsClusterLocation = filepath.Join(installLocation, ipfsClusterFile)
+	ipfsCtlLocation = filepath.Join(installLocation, ipfsCtlFile)
 	prescriptLocation = filepath.Join(scriptLocation, prescriptFile)
 	nodesLocation = filepath.Join(dataLocation, nodesFile)
 	gendetailsLocation = filepath.Join(dataLocation, genFolder, detailsFile)

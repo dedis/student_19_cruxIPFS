@@ -15,3 +15,9 @@ if ! [ -x "$(command -v ipfs-cluster-service)" ]; then
   echo 'Installing ipfs-cluster-service'
   sudo cp ipfs-cluster-service /usr/local/bin
 fi
+
+# install ipfs-cluster-ctl if not already installed
+if ! [ -x "$(command -v ipfs-cluster-ctl)" ]; then
+  echo 'Installing ipfs-cluster-ctl'
+  sudo cp ipfs-cluster-ctl /usr/local/bin
+fi

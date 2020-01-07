@@ -28,6 +28,7 @@ func (s *Service) setIPFSVariables() {
 	s.MaxPort = s.MinPort + MaxPortNumberPerHost
 
 	s.ConfigPath = filepath.Join(configPath, s.Name)
+	checkErr(CreateEmptyDir(s.ConfigPath))
 
 	// create own config home folder and ipfs config folder
 	s.MyIPFSPath = filepath.Join(s.ConfigPath, IPFSFolder)
@@ -41,22 +42,29 @@ func (s *Service) StartIPFS(secret string) string {
 	path := s.MyIPFSPath + "-" + secret
 	checkErr(CreateEmptyDir(path))
 
-	ou, err := exec.Command("ipfs", "-c"+path, "init").Output()
+	cmd := "ipfs -c" + path + " init"
+	ou, err := exec.Command("bash", "-c", cmd).Output()
 	if err != nil {
 		log.Lvl1(string(ou))
 		log.Error(err)
 	}
 
+	s.PortMutex.Lock()
 	// edit the ip in the config file
 	ipfsAPI := s.EditIPFSConfig(path)
 
 	// start ipfs daemon
 	go func() {
-		exec.Command("ipfs", "-c"+path, "daemon").Run()
+		cmd := "ipfs -c" + path + " daemon"
+		o, err := exec.Command("bash", "-c", cmd).Output()
 		fmt.Println("ipfs at ip", s.Name, "crashed")
+		fmt.Println(cmd)
+		fmt.Println(string(o))
+		fmt.Println(err)
 	}()
 	// wait until it has started
 	time.Sleep(IPFSStartupTime)
+	s.PortMutex.Unlock()
 	return ipfsAPI
 }
 
@@ -91,7 +99,7 @@ func (s *Service) EditIPFSConfig(path string) string {
 		APIPort:     (*ports)[1],
 		GatewayPort: (*ports)[2],
 	})
-	return API
+	return addr + strconv.Itoa((*ports)[1])
 
 }
 
@@ -192,7 +200,7 @@ func MakeJSONArray(elements []string) string {
 func (s *Service) SetupClusterLeader(path, secret, apiIPFSAddr string,
 	replmin, replmax int) (string, *ClusterInstance, error) {
 
-	path = path + "-" + secret
+	//path = path //+ "-" + secret
 	if err := CreateEmptyDir(path); err != nil {
 		return "", nil, err
 	}
@@ -292,8 +300,11 @@ func (s *Service) SetupClusterSlave(path, bootstrap, secret, apiIPFSAddr string,
 	// start cluster daemon
 	cmd = "ipfs-cluster-service -c " + path + " daemon --bootstrap " + bootstrap
 	go func() {
-		exec.Command("bash", "-c", cmd).Run()
+		o, err := exec.Command("bash", "-c", cmd).Output()
 		log.Lvl1("slave " + s.Name + " crashed")
+		log.Lvl1(string(o))
+		log.Lvl1(err)
+		log.Lvl1(cmd)
 	}()
 
 	// wait for the daemon to be launched

@@ -6,7 +6,7 @@ import (
 
 const (
 	// SaveFile file where instances are saved
-	SaveFile string = "../save.txt"
+	SaveFile = "../save.txt"
 
 	// DataFolder name of the folder containing data
 	DataFolder = "data"

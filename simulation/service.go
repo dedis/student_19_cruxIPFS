@@ -1,16 +1,20 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/BurntSushi/toml"
 
 	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
 	"github.com/dedis/student_19_cruxIPFS/gentree"
+	"github.com/dedis/student_19_cruxIPFS/operations"
 	"github.com/dedis/student_19_cruxIPFS/service"
 
 	"go.dedis.ch/onet/v3"
@@ -46,6 +50,7 @@ func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	app.Copy(dir, nodesLocation)
 	app.Copy(dir, ipfsLocation)
 	app.Copy(dir, ipfsClusterLocation)
+	app.Copy(dir, ipfsCtlLocation)
 
 	b, err := ioutil.ReadFile(gendetailsLocation)
 	if err != nil {
@@ -99,11 +104,46 @@ func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
 	return s.SimulationBFTree.Node(config)
 }
 
+func (s *IPFSSimulation) Run1(config *onet.SimulationConfig) error {
+
+	/*
+		o, err := exec.Command("bash", "-c", cmd).Output()
+		fmt.Println(string(o))
+		if err != nil {
+			fmt.Println("Error:", err)
+		}
+	*/
+	go func() {
+		cmd := "ipfs daemon"
+		o, err := exec.Command("bash", "-c", cmd).Output()
+		fmt.Println(string(o))
+		if err != nil {
+			fmt.Println("Error:", err)
+		}
+	}()
+
+	time.Sleep(10 * time.Second)
+
+	return nil
+}
+
 // Run is run on a single node. Execute performance tests and output results to
 // stdout, output needs to be parsed by an external script
 func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
+
+	myService := config.GetService(service.ServiceName).(*service.Service)
+
+	pi, err := myService.CreateProtocol(service.StartIPFSName, config.Tree)
+	if err != nil {
+		fmt.Println(err)
+	}
+	pi.Start()
+
+	<-pi.(*service.StartIPFSProtocol).Ready
+
+	operations.SaveState(cruxIPFS.SaveFile,
+		pi.(*service.StartIPFSProtocol).Nodes)
 	/*
-		myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
 
 		pi, err := myService.CreateProtocol(service.StartInstancesName, config.Tree)
 		if err != nil {
@@ -115,11 +155,12 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 
 		operations.SaveState(cruxIPFS.SaveFile,
 			pi.(*service.StartInstancesProtocol).Nodes)
-
-		// wait for some time for clusters to converge
-		time.Sleep(20 * time.Second)
-		operations.Test2(100, len(myService.Nodes.All))
 	*/
+
+	// wait for some time for clusters to converge
+	time.Sleep(20 * time.Second)
+	operations.Test2(500, len(myService.Nodes.All))
+
 	log.Lvl1("Done")
 	return nil
 }

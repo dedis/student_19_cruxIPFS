@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"sync"
 
 	"go.dedis.ch/onet/v3"
@@ -92,6 +93,7 @@ func (s *Service) startLocalInstances() []ClusterInfo {
 			// start the ARA
 			pi.Start()
 			<-pi.(*StartARAProtocol).Ready
+			fmt.Println("slave started")
 
 			// append the newly started cluster information to the local list
 			// of clusters

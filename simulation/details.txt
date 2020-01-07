@@ -1,1 +1,1 @@
-details: simulation, mode: raft, K=3, N=13, R=13, D=120
+details: simulation, mode: raft, K=3
