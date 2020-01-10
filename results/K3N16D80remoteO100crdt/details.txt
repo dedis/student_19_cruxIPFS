@@ -1,0 +1,9 @@
+K=3
+N=16
+R=16
+D=80
+remote=true
+ops=100
+pings=false
+mode=crdt
+cruxified=false

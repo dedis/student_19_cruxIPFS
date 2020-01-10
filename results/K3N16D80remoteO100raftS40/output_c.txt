@@ -1,0 +1,2496 @@
+1 : build.go:53 (simul.startBuild)           - Deploying to deterlab
+1 : deterlab.go:138 (platform.(*Deterlab).Build) - Building for guissou users.deterlab.net SAFER  simulDir= /mnt/guillaume/Documents/epfl/ipfs/repos/student_19_cruxIPFS2/simulation
+1 : deterlab.go:194 (platform.(*Deterlab).Build) - Build is finished after 2.935692666s
+1 : build.go:144 (simul.RunTests)            - Running test with config: map[bf:15 depth:1 prescript:"prescript.sh" rounds:1 servers:16 simulation:"IPFS" suite:"Ed25519"]
+1 : users.go:50 (main.main)                  - Cleaning up 40 hosts.
+1 : deterlab.go:305 (platform.(*Deterlab).Deploy) - Copying over to guissou @ users.deterlab.net
+1 : users.go:120 (main.main)                 - starting 16 cothorities for a total of 16 processes.
+1 : runsimul.go:144 (platform.Simulate)      - Started counting children with timeout of 1s
+1 : runsimul.go:148 (platform.Simulate)      - Found all 16 children
+1 : pings.go:341 (service.(*Service).printPings) - 
+ping node_0 node_0 = 0.000000
+ping node_0 node_1 = 97.260250
+ping node_0 node_2 = 16.237750
+ping node_0 node_3 = 91.524000
+ping node_0 node_4 = 88.290750
+ping node_0 node_5 = 94.472250
+ping node_0 node_6 = 88.524500
+ping node_0 node_7 = 92.597750
+ping node_0 node_8 = 61.363750
+ping node_0 node_9 = 73.637250
+ping node_0 node_10 = 72.122250
+ping node_0 node_11 = 88.701000
+ping node_0 node_12 = 117.872500
+ping node_0 node_13 = 91.535000
+ping node_0 node_14 = 148.634500
+ping node_0 node_15 = 83.953000
+ping node_1 node_0 = 97.260250
+ping node_1 node_1 = 0.000000
+ping node_1 node_2 = 113.474500
+ping node_1 node_3 = 91.834500
+ping node_1 node_4 = 120.985250
+ping node_1 node_5 = 94.884500
+ping node_1 node_6 = 89.008500
+ping node_1 node_7 = 101.387250
+ping node_1 node_8 = 102.455500
+ping node_1 node_9 = 96.337250
+ping node_1 node_10 = 131.678500
+ping node_1 node_11 = 125.093500
+ping node_1 node_12 = 160.465500
+ping node_1 node_13 = 121.314000
+ping node_1 node_14 = 163.591750
+ping node_1 node_15 = 93.801750
+ping node_2 node_0 = 16.237750
+ping node_2 node_1 = 113.474500
+ping node_2 node_2 = 0.000000
+ping node_2 node_3 = 83.698750
+ping node_2 node_4 = 91.722750
+ping node_2 node_5 = 90.036750
+ping node_2 node_6 = 85.529250
+ping node_2 node_7 = 78.156500
+ping node_2 node_8 = 45.242750
+ping node_2 node_9 = 57.422500
+ping node_2 node_10 = 71.985500
+ping node_2 node_11 = 72.445250
+ping node_2 node_12 = 101.477500
+ping node_2 node_13 = 82.941250
+ping node_2 node_14 = 140.039750
+ping node_2 node_15 = 67.705000
+ping node_3 node_0 = 91.524000
+ping node_3 node_1 = 91.834500
+ping node_3 node_2 = 83.698750
+ping node_3 node_3 = 0.000000
+ping node_3 node_4 = 3.263000
+ping node_3 node_5 = 8.273250
+ping node_3 node_6 = 3.462250
+ping node_3 node_7 = 26.630250
+ping node_3 node_8 = 30.522750
+ping node_3 node_9 = 39.712750
+ping node_3 node_10 = 40.663750
+ping node_3 node_11 = 3.170500
+ping node_3 node_12 = 77.189250
+ping node_3 node_13 = 39.194000
+ping node_3 node_14 = 96.396750
+ping node_3 node_15 = 28.422750
+ping node_4 node_0 = 88.290750
+ping node_4 node_1 = 120.985250
+ping node_4 node_2 = 91.722750
+ping node_4 node_3 = 3.263000
+ping node_4 node_4 = 0.000000
+ping node_4 node_5 = 11.383750
+ping node_4 node_6 = 0.255250
+ping node_4 node_7 = 23.465750
+ping node_4 node_8 = 33.732250
+ping node_4 node_9 = 41.106750
+ping node_4 node_10 = 43.921000
+ping node_4 node_11 = 6.438500
+ping node_4 node_12 = 75.687250
+ping node_4 node_13 = 42.481750
+ping node_4 node_14 = 99.673250
+ping node_4 node_15 = 26.339500
+ping node_5 node_0 = 94.472250
+ping node_5 node_1 = 94.884500
+ping node_5 node_2 = 90.036750
+ping node_5 node_3 = 8.273250
+ping node_5 node_4 = 11.383750
+ping node_5 node_5 = 0.000000
+ping node_5 node_6 = 6.067750
+ping node_5 node_7 = 29.332250
+ping node_5 node_8 = 38.619000
+ping node_5 node_9 = 35.600250
+ping node_5 node_10 = 48.926750
+ping node_5 node_11 = 11.385500
+ping node_5 node_12 = 83.775250
+ping node_5 node_13 = 47.428000
+ping node_5 node_14 = 104.601000
+ping node_5 node_15 = 20.257250
+ping node_6 node_0 = 88.524500
+ping node_6 node_1 = 89.008500
+ping node_6 node_2 = 85.529250
+ping node_6 node_3 = 3.462250
+ping node_6 node_4 = 0.255250
+ping node_6 node_5 = 6.067750
+ping node_6 node_6 = 0.000000
+ping node_6 node_7 = 23.223000
+ping node_6 node_8 = 33.971500
+ping node_6 node_9 = 37.462500
+ping node_6 node_10 = 44.141500
+ping node_6 node_11 = 6.678750
+ping node_6 node_12 = 75.931250
+ping node_6 node_13 = 42.687000
+ping node_6 node_14 = 99.820750
+ping node_6 node_15 = 24.408750
+ping node_7 node_0 = 92.597750
+ping node_7 node_1 = 101.387250
+ping node_7 node_2 = 78.156500
+ping node_7 node_3 = 26.630250
+ping node_7 node_4 = 23.465750
+ping node_7 node_5 = 29.332250
+ping node_7 node_6 = 23.223000
+ping node_7 node_7 = 0.000000
+ping node_7 node_8 = 32.899500
+ping node_7 node_9 = 23.912750
+ping node_7 node_10 = 43.123500
+ping node_7 node_11 = 36.447000
+ping node_7 node_12 = 85.001250
+ping node_7 node_13 = 60.046750
+ping node_7 node_14 = 114.230750
+ping node_7 node_15 = 13.633750
+ping node_8 node_0 = 61.363750
+ping node_8 node_1 = 102.455500
+ping node_8 node_2 = 45.242750
+ping node_8 node_3 = 30.522750
+ping node_8 node_4 = 33.732250
+ping node_8 node_5 = 38.619000
+ping node_8 node_6 = 33.971500
+ping node_8 node_7 = 32.899500
+ping node_8 node_8 = 0.000000
+ping node_8 node_9 = 12.237500
+ping node_8 node_10 = 10.252250
+ping node_8 node_11 = 27.234250
+ping node_8 node_12 = 56.233750
+ping node_8 node_13 = 29.457250
+ping node_8 node_14 = 86.500000
+ping node_8 node_15 = 22.512000
+ping node_9 node_0 = 73.637250
+ping node_9 node_1 = 96.337250
+ping node_9 node_2 = 57.422500
+ping node_9 node_3 = 39.712750
+ping node_9 node_4 = 41.106750
+ping node_9 node_5 = 35.600250
+ping node_9 node_6 = 37.462500
+ping node_9 node_7 = 23.912750
+ping node_9 node_8 = 12.237500
+ping node_9 node_9 = 0.000000
+ping node_9 node_10 = 22.521500
+ping node_9 node_11 = 39.484000
+ping node_9 node_12 = 50.088500
+ping node_9 node_13 = 41.604750
+ping node_9 node_14 = 98.747250
+ping node_9 node_15 = 10.234000
+ping node_10 node_0 = 72.122250
+ping node_10 node_1 = 131.678500
+ping node_10 node_2 = 71.985500
+ping node_10 node_3 = 40.663750
+ping node_10 node_4 = 43.921000
+ping node_10 node_5 = 48.926750
+ping node_10 node_6 = 44.141500
+ping node_10 node_7 = 43.123500
+ping node_10 node_8 = 10.252250
+ping node_10 node_9 = 22.521500
+ping node_10 node_10 = 0.000000
+ping node_10 node_11 = 37.474250
+ping node_10 node_12 = 65.682250
+ping node_10 node_13 = 19.284750
+ping node_10 node_14 = 76.360500
+ping node_10 node_15 = 32.842750
+ping node_11 node_0 = 88.701000
+ping node_11 node_1 = 125.093500
+ping node_11 node_2 = 72.445250
+ping node_11 node_3 = 3.170500
+ping node_11 node_4 = 6.438500
+ping node_11 node_5 = 11.385500
+ping node_11 node_6 = 6.678750
+ping node_11 node_7 = 36.447000
+ping node_11 node_8 = 27.234250
+ping node_11 node_9 = 39.484000
+ping node_11 node_10 = 37.474250
+ping node_11 node_11 = 0.000000
+ping node_11 node_12 = 80.100000
+ping node_11 node_13 = 45.891250
+ping node_11 node_14 = 101.867500
+ping node_11 node_15 = 36.067000
+ping node_12 node_0 = 117.872500
+ping node_12 node_1 = 160.465500
+ping node_12 node_2 = 101.477500
+ping node_12 node_3 = 77.189250
+ping node_12 node_4 = 75.687250
+ping node_12 node_5 = 83.775250
+ping node_12 node_6 = 75.931250
+ping node_12 node_7 = 85.001250
+ping node_12 node_8 = 56.233750
+ping node_12 node_9 = 50.088500
+ping node_12 node_10 = 65.682250
+ping node_12 node_11 = 80.100000
+ping node_12 node_12 = 0.000000
+ping node_12 node_13 = 55.260000
+ping node_12 node_14 = 112.452000
+ping node_12 node_15 = 60.236250
+ping node_13 node_0 = 91.535000
+ping node_13 node_1 = 121.314000
+ping node_13 node_2 = 82.941250
+ping node_13 node_3 = 39.194000
+ping node_13 node_4 = 42.481750
+ping node_13 node_5 = 47.428000
+ping node_13 node_6 = 42.687000
+ping node_13 node_7 = 60.046750
+ping node_13 node_8 = 29.457250
+ping node_13 node_9 = 41.604750
+ping node_13 node_10 = 19.284750
+ping node_13 node_11 = 45.891250
+ping node_13 node_12 = 55.260000
+ping node_13 node_13 = 0.000000
+ping node_13 node_14 = 57.267750
+ping node_13 node_15 = 51.922000
+ping node_14 node_0 = 148.634500
+ping node_14 node_1 = 163.591750
+ping node_14 node_2 = 140.039750
+ping node_14 node_3 = 96.396750
+ping node_14 node_4 = 99.673250
+ping node_14 node_5 = 104.601000
+ping node_14 node_6 = 99.820750
+ping node_14 node_7 = 114.230750
+ping node_14 node_8 = 86.500000
+ping node_14 node_9 = 98.747250
+ping node_14 node_10 = 76.360500
+ping node_14 node_11 = 101.867500
+ping node_14 node_12 = 112.452000
+ping node_14 node_13 = 57.267750
+ping node_14 node_14 = 0.000000
+ping node_14 node_15 = 109.069000
+ping node_15 node_0 = 83.953000
+ping node_15 node_1 = 93.801750
+ping node_15 node_2 = 67.705000
+ping node_15 node_3 = 28.422750
+ping node_15 node_4 = 26.339500
+ping node_15 node_5 = 20.257250
+ping node_15 node_6 = 24.408750
+ping node_15 node_7 = 13.633750
+ping node_15 node_8 = 22.512000
+ping node_15 node_9 = 10.234000
+ping node_15 node_10 = 32.842750
+ping node_15 node_11 = 36.067000
+ping node_15 node_12 = 60.236250
+ping node_15 node_13 = 51.922000
+ping node_15 node_14 = 109.069000
+ping node_15 node_15 = 0.000000
+
+1 : runsimul.go:169 (platform.Simulate)      - Starting new node IPFS
+1 : startipfs.go:29 (service.(*StartIPFSProtocol).Start) - Starting IPFS instances
+1 : startipfs.go:74 (service.(*StartIPFSProtocol).Dispatch) - All IPFS instances started successfully
+1 : save.go:60 (operations.SaveState)        - 
+##### IPFS instances #####
+
+node_10:
+  IP             : 10.1.18.3
+  Swarm Port     : 16000
+  API Port       : 16001
+  Gateway Port   : 16003
+  Cluster number : 4
+  Clusters       : 
+    Cluster leader : node_10
+    Secret         : c599f169d2aef8e4a487d046363d47a91ccf594ee944b25dd405bf1204a31689
+    Size           : 1
+    Hosts          : 
+      node_10
+        IP              : /ip4/10.1.18.3/tcp/
+        RestAPI Port    : 16012
+        IPFS Proxy Port : 16013
+        Cluster Port    : 16014
+
+    Cluster leader : node_10
+    Secret         : 11ea33bdefe558573b4e73791ac062b34e43149de1f22000c1f3273e7d977a71
+    Size           : 2
+    Hosts          : 
+      node_10
+        IP              : /ip4/10.1.18.3/tcp/
+        RestAPI Port    : 16006
+        IPFS Proxy Port : 16007
+        Cluster Port    : 16008
+
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15624
+        IPFS Proxy Port : 15625
+        Cluster Port    : 15626
+
+    Cluster leader : node_10
+    Secret         : 18c86eab39c9df43a7d776db2835980e1c2e2cb5f0be8b3336df64622ea1a0ad
+    Size           : 5
+    Hosts          : 
+      node_10
+        IP              : /ip4/10.1.18.3/tcp/
+        RestAPI Port    : 16002
+        IPFS Proxy Port : 16004
+        Cluster Port    : 16005
+
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15615
+        IPFS Proxy Port : 15616
+        Cluster Port    : 15617
+
+      node_2
+        IP              : /ip4/10.1.2.3/tcp/
+        RestAPI Port    : 14409
+        IPFS Proxy Port : 14410
+        Cluster Port    : 14411
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15821
+        IPFS Proxy Port : 15822
+        Cluster Port    : 15823
+
+      node_0
+        IP              : /ip4/10.1.1.2/tcp/
+        RestAPI Port    : 14012
+        IPFS Proxy Port : 14013
+        Cluster Port    : 14014
+
+    Cluster leader : node_10
+    Secret         : e36244064dff2c310a80bed824d4164fd272017f0f53a0822659cacd3a8cae5e
+    Size           : 3
+    Hosts          : 
+      node_10
+        IP              : /ip4/10.1.18.3/tcp/
+        RestAPI Port    : 16009
+        IPFS Proxy Port : 16010
+        Cluster Port    : 16011
+
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15636
+        IPFS Proxy Port : 15637
+        Cluster Port    : 15638
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15848
+        IPFS Proxy Port : 15849
+        Cluster Port    : 15850
+
+node_13:
+  IP             : 10.1.20.2
+  Swarm Port     : 16600
+  API Port       : 16601
+  Gateway Port   : 16603
+  Cluster number : 4
+  Clusters       : 
+    Cluster leader : node_13
+    Secret         : 76c58c525333ed6e0adbecfe929a860f9f63f8e21eca438f647c2622f4a1a7e2
+    Size           : 1
+    Hosts          : 
+      node_13
+        IP              : /ip4/10.1.20.2/tcp/
+        RestAPI Port    : 16602
+        IPFS Proxy Port : 16604
+        Cluster Port    : 16605
+
+    Cluster leader : node_13
+    Secret         : 49f3e77c55ad785cd02a80326f258696bdc783c32ffc2eec3394321af9061888
+    Size           : 3
+    Hosts          : 
+      node_13
+        IP              : /ip4/10.1.20.2/tcp/
+        RestAPI Port    : 16609
+        IPFS Proxy Port : 16610
+        Cluster Port    : 16611
+
+      node_10
+        IP              : /ip4/10.1.18.3/tcp/
+        RestAPI Port    : 16027
+        IPFS Proxy Port : 16028
+        Cluster Port    : 16029
+
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15639
+        IPFS Proxy Port : 15640
+        Cluster Port    : 15641
+
+    Cluster leader : node_13
+    Secret         : 5babc537df1b4cd2fe16cace78b6e4dc9e6a7b487878a36752917ce9d171b77c
+    Size           : 16
+    Hosts          : 
+      node_13
+        IP              : /ip4/10.1.20.2/tcp/
+        RestAPI Port    : 16606
+        IPFS Proxy Port : 16607
+        Cluster Port    : 16608
+
+      node_14
+        IP              : /ip4/10.1.22.3/tcp/
+        RestAPI Port    : 16815
+        IPFS Proxy Port : 16816
+        Cluster Port    : 16817
+
+      node_12
+        IP              : /ip4/10.1.20.3/tcp/
+        RestAPI Port    : 16418
+        IPFS Proxy Port : 16419
+        Cluster Port    : 16420
+
+      node_6
+        IP              : /ip4/10.1.13.2/tcp/
+        RestAPI Port    : 15230
+        IPFS Proxy Port : 15231
+        Cluster Port    : 15232
+
+      node_11
+        IP              : /ip4/10.1.19.3/tcp/
+        RestAPI Port    : 16224
+        IPFS Proxy Port : 16225
+        Cluster Port    : 16226
+
+      node_2
+        IP              : /ip4/10.1.2.3/tcp/
+        RestAPI Port    : 14427
+        IPFS Proxy Port : 14428
+        Cluster Port    : 14429
+
+      node_5
+        IP              : /ip4/10.1.12.3/tcp/
+        RestAPI Port    : 15030
+        IPFS Proxy Port : 15031
+        Cluster Port    : 15032
+
+      node_1
+        IP              : /ip4/10.1.1.3/tcp/
+        RestAPI Port    : 14215
+        IPFS Proxy Port : 14216
+        Cluster Port    : 14217
+
+      node_10
+        IP              : /ip4/10.1.18.3/tcp/
+        RestAPI Port    : 16021
+        IPFS Proxy Port : 16022
+        Cluster Port    : 16023
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15839
+        IPFS Proxy Port : 15840
+        Cluster Port    : 15841
+
+      node_4
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14830
+        IPFS Proxy Port : 14831
+        Cluster Port    : 14832
+
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15630
+        IPFS Proxy Port : 15631
+        Cluster Port    : 15632
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17039
+        IPFS Proxy Port : 17040
+        Cluster Port    : 17041
+
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15436
+        IPFS Proxy Port : 15437
+        Cluster Port    : 15438
+
+      node_3
+        IP              : /ip4/10.1.11.2/tcp/
+        RestAPI Port    : 14624
+        IPFS Proxy Port : 14625
+        Cluster Port    : 14626
+
+      node_0
+        IP              : /ip4/10.1.1.2/tcp/
+        RestAPI Port    : 14021
+        IPFS Proxy Port : 14022
+        Cluster Port    : 14023
+
+    Cluster leader : node_13
+    Secret         : 547af56ade1900b469ca45c4caeaf27e36082066f44f2c5119e2257412b6e7e7
+    Size           : 13
+    Hosts          : 
+      node_13
+        IP              : /ip4/10.1.20.2/tcp/
+        RestAPI Port    : 16612
+        IPFS Proxy Port : 16613
+        Cluster Port    : 16614
+
+      node_12
+        IP              : /ip4/10.1.20.3/tcp/
+        RestAPI Port    : 16421
+        IPFS Proxy Port : 16422
+        Cluster Port    : 16423
+
+      node_11
+        IP              : /ip4/10.1.19.3/tcp/
+        RestAPI Port    : 16233
+        IPFS Proxy Port : 16234
+        Cluster Port    : 16235
+
+      node_6
+        IP              : /ip4/10.1.13.2/tcp/
+        RestAPI Port    : 15239
+        IPFS Proxy Port : 15240
+        Cluster Port    : 15241
+
+      node_10
+        IP              : /ip4/10.1.18.3/tcp/
+        RestAPI Port    : 16033
+        IPFS Proxy Port : 16034
+        Cluster Port    : 16035
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15857
+        IPFS Proxy Port : 15858
+        Cluster Port    : 15859
+
+      node_5
+        IP              : /ip4/10.1.12.3/tcp/
+        RestAPI Port    : 15039
+        IPFS Proxy Port : 15040
+        Cluster Port    : 15041
+
+      node_3
+        IP              : /ip4/10.1.11.2/tcp/
+        RestAPI Port    : 14630
+        IPFS Proxy Port : 14631
+        Cluster Port    : 14632
+
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15648
+        IPFS Proxy Port : 15649
+        Cluster Port    : 15650
+
+      node_14
+        IP              : /ip4/10.1.22.3/tcp/
+        RestAPI Port    : 16818
+        IPFS Proxy Port : 16819
+        Cluster Port    : 16820
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17060
+        IPFS Proxy Port : 17061
+        Cluster Port    : 17062
+
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15448
+        IPFS Proxy Port : 15449
+        Cluster Port    : 15450
+
+      node_4
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14842
+        IPFS Proxy Port : 14843
+        Cluster Port    : 14844
+
+node_8:
+  IP             : 10.1.16.2
+  Swarm Port     : 15600
+  API Port       : 15601
+  Gateway Port   : 15603
+  Cluster number : 4
+  Clusters       : 
+    Cluster leader : node_8
+    Secret         : ab337e097dfff9fb148699ac27b8b7aff6cd1d49856c8c20d8a253835d843355
+    Size           : 1
+    Hosts          : 
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15612
+        IPFS Proxy Port : 15613
+        Cluster Port    : 15614
+
+    Cluster leader : node_8
+    Secret         : 1846b20aa21165774081d84058a1666ecd411806624cdf5828ecd96060a78cf1
+    Size           : 3
+    Hosts          : 
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15602
+        IPFS Proxy Port : 15604
+        Cluster Port    : 15605
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15815
+        IPFS Proxy Port : 15816
+        Cluster Port    : 15817
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17015
+        IPFS Proxy Port : 17016
+        Cluster Port    : 17017
+
+    Cluster leader : node_8
+    Secret         : 5a810b01c89ba568e70fe24b1d9981e8530de73bffd4eac7a3825ac5f04979ae
+    Size           : 2
+    Hosts          : 
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15606
+        IPFS Proxy Port : 15607
+        Cluster Port    : 15608
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15836
+        IPFS Proxy Port : 15837
+        Cluster Port    : 15838
+
+    Cluster leader : node_8
+    Secret         : 5779c3934811c05524f08e0c5ba946cd1174c077842dfdca17f0732b3373ff1d
+    Size           : 5
+    Hosts          : 
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15609
+        IPFS Proxy Port : 15610
+        Cluster Port    : 15611
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15845
+        IPFS Proxy Port : 15846
+        Cluster Port    : 15847
+
+      node_2
+        IP              : /ip4/10.1.2.3/tcp/
+        RestAPI Port    : 14430
+        IPFS Proxy Port : 14431
+        Cluster Port    : 14432
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17048
+        IPFS Proxy Port : 17049
+        Cluster Port    : 17050
+
+      node_0
+        IP              : /ip4/10.1.1.2/tcp/
+        RestAPI Port    : 14024
+        IPFS Proxy Port : 14025
+        Cluster Port    : 14026
+
+node_1:
+  IP             : 10.1.1.3
+  Swarm Port     : 14200
+  API Port       : 14201
+  Gateway Port   : 14203
+  Cluster number : 1
+  Clusters       : 
+    Cluster leader : node_1
+    Secret         : c07b6b26e3caf3b4253048a8ddd93a5d3ed7aaad74accfbd162a827086c7dacf
+    Size           : 1
+    Hosts          : 
+      node_1
+        IP              : /ip4/10.1.1.3/tcp/
+        RestAPI Port    : 14202
+        IPFS Proxy Port : 14204
+        Cluster Port    : 14205
+
+node_7:
+  IP             : 10.1.15.3
+  Swarm Port     : 15400
+  API Port       : 15401
+  Gateway Port   : 15403
+  Cluster number : 2
+  Clusters       : 
+    Cluster leader : node_7
+    Secret         : 31dd9c9f963ae09d456a1c1b3da25a2a5c3d2800a1c4f93882d159b3d5581501
+    Size           : 1
+    Hosts          : 
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15402
+        IPFS Proxy Port : 15404
+        Cluster Port    : 15405
+
+    Cluster leader : node_7
+    Secret         : 2585a2867969f56ea0769af06ba0e0c701d8888c6f41aa0d5b520bd71d34e677
+    Size           : 2
+    Hosts          : 
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15406
+        IPFS Proxy Port : 15407
+        Cluster Port    : 15408
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17030
+        IPFS Proxy Port : 17031
+        Cluster Port    : 17032
+
+node_12:
+  IP             : 10.1.20.3
+  Swarm Port     : 16400
+  API Port       : 16401
+  Gateway Port   : 16403
+  Cluster number : 4
+  Clusters       : 
+    Cluster leader : node_12
+    Secret         : 59815ed94ee76d806ad8b26afc6d596809428946418716deebeb25136a83b81e
+    Size           : 1
+    Hosts          : 
+      node_12
+        IP              : /ip4/10.1.20.3/tcp/
+        RestAPI Port    : 16409
+        IPFS Proxy Port : 16410
+        Cluster Port    : 16411
+
+    Cluster leader : node_12
+    Secret         : 3898b145c454197408b8916a73cbb38c131bb00ddc4c7f5392cb16e5e780191e
+    Size           : 16
+    Hosts          : 
+      node_12
+        IP              : /ip4/10.1.20.3/tcp/
+        RestAPI Port    : 16402
+        IPFS Proxy Port : 16404
+        Cluster Port    : 16405
+
+      node_2
+        IP              : /ip4/10.1.2.3/tcp/
+        RestAPI Port    : 14418
+        IPFS Proxy Port : 14419
+        Cluster Port    : 14420
+
+      node_11
+        IP              : /ip4/10.1.19.3/tcp/
+        RestAPI Port    : 16218
+        IPFS Proxy Port : 16219
+        Cluster Port    : 16220
+
+      node_5
+        IP              : /ip4/10.1.12.3/tcp/
+        RestAPI Port    : 15024
+        IPFS Proxy Port : 15025
+        Cluster Port    : 15026
+
+      node_14
+        IP              : /ip4/10.1.22.3/tcp/
+        RestAPI Port    : 16806
+        IPFS Proxy Port : 16807
+        Cluster Port    : 16808
+
+      node_13
+        IP              : /ip4/10.1.20.2/tcp/
+        RestAPI Port    : 16618
+        IPFS Proxy Port : 16619
+        Cluster Port    : 16620
+
+      node_6
+        IP              : /ip4/10.1.13.2/tcp/
+        RestAPI Port    : 15227
+        IPFS Proxy Port : 15228
+        Cluster Port    : 15229
+
+      node_1
+        IP              : /ip4/10.1.1.3/tcp/
+        RestAPI Port    : 14209
+        IPFS Proxy Port : 14210
+        Cluster Port    : 14211
+
+      node_10
+        IP              : /ip4/10.1.18.3/tcp/
+        RestAPI Port    : 16018
+        IPFS Proxy Port : 16019
+        Cluster Port    : 16020
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15827
+        IPFS Proxy Port : 15828
+        Cluster Port    : 15829
+
+      node_4
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14821
+        IPFS Proxy Port : 14822
+        Cluster Port    : 14823
+
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15621
+        IPFS Proxy Port : 15622
+        Cluster Port    : 15623
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17021
+        IPFS Proxy Port : 17022
+        Cluster Port    : 17023
+
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15433
+        IPFS Proxy Port : 15434
+        Cluster Port    : 15435
+
+      node_3
+        IP              : /ip4/10.1.11.2/tcp/
+        RestAPI Port    : 14621
+        IPFS Proxy Port : 14622
+        Cluster Port    : 14623
+
+      node_0
+        IP              : /ip4/10.1.1.2/tcp/
+        RestAPI Port    : 14015
+        IPFS Proxy Port : 14016
+        Cluster Port    : 14017
+
+    Cluster leader : node_12
+    Secret         : 0db3fcffc0c8521d9e97b50e15e8bc500fc848eca98457e362234f7a65a02c85
+    Size           : 15
+    Hosts          : 
+      node_12
+        IP              : /ip4/10.1.20.3/tcp/
+        RestAPI Port    : 16406
+        IPFS Proxy Port : 16407
+        Cluster Port    : 16408
+
+      node_13
+        IP              : /ip4/10.1.20.2/tcp/
+        RestAPI Port    : 16621
+        IPFS Proxy Port : 16622
+        Cluster Port    : 16623
+
+      node_2
+        IP              : /ip4/10.1.2.3/tcp/
+        RestAPI Port    : 14424
+        IPFS Proxy Port : 14425
+        Cluster Port    : 14426
+
+      node_6
+        IP              : /ip4/10.1.13.2/tcp/
+        RestAPI Port    : 15233
+        IPFS Proxy Port : 15234
+        Cluster Port    : 15235
+
+      node_14
+        IP              : /ip4/10.1.22.3/tcp/
+        RestAPI Port    : 16812
+        IPFS Proxy Port : 16813
+        Cluster Port    : 16814
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17042
+        IPFS Proxy Port : 17043
+        Cluster Port    : 17044
+
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15439
+        IPFS Proxy Port : 15440
+        Cluster Port    : 15441
+
+      node_3
+        IP              : /ip4/10.1.11.2/tcp/
+        RestAPI Port    : 14627
+        IPFS Proxy Port : 14628
+        Cluster Port    : 14629
+
+      node_11
+        IP              : /ip4/10.1.19.3/tcp/
+        RestAPI Port    : 16221
+        IPFS Proxy Port : 16222
+        Cluster Port    : 16223
+
+      node_10
+        IP              : /ip4/10.1.18.3/tcp/
+        RestAPI Port    : 16024
+        IPFS Proxy Port : 16025
+        Cluster Port    : 16026
+
+      node_5
+        IP              : /ip4/10.1.12.3/tcp/
+        RestAPI Port    : 15027
+        IPFS Proxy Port : 15028
+        Cluster Port    : 15029
+
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15633
+        IPFS Proxy Port : 15634
+        Cluster Port    : 15635
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15842
+        IPFS Proxy Port : 15843
+        Cluster Port    : 15844
+
+      node_4
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14833
+        IPFS Proxy Port : 14834
+        Cluster Port    : 14835
+
+      node_0
+        IP              : /ip4/10.1.1.2/tcp/
+        RestAPI Port    : 14018
+        IPFS Proxy Port : 14019
+        Cluster Port    : 14020
+
+    Cluster leader : node_12
+    Secret         : dfc3cadadcf471a58b3d1daac06b61d84e3c43e1192716e9a868c8f4c5f5f985
+    Size           : 5
+    Hosts          : 
+      node_12
+        IP              : /ip4/10.1.20.3/tcp/
+        RestAPI Port    : 16412
+        IPFS Proxy Port : 16413
+        Cluster Port    : 16414
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15860
+        IPFS Proxy Port : 15861
+        Cluster Port    : 15862
+
+      node_13
+        IP              : /ip4/10.1.20.2/tcp/
+        RestAPI Port    : 16627
+        IPFS Proxy Port : 16628
+        Cluster Port    : 16629
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17057
+        IPFS Proxy Port : 17058
+        Cluster Port    : 17059
+
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15657
+        IPFS Proxy Port : 15658
+        Cluster Port    : 15659
+
+node_15:
+  IP             : 10.1.23.2
+  Swarm Port     : 17000
+  API Port       : 17001
+  Gateway Port   : 17003
+  Cluster number : 3
+  Clusters       : 
+    Cluster leader : node_15
+    Secret         : 4f97e4fdfc7ab5bf71c2d544e8cf30326bbaf170060a340ee098f855aac9f432
+    Size           : 1
+    Hosts          : 
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17009
+        IPFS Proxy Port : 17010
+        Cluster Port    : 17011
+
+    Cluster leader : node_15
+    Secret         : 32e334957258b4d952a6954651624bfaa3b3e0cda5b490baceebc3b44b4e9c82
+    Size           : 4
+    Hosts          : 
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17002
+        IPFS Proxy Port : 17004
+        Cluster Port    : 17005
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15818
+        IPFS Proxy Port : 15819
+        Cluster Port    : 15820
+
+      node_2
+        IP              : /ip4/10.1.2.3/tcp/
+        RestAPI Port    : 14412
+        IPFS Proxy Port : 14413
+        Cluster Port    : 14414
+
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15424
+        IPFS Proxy Port : 15425
+        Cluster Port    : 15426
+
+    Cluster leader : node_15
+    Secret         : aab32182335260d82a728bc2da1a2677430412ba0d33961ca7fec9514462302d
+    Size           : 3
+    Hosts          : 
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17006
+        IPFS Proxy Port : 17007
+        Cluster Port    : 17008
+
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15415
+        IPFS Proxy Port : 15416
+        Cluster Port    : 15417
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15833
+        IPFS Proxy Port : 15834
+        Cluster Port    : 15835
+
+node_2:
+  IP             : 10.1.2.3
+  Swarm Port     : 14400
+  API Port       : 14401
+  Gateway Port   : 14403
+  Cluster number : 2
+  Clusters       : 
+    Cluster leader : node_2
+    Secret         : b90958fa7935b438fc58957e8a807c44be806960dde94ba2df1c50768042f8df
+    Size           : 1
+    Hosts          : 
+      node_2
+        IP              : /ip4/10.1.2.3/tcp/
+        RestAPI Port    : 14402
+        IPFS Proxy Port : 14404
+        Cluster Port    : 14405
+
+    Cluster leader : node_2
+    Secret         : 5bd250918c00aa08d803c5ba048132453b9d691199c2c86f165b3973d2e8d2d3
+    Size           : 2
+    Hosts          : 
+      node_2
+        IP              : /ip4/10.1.2.3/tcp/
+        RestAPI Port    : 14406
+        IPFS Proxy Port : 14407
+        Cluster Port    : 14408
+
+      node_0
+        IP              : /ip4/10.1.1.2/tcp/
+        RestAPI Port    : 14009
+        IPFS Proxy Port : 14010
+        Cluster Port    : 14011
+
+node_6:
+  IP             : 10.1.13.2
+  Swarm Port     : 15200
+  API Port       : 15201
+  Gateway Port   : 15203
+  Cluster number : 4
+  Clusters       : 
+    Cluster leader : node_6
+    Secret         : 297240411b1f014d7028a8d3888cd6198b2e7da65ad3333c5f20cc0e57dad9a9
+    Size           : 2
+    Hosts          : 
+      node_6
+        IP              : /ip4/10.1.13.2/tcp/
+        RestAPI Port    : 15209
+        IPFS Proxy Port : 15210
+        Cluster Port    : 15211
+
+      node_4
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14809
+        IPFS Proxy Port : 14810
+        Cluster Port    : 14811
+
+    Cluster leader : node_6
+    Secret         : 3a90fcafad370e528f12007023962e8f288a10a57a2e71b374e840cd7cbd43b4
+    Size           : 3
+    Hosts          : 
+      node_6
+        IP              : /ip4/10.1.13.2/tcp/
+        RestAPI Port    : 15212
+        IPFS Proxy Port : 15213
+        Cluster Port    : 15214
+
+      node_4
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14812
+        IPFS Proxy Port : 14813
+        Cluster Port    : 14814
+
+      node_5
+        IP              : /ip4/10.1.12.3/tcp/
+        RestAPI Port    : 15015
+        IPFS Proxy Port : 15016
+        Cluster Port    : 15017
+
+    Cluster leader : node_6
+    Secret         : 27018b6e75d0d490f814b7c9dff1578a05ef5aa4b02c588cf48aae38952f1961
+    Size           : 5
+    Hosts          : 
+      node_6
+        IP              : /ip4/10.1.13.2/tcp/
+        RestAPI Port    : 15202
+        IPFS Proxy Port : 15204
+        Cluster Port    : 15205
+
+      node_5
+        IP              : /ip4/10.1.12.3/tcp/
+        RestAPI Port    : 15009
+        IPFS Proxy Port : 15010
+        Cluster Port    : 15011
+
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15409
+        IPFS Proxy Port : 15410
+        Cluster Port    : 15411
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17018
+        IPFS Proxy Port : 17019
+        Cluster Port    : 17020
+
+      node_4
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14815
+        IPFS Proxy Port : 14816
+        Cluster Port    : 14817
+
+    Cluster leader : node_6
+    Secret         : a09f431f2fb6d2ef17fc3c49d44e10118ade0869e1d53b1959388ea5c003289a
+    Size           : 6
+    Hosts          : 
+      node_6
+        IP              : /ip4/10.1.13.2/tcp/
+        RestAPI Port    : 15206
+        IPFS Proxy Port : 15207
+        Cluster Port    : 15208
+
+      node_5
+        IP              : /ip4/10.1.12.3/tcp/
+        RestAPI Port    : 15012
+        IPFS Proxy Port : 15013
+        Cluster Port    : 15014
+
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15421
+        IPFS Proxy Port : 15422
+        Cluster Port    : 15423
+
+      node_1
+        IP              : /ip4/10.1.1.3/tcp/
+        RestAPI Port    : 14206
+        IPFS Proxy Port : 14207
+        Cluster Port    : 14208
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17027
+        IPFS Proxy Port : 17028
+        Cluster Port    : 17029
+
+      node_4
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14818
+        IPFS Proxy Port : 14819
+        Cluster Port    : 14820
+
+node_4:
+  IP             : 10.1.11.3
+  Swarm Port     : 14800
+  API Port       : 14801
+  Gateway Port   : 14803
+  Cluster number : 2
+  Clusters       : 
+    Cluster leader : node_4
+    Secret         : 29d78e9f2aecd2c16e1f31db0660a436c15e2645aabe1b6db2f4da4897b90a32
+    Size           : 2
+    Hosts          : 
+      node_4
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14802
+        IPFS Proxy Port : 14804
+        Cluster Port    : 14805
+
+      node_6
+        IP              : /ip4/10.1.13.2/tcp/
+        RestAPI Port    : 15215
+        IPFS Proxy Port : 15216
+        Cluster Port    : 15217
+
+    Cluster leader : node_4
+    Secret         : 8b247d4a81cd1549b7bd388c668aa1b20b4ed7a6df27015ebd3f66320322e30b
+    Size           : 4
+    Hosts          : 
+      node_4
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14806
+        IPFS Proxy Port : 14807
+        Cluster Port    : 14808
+
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15412
+        IPFS Proxy Port : 15413
+        Cluster Port    : 15414
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17036
+        IPFS Proxy Port : 17037
+        Cluster Port    : 17038
+
+      node_6
+        IP              : /ip4/10.1.13.2/tcp/
+        RestAPI Port    : 15242
+        IPFS Proxy Port : 15243
+        Cluster Port    : 15244
+
+node_3:
+  IP             : 10.1.11.2
+  Swarm Port     : 14600
+  API Port       : 14601
+  Gateway Port   : 14603
+  Cluster number : 6
+  Clusters       : 
+    Cluster leader : node_3
+    Secret         : ceec716f3767004c10f6fc94807020ce494a9c8b2404935aa33a4b6b8f927f9f
+    Size           : 1
+    Hosts          : 
+      node_3
+        IP              : /ip4/10.1.11.2/tcp/
+        RestAPI Port    : 14606
+        IPFS Proxy Port : 14607
+        Cluster Port    : 14608
+
+    Cluster leader : node_3
+    Secret         : de8676d587d979b42a547ab1faf7ccb04bca9af830cffc6e7e93b9523999cc1b
+    Size           : 4
+    Hosts          : 
+      node_3
+        IP              : /ip4/10.1.11.2/tcp/
+        RestAPI Port    : 14612
+        IPFS Proxy Port : 14613
+        Cluster Port    : 14614
+
+      node_6
+        IP              : /ip4/10.1.13.2/tcp/
+        RestAPI Port    : 15218
+        IPFS Proxy Port : 15219
+        Cluster Port    : 15220
+
+      node_11
+        IP              : /ip4/10.1.19.3/tcp/
+        RestAPI Port    : 16230
+        IPFS Proxy Port : 16231
+        Cluster Port    : 16232
+
+      node_4
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14824
+        IPFS Proxy Port : 14825
+        Cluster Port    : 14826
+
+    Cluster leader : node_3
+    Secret         : d90dd37caf560a821feca9db687bc0075802a7e3e5c62df6f240414ec6115f41
+    Size           : 5
+    Hosts          : 
+      node_3
+        IP              : /ip4/10.1.11.2/tcp/
+        RestAPI Port    : 14615
+        IPFS Proxy Port : 14616
+        Cluster Port    : 14617
+
+      node_5
+        IP              : /ip4/10.1.12.3/tcp/
+        RestAPI Port    : 15021
+        IPFS Proxy Port : 15022
+        Cluster Port    : 15023
+
+      node_6
+        IP              : /ip4/10.1.13.2/tcp/
+        RestAPI Port    : 15221
+        IPFS Proxy Port : 15222
+        Cluster Port    : 15223
+
+      node_11
+        IP              : /ip4/10.1.19.3/tcp/
+        RestAPI Port    : 16236
+        IPFS Proxy Port : 16237
+        Cluster Port    : 16238
+
+      node_4
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14827
+        IPFS Proxy Port : 14828
+        Cluster Port    : 14829
+
+    Cluster leader : node_3
+    Secret         : 58240535f96761c480ef89b132330f0cb0581492dc41b8c17e38562c0d39193f
+    Size           : 11
+    Hosts          : 
+      node_3
+        IP              : /ip4/10.1.11.2/tcp/
+        RestAPI Port    : 14609
+        IPFS Proxy Port : 14610
+        Cluster Port    : 14611
+
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15642
+        IPFS Proxy Port : 15643
+        Cluster Port    : 15644
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15851
+        IPFS Proxy Port : 15852
+        Cluster Port    : 15853
+
+      node_5
+        IP              : /ip4/10.1.12.3/tcp/
+        RestAPI Port    : 15036
+        IPFS Proxy Port : 15037
+        Cluster Port    : 15038
+
+      node_11
+        IP              : /ip4/10.1.19.3/tcp/
+        RestAPI Port    : 16227
+        IPFS Proxy Port : 16228
+        Cluster Port    : 16229
+
+      node_10
+        IP              : /ip4/10.1.18.3/tcp/
+        RestAPI Port    : 16030
+        IPFS Proxy Port : 16031
+        Cluster Port    : 16032
+
+      node_6
+        IP              : /ip4/10.1.13.2/tcp/
+        RestAPI Port    : 15236
+        IPFS Proxy Port : 15237
+        Cluster Port    : 15238
+
+      node_13
+        IP              : /ip4/10.1.20.2/tcp/
+        RestAPI Port    : 16624
+        IPFS Proxy Port : 16625
+        Cluster Port    : 16626
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17051
+        IPFS Proxy Port : 17052
+        Cluster Port    : 17053
+
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15442
+        IPFS Proxy Port : 15443
+        Cluster Port    : 15444
+
+      node_4
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14839
+        IPFS Proxy Port : 14840
+        Cluster Port    : 14841
+
+    Cluster leader : node_3
+    Secret         : de759e85af3a8cc17d338df9b604f5818a546e5d065d5b65b5fe0050203127cb
+    Size           : 16
+    Hosts          : 
+      node_3
+        IP              : /ip4/10.1.11.2/tcp/
+        RestAPI Port    : 14602
+        IPFS Proxy Port : 14604
+        Cluster Port    : 14605
+
+      node_2
+        IP              : /ip4/10.1.2.3/tcp/
+        RestAPI Port    : 14415
+        IPFS Proxy Port : 14416
+        Cluster Port    : 14417
+
+      node_13
+        IP              : /ip4/10.1.20.2/tcp/
+        RestAPI Port    : 16615
+        IPFS Proxy Port : 16616
+        Cluster Port    : 16617
+
+      node_6
+        IP              : /ip4/10.1.13.2/tcp/
+        RestAPI Port    : 15224
+        IPFS Proxy Port : 15225
+        Cluster Port    : 15226
+
+      node_14
+        IP              : /ip4/10.1.22.3/tcp/
+        RestAPI Port    : 16809
+        IPFS Proxy Port : 16810
+        Cluster Port    : 16811
+
+      node_12
+        IP              : /ip4/10.1.20.3/tcp/
+        RestAPI Port    : 16415
+        IPFS Proxy Port : 16416
+        Cluster Port    : 16417
+
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15427
+        IPFS Proxy Port : 15428
+        Cluster Port    : 15429
+
+      node_1
+        IP              : /ip4/10.1.1.3/tcp/
+        RestAPI Port    : 14212
+        IPFS Proxy Port : 14213
+        Cluster Port    : 14214
+
+      node_11
+        IP              : /ip4/10.1.19.3/tcp/
+        RestAPI Port    : 16215
+        IPFS Proxy Port : 16216
+        Cluster Port    : 16217
+
+      node_10
+        IP              : /ip4/10.1.18.3/tcp/
+        RestAPI Port    : 16015
+        IPFS Proxy Port : 16016
+        Cluster Port    : 16017
+
+      node_5
+        IP              : /ip4/10.1.12.3/tcp/
+        RestAPI Port    : 15018
+        IPFS Proxy Port : 15019
+        Cluster Port    : 15020
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15830
+        IPFS Proxy Port : 15831
+        Cluster Port    : 15832
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17024
+        IPFS Proxy Port : 17025
+        Cluster Port    : 17026
+
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15654
+        IPFS Proxy Port : 15655
+        Cluster Port    : 15656
+
+      node_4
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14836
+        IPFS Proxy Port : 14837
+        Cluster Port    : 14838
+
+      node_0
+        IP              : /ip4/10.1.1.2/tcp/
+        RestAPI Port    : 14030
+        IPFS Proxy Port : 14031
+        Cluster Port    : 14032
+
+    Cluster leader : node_3
+    Secret         : 2ace3a8a65694b8a23e215f61393d9a62c3b005bec902638d9ecf76b3aa0d7ce
+    Size           : 8
+    Hosts          : 
+      node_3
+        IP              : /ip4/10.1.11.2/tcp/
+        RestAPI Port    : 14618
+        IPFS Proxy Port : 14619
+        Cluster Port    : 14620
+
+      node_11
+        IP              : /ip4/10.1.19.3/tcp/
+        RestAPI Port    : 16239
+        IPFS Proxy Port : 16240
+        Cluster Port    : 16241
+
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15651
+        IPFS Proxy Port : 15652
+        Cluster Port    : 15653
+
+      node_5
+        IP              : /ip4/10.1.12.3/tcp/
+        RestAPI Port    : 15033
+        IPFS Proxy Port : 15034
+        Cluster Port    : 15035
+
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15430
+        IPFS Proxy Port : 15431
+        Cluster Port    : 15432
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17063
+        IPFS Proxy Port : 17064
+        Cluster Port    : 17065
+
+      node_6
+        IP              : /ip4/10.1.13.2/tcp/
+        RestAPI Port    : 15245
+        IPFS Proxy Port : 15246
+        Cluster Port    : 15247
+
+      node_4
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14845
+        IPFS Proxy Port : 14846
+        Cluster Port    : 14847
+
+node_0:
+  IP             : 10.1.1.2
+  Swarm Port     : 14000
+  API Port       : 14001
+  Gateway Port   : 14003
+  Cluster number : 2
+  Clusters       : 
+    Cluster leader : node_0
+    Secret         : 70316aa8f512f3fc3e1a01d4b24f5972066a905d95d49f6674e6c1373fc68341
+    Size           : 1
+    Hosts          : 
+      node_0
+        IP              : /ip4/10.1.1.2/tcp/
+        RestAPI Port    : 14002
+        IPFS Proxy Port : 14004
+        Cluster Port    : 14005
+
+    Cluster leader : node_0
+    Secret         : 63e209e701c847bb74f863e8a3a2471b2abc62c6a5e11fb399a2e846a5356747
+    Size           : 2
+    Hosts          : 
+      node_0
+        IP              : /ip4/10.1.1.2/tcp/
+        RestAPI Port    : 14006
+        IPFS Proxy Port : 14007
+        Cluster Port    : 14008
+
+      node_2
+        IP              : /ip4/10.1.2.3/tcp/
+        RestAPI Port    : 14421
+        IPFS Proxy Port : 14422
+        Cluster Port    : 14423
+
+node_9:
+  IP             : 10.1.17.3
+  Swarm Port     : 15800
+  API Port       : 15801
+  Gateway Port   : 15803
+  Cluster number : 4
+  Clusters       : 
+    Cluster leader : node_9
+    Secret         : 1723ec680b0d543205aa8ebe488cb299720216630154b02a2cc09b488972c28e
+    Size           : 1
+    Hosts          : 
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15802
+        IPFS Proxy Port : 15804
+        Cluster Port    : 15805
+
+    Cluster leader : node_9
+    Secret         : b2ab32e0b9788ead7fdba3c6302b6f0d5946c75c670651fa83ba92ba5340c807
+    Size           : 3
+    Hosts          : 
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15806
+        IPFS Proxy Port : 15807
+        Cluster Port    : 15808
+
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15418
+        IPFS Proxy Port : 15419
+        Cluster Port    : 15420
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17033
+        IPFS Proxy Port : 17034
+        Cluster Port    : 17035
+
+    Cluster leader : node_9
+    Secret         : 8501eaa96b1b0507719a413739bbe63d19f4d669d138fefb00475f48f6b70c26
+    Size           : 2
+    Hosts          : 
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15809
+        IPFS Proxy Port : 15810
+        Cluster Port    : 15811
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17045
+        IPFS Proxy Port : 17046
+        Cluster Port    : 17047
+
+    Cluster leader : node_9
+    Secret         : 89cf4c304a85a396f9ca796a8f755c468ee87c94060915ed41caff09d0e07570
+    Size           : 4
+    Hosts          : 
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15812
+        IPFS Proxy Port : 15813
+        Cluster Port    : 15814
+
+      node_2
+        IP              : /ip4/10.1.2.3/tcp/
+        RestAPI Port    : 14436
+        IPFS Proxy Port : 14437
+        Cluster Port    : 14438
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17054
+        IPFS Proxy Port : 17055
+        Cluster Port    : 17056
+
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15445
+        IPFS Proxy Port : 15446
+        Cluster Port    : 15447
+
+node_14:
+  IP             : 10.1.22.3
+  Swarm Port     : 16800
+  API Port       : 16801
+  Gateway Port   : 16803
+  Cluster number : 1
+  Clusters       : 
+    Cluster leader : node_14
+    Secret         : 27764f3f8e423bd9e7723e920a0bbd7c1ea7ec1d99a5899423bdc26c89af8f57
+    Size           : 1
+    Hosts          : 
+      node_14
+        IP              : /ip4/10.1.22.3/tcp/
+        RestAPI Port    : 16802
+        IPFS Proxy Port : 16804
+        Cluster Port    : 16805
+
+node_11:
+  IP             : 10.1.19.3
+  Swarm Port     : 16200
+  API Port       : 16201
+  Gateway Port   : 16203
+  Cluster number : 4
+  Clusters       : 
+    Cluster leader : node_11
+    Secret         : 244b7da4e1970c3e3b8b82d1c6dc931007bfd8e81b2c355c4e03cc6e09b9b664
+    Size           : 1
+    Hosts          : 
+      node_11
+        IP              : /ip4/10.1.19.3/tcp/
+        RestAPI Port    : 16209
+        IPFS Proxy Port : 16210
+        Cluster Port    : 16211
+
+    Cluster leader : node_11
+    Secret         : c253342915ed27d23ee6e7bb2fb60cc1679c880008f452e4b36e9bc0ee8c8045
+    Size           : 3
+    Hosts          : 
+      node_11
+        IP              : /ip4/10.1.19.3/tcp/
+        RestAPI Port    : 16202
+        IPFS Proxy Port : 16204
+        Cluster Port    : 16205
+
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15618
+        IPFS Proxy Port : 15619
+        Cluster Port    : 15620
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15824
+        IPFS Proxy Port : 15825
+        Cluster Port    : 15826
+
+    Cluster leader : node_11
+    Secret         : 9dbb891a6007e2c207caa7ba5b52a7a7acef2ffcad240fc275ed34c9c4483370
+    Size           : 2
+    Hosts          : 
+      node_11
+        IP              : /ip4/10.1.19.3/tcp/
+        RestAPI Port    : 16206
+        IPFS Proxy Port : 16207
+        Cluster Port    : 16208
+
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15627
+        IPFS Proxy Port : 15628
+        Cluster Port    : 15629
+
+    Cluster leader : node_11
+    Secret         : de4a907625d2f9b9169fb95f8c43bd0ecf164089e10773690a86c754d25cea19
+    Size           : 5
+    Hosts          : 
+      node_11
+        IP              : /ip4/10.1.19.3/tcp/
+        RestAPI Port    : 16212
+        IPFS Proxy Port : 16213
+        Cluster Port    : 16214
+
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15645
+        IPFS Proxy Port : 15646
+        Cluster Port    : 15647
+
+      node_2
+        IP              : /ip4/10.1.2.3/tcp/
+        RestAPI Port    : 14433
+        IPFS Proxy Port : 14434
+        Cluster Port    : 14435
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15854
+        IPFS Proxy Port : 15855
+        Cluster Port    : 15856
+
+      node_0
+        IP              : /ip4/10.1.1.2/tcp/
+        RestAPI Port    : 14027
+        IPFS Proxy Port : 14028
+        Cluster Port    : 14029
+
+node_5:
+  IP             : 10.1.12.3
+  Swarm Port     : 15000
+  API Port       : 15001
+  Gateway Port   : 15003
+  Cluster number : 2
+  Clusters       : 
+    Cluster leader : node_5
+    Secret         : f4761e3f32f707a08f606dc5c818cedfe8caaed2facedbc943023f4f466929cb
+    Size           : 1
+    Hosts          : 
+      node_5
+        IP              : /ip4/10.1.12.3/tcp/
+        RestAPI Port    : 15006
+        IPFS Proxy Port : 15007
+        Cluster Port    : 15008
+
+    Cluster leader : node_5
+    Secret         : 29453ac2d05ec19e1a794f35edda970631f521724a3ebc986580af084dd46bc4
+    Size           : 2
+    Hosts          : 
+      node_5
+        IP              : /ip4/10.1.12.3/tcp/
+        RestAPI Port    : 15002
+        IPFS Proxy Port : 15004
+        Cluster Port    : 15005
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17012
+        IPFS Proxy Port : 17013
+        Cluster Port    : 17014
+
+
+1 : performance.go:126 (operations.Test2)    - Starting Test2
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_7-node_15 1309
+maxoptime-node_7-node_15 1819
+readoptime-node_7-node_15 349
+959 1341 1341 1342 1459 959 1343 1450 1339 1342 1344 1343 1002 1042 
+349 358 351 350 359 362 351 350 350 359 350 350 358 359 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_1-node_4 2169
+maxoptime-node_1-node_4 2685
+readoptime-node_1-node_4 368
+2307 2307 2308 1800 
+368 368 377 369 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_9-node_5 1314
+maxoptime-node_9-node_5 2116
+readoptime-node_9-node_5 396
+917 1717 1719 930 989 1715 
+397 397 397 397 396 398 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_0 1073
+maxoptime-node_8-node_0 1531
+readoptime-node_8-node_0 13
+1070 1069 1295 1295 1516 1071 1059 
+14 14 14 13 14 14 13 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_6-node_1 1875
+maxoptime-node_6-node_1 2187
+readoptime-node_6-node_1 423
+1450 1451 1721 1763 
+424 424 424 423 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_2-node_15 1281
+maxoptime-node_2-node_15 1599
+readoptime-node_2-node_15 348
+1182 932 935 1175 932 1181 1248 
+348 349 350 348 348 349 350 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_15 1047
+maxoptime-node_8-node_15 2024
+readoptime-node_8-node_15 360
+997 1318 1663 830 1070 1318 923 1318 684 738 
+363 362 360 361 362 363 362 361 363 363 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_11-node_5 1086
+maxoptime-node_11-node_5 2015
+readoptime-node_11-node_5 396
+958 1415 1553 1582 1607 689 863 1553 
+398 396 398 398 407 397 398 398 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_5-node_12 1315
+maxoptime-node_5-node_12 2152
+readoptime-node_5-node_12 523
+1346 1407 791 1238 1628 
+523 523 524 523 524 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_6 1119
+maxoptime-node_15-node_6 2123
+readoptime-node_15-node_6 379
+750 760 738 738 829 1027 1742 1271 1338 1742 
+381 380 381 380 383 381 379 379 381 380 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_14 1407
+maxoptime-node_8-node_14 1943
+readoptime-node_8-node_14 629
+777 1313 1048 1057 841 
+629 629 629 629 629 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_7 1023
+maxoptime-node_15-node_7 2165
+readoptime-node_15-node_7 408
+614 618 829 1212 1613 1754 673 831 807 814 1752 1755 1755 1613 
+409 419 408 409 409 410 409 410 409 409 409 409 408 411 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_13 1196
+maxoptime-node_15-node_13 2155
+readoptime-node_15-node_13 378
+817 1614 1765 1773 1615 1775 1300 
+379 378 378 379 380 380 379 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_6-node_0 1555
+maxoptime-node_6-node_0 1772
+readoptime-node_6-node_0 14
+1756 1749 1757 1541 
+14 14 14 14 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_5-node_3 1066
+maxoptime-node_5-node_3 2101
+readoptime-node_5-node_3 379
+1720 1721 1635 1635 1636 687 799 869 
+379 380 379 380 380 379 379 381 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_11-node_12 2062
+maxoptime-node_11-node_12 2424
+readoptime-node_11-node_12 523
+1539 1570 1897 1581 1900 
+523 523 523 523 523 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_5-node_12 2161
+maxoptime-node_5-node_12 2320
+readoptime-node_5-node_12 544
+1703 1775 1617 1616 1619 
+544 545 545 544 544 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_9-node_1 2129
+maxoptime-node_9-node_1 2132
+readoptime-node_9-node_1 424
+1706 1708 1705 
+424 424 424 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_13-node_6 1348
+maxoptime-node_13-node_6 2242
+readoptime-node_13-node_6 377
+1863 1861 970 1169 1169 1562 
+378 378 377 388 378 388 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_13-node_10 1159
+maxoptime-node_13-node_10 2165
+readoptime-node_13-node_10 300
+857 1083 1138 1138 1552 1863 1861 
+302 300 302 302 301 301 302 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_10-node_3 1333
+maxoptime-node_10-node_3 2448
+readoptime-node_10-node_3 401
+1240 1424 1426 931 1250 2046 
+401 402 402 402 402 402 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_1-node_13 2505
+maxoptime-node_1-node_13 2822
+readoptime-node_1-node_13 378
+2126 2442 2126 
+379 380 378 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_14-node_4 2294
+maxoptime-node_14-node_4 2711
+readoptime-node_14-node_4 378
+2320 2322 2322 1916 2273 
+389 378 388 378 388 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_3 1200
+maxoptime-node_15-node_3 2126
+readoptime-node_15-node_3 378
+820 1042 1745 1748 1622 1622 1747 
+379 379 379 378 378 378 379 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_5-node_1 2026
+maxoptime-node_5-node_1 2111
+readoptime-node_5-node_1 401
+1705 1705 1709 1624 
+401 402 401 402 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_5-node_10 1191
+maxoptime-node_5-node_10 2022
+readoptime-node_5-node_10 300
+1721 889 1720 1629 1626 1630 
+300 301 301 301 302 300 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_11 1071
+maxoptime-node_8-node_11 1889
+readoptime-node_8-node_11 368
+703 997 1066 1325 788 1518 1325 788 923 
+368 377 368 371 368 370 368 368 368 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_3 1093
+maxoptime-node_8-node_3 1500
+readoptime-node_8-node_3 389
+814 903 1110 704 724 902 1108 
+391 391 390 389 390 389 391 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_7-node_5 1267
+maxoptime-node_7-node_5 2241
+readoptime-node_7-node_5 397
+1401 1538 1725 869 1843 1467 926 970 1463 
+398 398 398 398 398 398 397 397 397 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_3-node_0 982
+maxoptime-node_3-node_0 1509
+readoptime-node_3-node_0 24
+1484 1484 1482 957 
+25 24 24 24 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_13-node_6 1392
+maxoptime-node_13-node_6 1537
+readoptime-node_13-node_6 378
+1148 1156 1157 1157 1003 1117 
+389 378 378 379 388 378 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_10-node_8 965
+maxoptime-node_10-node_8 1699
+readoptime-node_10-node_8 259
+926 1233 1242 1422 722 1218 1241 1239 689 
+259 274 274 276 275 261 275 286 275 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_9-node_2 801
+maxoptime-node_9-node_2 1797
+readoptime-node_9-node_2 77
+723 1070 1489 1718 1067 1068 1242 1715 1715 
+77 78 78 79 77 78 79 79 79 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_11 1210
+maxoptime-node_15-node_11 2120
+readoptime-node_15-node_11 367
+842 1614 1750 1615 1752 1751 842 
+369 378 368 367 367 369 368 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_11-node_6 981
+maxoptime-node_11-node_6 2268
+readoptime-node_11-node_6 366
+1584 1900 1900 614 962 1554 1574 614 849 
+377 367 367 366 376 367 367 367 377 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_10-node_8 936
+maxoptime-node_10-node_8 2311
+readoptime-node_10-node_8 259
+922 1287 1420 2041 676 708 1424 1195 1239 
+260 259 260 270 260 270 260 270 260 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_7-node_10 1237
+maxoptime-node_7-node_10 2056
+readoptime-node_7-node_10 300
+936 1731 1693 1732 1741 1755 
+300 301 301 301 301 301 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_9-node_14 2111
+maxoptime-node_9-node_14 2341
+readoptime-node_9-node_14 629
+1482 1709 1482 1708 1711 
+629 630 629 629 629 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_12-node_5 2229
+maxoptime-node_12-node_5 2395
+readoptime-node_12-node_5 398
+1870 1996 1831 1834 1870 
+398 398 398 408 398 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_3 1214
+maxoptime-node_15-node_3 2135
+readoptime-node_15-node_3 378
+1756 1754 1055 1612 1755 835 1616 
+379 379 379 378 378 379 379 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_1-node_14 2719
+maxoptime-node_1-node_14 2722
+readoptime-node_1-node_14 607
+2111 2114 2114 
+607 607 607 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_9-node_4 1252
+maxoptime-node_9-node_4 2085
+readoptime-node_9-node_4 376
+1478 1698 875 1698 1477 1699 
+377 387 376 386 376 376 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_9-node_8 884
+maxoptime-node_9-node_8 1957
+readoptime-node_9-node_8 259
+1693 1697 625 718 843 1062 1230 874 1475 1476 890 1229 1693 
+260 260 259 259 270 260 270 269 270 260 269 259 260 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_3-node_8 904
+maxoptime-node_3-node_8 1933
+readoptime-node_3-node_8 258
+1540 1669 1673 1542 1544 645 951 
+258 259 259 269 269 259 269 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_14-node_1 2747
+maxoptime-node_14-node_1 2747
+readoptime-node_14-node_1 413
+2334 2334 2334 
+413 413 413 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_2-node_8 1107
+maxoptime-node_2-node_8 1952
+readoptime-node_2-node_8 271
+837 836 1586 1680 941 1390 1583 
+272 271 272 271 271 282 283 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_4-node_14 1535
+maxoptime-node_4-node_14 2170
+readoptime-node_4-node_14 606
+926 1395 1563 939 984 
+608 608 606 606 606 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_3 1160
+maxoptime-node_8-node_3 1433
+readoptime-node_8-node_3 378
+783 781 790 834 1055 836 837 
+378 379 378 378 378 378 379 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_13-node_8 1123
+maxoptime-node_13-node_8 1764
+readoptime-node_13-node_8 258
+1495 1493 1496 863 1094 1125 1133 1494 
+268 268 259 260 267 259 258 260 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_1-node_2 1637
+maxoptime-node_1-node_2 2521
+readoptime-node_1-node_2 78
+1558 2124 2442 
+78 79 78 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_11-node_2 1142
+maxoptime-node_11-node_2 1976
+readoptime-node_11-node_2 78
+1064 1581 1897 1567 1278 
+78 79 78 78 78 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_7-node_5 1290
+maxoptime-node_7-node_5 2144
+readoptime-node_7-node_5 397
+904 1143 1694 1693 1708 1729 1745 1741 892 
+398 397 399 398 397 408 398 399 397 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_2-node_11 1220
+maxoptime-node_2-node_11 2047
+readoptime-node_2-node_11 367
+1586 852 1583 1583 1679 
+368 368 367 367 368 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_14-node_7 2205
+maxoptime-node_14-node_7 2748
+readoptime-node_14-node_7 415
+2324 1789 1914 2323 2323 
+423 415 423 416 424 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_10-node_14 1857
+maxoptime-node_10-node_14 2661
+readoptime-node_10-node_14 617
+1258 1428 2043 1239 1428 
+618 617 617 617 617 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_2 1275
+maxoptime-node_15-node_2 1852
+readoptime-node_15-node_2 77
+1772 1199 1775 1196 1357 1625 1769 
+79 78 77 78 78 78 78 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_7 1216
+maxoptime-node_8-node_7 1928
+readoptime-node_8-node_7 408
+806 806 1316 1519 1316 1316 1315 
+419 409 409 408 410 409 409 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_3-node_8 873
+maxoptime-node_3-node_8 2001
+readoptime-node_3-node_8 258
+1530 1741 613 971 1527 1530 1672 
+260 260 260 258 271 271 271 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_7-node_10 1225
+maxoptime-node_7-node_10 2043
+readoptime-node_7-node_10 300
+924 1741 1688 1724 1724 1734 
+300 302 300 301 300 302 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_14-node_7 2166
+maxoptime-node_14-node_7 2749
+readoptime-node_14-node_7 408
+1786 2331 2333 2333 1757 
+408 417 408 409 408 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_13-node_9 1411
+maxoptime-node_13-node_9 2192
+readoptime-node_13-node_9 316
+1139 1140 1553 1863 1864 1083 1114 
+316 317 328 326 328 328 328 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_2-node_0 848
+maxoptime-node_2-node_0 1671
+readoptime-node_2-node_0 14
+1561 1573 834 834 942 1561 1657 
+14 14 14 15 14 14 14 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_13-node_1 1945
+maxoptime-node_13-node_1 2359
+readoptime-node_13-node_1 413
+1865 1946 1532 
+413 413 413 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_11-node_6 980
+maxoptime-node_11-node_6 2271
+readoptime-node_11-node_6 366
+1585 668 1551 1571 1903 1904 611 613 978 
+376 366 368 368 367 367 368 367 377 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_4-node_0 1562
+maxoptime-node_4-node_0 2289
+readoptime-node_4-node_0 12
+2274 2269 1549 1552 
+15 14 12 15 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_5-node_6 1054
+maxoptime-node_5-node_6 2082
+readoptime-node_5-node_6 365
+690 890 1697 1705 1711 688 784 1627 1626 1627 688 
+366 366 366 376 366 376 366 376 366 366 365 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_11-node_4 995
+maxoptime-node_11-node_4 2271
+readoptime-node_11-node_4 366
+1905 628 860 952 1571 654 1542 1573 1904 
+366 367 366 366 367 367 366 376 367 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_9 861
+maxoptime-node_8-node_9 1829
+readoptime-node_8-node_9 307
+1050 1103 721 1072 653 789 1050 1309 1521 552 838 906 751 
+307 318 318 308 318 309 318 307 307 308 308 308 318 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_0-node_4 1460
+maxoptime-node_0-node_4 1516
+readoptime-node_0-node_4 376
+1101 1125 1139 1072 
+377 378 376 388 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_2 850
+maxoptime-node_8-node_2 1134
+readoptime-node_8-node_2 79
+1051 1051 1054 1053 1055 769 875 
+79 79 79 79 79 80 79 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_12-node_7 1912
+maxoptime-node_12-node_7 2397
+readoptime-node_12-node_7 409
+1502 1557 1859 1987 1987 
+410 420 410 409 409 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_0-node_15 1397
+maxoptime-node_0-node_15 2044
+readoptime-node_0-node_15 348
+1684 1037 1182 1188 1684 
+348 359 350 349 359 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_12-node_11 2181
+maxoptime-node_12-node_11 2221
+readoptime-node_12-node_11 367
+1813 1813 1847 1852 1853 
+367 368 368 369 368 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_11-node_12 2084
+maxoptime-node_11-node_12 2427
+readoptime-node_11-node_12 522
+1569 1903 1561 1590 1902 
+523 523 522 522 523 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_1 1717
+maxoptime-node_8-node_1 1933
+readoptime-node_8-node_1 413
+1519 1306 1304 
+413 413 413 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_12-node_4 2178
+maxoptime-node_12-node_4 2217
+readoptime-node_12-node_4 365
+1812 1813 1837 1841 1842 
+366 365 366 366 375 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_1-node_14 2741
+maxoptime-node_1-node_14 3065
+readoptime-node_1-node_14 629
+2111 2431 2435 
+629 629 629 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_1-node_0 2141
+maxoptime-node_1-node_0 2459
+readoptime-node_1-node_0 13
+2127 2127 2445 
+14 13 14 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_2-node_9 1020
+maxoptime-node_2-node_9 1980
+readoptime-node_2-node_9 307
+713 962 1569 1571 818 927 960 1572 1670 
+307 308 318 318 309 318 308 317 309 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_7-node_6 1194
+maxoptime-node_7-node_6 2110
+readoptime-node_7-node_6 366
+1742 826 1720 827 1681 1684 1717 1728 865 865 
+367 367 376 366 367 368 377 366 367 366 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_10-node_9 1045
+maxoptime-node_10-node_9 2361
+readoptime-node_10-node_9 307
+926 1265 2043 738 1207 1265 1457 1460 
+307 308 318 307 308 318 308 318 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_14-node_3 2172
+maxoptime-node_14-node_3 2723
+readoptime-node_14-node_3 390
+1782 1915 2329 2332 2332 
+390 390 390 390 390 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_14-node_3 2175
+maxoptime-node_14-node_3 2703
+readoptime-node_14-node_3 378
+1880 2321 2323 2323 1796 
+379 379 379 379 378 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_13 1208
+maxoptime-node_15-node_13 2138
+readoptime-node_15-node_13 379
+1610 1756 1295 1755 1757 828 1614 
+379 379 380 380 380 379 379 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_14-node_0 1894
+maxoptime-node_14-node_0 2330
+readoptime-node_14-node_0 13
+2313 2314 2314 1879 
+16 15 13 14 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_7-node_0 1776
+maxoptime-node_7-node_0 1800
+readoptime-node_7-node_0 36
+1756 1740 1743 1764 
+36 36 36 36 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_7 1190
+maxoptime-node_8-node_7 1943
+readoptime-node_8-node_7 408
+783 1327 1327 781 1323 1524 1332 
+419 408 408 409 409 419 408 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_1-node_0 2128
+maxoptime-node_1-node_0 2130
+readoptime-node_1-node_0 13
+2115 2115 2116 
+13 14 14 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_11-node_15 1200
+maxoptime-node_11-node_15 2262
+readoptime-node_11-node_15 348
+1526 1574 1902 1900 851 861 1553 
+348 359 359 358 349 349 359 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_6-node_3 969
+maxoptime-node_6-node_3 2140
+readoptime-node_6-node_3 379
+989 1761 619 891 1252 1547 1547 1547 590 
+379 379 379 379 379 380 379 379 379 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_4-node_10 1289
+maxoptime-node_4-node_10 1749
+readoptime-node_4-node_10 312
+979 1436 975 976 978 1386 
+312 313 313 312 313 313 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_0-node_4 1490
+maxoptime-node_0-node_4 1869
+readoptime-node_0-node_4 377
+1112 1124 1171 1483 
+377 387 378 386 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_6-node_10 1086
+maxoptime-node_6-node_10 1739
+readoptime-node_6-node_10 301
+785 996 1228 1437 973 1238 
+301 301 301 302 301 301 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_7-node_11 1256
+maxoptime-node_7-node_11 2160
+readoptime-node_7-node_11 389
+942 1410 1511 1105 1769 1511 865 
+390 389 391 391 390 391 390 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_5-node_2 1487
+maxoptime-node_5-node_2 1905
+readoptime-node_5-node_2 77
+1826 1408 1619 1824 
+78 78 77 78 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_13-node_0 1515
+maxoptime-node_13-node_0 1893
+readoptime-node_13-node_0 25
+1867 1866 1489 1571 
+26 25 26 28 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_0-node_2 913
+maxoptime-node_0-node_2 1781
+readoptime-node_0-node_2 77
+950 1696 1699 1702 1700 834 930 
+79 79 79 79 77 79 79 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_6 1137
+maxoptime-node_15-node_6 2136
+readoptime-node_15-node_6 366
+783 1612 1758 769 1612 779 1028 1759 1759 1759 
+377 366 378 368 367 367 366 367 376 367 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_12 1626
+maxoptime-node_8-node_12 2044
+readoptime-node_8-node_12 523
+1103 1315 1306 1521 1329 1288 
+523 523 523 523 523 523 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_5-node_13 1266
+maxoptime-node_5-node_13 2126
+readoptime-node_5-node_13 378
+1627 1746 1704 887 1625 1627 
+379 379 380 378 379 378 
+
+1 : service.go:153 (main.(*IPFSSimulation).Run) - Done

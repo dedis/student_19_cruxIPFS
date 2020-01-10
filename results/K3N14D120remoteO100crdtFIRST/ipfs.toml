@@ -1,0 +1,9 @@
+Simulation = "IPFS"
+Servers = 14
+Bf = 13
+Rounds = 1
+Suite = "Ed25519"
+Prescript = "prescript.sh"
+
+Depth
+1
