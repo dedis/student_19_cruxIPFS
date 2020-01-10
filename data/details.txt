@@ -1,9 +1,9 @@
 K=3
-N=15
-R=15
-D=100
+N=20
+R=20
+D=121
 remote=true
-ops=100
+ops=2000
 pings=false
-mode=raft
+mode=crdt
 cruxified=false

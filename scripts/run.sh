@@ -146,9 +146,9 @@ while test $# -gt 0; do
   esac
 done
 
-rm ../data/output_c.txt > /dev/null 2>&1
+#rm ../data/output_c.txt > /dev/null 2>&1
 rm ../data/output_v.txt > /dev/null 2>&1
-rm ../data/results/* > /dev/null 2>&1
+#rm ../data/results/* > /dev/null 2>&1
 
 # exporting execution details to text file
 DETFILE="../data/details.txt"
@@ -373,6 +373,8 @@ mkdir $path'/graphs'
 cp '../data/ipfs.toml' $path
 cp '../data/nodes.txt' $path
 cp '../data/details.txt' $path
+cp $output_c $path
+cp $output_v $path
 
 cp -r '../plot/.' $path'/graphs'
 rm $path'/graphs/plot.py'

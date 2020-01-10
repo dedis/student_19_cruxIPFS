@@ -158,6 +158,7 @@ func Test2(nOps, nodesN int) {
 
 		min := time.Duration(math.MaxInt64)
 		max := time.Duration(0)
+		minRead := time.Duration(math.MaxInt64)
 		str := "\n"
 		strread := ""
 		strwrite := ""
@@ -173,11 +174,15 @@ func Test2(nOps, nodesN int) {
 				if sum > max {
 					max = sum
 				}
+				if t1 < minRead {
+					minRead = t1
+				}
 			}
 		}
 		id := "optime-" + nodeW + "-" + nodeR
 		str += fmt.Sprintln("min"+id, min.Milliseconds())
 		str += fmt.Sprintln("max"+id, max.Milliseconds())
+		str += fmt.Sprintln("read"+id, minRead.Milliseconds())
 		str += strread + "\n"
 		str += strwrite + "\n"
 

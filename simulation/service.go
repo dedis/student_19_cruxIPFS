@@ -121,18 +121,18 @@ func (s *IPFSSimulation) Run1(config *onet.SimulationConfig) error {
 func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 
 	myService := config.GetService(service.ServiceName).(*service.Service)
+
+	pi, err := myService.CreateProtocol(service.StartIPFSName, config.Tree)
+	if err != nil {
+		fmt.Println(err)
+	}
+	pi.Start()
+
+	<-pi.(*service.StartIPFSProtocol).Ready
+
+	operations.SaveState(cruxIPFS.SaveFile,
+		pi.(*service.StartIPFSProtocol).Nodes)
 	/*
-		pi, err := myService.CreateProtocol(service.StartIPFSName, config.Tree)
-		if err != nil {
-			fmt.Println(err)
-		}
-		pi.Start()
-
-		<-pi.(*service.StartIPFSProtocol).Ready
-
-		operations.SaveState(cruxIPFS.SaveFile,
-			pi.(*service.StartIPFSProtocol).Nodes)
-	*/
 
 	pi, err := myService.CreateProtocol(service.StartInstancesName, config.Tree)
 	if err != nil {
@@ -144,6 +144,7 @@ func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
 
 	operations.SaveState(cruxIPFS.SaveFile,
 		pi.(*service.StartInstancesProtocol).Nodes)
+	*/
 
 	// wait for some time for clusters to converge
 	time.Sleep(3 * time.Minute)

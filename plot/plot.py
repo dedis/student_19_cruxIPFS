@@ -78,8 +78,8 @@ def load_latencies(fname='1/pings.txt'):
             node_dst = splitted[2].split('_')[1]
             key = node_src + "_" + node_dst
             val = float(splitted[4])
-            #out[key] = 2*val
-            out[key] = val
+            out[key] = 2*val
+            #out[key] = val
             n += 1
     n = int(math.sqrt(n))
 
