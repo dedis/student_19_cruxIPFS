@@ -131,7 +131,7 @@ func (s *Service) getPings(readFromFile bool) {
 		}
 		s.PingMapMtx.Unlock()
 
-		log.LLvl3(s.Nodes.GetServerIdentityToName(s.ServerIdentity()),
+		log.Lvl3(s.Nodes.GetServerIdentityToName(s.ServerIdentity()),
 			"finished ping own meas with len", len(s.OwnPings))
 
 		// ask for pings from others
@@ -297,8 +297,8 @@ func (s *Service) measureOwnPings() {
 					log.Fatal("Problem when parsing pings")
 				}
 
-				//s.OwnPings[peerName] = float64(avgPing)
-				s.OwnPings[peerName] = float64(avgPing / 2.0)
+				s.OwnPings[peerName] = float64(avgPing)
+				//s.OwnPings[peerName] = float64(avgPing / 2.0)
 
 				break
 			}

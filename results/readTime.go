@@ -19,13 +19,20 @@ type pingRes struct {
 
 func main() {
 	//folder := "K3N20D121remoteO2000raftnew"
-	folder := "K3N20D121remoteO2000crdt"
+	/*
+		folder := "K3N20D121remoteO2000crdt"
+		read("c", folder)
+		read("v", folder)
+
+		folder = "K3N20D121remoteO2000raft"
+		read("c", folder)
+		read("v", folder)
+	*/
+
+	folder := "K3N20D100remoteO101raft"
 	read("c", folder)
 	read("v", folder)
 
-	folder = "K3N20D121remoteO2000raft"
-	read("c", folder)
-	read("v", folder)
 }
 
 func parsePings(folder string) []pingRes {

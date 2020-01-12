@@ -146,9 +146,7 @@ while test $# -gt 0; do
   esac
 done
 
-#rm ../data/output_c.txt > /dev/null 2>&1
-rm ../data/output_v.txt > /dev/null 2>&1
-#rm ../data/results/* > /dev/null 2>&1
+rm ../data/results/* > /dev/null 2>&1
 
 # exporting execution details to text file
 DETFILE="../data/details.txt"
@@ -266,48 +264,6 @@ printf 'Simulation = "IPFS"\nServers = '$N'\nBf = '$(($N-1))'\nRounds = 1\nSuite
 cd ../simulation
 go build
 
-# run cruxified experiment
-if ! $f_van; then
-
-    cruxified=true
-
-    # writing parameters to data/details.txt
-    echo 'K='$K > $DETFILE
-    echo 'N='$N >> $DETFILE
-    echo 'R='$R >> $DETFILE
-    echo 'D='$D >> $DETFILE
-    echo 'remote='$remote >> $DETFILE
-    echo 'ops='$ops >> $DETFILE
-    echo 'pings='$pings >> $DETFILE
-    echo 'mode='$mode >> $DETFILE
-    echo 'cruxified='$cruxified >> $DETFILE
-
-    output_c='../data/output_c.txt'
-
-    echo 'Starting cruxified experiment'
-    echo `cat $DETFILE`
-    echo
-
-    # run cruxified experiment
-    if $remote; then
-        ./simulation -platform deterlab -mport 10008 ipfs.toml > $output_c
-    else
-        ./simulation ipfs.toml > $output_c
-    fi
-
-    # wait for the simulation to finish
-    while ! grep -q "Done" "$output_c"; do
-        sleep 15
-    done
-
-    # parse output
-    cat $output_c | grep "ping node" > ../data/results/pings.txt
-    cat $output_c | grep minoptime > ../data/results/min.txt
-    cat $output_c | grep maxoptime > ../data/results/max.txt
-
-    pings=false
-fi
-
 # run vanilla experiment
 if ! $f_crux; then
 
@@ -324,6 +280,7 @@ if ! $f_crux; then
     echo 'cruxified='$cruxified >> $DETFILE
 
     output_v='../data/output_v.txt'
+    rm $output_v > /dev/null 2>&1
 
     echo 'Starting vanilla experiment'
     echo `cat $DETFILE`
@@ -342,17 +299,61 @@ if ! $f_crux; then
     done
 
     # parse output
-    if $f_van; then
-        cat $output_v | grep "ping node" > ../data/results/pings.txt
-    fi
+    cat $output_v | grep "ping node" > ../data/results/pings.txt
     cat $output_v | grep minoptime > ../data/results/vanilla.txt
 
+    pings=false
 fi
 
+
+# run cruxified experiment
+if ! $f_van; then
+
+    cruxified=true
+
+    # writing parameters to data/details.txt
+    echo 'K='$K > $DETFILE
+    echo 'N='$N >> $DETFILE
+    echo 'R='$R >> $DETFILE
+    echo 'D='$D >> $DETFILE
+    echo 'remote='$remote >> $DETFILE
+    echo 'ops='$ops >> $DETFILE
+    echo 'pings='$pings >> $DETFILE
+    echo 'mode='$mode >> $DETFILE
+    echo 'cruxified='$cruxified >> $DETFILE
+
+    output_c='../data/output_c.txt'
+    rm $output_c > /dev/null 2>&1
+
+    echo 'Starting cruxified experiment'
+    echo `cat $DETFILE`
+    echo
+
+    # run cruxified experiment
+    if $remote; then
+        ./simulation -platform deterlab -mport 10008 ipfs.toml > $output_c
+    else
+        ./simulation ipfs.toml > $output_c
+    fi
+
+    # wait for the simulation to finish
+    while ! grep -q "Done" "$output_c"; do
+        sleep 15
+    done
+
+    # parse output
+    if $f_crux; then
+        cat $output_c | grep "ping node" > ../data/results/pings.txt
+    fi
+    cat $output_c | grep minoptime > ../data/results/min.txt
+    cat $output_c | grep maxoptime > ../data/results/max.txt
+fi
+
+
 # plot graph
-cd ../plot
-rm *.pdf
-python3 plot.py
+#cd ../plot
+#rm *.pdf
+#python3 plot.py
 
 # save results
 
@@ -364,7 +365,7 @@ else
     deploy=local
 fi
 
-path='../../results/K'$K'N'$N'D'$D$deploy'O'$ops$mode
+path='../results/K'$K'N'$N'D'$D$deploy'O'$ops$mode
 
 mkdir $path
 mkdir $path'/data'
@@ -376,8 +377,8 @@ cp '../data/details.txt' $path
 cp $output_c $path
 cp $output_v $path
 
-cp -r '../plot/.' $path'/graphs'
-rm $path'/graphs/plot.py'
+#cp -r '../plot/.' $path'/graphs'
+#rm $path'/graphs/plot.py'
 cp -r '../data/results/.' $path'/data'
 
 echo 'Results saved to '$path

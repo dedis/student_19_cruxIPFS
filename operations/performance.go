@@ -86,11 +86,12 @@ func Test1(nOps, nodesN int) {
 		ops = genSequence(nOps, nodesN)
 		lines = strings.Split(string(ops), "\n")
 	}
-	for i, l := range lines {
+	for _, l := range lines {
 		nodes := strings.Split(l, " ")
 		nodeW := nodes[0]
 		nodeR := nodes[1]
-		f := "file" + strconv.Itoa(i) + ".txt"
+		f := randomFileName()
+		//f := "file" + strconv.Itoa(i) + ".txt"
 
 		NewFile(f)
 		cid, res0 := Write(nodeW, f)

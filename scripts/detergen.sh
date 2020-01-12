@@ -13,10 +13,10 @@ while test $# -gt 0; do
             echo "$0 [options]"
             echo " "
             echo "options:"
-            echo "-h, --help                  show brief help"
-            echo "-D                          specify the distance between nodes (default 120)"
-            echo "-K                          specify the number of ARA levels (default 3)"
-            echo "-N                          specify the number of nodes (default 10)"
+            echo "  -h, --help                show brief help"
+            echo "  -D                        specify the distance between nodes (default 120)"
+            echo "  -K                        specify the number of ARA levels (default 3)"
+            echo "  -N                        specify the number of nodes (default 10)"
             exit 0
             ;;
 

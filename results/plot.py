@@ -78,8 +78,8 @@ def load_latencies(fname='1/pings.txt'):
             node_dst = splitted[2].split('_')[1]
             key = node_src + "_" + node_dst
             val = float(splitted[4])
-            out[key] = 2*val
-            #out[key] = val
+            #out[key] = 2*val
+            out[key] = val
             n += 1
     n = int(math.sqrt(n))
 
@@ -563,6 +563,6 @@ def plot_all(folder, consistency):
 
 
 if __name__ == '__main__':
-    folder = 'K3N20D121remoteO2000'
+    folder = 'K3N20D100remoteO101'
     plot_all(folder, "raft")
-    plot_all(folder, "crdt")
+    #plot_all(folder, "crdt")
