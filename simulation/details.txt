@@ -1,1 +1,0 @@
-details: simulation, mode: raft, K=3

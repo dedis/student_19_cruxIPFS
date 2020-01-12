@@ -9,7 +9,7 @@ const (
 	// DefaultReplMin ipfs cluster minimal replication factor
 	DefaultReplMin = 2
 	// DefaultReplMax ipfs cluster maximal replication factor
-	DefaultReplMax = 3
+	DefaultReplMax = 2
 
 	// BaseHostPort first port allocated to a node
 	BaseHostPort = 14000
