@@ -5,5 +5,5 @@ D=150
 remote=true
 ops=2000
 pings=false
-mode=raft
+mode=crdt
 cruxified=true

@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-const lowBound float64 = 150
+const lowBound float64 = 50
 const highBound float64 = 300
 
 type pingRes struct {
@@ -29,7 +29,7 @@ func main() {
 		read("v", folder)
 	*/
 
-	folder := "K3N20D100remoteO101raft"
+	folder := "K3N20D150remoteO2000raft"
 	read("c", folder)
 	read("v", folder)
 

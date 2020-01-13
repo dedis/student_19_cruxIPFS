@@ -57,7 +57,6 @@ def load_compact_dist(fname='compact.txt'):
             val = float(splitted[10])
             out[(node_src, node_dst)] = val
 
-    # print(out)
     return out
 
 def load_latencies(fname='1/pings.txt'):
@@ -91,16 +90,7 @@ def load_latencies(fname='1/pings.txt'):
         for j in range (0, n):
             key = str(i) + "_" + str(j)
             dist = out[key]
-            #for k in range (0, n):
-                #key1 = str(i) + "_" + str(k)
-                #key2 = str(k) + "_" + str(j)
-                #dist1 = out[key1]
-                #dist2 = out[key2]
-                #if dist > dist1 + dist2:
-                    #print("!!!!", str(i) + "_" + str(j) + "=" + str(dist) +"    " + str(i) + "_" + str(k) + "=" + str(dist1) + "    " +str(k) + "_" + str(j) + "=" + str(dist2))
 
-
-                    #print(out)
     return out
 
 def compute_latencies(fname='coords.txt'):
@@ -156,8 +146,6 @@ def load_optime(fname):
         for line1 in flines:
             lin.append(line1.rstrip())
 
-    # print(lin)
-
     for l in lin:
         node1, node2, dist = parse_one_line(l)
         out[(node1, node2)] = dist
@@ -166,8 +154,6 @@ def load_optime(fname):
             samePair[((node1, node2))] += 1
         except:
             samePair[((node1, node2))] = 1
-
-    # print("pairs",pairs,samePair)
 
     return out
 
@@ -210,8 +196,6 @@ def load_optime_from_sum(fname, isRead):
         for line1 in flines:
             lin.append(line1.rstrip())
 
-    #print(lin)
-
     for l in lin:
         out1, out2, ring = parse_one_line(l)
         if out1 == -1:
@@ -220,7 +204,6 @@ def load_optime_from_sum(fname, isRead):
             out[(out1, out2)] = matchRing[ring]
             matchRing = {}
 
-    #print("returning",out)
     return out
 
 
@@ -233,12 +216,6 @@ def compute_data_points(coord_data, optime_data):
         dist = coord_data[key]
         xdata.append(dist)
         ydata.append(latency)
-        #if dist > latency:
-        #print("******", node1, node2, dist, latency)
-        #if latency > 5 * dist:
-        #print("----------", node1, node2, dist, latency)
-
-    #assert dist <=v
 
     return xdata, ydata
 
@@ -252,108 +229,52 @@ def compute_data_points2(x_c, y_c, optime_data):
         dist = 2 * math.sqrt(math.pow((x_c[node2] - x_c[node1]),2) + math.pow((y_c[node2] - y_c[node1]),2))
         xdata.append(dist)
         ydata.append(latency)
-        #if dist > latency:
-        #print("******", node1, node2, dist, latency)
-        #if latency > 5 * dist:
-        #print("----------", node1, node2, dist, latency)
-
-    #assert dist <=v
 
     return xdata, ydata
 
 def scatter_plot_zoom(xs, ys, xlabel, ylabel, title, leg=False):
     width = 505.89
-    #width = 400
 
     fig, ax = plt.subplots(1, 1, figsize=set_size(width, fraction=0.5))
     plt.tight_layout()
     plt.gcf().subplots_adjust(bottom=0.2,left=0.2)
 
-    #fig, ax = plt.subplots()
     ax.scatter(xs, ys, 1.0, alpha=0.5)
-    #ax.scatter(xs, ys, 0.2, alpha=0.5)
-    #ax.scatter(xs, [y / 2 for y in ys], 1.0, alpha=0.5)
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
-    #ax.set_title(title)
-
-    #ax.set_yscale('log')
-    #ax.set_xscale('log')
-
-
+    # ax.set_title(title)
 
     lims = [
-        #np.min([ax.get_xlim(), ax.get_ylim()]),  # min of both axes
         np.min([0, 0]),  # min of both axes
-        #np.max([ax.get_xlim(), ax.get_ylim()]),  # max of both axes
-        np.max([4000, 700]),  # max of both axes
-        #np.max([1024, 1024]),  # max of both axes
-        #np.max([50, 50]),  # max of both axes
+        np.max([5000, 400]),  # max of both axes
     ]
 
-    # now plot both limits against eachother
-    #ax.plot(lims, lims, 'k-', alpha=0.75, zorder=0)
-    #ax.plot(lims, lims, 'k-', alpha=0.6, label='Ping latency')
-    #ax.plot(xs, [ x * 10 for x in xs] , '#A68524', alpha=0.6, label='compact routing latency upper bound')
-    #ax.plot(xs, [ x * 18 for x in xs] , 'orange', alpha=0.6, label='ARAs bound K=5 ')
-    #ax.plot(xs, [ x * 10 for x in xs] , '#A62447', alpha=0.6, label='ARAs bound K=3 ')
-    #ax.plot([0, 2], [10, 10], '#3D8BF2', alpha=0.6, label='ARAs latency uper bound')
-    '''
-    ax.plot([2, 2], [10, 20], '#3D8BF2', alpha=0.6)
-    ax.plot([2, 4], [20, 20], '#3D8BF2', alpha=0.6)
-    ax.plot([4, 4], [20, 40], '#3D8BF2', alpha=0.6)
-    ax.plot([4, 8], [40, 40], '#3D8BF2', alpha=0.6)
-    ax.plot([8, 8], [40, 80], '#3D8BF2', alpha=0.6)
-    ax.plot([8, 16], [80, 80], '#3D8BF2', alpha=0.6)
-    ax.plot([16, 16], [80, 160], '#3D8BF2', alpha=0.6)
-    ax.plot([16, 32], [160, 160], '#3D8BF2', alpha=0.6)
-    '''
+    ax.set_ylim([1, 5000.0])
+    ax.set_xlim([1, 400])
 
-
-    #ax.plot([32, 64], [320, 320], 'green', lw=2)
-    #ax.scatter(xs, [ y * 2 for y in ys] , '1.0')
-    #ax.set_aspect('equal')
-    #ax.set_xlim(lims)
-
-    #ax.set_ylim([200, 8000.0])
-    #ax.set_xlim([32, 256])
-    ax.set_ylim([1, 4000.0])
-    ax.set_xlim([1, 700])
-
-    #ax.set_xlim([1, 70])
+    ax.plot(xs, [ x * 10 for x in xs] , '#A62447', alpha=0.6, label='ARAs bound K=3 ')
 
     bins = np.arange(min(xs), max(xs), 2)
     percentilef = lambda v: np.percentile(v, 50, axis=0)
-    #print(xs)
-    #print(ys)
-    #print(bin)
     means = binned_statistic(xs, ys, statistic = percentilef, bins = bins)[0]
     ax.plot(bins[:-1], means, 'go', alpha=0.2, markersize = 4, label="50th percentile")
     percentilef = lambda v: np.percentile(v, 95, axis=0)
-    means = binned_statistic(xs, ys, statistic = percentilef, bins = bins)[0]
-    ax.plot(bins[:-1], means, 'o', markerfacecolor = "#A62447", markersize = 4, alpha=0.2,label="95th percentile")
+    means = binned_statistic(xs, ys, statistic=percentilef, bins=bins)[0]
+    ax.plot(bins[:-1], means, 'o', markerfacecolor="#A62447", markersize=4, alpha=0.2, label="95th percentile")
 
 
     if leg:
-        ax.legend(loc='lower right',prop={'size': 6})
+        ax.legend(loc='lower right', prop={'size': 6})
 
-    #ax.xaxis.set_major_locator(ticker.MultipleLocator(2))
-    #ax.xaxis.set_major_formatter(ticker.LogFormatter(base=2.0, labelOnlyBase=True, minor_thresholds=None, linthresh=None))
-
-    #plt.grid(True, which="both")
 
 def scatter_plot(xs, ys, xlabel, ylabel, title, leg=False):
     width = 505.89
-    #width = 400
 
     fig, ax = plt.subplots(1, 1, figsize=set_size(width, fraction=0.5))
     plt.tight_layout()
     plt.gcf().subplots_adjust(bottom=0.2,left=0.2)
 
-    #fig, ax = plt.subplots()
     ax.scatter(xs, ys, 1.0, alpha=0.5)
-    #ax.scatter(xs, ys, 0.2, alpha=0.5)
-    #ax.scatter(xs, [y / 2 for y in ys], 1.0, alpha=0.5)
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     #ax.set_title(title)
@@ -364,56 +285,23 @@ def scatter_plot(xs, ys, xlabel, ylabel, title, leg=False):
 
 
     lims = [
-        #np.min([ax.get_xlim(), ax.get_ylim()]),  # min of both axes
         np.min([0, 0]),  # min of both axes
-        #np.max([ax.get_xlim(), ax.get_ylim()]),  # max of both axes
-        np.max([8000, 500]),  # max of both axes
-        #np.max([1024, 1024]),  # max of both axes
-        #np.max([50, 50]),  # max of both axes
+        np.max([6000, 500]),  # max of both axes
     ]
 
     # now plot both limits against eachother
-    #ax.plot(lims, lims, 'k-', alpha=0.75, zorder=0)
     ax.plot(lims, lims, 'k-', alpha=0.6, label='Ping latency')
-    #ax.plot(xs, [ x * 10 for x in xs] , '#A68524', alpha=0.6, label='compact routing latency upper bound')
-    #ax.plot(xs, [ x * 18 for x in xs] , 'orange', alpha=0.6, label='ARAs bound K=5 ')
     ax.plot(xs, [ x * 10 for x in xs] , '#A62447', alpha=0.6, label='ARAs bound K=3 ')
-    #ax.plot([0, 2], [10, 10], '#3D8BF2', alpha=0.6, label='ARAs latency uper bound')
-    '''
-    ax.plot([2, 2], [10, 20], '#3D8BF2', alpha=0.6)
-    ax.plot([2, 4], [20, 20], '#3D8BF2', alpha=0.6)
-    ax.plot([4, 4], [20, 40], '#3D8BF2', alpha=0.6)
-    ax.plot([4, 8], [40, 40], '#3D8BF2', alpha=0.6)
-    ax.plot([8, 8], [40, 80], '#3D8BF2', alpha=0.6)
-    ax.plot([8, 16], [80, 80], '#3D8BF2', alpha=0.6)
-    ax.plot([16, 16], [80, 160], '#3D8BF2', alpha=0.6)
-    ax.plot([16, 32], [160, 160], '#3D8BF2', alpha=0.6)
-    '''
-
-
-    #ax.plot([32, 64], [320, 320], 'green', lw=2)
-    #ax.scatter(xs, [ y * 2 for y in ys] , '1.0')
-    #ax.set_aspect('equal')
-    #ax.set_xlim(lims)
-
-    #ax.set_ylim([200, 8000.0])
-    #ax.set_xlim([32, 256])
-    ax.set_ylim([1, 8000.0])
-    ax.set_xlim([1, 1000])
-
-    #ax.set_xlim([1, 70])
+    ax.set_ylim([1, 6000.0])
+    ax.set_xlim([1, 500])
 
     bins = np.arange(min(xs), max(xs), 2)
     percentilef = lambda v: np.percentile(v, 50, axis=0)
-    #print(xs)
-    #print(ys)
-    #print(bin)
     means = binned_statistic(xs, ys, statistic = percentilef, bins = bins)[0]
     ax.plot(bins[:-1], means, 'go', alpha=0.2, markersize = 4, label="50th percentile")
     percentilef = lambda v: np.percentile(v, 95, axis=0)
     means = binned_statistic(xs, ys, statistic = percentilef, bins = bins)[0]
     ax.plot(bins[:-1], means, 'o', markerfacecolor = "#A62447", markersize = 4, alpha=0.2,label="95th percentile")
-
 
     if leg:
         ax.legend(loc='lower right',prop={'size': 6})
@@ -421,17 +309,13 @@ def scatter_plot(xs, ys, xlabel, ylabel, title, leg=False):
     ax.xaxis.set_major_locator(ticker.MultipleLocator(2))
     ax.xaxis.set_major_formatter(ticker.LogFormatter(base=2.0, labelOnlyBase=True, minor_thresholds=None, linthresh=None))
 
-    #plt.grid(True, which="both")
-    #
-
 
 def scatter_plot_read(xs, ys, xlabel, ylabel, title, leg=False):
     width = 505.89
-    #width = 400
 
     fig, ax = plt.subplots(1, 1, figsize=set_size(width, fraction=0.5))
     plt.tight_layout()
-    plt.gcf().subplots_adjust(bottom=0.2,left=0.2)
+    plt.gcf().subplots_adjust(bottom=0.2, left=0.2)
 
     ax.scatter(xs, ys, 1.0, alpha=0.5)
     ax.set_xlabel(xlabel)
@@ -439,11 +323,13 @@ def scatter_plot_read(xs, ys, xlabel, ylabel, title, leg=False):
 
     lims = [
         np.min([0, 0]),  # min of both axes
-        np.max([1000, 700]),  # max of both axes
+        np.max([2000, 400]),  # max of both axes
     ]
 
-    ax.set_ylim([1, 1000.0])
-    ax.set_xlim([1, 700])
+    ax.set_ylim([1, 1500.0])
+    ax.set_xlim([1, 400])
+
+    ax.plot(xs, [ x * 2 for x in xs] , '#A62447', alpha=0.6, label='ARAs bound K=3 ')
 
     bins = np.arange(min(xs), max(xs), 2)
     percentilef = lambda v: np.percentile(v, 50, axis=0)
@@ -452,18 +338,16 @@ def scatter_plot_read(xs, ys, xlabel, ylabel, title, leg=False):
     percentilef = lambda v: np.percentile(v, 95, axis=0)
     means = binned_statistic(xs, ys, statistic = percentilef, bins = bins)[0]
     ax.plot(bins[:-1], means, 'o', markerfacecolor = "#A62447", markersize = 4, alpha=0.2,label="95th percentile")
-
 
     if leg:
         ax.legend(loc='lower right',prop={'size': 6})
 
 def scatter_plot_write(xs, ys, xlabel, ylabel, title, leg=False):
     width = 505.89
-    #width = 400
 
     fig, ax = plt.subplots(1, 1, figsize=set_size(width, fraction=0.5))
     plt.tight_layout()
-    plt.gcf().subplots_adjust(bottom=0.2,left=0.2)
+    plt.gcf().subplots_adjust(bottom=0.2, left=0.2)
 
     ax.scatter(xs, ys, 1.0, alpha=0.5)
     ax.set_xlabel(xlabel)
@@ -471,11 +355,11 @@ def scatter_plot_write(xs, ys, xlabel, ylabel, title, leg=False):
 
     lims = [
         np.min([0, 0]),  # min of both axes
-        np.max([3000, 700]),  # max of both axes
+        np.max([3000, 300]),  # max of both axes
     ]
 
-    ax.set_ylim([1, 3000.0])
-    ax.set_xlim([1, 700])
+    ax.set_ylim([1, 4000.0])
+    ax.set_xlim([1, 400])
 
     bins = np.arange(min(xs), max(xs), 2)
     percentilef = lambda v: np.percentile(v, 50, axis=0)
@@ -485,9 +369,8 @@ def scatter_plot_write(xs, ys, xlabel, ylabel, title, leg=False):
     means = binned_statistic(xs, ys, statistic = percentilef, bins = bins)[0]
     ax.plot(bins[:-1], means, 'o', markerfacecolor = "#A62447", markersize = 4, alpha=0.2,label="95th percentile")
 
-
     if leg:
-        ax.legend(loc='lower right',prop={'size': 6})
+        ax.legend(loc='lower right', prop={'size': 6})
 
 
 
@@ -495,11 +378,11 @@ def plot_zoom(folder, consistency):
     folder = folder+consistency
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/min.txt'))
     scatter_plot_zoom(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Cruxified IPFS', True)
-    plt.savefig('plot_zoom_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_zoom_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
 
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/vanilla.txt'))
     scatter_plot_zoom(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Vanilla IPFS', True)
-    plt.savefig('plot_zoom_vanilla_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_zoom_vanilla_'+consistency+'.pdf', format='pdf', dpi=1000)
 
     #xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/max.txt'))
     #scatter_plot_zoom(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Max Cruxified IPFS', True)
@@ -512,11 +395,11 @@ def plot_log(folder, consistency):
     folder = folder+consistency
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/min.txt'))
     scatter_plot(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Cruxified IPFS', True)
-    plt.savefig('plot_log_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_log_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
 
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/vanilla.txt'))
     scatter_plot(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Vanilla IPFS', True)
-    plt.savefig('plot_log_vanilla_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_log_vanilla_'+consistency+'.pdf', format='pdf', dpi=1000)
 
     plt.show()
 
@@ -525,15 +408,15 @@ def plot_read(folder, consistency):
     folder = folder+consistency
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/read_c.txt'))
     scatter_plot_read(xdata, ydata, 'RTT between nodes (ms)', 'Read latency (ms)', 'Cruxified IPFS', True)
-    plt.savefig('plot_read_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_read_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
 
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/read_v.txt'))
     scatter_plot_read(xdata, ydata, 'RTT between nodes (ms)', 'Read latency (ms)', 'Vanilla IPFS', True)
-    plt.savefig('plot_read_vanilla_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_read_vanilla_'+consistency+'.pdf', format='pdf', dpi=1000)
 
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/maxread_c.txt'))
     scatter_plot_read(xdata, ydata, 'RTT between nodes (ms)', 'Read latency (ms)', 'Cruxified IPFS', True)
-    plt.savefig('plot_maxread_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_maxread_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
 
     plt.show()
 
@@ -542,15 +425,15 @@ def plot_write(folder, consistency):
     folder = folder+consistency
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/write_c.txt'))
     scatter_plot_write(xdata, ydata, 'RTT between nodes (ms)', 'Write latency (ms)', 'Cruxified IPFS', True)
-    plt.savefig('plot_write_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_write_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
 
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/write_v.txt'))
     scatter_plot_write(xdata, ydata, 'RTT between nodes (ms)', 'Write latency (ms)', 'Vanilla IPFS', True)
-    plt.savefig('plot_write_vanilla_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_write_vanilla_'+consistency+'.pdf', format='pdf', dpi=1000)
 
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/maxwrite_c.txt'))
     scatter_plot_write(xdata, ydata, 'RTT between nodes (ms)', 'Write latency (ms)', 'Cruxified IPFS', True)
-    plt.savefig('plot_maxwrite_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_maxwrite_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
 
     plt.show()
 
@@ -563,6 +446,6 @@ def plot_all(folder, consistency):
 
 
 if __name__ == '__main__':
-    folder = 'K3N20D100remoteO101'
+    folder = 'K3N20D150remoteO2000'
     plot_all(folder, "raft")
     #plot_all(folder, "crdt")
