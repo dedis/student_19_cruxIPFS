@@ -147,17 +147,18 @@ func Test2(nOps, nodesN int) {
 			}
 		}
 	}
-	for i, l := range lines[:len(lines)-1] {
+	for _, l := range lines[:len(lines)-1] {
 		nodes := strings.Split(l, " ")
 		nodeW := nodes[0]
 		nodeR := nodes[1]
-		f := "file" + strconv.Itoa(i) + ".txt"
+		f := randomFileName()
 
 		NewFile(f)
 		cid, res0 := Write(nodeW, f)
 		res1 := Read(nodeR, cid)
 
 		min := time.Duration(math.MaxInt64)
+		//time.Sleep(1 * time.Second)
 		max := time.Duration(0)
 		minRead := time.Duration(math.MaxInt64)
 		str := "\n"

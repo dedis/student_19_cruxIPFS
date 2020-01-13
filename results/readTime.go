@@ -8,8 +8,8 @@ import (
 	"strings"
 )
 
-const lowBound float64 = 50
-const highBound float64 = 300
+const lowBound float64 = 100
+const highBound float64 = 250
 
 type pingRes struct {
 	Node1 string

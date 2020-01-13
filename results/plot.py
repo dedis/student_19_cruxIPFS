@@ -253,6 +253,7 @@ def scatter_plot_zoom(xs, ys, xlabel, ylabel, title, leg=False):
     ax.set_xlim([1, 400])
 
     ax.plot(xs, [ x * 10 for x in xs] , '#A62447', alpha=0.6, label='ARAs bound K=3 ')
+    ax.plot(xs, [ x * 50 for x in xs] , '#A62447', alpha=0.6, label='ARAs bound K=3 ')
 
     bins = np.arange(min(xs), max(xs), 2)
     percentilef = lambda v: np.percentile(v, 50, axis=0)
@@ -329,7 +330,7 @@ def scatter_plot_read(xs, ys, xlabel, ylabel, title, leg=False):
     ax.set_ylim([1, 1500.0])
     ax.set_xlim([1, 400])
 
-    ax.plot(xs, [ x * 2 for x in xs] , '#A62447', alpha=0.6, label='ARAs bound K=3 ')
+    ax.plot(xs, [ x * 2 for x in xs] , '#A62447', alpha=0.6, label='2xRTT ')
 
     bins = np.arange(min(xs), max(xs), 2)
     percentilef = lambda v: np.percentile(v, 50, axis=0)
@@ -361,6 +362,8 @@ def scatter_plot_write(xs, ys, xlabel, ylabel, title, leg=False):
     ax.set_ylim([1, 4000.0])
     ax.set_xlim([1, 400])
 
+    ax.plot(xs, [ x * 7 for x in xs] , '#A62447', alpha=0.6, label='7xRTT ')
+
     bins = np.arange(min(xs), max(xs), 2)
     percentilef = lambda v: np.percentile(v, 50, axis=0)
     means = binned_statistic(xs, ys, statistic = percentilef, bins = bins)[0]
@@ -378,11 +381,11 @@ def plot_zoom(folder, consistency):
     folder = folder+consistency
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/min.txt'))
     scatter_plot_zoom(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Cruxified IPFS', True)
-    plt.savefig(folder+'/graphs/plot_zoom_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_zoom_cruxified_'+consistency+'.png', format='png', dpi=1000)
 
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/vanilla.txt'))
     scatter_plot_zoom(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Vanilla IPFS', True)
-    plt.savefig(folder+'/graphs/plot_zoom_vanilla_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_zoom_vanilla_'+consistency+'.png', format='png', dpi=1000)
 
     #xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/max.txt'))
     #scatter_plot_zoom(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Max Cruxified IPFS', True)
@@ -408,15 +411,15 @@ def plot_read(folder, consistency):
     folder = folder+consistency
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/read_c.txt'))
     scatter_plot_read(xdata, ydata, 'RTT between nodes (ms)', 'Read latency (ms)', 'Cruxified IPFS', True)
-    plt.savefig(folder+'/graphs/plot_read_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_read_cruxified_'+consistency+'.png', format='png', dpi=1000)
 
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/read_v.txt'))
     scatter_plot_read(xdata, ydata, 'RTT between nodes (ms)', 'Read latency (ms)', 'Vanilla IPFS', True)
-    plt.savefig(folder+'/graphs/plot_read_vanilla_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_read_vanilla_'+consistency+'.png', format='png', dpi=1000)
 
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/maxread_c.txt'))
     scatter_plot_read(xdata, ydata, 'RTT between nodes (ms)', 'Read latency (ms)', 'Cruxified IPFS', True)
-    plt.savefig(folder+'/graphs/plot_maxread_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_maxread_cruxified_'+consistency+'.png', format='png', dpi=1000)
 
     plt.show()
 
@@ -425,15 +428,15 @@ def plot_write(folder, consistency):
     folder = folder+consistency
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/write_c.txt'))
     scatter_plot_write(xdata, ydata, 'RTT between nodes (ms)', 'Write latency (ms)', 'Cruxified IPFS', True)
-    plt.savefig(folder+'/graphs/plot_write_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_write_cruxified_'+consistency+'.png', format='png', dpi=1000)
 
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/write_v.txt'))
     scatter_plot_write(xdata, ydata, 'RTT between nodes (ms)', 'Write latency (ms)', 'Vanilla IPFS', True)
-    plt.savefig(folder+'/graphs/plot_write_vanilla_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_write_vanilla_'+consistency+'.png', format='png', dpi=1000)
 
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/maxwrite_c.txt'))
     scatter_plot_write(xdata, ydata, 'RTT between nodes (ms)', 'Write latency (ms)', 'Cruxified IPFS', True)
-    plt.savefig(folder+'/graphs/plot_maxwrite_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_maxwrite_cruxified_'+consistency+'.png', format='png', dpi=1000)
 
     plt.show()
 
