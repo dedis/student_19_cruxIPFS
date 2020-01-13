@@ -3,8 +3,8 @@ Author: Guillaume Michel
 
 Master Semester project: Speeding up the Inter-Planetary File System </br>
 Laboratory: DEDIS, EPFL </br>
-Project adviser: Prof. Bryan Ford </br>
-Project supervisor: Cristina Basescu </br>
+Project Advisor: Prof. Bryan Ford </br>
+Project Supervisor: Cristina Basescu </br>
 Student: Guillaume Michel
 
 
