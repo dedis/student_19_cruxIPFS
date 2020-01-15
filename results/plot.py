@@ -252,8 +252,8 @@ def scatter_plot_zoom(xs, ys, xlabel, ylabel, title, leg=False):
     ax.set_ylim([1, 5000.0])
     ax.set_xlim([1, 400])
 
-    ax.plot(xs, [ x * 10 for x in xs] , '#A62447', alpha=0.6, label='ARAs bound K=3 ')
-    ax.plot(xs, [ x * 50 for x in xs] , '#A62447', alpha=0.6, label='ARAs bound K=3 ')
+    ax.plot(xs, [ x * 1 for x in xs] , '#000000', alpha=0.6, label='Ping latency ')
+    #ax.plot(xs, [ x * 10 for x in xs] , '#A62447', alpha=0.6, label='ARAs bound K=3 ')
 
     bins = np.arange(min(xs), max(xs), 2)
     percentilef = lambda v: np.percentile(v, 50, axis=0)
@@ -330,7 +330,7 @@ def scatter_plot_read(xs, ys, xlabel, ylabel, title, leg=False):
     ax.set_ylim([1, 1500.0])
     ax.set_xlim([1, 400])
 
-    ax.plot(xs, [ x * 2 for x in xs] , '#A62447', alpha=0.6, label='2xRTT ')
+    #ax.plot(xs, [ x * 2 for x in xs] , '#A62447', alpha=0.6, label='2xRTT ')
 
     bins = np.arange(min(xs), max(xs), 2)
     percentilef = lambda v: np.percentile(v, 50, axis=0)
@@ -362,7 +362,7 @@ def scatter_plot_write(xs, ys, xlabel, ylabel, title, leg=False):
     ax.set_ylim([1, 4000.0])
     ax.set_xlim([1, 400])
 
-    ax.plot(xs, [ x * 7 for x in xs] , '#A62447', alpha=0.6, label='7xRTT ')
+    #ax.plot(xs, [ x * 7 for x in xs] , '#A62447', alpha=0.6, label='7xRTT ')
 
     bins = np.arange(min(xs), max(xs), 2)
     percentilef = lambda v: np.percentile(v, 50, axis=0)
@@ -398,11 +398,11 @@ def plot_log(folder, consistency):
     folder = folder+consistency
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/min.txt'))
     scatter_plot(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Cruxified IPFS', True)
-    plt.savefig(folder+'/graphs/plot_log_cruxified_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_log_cruxified_'+consistency+'.png', format='png', dpi=1000)
 
     xdata, ydata = compute_data_points(load_latencies(folder+'/data/pings.txt'), load_optime(folder+'/data/vanilla.txt'))
     scatter_plot(xdata, ydata, 'RTT between nodes (ms)', 'W-R pair latency (ms)', 'Vanilla IPFS', True)
-    plt.savefig(folder+'/graphs/plot_log_vanilla_'+consistency+'.pdf', format='pdf', dpi=1000)
+    plt.savefig(folder+'/graphs/plot_log_vanilla_'+consistency+'.png', format='png', dpi=1000)
 
     plt.show()
 
@@ -450,5 +450,5 @@ def plot_all(folder, consistency):
 
 if __name__ == '__main__':
     folder = 'K3N20D150remoteO2000'
-    plot_all(folder, "raft")
-    #plot_all(folder, "crdt")
+    #plot_all(folder, "raft")
+    plot_all(folder, "crdt")
