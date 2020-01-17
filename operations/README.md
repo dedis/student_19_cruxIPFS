@@ -6,7 +6,7 @@ This folder contains the Crux client interacting with IPFS Cluster.
 
 Contains the constants used by the Crux client.
 
-## [operations.go](operations.go)
+## [operations.go](operations.go)
 
 Contains the basic commands implementation for the Crux client, such as `Write(f)` or `Read(f)`.
 
