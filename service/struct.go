@@ -5,10 +5,10 @@ import (
 	"os"
 	"sync"
 
-	"github.com/dedis/student_19_cruxIPFS/ARAgen"
 	"github.com/dedis/student_19_cruxIPFS/gentree"
 
 	"go.dedis.ch/onet/v3"
+	"go.dedis.ch/onet/v3/network"
 	"go.dedis.ch/onet/v3/simul/monitor"
 )
 
@@ -27,7 +27,7 @@ type Service struct {
 	Nodes        gentree.LocalityNodes
 	LocalityTree *onet.Tree
 	Parents      []*onet.TreeNode
-	GraphTree    map[string][]ARAgen.GraphTree
+	GraphTree    map[string][]gentree.GraphTree
 	BinaryTree   map[string][]*onet.Tree
 	alive        bool
 	Distances    map[*gentree.LocalityNode]map[*gentree.LocalityNode]float64
@@ -58,7 +58,7 @@ type Service struct {
 	MyIPFSPath string // path to ipfs config folder of that service
 	MinPort    int    // port range allocated to this node
 	MaxPort    int
-	MyIPFS     IPFSInformation            // own ipfs information
+	MyIPFS     []IPFSInformation          // own ipfs information
 	OtherIPFS  map[string]IPFSInformation // node_x -> IP, ports etc.
 
 	OnetTree      *onet.Tree
@@ -86,7 +86,7 @@ type ClusterInfo struct {
 type ClusterInstance struct {
 	HostName      string
 	IP            string
-	IPFSAPIPort   int
+	IPFSAPIAddr   string
 	RestAPIPort   int
 	IPFSProxyPort int
 	ClusterPort   int
@@ -101,74 +101,46 @@ type IPFSInformation struct {
 	GatewayPort int
 }
 
-// Name can be used from other packages to refer to this protocol.
-const Name = "Template"
-
-// Announce is used to pass a message to all children.
-type Announce struct {
-	Message string
+// InitRequest packet
+type InitRequest struct {
+	Nodes                []*gentree.LocalityNode
+	ServerIdentityToName map[*network.ServerIdentity]string
+	OnetTree             *onet.Tree
+	Roster               *onet.Roster
+	Cruxified            bool
+	ComputePings         bool
+	Mode                 string
 }
 
-// announceWrapper just contains Announce and the data necessary to identify
-// and process the message in onet.
-type announceWrapper struct {
-	*onet.TreeNode
-	Announce
+// InitResponse packet
+type InitResponse struct {
 }
 
-// Reply returns the count of all children.
-type Reply struct {
-	ChildrenCount int
+// ReqPings request packet for ping service
+type ReqPings struct {
+	SenderName string
 }
 
-// replyWrapper just contains Reply and the data necessary to identify and
-// process the message in onet.
-type replyWrapper struct {
-	*onet.TreeNode
-	Reply
+// ReplyPings reply packet for ping service
+type ReplyPings struct {
+	Pings      string
+	SenderName string
 }
 
-// WaitpeersProtocol structure
-type WaitpeersProtocol struct {
-	*onet.TreeNodeInstance
-	announceChan chan announceWrapperWaitpeers
-	repliesChan  chan []replyWrapperWaitpeers
-	Ready        chan bool
-}
-
-// WaitpeersAnnounce is used to pass a message to all children.
-type WaitpeersAnnounce struct {
-	Message string
-}
-
-// announceWrapperWaitpeers just contains Announce and the data necessary to
-// identify and process the message in onet.
-type announceWrapperWaitpeers struct {
-	*onet.TreeNode
-	WaitpeersAnnounce
-}
-
-// WaitpeersReply returns true when ready.
-type WaitpeersReply struct {
-	Ready bool
-}
-
-// replyWrapper just contains Reply and the data necessary to identify and
-// process the message in onet.
-type replyWrapperWaitpeers struct {
-	*onet.TreeNode
-	WaitpeersReply
+// NodeInfo contains ipfs and ipfs-cluster information for a given node
+type NodeInfo struct {
+	IPFS     IPFSInformation
+	Clusters []ClusterInfo
 }
 
 // StartIPFSProtocol structure
 type StartIPFSProtocol struct {
 	*onet.TreeNodeInstance
-	announceChan  chan announceWrapperStartIPFS
-	repliesChan   chan []replyWrapperStartIPFS
-	Ready         chan bool
-	GetService    FnService
-	IPFSInstances []IPFSInformation
-	Clusters      []ClusterInfo
+	announceChan chan announceWrapperStartIPFS
+	repliesChan  chan []replyWrapperStartIPFS
+	Ready        chan bool
+	GetService   FnService
+	Nodes        map[string]*NodeInfo
 }
 
 // StartIPFSAnnounce is used to pass a message to all children.
@@ -230,4 +202,72 @@ type ClusterBootstrapReply struct {
 type replyWrapperClusterBootstrap struct {
 	*onet.TreeNode
 	ClusterBootstrapReply
+}
+
+// StartARAProtocol structure
+type StartARAProtocol struct {
+	*onet.TreeNodeInstance
+	announceChan chan announceWrapperStartARA
+	repliesChan  chan []replyWrapperStartARA
+	Ready        chan bool
+	Info         ClusterInfo
+	GetService   FnService
+}
+
+// StartARAAnnounce is used to pass a message to all children.
+type StartARAAnnounce struct {
+	SenderName string
+	Bootstrap  string
+	Secret     string
+}
+
+// announceWrapperStartARA just contains Announce and the data necessary
+// to identify and process the message in onet.
+type announceWrapperStartARA struct {
+	*onet.TreeNode
+	StartARAAnnounce
+}
+
+// StartARAReply returns true when ready.
+type StartARAReply struct {
+	Cluster *[]ClusterInstance
+}
+
+// replyWrapperStartARA just contains Reply and the data necessary to
+// identify and process the message in onet.
+type replyWrapperStartARA struct {
+	*onet.TreeNode
+	StartARAReply
+}
+
+// StartInstancesProtocol structure
+type StartInstancesProtocol struct {
+	*onet.TreeNodeInstance
+	announceChan chan announceWrapperStartInstances
+	repliesChan  chan []replyWrapperStartInstances
+	Ready        chan bool
+	GetService   FnService
+	Nodes        map[string]*NodeInfo
+}
+
+// StartInstancesAnnounce is used to pass a message to all children.
+type StartInstancesAnnounce struct{}
+
+// announceWrapperStartInstances just contains Announce and the data necessary
+// to identify and process the message in onet.
+type announceWrapperStartInstances struct {
+	*onet.TreeNode
+	StartInstancesAnnounce
+}
+
+// StartInstancesReply returns true when ready.
+type StartInstancesReply struct {
+	Node *NodeInfo
+}
+
+// replyWrapperStartInstances just contains Reply and the data necessary to
+// identify and process the message in onet.
+type replyWrapperStartInstances struct {
+	*onet.TreeNode
+	StartInstancesReply
 }

@@ -9,12 +9,11 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"os"
 	"strconv"
 	"strings"
 	"sync"
 
-	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
-	"github.com/dedis/student_19_cruxIPFS/ARAgen"
 	"github.com/dedis/student_19_cruxIPFS/gentree"
 
 	"go.dedis.ch/onet/v3"
@@ -29,34 +28,41 @@ var templateID onet.ServiceID
 var execReqPingsMsgID network.MessageTypeID
 var execReplyPingsMsgID network.MessageTypeID
 
-var execReqIPFSInfoMsgID network.MessageTypeID
-var execReplyIPFSInfoMsgID network.MessageTypeID
-
-var execReqBootstrapClusterMsgID network.MessageTypeID
-var execReplyBootstrapClusterMsgID network.MessageTypeID
-
 func init() {
 	var err error
-	templateID, err = onet.RegisterNewService(cruxIPFS.ServiceName, newService)
+	templateID, err = onet.RegisterNewService(ServiceName, newService)
 	log.ErrFatal(err)
 
-	execReqPingsMsgID = network.RegisterMessage(&cruxIPFS.ReqPings{})
-	execReplyPingsMsgID = network.RegisterMessage(&cruxIPFS.ReplyPings{})
+	execReqPingsMsgID = network.RegisterMessage(&ReqPings{})
+	execReplyPingsMsgID = network.RegisterMessage(&ReplyPings{})
 
-	network.RegisterMessage(&storage{})
+	for _, i := range []interface{}{
+		StartIPFSAnnounce{},
+		StartIPFSReply{},
+		ClusterBootstrapAnnounce{},
+		ClusterBootstrapReply{},
+		StartARAAnnounce{},
+		StartARAReply{},
+		StartInstancesAnnounce{},
+		StartInstancesReply{},
+		&storage{},
+	} {
+		network.RegisterMessage(i)
+	}
+
 }
 
 // InitRequest init the tree
-func (s *Service) InitRequest(req *cruxIPFS.InitRequest) (*cruxIPFS.InitResponse, error) {
-	//log.Lvl1("here", s.ServerIdentity().String())
+func (s *Service) InitRequest(req *InitRequest) (
+	*InitResponse, error) {
 
-	s.Setup(req)
+	s.setup(req)
 
-	return &cruxIPFS.InitResponse{}, nil
+	return &InitResponse{}, nil
 }
 
 // Setup IPFS cluster ARAs
-func (s *Service) Setup(req *cruxIPFS.InitRequest) {
+func (s *Service) setup(req *InitRequest) {
 
 	// copied from nyle
 	log.Lvl3("Setup service")
@@ -84,15 +90,19 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 		nodes[gentree.NodeNameToInt(n.Name)] = n
 	}
 	s.Nodes.All = nodes
-	s.Nodes.ClusterBunchDistances = make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]float64)
-	s.Nodes.Links = make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]map[*gentree.LocalityNode]bool)
-	s.GraphTree = make(map[string][]ARAgen.GraphTree)
+	s.Nodes.ClusterBunchDistances =
+		make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]float64)
+	s.Nodes.Links = make(map[*gentree.
+		LocalityNode]map[*gentree.LocalityNode]map[*gentree.LocalityNode]bool)
+	s.GraphTree = make(map[string][]gentree.GraphTree)
 	s.BinaryTree = make(map[string][]*onet.Tree)
 
 	// allocate distances
 	for _, node := range s.Nodes.All {
-		s.Nodes.ClusterBunchDistances[node] = make(map[*gentree.LocalityNode]float64)
-		s.Nodes.Links[node] = make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]bool)
+		s.Nodes.ClusterBunchDistances[node] =
+			make(map[*gentree.LocalityNode]float64)
+		s.Nodes.Links[node] =
+			make(map[*gentree.LocalityNode]map[*gentree.LocalityNode]bool)
 		for _, node2 := range s.Nodes.All {
 			s.Nodes.ClusterBunchDistances[node][node2] = math.MaxFloat64
 			s.Nodes.Links[node][node2] = make(map[*gentree.LocalityNode]bool)
@@ -100,8 +110,6 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 			if node == node2 {
 				s.Nodes.ClusterBunchDistances[node][node2] = 0
 			}
-
-			//log.LLvl1("init map", node.Name, node2.Name)
 		}
 	}
 
@@ -119,16 +127,33 @@ func (s *Service) Setup(req *cruxIPFS.InitRequest) {
 
 	s.Name = s.Nodes.GetServerIdentityToName(s.ServerIdentity())
 
-	if s.Name == "" {
+	_, err := os.Stat(PingsFile)
+	s.getPings(err == nil && !req.ComputePings)
+	//os.IsNotExist(err))
+
+	//s.getPings(false)
+	if s.Nodes.GetServerIdentityToName(s.ServerIdentity()) == Node0 {
+		//s.printDistances("Ping distances")
+		s.printPings()
+	}
+
+	s.setIPFSVariables()
+
+	if !req.Cruxified {
 		return
 	}
 
-	//log.LLvl1("called init service on", s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.ServerIdentity())
+	maxLvl := 0
+	for _, n := range s.Nodes.All {
+		if n.Level > maxLvl {
+			maxLvl = n.Level
+		}
+	}
+	maxLvl++
 
-	s.getPings(true)
-
-	AuxNodes, dist2, ARATreeStruct, ARAOnetTrees := ARAgen.GenARAs(s.Nodes,
-		s.Nodes.GetServerIdentityToName(s.ServerIdentity()), s.PingDistances, 3)
+	AuxNodes, dist2, ARATreeStruct, ARAOnetTrees := gentree.GenARAs(s.Nodes,
+		s.Nodes.GetServerIdentityToName(s.ServerIdentity()),
+		s.PingDistances, maxLvl)
 
 	s.Distances = dist2
 	s.Nodes = AuxNodes
@@ -181,7 +206,6 @@ func (s *Service) tryLoad() error {
 // running on. Saving and loading can be done using the context. The data will
 // be stored in memory for tests and simulations, and on disk for real deployments.
 func newService(c *onet.Context) (onet.Service, error) {
-	//log.LLvl1("new service")
 
 	s := &Service{
 		ServiceProcessor: onet.NewServiceProcessor(c),
@@ -205,6 +229,26 @@ func newService(c *onet.Context) (onet.Service, error) {
 		func(n *onet.TreeNodeInstance) (onet.ProtocolInstance, error) {
 
 			return NewClusterBootstrapProtocol(n, s.GetService)
+		})
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	_, err = s.ProtocolRegister(StartARAName,
+		func(n *onet.TreeNodeInstance) (onet.ProtocolInstance, error) {
+
+			return NewStartARAProtocol(n, s.GetService)
+		})
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	_, err = s.ProtocolRegister(StartInstancesName,
+		func(n *onet.TreeNodeInstance) (onet.ProtocolInstance, error) {
+
+			return NewStartInstancesProtocol(n, s.GetService)
 		})
 	if err != nil {
 		log.Error(err)

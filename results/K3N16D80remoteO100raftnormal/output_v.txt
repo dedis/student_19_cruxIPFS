@@ -1,0 +1,1193 @@
+1 : build.go:53 (simul.startBuild)           - Deploying to deterlab
+1 : deterlab.go:138 (platform.(*Deterlab).Build) - Building for guissou users.deterlab.net SAFER  simulDir= /mnt/guillaume/Documents/epfl/ipfs/repos/student_19_cruxIPFS2/simulation
+1 : deterlab.go:194 (platform.(*Deterlab).Build) - Build is finished after 5.676934268s
+1 : build.go:144 (simul.RunTests)            - Running test with config: map[bf:15 depth:1 prescript:"prescript.sh" rounds:1 servers:16 simulation:"IPFS" suite:"Ed25519"]
+1 : users.go:50 (main.main)                  - Cleaning up 40 hosts.
+1 : deterlab.go:305 (platform.(*Deterlab).Deploy) - Copying over to guissou @ users.deterlab.net
+1 : users.go:120 (main.main)                 - starting 16 cothorities for a total of 16 processes.
+1 : runsimul.go:144 (platform.Simulate)      - Started counting children with timeout of 1s
+1 : runsimul.go:148 (platform.Simulate)      - Found all 16 children
+1 : pings.go:341 (service.(*Service).printPings) - 
+ping node_0 node_0 = 0.000000
+ping node_0 node_1 = 97.260250
+ping node_0 node_2 = 16.237750
+ping node_0 node_3 = 91.524000
+ping node_0 node_4 = 88.290750
+ping node_0 node_5 = 94.472250
+ping node_0 node_6 = 88.524500
+ping node_0 node_7 = 92.597750
+ping node_0 node_8 = 61.363750
+ping node_0 node_9 = 73.637250
+ping node_0 node_10 = 72.122250
+ping node_0 node_11 = 88.701000
+ping node_0 node_12 = 117.872500
+ping node_0 node_13 = 91.535000
+ping node_0 node_14 = 148.634500
+ping node_0 node_15 = 83.953000
+ping node_1 node_0 = 97.260250
+ping node_1 node_1 = 0.000000
+ping node_1 node_2 = 113.474500
+ping node_1 node_3 = 91.834500
+ping node_1 node_4 = 120.985250
+ping node_1 node_5 = 94.884500
+ping node_1 node_6 = 89.008500
+ping node_1 node_7 = 101.387250
+ping node_1 node_8 = 102.455500
+ping node_1 node_9 = 96.337250
+ping node_1 node_10 = 131.678500
+ping node_1 node_11 = 125.093500
+ping node_1 node_12 = 160.465500
+ping node_1 node_13 = 121.314000
+ping node_1 node_14 = 163.591750
+ping node_1 node_15 = 93.801750
+ping node_2 node_0 = 16.237750
+ping node_2 node_1 = 113.474500
+ping node_2 node_2 = 0.000000
+ping node_2 node_3 = 83.698750
+ping node_2 node_4 = 91.722750
+ping node_2 node_5 = 90.036750
+ping node_2 node_6 = 85.529250
+ping node_2 node_7 = 78.156500
+ping node_2 node_8 = 45.242750
+ping node_2 node_9 = 57.422500
+ping node_2 node_10 = 71.985500
+ping node_2 node_11 = 72.445250
+ping node_2 node_12 = 101.477500
+ping node_2 node_13 = 82.941250
+ping node_2 node_14 = 140.039750
+ping node_2 node_15 = 67.705000
+ping node_3 node_0 = 91.524000
+ping node_3 node_1 = 91.834500
+ping node_3 node_2 = 83.698750
+ping node_3 node_3 = 0.000000
+ping node_3 node_4 = 3.263000
+ping node_3 node_5 = 8.273250
+ping node_3 node_6 = 3.462250
+ping node_3 node_7 = 26.630250
+ping node_3 node_8 = 30.522750
+ping node_3 node_9 = 39.712750
+ping node_3 node_10 = 40.663750
+ping node_3 node_11 = 3.170500
+ping node_3 node_12 = 77.189250
+ping node_3 node_13 = 39.194000
+ping node_3 node_14 = 96.396750
+ping node_3 node_15 = 28.422750
+ping node_4 node_0 = 88.290750
+ping node_4 node_1 = 120.985250
+ping node_4 node_2 = 91.722750
+ping node_4 node_3 = 3.263000
+ping node_4 node_4 = 0.000000
+ping node_4 node_5 = 11.383750
+ping node_4 node_6 = 0.255250
+ping node_4 node_7 = 23.465750
+ping node_4 node_8 = 33.732250
+ping node_4 node_9 = 41.106750
+ping node_4 node_10 = 43.921000
+ping node_4 node_11 = 6.438500
+ping node_4 node_12 = 75.687250
+ping node_4 node_13 = 42.481750
+ping node_4 node_14 = 99.673250
+ping node_4 node_15 = 26.339500
+ping node_5 node_0 = 94.472250
+ping node_5 node_1 = 94.884500
+ping node_5 node_2 = 90.036750
+ping node_5 node_3 = 8.273250
+ping node_5 node_4 = 11.383750
+ping node_5 node_5 = 0.000000
+ping node_5 node_6 = 6.067750
+ping node_5 node_7 = 29.332250
+ping node_5 node_8 = 38.619000
+ping node_5 node_9 = 35.600250
+ping node_5 node_10 = 48.926750
+ping node_5 node_11 = 11.385500
+ping node_5 node_12 = 83.775250
+ping node_5 node_13 = 47.428000
+ping node_5 node_14 = 104.601000
+ping node_5 node_15 = 20.257250
+ping node_6 node_0 = 88.524500
+ping node_6 node_1 = 89.008500
+ping node_6 node_2 = 85.529250
+ping node_6 node_3 = 3.462250
+ping node_6 node_4 = 0.255250
+ping node_6 node_5 = 6.067750
+ping node_6 node_6 = 0.000000
+ping node_6 node_7 = 23.223000
+ping node_6 node_8 = 33.971500
+ping node_6 node_9 = 37.462500
+ping node_6 node_10 = 44.141500
+ping node_6 node_11 = 6.678750
+ping node_6 node_12 = 75.931250
+ping node_6 node_13 = 42.687000
+ping node_6 node_14 = 99.820750
+ping node_6 node_15 = 24.408750
+ping node_7 node_0 = 92.597750
+ping node_7 node_1 = 101.387250
+ping node_7 node_2 = 78.156500
+ping node_7 node_3 = 26.630250
+ping node_7 node_4 = 23.465750
+ping node_7 node_5 = 29.332250
+ping node_7 node_6 = 23.223000
+ping node_7 node_7 = 0.000000
+ping node_7 node_8 = 32.899500
+ping node_7 node_9 = 23.912750
+ping node_7 node_10 = 43.123500
+ping node_7 node_11 = 36.447000
+ping node_7 node_12 = 85.001250
+ping node_7 node_13 = 60.046750
+ping node_7 node_14 = 114.230750
+ping node_7 node_15 = 13.633750
+ping node_8 node_0 = 61.363750
+ping node_8 node_1 = 102.455500
+ping node_8 node_2 = 45.242750
+ping node_8 node_3 = 30.522750
+ping node_8 node_4 = 33.732250
+ping node_8 node_5 = 38.619000
+ping node_8 node_6 = 33.971500
+ping node_8 node_7 = 32.899500
+ping node_8 node_8 = 0.000000
+ping node_8 node_9 = 12.237500
+ping node_8 node_10 = 10.252250
+ping node_8 node_11 = 27.234250
+ping node_8 node_12 = 56.233750
+ping node_8 node_13 = 29.457250
+ping node_8 node_14 = 86.500000
+ping node_8 node_15 = 22.512000
+ping node_9 node_0 = 73.637250
+ping node_9 node_1 = 96.337250
+ping node_9 node_2 = 57.422500
+ping node_9 node_3 = 39.712750
+ping node_9 node_4 = 41.106750
+ping node_9 node_5 = 35.600250
+ping node_9 node_6 = 37.462500
+ping node_9 node_7 = 23.912750
+ping node_9 node_8 = 12.237500
+ping node_9 node_9 = 0.000000
+ping node_9 node_10 = 22.521500
+ping node_9 node_11 = 39.484000
+ping node_9 node_12 = 50.088500
+ping node_9 node_13 = 41.604750
+ping node_9 node_14 = 98.747250
+ping node_9 node_15 = 10.234000
+ping node_10 node_0 = 72.122250
+ping node_10 node_1 = 131.678500
+ping node_10 node_2 = 71.985500
+ping node_10 node_3 = 40.663750
+ping node_10 node_4 = 43.921000
+ping node_10 node_5 = 48.926750
+ping node_10 node_6 = 44.141500
+ping node_10 node_7 = 43.123500
+ping node_10 node_8 = 10.252250
+ping node_10 node_9 = 22.521500
+ping node_10 node_10 = 0.000000
+ping node_10 node_11 = 37.474250
+ping node_10 node_12 = 65.682250
+ping node_10 node_13 = 19.284750
+ping node_10 node_14 = 76.360500
+ping node_10 node_15 = 32.842750
+ping node_11 node_0 = 88.701000
+ping node_11 node_1 = 125.093500
+ping node_11 node_2 = 72.445250
+ping node_11 node_3 = 3.170500
+ping node_11 node_4 = 6.438500
+ping node_11 node_5 = 11.385500
+ping node_11 node_6 = 6.678750
+ping node_11 node_7 = 36.447000
+ping node_11 node_8 = 27.234250
+ping node_11 node_9 = 39.484000
+ping node_11 node_10 = 37.474250
+ping node_11 node_11 = 0.000000
+ping node_11 node_12 = 80.100000
+ping node_11 node_13 = 45.891250
+ping node_11 node_14 = 101.867500
+ping node_11 node_15 = 36.067000
+ping node_12 node_0 = 117.872500
+ping node_12 node_1 = 160.465500
+ping node_12 node_2 = 101.477500
+ping node_12 node_3 = 77.189250
+ping node_12 node_4 = 75.687250
+ping node_12 node_5 = 83.775250
+ping node_12 node_6 = 75.931250
+ping node_12 node_7 = 85.001250
+ping node_12 node_8 = 56.233750
+ping node_12 node_9 = 50.088500
+ping node_12 node_10 = 65.682250
+ping node_12 node_11 = 80.100000
+ping node_12 node_12 = 0.000000
+ping node_12 node_13 = 55.260000
+ping node_12 node_14 = 112.452000
+ping node_12 node_15 = 60.236250
+ping node_13 node_0 = 91.535000
+ping node_13 node_1 = 121.314000
+ping node_13 node_2 = 82.941250
+ping node_13 node_3 = 39.194000
+ping node_13 node_4 = 42.481750
+ping node_13 node_5 = 47.428000
+ping node_13 node_6 = 42.687000
+ping node_13 node_7 = 60.046750
+ping node_13 node_8 = 29.457250
+ping node_13 node_9 = 41.604750
+ping node_13 node_10 = 19.284750
+ping node_13 node_11 = 45.891250
+ping node_13 node_12 = 55.260000
+ping node_13 node_13 = 0.000000
+ping node_13 node_14 = 57.267750
+ping node_13 node_15 = 51.922000
+ping node_14 node_0 = 148.634500
+ping node_14 node_1 = 163.591750
+ping node_14 node_2 = 140.039750
+ping node_14 node_3 = 96.396750
+ping node_14 node_4 = 99.673250
+ping node_14 node_5 = 104.601000
+ping node_14 node_6 = 99.820750
+ping node_14 node_7 = 114.230750
+ping node_14 node_8 = 86.500000
+ping node_14 node_9 = 98.747250
+ping node_14 node_10 = 76.360500
+ping node_14 node_11 = 101.867500
+ping node_14 node_12 = 112.452000
+ping node_14 node_13 = 57.267750
+ping node_14 node_14 = 0.000000
+ping node_14 node_15 = 109.069000
+ping node_15 node_0 = 83.953000
+ping node_15 node_1 = 93.801750
+ping node_15 node_2 = 67.705000
+ping node_15 node_3 = 28.422750
+ping node_15 node_4 = 26.339500
+ping node_15 node_5 = 20.257250
+ping node_15 node_6 = 24.408750
+ping node_15 node_7 = 13.633750
+ping node_15 node_8 = 22.512000
+ping node_15 node_9 = 10.234000
+ping node_15 node_10 = 32.842750
+ping node_15 node_11 = 36.067000
+ping node_15 node_12 = 60.236250
+ping node_15 node_13 = 51.922000
+ping node_15 node_14 = 109.069000
+ping node_15 node_15 = 0.000000
+
+1 : runsimul.go:169 (platform.Simulate)      - Starting new node IPFS
+1 : startipfs.go:29 (service.(*StartIPFSProtocol).Start) - Starting IPFS instances
+1 : startipfs.go:74 (service.(*StartIPFSProtocol).Dispatch) - All IPFS instances started successfully
+1 : save.go:60 (operations.SaveState)        - 
+##### IPFS instances #####
+
+node_12:
+  IP             : 10.1.20.3
+  Swarm Port     : 16400
+  API Port       : 16402
+  Gateway Port   : 16403
+  Cluster number : 0
+  Clusters       : 
+node_4:
+  IP             : 10.1.11.3
+  Swarm Port     : 14800
+  API Port       : 14802
+  Gateway Port   : 14803
+  Cluster number : 0
+  Clusters       : 
+node_1:
+  IP             : 10.1.1.3
+  Swarm Port     : 14200
+  API Port       : 14202
+  Gateway Port   : 14203
+  Cluster number : 0
+  Clusters       : 
+node_0:
+  IP             : 10.1.1.2
+  Swarm Port     : 14000
+  API Port       : 14002
+  Gateway Port   : 14003
+  Cluster number : 1
+  Clusters       : 
+    Cluster leader : node_0
+    Secret         : 5fdf54a9d2169ac494f68c5131066c20e01c6dcd5202715a1d9627768bc8f657
+    Size           : 16
+    Hosts          : 
+      node_0
+        IP              : /ip4/10.1.1.2/tcp/
+        RestAPI Port    : 14001
+        IPFS Proxy Port : 14004
+        Cluster Port    : 14005
+
+      node_2
+        IP              : /ip4/10.1.2.3/tcp/
+        RestAPI Port    : 14401
+        IPFS Proxy Port : 14404
+        Cluster Port    : 14405
+
+      node_8
+        IP              : /ip4/10.1.16.2/tcp/
+        RestAPI Port    : 15601
+        IPFS Proxy Port : 15604
+        Cluster Port    : 15605
+
+      node_10
+        IP              : /ip4/10.1.18.3/tcp/
+        RestAPI Port    : 16001
+        IPFS Proxy Port : 16004
+        Cluster Port    : 16005
+
+      node_9
+        IP              : /ip4/10.1.17.3/tcp/
+        RestAPI Port    : 15801
+        IPFS Proxy Port : 15804
+        Cluster Port    : 15805
+
+      node_15
+        IP              : /ip4/10.1.23.2/tcp/
+        RestAPI Port    : 17001
+        IPFS Proxy Port : 17004
+        Cluster Port    : 17005
+
+      node_4
+        IP              : /ip4/10.1.11.3/tcp/
+        RestAPI Port    : 14801
+        IPFS Proxy Port : 14804
+        Cluster Port    : 14805
+
+      node_6
+        IP              : /ip4/10.1.13.2/tcp/
+        RestAPI Port    : 15201
+        IPFS Proxy Port : 15204
+        Cluster Port    : 15205
+
+      node_3
+        IP              : /ip4/10.1.11.2/tcp/
+        RestAPI Port    : 14601
+        IPFS Proxy Port : 14604
+        Cluster Port    : 14605
+
+      node_1
+        IP              : /ip4/10.1.1.3/tcp/
+        RestAPI Port    : 14201
+        IPFS Proxy Port : 14204
+        Cluster Port    : 14205
+
+      node_7
+        IP              : /ip4/10.1.15.3/tcp/
+        RestAPI Port    : 15401
+        IPFS Proxy Port : 15404
+        Cluster Port    : 15405
+
+      node_11
+        IP              : /ip4/10.1.19.3/tcp/
+        RestAPI Port    : 16201
+        IPFS Proxy Port : 16204
+        Cluster Port    : 16205
+
+      node_13
+        IP              : /ip4/10.1.20.2/tcp/
+        RestAPI Port    : 16601
+        IPFS Proxy Port : 16604
+        Cluster Port    : 16605
+
+      node_5
+        IP              : /ip4/10.1.12.3/tcp/
+        RestAPI Port    : 15001
+        IPFS Proxy Port : 15004
+        Cluster Port    : 15005
+
+      node_12
+        IP              : /ip4/10.1.20.3/tcp/
+        RestAPI Port    : 16401
+        IPFS Proxy Port : 16404
+        Cluster Port    : 16405
+
+      node_14
+        IP              : /ip4/10.1.22.3/tcp/
+        RestAPI Port    : 16801
+        IPFS Proxy Port : 16804
+        Cluster Port    : 16805
+
+node_11:
+  IP             : 10.1.19.3
+  Swarm Port     : 16200
+  API Port       : 16202
+  Gateway Port   : 16203
+  Cluster number : 0
+  Clusters       : 
+node_9:
+  IP             : 10.1.17.3
+  Swarm Port     : 15800
+  API Port       : 15802
+  Gateway Port   : 15803
+  Cluster number : 0
+  Clusters       : 
+node_15:
+  IP             : 10.1.23.2
+  Swarm Port     : 17000
+  API Port       : 17002
+  Gateway Port   : 17003
+  Cluster number : 0
+  Clusters       : 
+node_8:
+  IP             : 10.1.16.2
+  Swarm Port     : 15600
+  API Port       : 15602
+  Gateway Port   : 15603
+  Cluster number : 0
+  Clusters       : 
+node_6:
+  IP             : 10.1.13.2
+  Swarm Port     : 15200
+  API Port       : 15202
+  Gateway Port   : 15203
+  Cluster number : 0
+  Clusters       : 
+node_7:
+  IP             : 10.1.15.3
+  Swarm Port     : 15400
+  API Port       : 15402
+  Gateway Port   : 15403
+  Cluster number : 0
+  Clusters       : 
+node_3:
+  IP             : 10.1.11.2
+  Swarm Port     : 14600
+  API Port       : 14602
+  Gateway Port   : 14603
+  Cluster number : 0
+  Clusters       : 
+node_2:
+  IP             : 10.1.2.3
+  Swarm Port     : 14400
+  API Port       : 14402
+  Gateway Port   : 14403
+  Cluster number : 0
+  Clusters       : 
+node_5:
+  IP             : 10.1.12.3
+  Swarm Port     : 15000
+  API Port       : 15002
+  Gateway Port   : 15003
+  Cluster number : 0
+  Clusters       : 
+node_13:
+  IP             : 10.1.20.2
+  Swarm Port     : 16600
+  API Port       : 16602
+  Gateway Port   : 16603
+  Cluster number : 0
+  Clusters       : 
+node_14:
+  IP             : 10.1.22.3
+  Swarm Port     : 16800
+  API Port       : 16802
+  Gateway Port   : 16803
+  Cluster number : 0
+  Clusters       : 
+node_10:
+  IP             : 10.1.18.3
+  Swarm Port     : 16000
+  API Port       : 16002
+  Gateway Port   : 16003
+  Cluster number : 0
+  Clusters       : 
+
+1 : performance.go:126 (operations.Test2)    - Starting Test2
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_7-node_15 2404
+maxoptime-node_7-node_15 2404
+readoptime-node_7-node_15 491
+1912 
+491 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_1-node_4 2848
+maxoptime-node_1-node_4 2848
+readoptime-node_1-node_4 530
+2318 
+530 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_9-node_5 1575
+maxoptime-node_9-node_5 1575
+readoptime-node_9-node_5 554
+1020 
+554 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_0 1090
+maxoptime-node_8-node_0 1090
+readoptime-node_8-node_0 231
+859 
+231 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_6-node_1 2194
+maxoptime-node_6-node_1 2194
+readoptime-node_6-node_1 612
+1582 
+612 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_2-node_15 1636
+maxoptime-node_2-node_15 1636
+readoptime-node_2-node_15 349
+1287 
+349 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_15 1639
+maxoptime-node_8-node_15 1639
+readoptime-node_8-node_15 360
+1278 
+360 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_11-node_5 2423
+maxoptime-node_11-node_5 2423
+readoptime-node_11-node_5 412
+2011 
+412 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_5-node_12 2052
+maxoptime-node_5-node_12 2052
+readoptime-node_5-node_12 545
+1507 
+545 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_6 1237
+maxoptime-node_15-node_6 1237
+readoptime-node_15-node_6 388
+848 
+388 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_14 1650
+maxoptime-node_8-node_14 1650
+readoptime-node_8-node_14 617
+1032 
+617 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_7 1789
+maxoptime-node_15-node_7 1789
+readoptime-node_15-node_7 420
+1369 
+420 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_13 2152
+maxoptime-node_15-node_13 2152
+readoptime-node_15-node_13 389
+1763 
+389 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_6-node_0 1284
+maxoptime-node_6-node_0 1284
+readoptime-node_6-node_0 23
+1260 
+23 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_5-node_3 1379
+maxoptime-node_5-node_3 1379
+readoptime-node_5-node_3 389
+989 
+389 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_11-node_12 1500
+maxoptime-node_11-node_12 1500
+readoptime-node_11-node_12 545
+955 
+545 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_5-node_12 1594
+maxoptime-node_5-node_12 1594
+readoptime-node_5-node_12 522
+1072 
+522 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_9-node_1 1355
+maxoptime-node_9-node_1 1355
+readoptime-node_9-node_1 435
+919 
+435 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_13-node_6 1851
+maxoptime-node_13-node_6 1851
+readoptime-node_13-node_6 378
+1473 
+378 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_13-node_10 1804
+maxoptime-node_13-node_10 1804
+readoptime-node_13-node_10 322
+1481 
+322 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_10-node_3 1606
+maxoptime-node_10-node_3 1606
+readoptime-node_10-node_3 389
+1216 
+389 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_1-node_13 3042
+maxoptime-node_1-node_13 3042
+readoptime-node_1-node_13 401
+2641 
+401 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_14-node_4 2911
+maxoptime-node_14-node_4 2911
+readoptime-node_14-node_4 387
+2524 
+387 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_3 2151
+maxoptime-node_15-node_3 2151
+readoptime-node_15-node_3 389
+1762 
+389 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_5-node_1 1492
+maxoptime-node_5-node_1 1492
+readoptime-node_5-node_1 423
+1068 
+423 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_5-node_10 1391
+maxoptime-node_5-node_10 1391
+readoptime-node_5-node_10 311
+1079 
+311 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_11 1185
+maxoptime-node_8-node_11 1185
+readoptime-node_8-node_11 400
+784 
+400 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_3 1170
+maxoptime-node_8-node_3 1170
+readoptime-node_8-node_3 378
+791 
+378 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_7-node_5 1871
+maxoptime-node_7-node_5 1871
+readoptime-node_7-node_5 419
+1451 
+419 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_3-node_0 1537
+maxoptime-node_3-node_0 1537
+readoptime-node_3-node_0 34
+1502 
+34 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_13-node_6 1502
+maxoptime-node_13-node_6 1502
+readoptime-node_13-node_6 388
+1113 
+388 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_10-node_8 1357
+maxoptime-node_10-node_8 1357
+readoptime-node_10-node_8 291
+1065 
+291 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_9-node_2 1306
+maxoptime-node_9-node_2 1306
+readoptime-node_9-node_2 100
+1206 
+100 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_11 1429
+maxoptime-node_15-node_11 1429
+readoptime-node_15-node_11 378
+1050 
+378 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_11-node_6 1350
+maxoptime-node_11-node_6 1350
+readoptime-node_11-node_6 366
+983 
+366 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_10-node_8 2448
+maxoptime-node_10-node_8 2448
+readoptime-node_10-node_8 258
+2189 
+258 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_7-node_10 1751
+maxoptime-node_7-node_10 1751
+readoptime-node_7-node_10 299
+1451 
+299 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_9-node_14 1890
+maxoptime-node_9-node_14 1890
+readoptime-node_9-node_14 640
+1249 
+640 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_12-node_5 2017
+maxoptime-node_12-node_5 2017
+readoptime-node_12-node_5 397
+1619 
+397 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_3 1380
+maxoptime-node_15-node_3 1380
+readoptime-node_15-node_3 389
+991 
+389 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_1-node_14 3247
+maxoptime-node_1-node_14 3247
+readoptime-node_1-node_14 606
+2640 
+606 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_9-node_4 1580
+maxoptime-node_9-node_4 1580
+readoptime-node_9-node_4 376
+1204 
+376 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_9-node_8 1474
+maxoptime-node_9-node_8 1474
+readoptime-node_9-node_8 258
+1216 
+258 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_3-node_8 865
+maxoptime-node_3-node_8 865
+readoptime-node_3-node_8 258
+606 
+258 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_14-node_1 2253
+maxoptime-node_14-node_1 2253
+readoptime-node_14-node_1 412
+1841 
+412 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_2-node_8 1575
+maxoptime-node_2-node_8 1575
+readoptime-node_2-node_8 269
+1305 
+269 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_4-node_14 2176
+maxoptime-node_4-node_14 2176
+readoptime-node_4-node_14 618
+1558 
+618 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_3 1286
+maxoptime-node_8-node_3 1286
+readoptime-node_8-node_3 378
+907 
+378 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_13-node_8 1383
+maxoptime-node_13-node_8 1383
+readoptime-node_13-node_8 258
+1124 
+258 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_1-node_2 1927
+maxoptime-node_1-node_2 1927
+readoptime-node_1-node_2 99
+1827 
+99 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_11-node_2 1514
+maxoptime-node_11-node_2 1514
+readoptime-node_11-node_2 77
+1437 
+77 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_7-node_5 1873
+maxoptime-node_7-node_5 1873
+readoptime-node_7-node_5 408
+1464 
+408 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_2-node_11 1622
+maxoptime-node_2-node_11 1622
+readoptime-node_2-node_11 389
+1232 
+389 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_14-node_7 2206
+maxoptime-node_14-node_7 2206
+readoptime-node_14-node_7 441
+1764 
+441 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_10-node_14 1531
+maxoptime-node_10-node_14 1531
+readoptime-node_10-node_14 607
+924 
+607 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_2 1863
+maxoptime-node_15-node_2 1863
+readoptime-node_15-node_2 88
+1774 
+88 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_7 1325
+maxoptime-node_8-node_7 1325
+readoptime-node_8-node_7 408
+916 
+408 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_3-node_8 1674
+maxoptime-node_3-node_8 1674
+readoptime-node_3-node_8 269
+1404 
+269 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_7-node_10 2142
+maxoptime-node_7-node_10 2142
+readoptime-node_7-node_10 323
+1819 
+323 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_14-node_7 2933
+maxoptime-node_14-node_7 2933
+readoptime-node_14-node_7 409
+2524 
+409 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_13-node_9 1804
+maxoptime-node_13-node_9 1804
+readoptime-node_13-node_9 329
+1475 
+329 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_2-node_0 1270
+maxoptime-node_2-node_0 1270
+readoptime-node_2-node_0 34
+1236 
+34 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_13-node_1 1379
+maxoptime-node_13-node_1 1379
+readoptime-node_13-node_1 412
+966 
+412 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_11-node_6 1364
+maxoptime-node_11-node_6 1364
+readoptime-node_11-node_6 377
+986 
+377 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_4-node_0 1012
+maxoptime-node_4-node_0 1012
+readoptime-node_4-node_0 12
+999 
+12 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_5-node_6 1870
+maxoptime-node_5-node_6 1870
+readoptime-node_5-node_6 378
+1492 
+378 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_11-node_4 2422
+maxoptime-node_11-node_4 2422
+readoptime-node_11-node_4 387
+2034 
+387 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_9 1595
+maxoptime-node_8-node_9 1595
+readoptime-node_8-node_9 308
+1287 
+308 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_0-node_4 1447
+maxoptime-node_0-node_4 1447
+readoptime-node_0-node_4 365
+1081 
+365 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_2 1167
+maxoptime-node_8-node_2 1167
+readoptime-node_8-node_2 99
+1067 
+99 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_12-node_7 2052
+maxoptime-node_12-node_7 2052
+readoptime-node_12-node_7 419
+1632 
+419 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_0-node_15 1481
+maxoptime-node_0-node_15 1481
+readoptime-node_0-node_15 371
+1110 
+371 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_12-node_11 1927
+maxoptime-node_12-node_11 1927
+readoptime-node_12-node_11 379
+1548 
+379 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_11-node_12 1499
+maxoptime-node_11-node_12 1499
+readoptime-node_11-node_12 556
+943 
+556 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_1 1318
+maxoptime-node_8-node_1 1318
+readoptime-node_8-node_1 423
+894 
+423 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_12-node_4 3127
+maxoptime-node_12-node_4 3127
+readoptime-node_12-node_4 365
+2761 
+365 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_1-node_14 2371
+maxoptime-node_1-node_14 2371
+readoptime-node_1-node_14 640
+1730 
+640 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_1-node_0 1851
+maxoptime-node_1-node_0 1851
+readoptime-node_1-node_0 12
+1838 
+12 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_2-node_9 1551
+maxoptime-node_2-node_9 1551
+readoptime-node_2-node_9 318
+1233 
+318 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_7-node_6 1637
+maxoptime-node_7-node_6 1637
+readoptime-node_7-node_6 377
+1260 
+377 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_10-node_9 1175
+maxoptime-node_10-node_9 1175
+readoptime-node_10-node_9 308
+867 
+308 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_14-node_3 2242
+maxoptime-node_14-node_3 2242
+readoptime-node_14-node_3 401
+1841 
+401 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_14-node_3 2274
+maxoptime-node_14-node_3 2274
+readoptime-node_14-node_3 378
+1895 
+378 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_13 1377
+maxoptime-node_15-node_13 1377
+readoptime-node_15-node_13 400
+976 
+400 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_14-node_0 1948
+maxoptime-node_14-node_0 1948
+readoptime-node_14-node_0 23
+1924 
+23 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_7-node_0 1822
+maxoptime-node_7-node_0 1822
+readoptime-node_7-node_0 12
+1810 
+12 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_7 1720
+maxoptime-node_8-node_7 1720
+readoptime-node_8-node_7 431
+1289 
+431 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_1-node_0 2070
+maxoptime-node_1-node_0 2070
+readoptime-node_1-node_0 12
+2058 
+12 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_11-node_15 1823
+maxoptime-node_11-node_15 1823
+readoptime-node_11-node_15 371
+1451 
+371 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_6-node_3 1366
+maxoptime-node_6-node_3 1366
+readoptime-node_6-node_3 378
+987 
+378 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_4-node_10 1309
+maxoptime-node_4-node_10 1309
+readoptime-node_4-node_10 311
+997 
+311 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_0-node_4 1667
+maxoptime-node_0-node_4 1667
+readoptime-node_0-node_4 376
+1290 
+376 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_6-node_10 1547
+maxoptime-node_6-node_10 1547
+readoptime-node_6-node_10 322
+1224 
+322 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_7-node_11 2208
+maxoptime-node_7-node_11 2208
+readoptime-node_7-node_11 378
+1829 
+378 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_5-node_2 1923
+maxoptime-node_5-node_2 1923
+readoptime-node_5-node_2 88
+1834 
+88 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_13-node_0 1506
+maxoptime-node_13-node_0 1506
+readoptime-node_13-node_0 34
+1471 
+34 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_0-node_2 1183
+maxoptime-node_0-node_2 1183
+readoptime-node_0-node_2 88
+1094 
+88 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_15-node_6 1748
+maxoptime-node_15-node_6 1748
+readoptime-node_15-node_6 389
+1359 
+389 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_8-node_12 1443
+maxoptime-node_8-node_12 1443
+readoptime-node_8-node_12 522
+921 
+522 
+
+1 : performance.go:189 (operations.Test2)    - 
+minoptime-node_5-node_13 1435
+maxoptime-node_5-node_13 1435
+readoptime-node_5-node_13 378
+1057 
+378 
+
+1 : service.go:153 (main.(*IPFSSimulation).Run) - Done
+1 : measure.go:265 (monitor.send)            - Couldn't send to monitor-sink: write tcp 192.168.3.223:45336->192.168.253.1:10008: write: broken pipe
+1 : measure.go:265 (monitor.send)            - Couldn't send to monitor-sink: write tcp 192.168.3.223:45336->192.168.253.1:10008: write: broken pipe
+1 : measure.go:265 (monitor.send)            - Couldn't send to monitor-sink: write tcp 192.168.3.223:45336->192.168.253.1:10008: write: broken pipe
+1 : measure.go:265 (monitor.send)            - Couldn't send to monitor-sink: write tcp 192.168.3.223:45336->192.168.253.1:10008: write: broken pipe
+1 : measure.go:265 (monitor.send)            - Couldn't send to monitor-sink: write tcp 192.168.3.223:45336->192.168.253.1:10008: write: broken pipe

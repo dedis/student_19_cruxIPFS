@@ -1,76 +1,43 @@
-Navigation: [DEDIS](https://github.com/dedis/doc/tree/master/README.md) ::
-[Cothority Template](../README.md) ::
-Service
+# service
 
-# Service Template
+This folder contains all the services used to start IPFS, configure it and interact with Onet.
 
-The template-service is an example of how to start a protocol from a service.
-The source-code is very well documented and explains a lot of details, so
-we will cover a more general overview here.
+## [clusterbootstrap.go](clusterbootstrap.go)
 
-Each conode instantiates one service of each type. A service can load its
-configuration and save it for later use. It can receive requests from a client
-and can start new protocols. A service starts with the method defined in
-`RegisterNewService`:
+This file contains the `ClusterBootstrapProtocol`. This protocol is called is called by the protocol `StartIPFSProtocol`, and is run for each ARA on the leader, this one will start an IPFS Cluster instance, and communicate its bootstrap address to all the other members of the ARA. The other members will start an IPFS Cluster instance with the bootstrap address of the leader to join the ARA.
 
-```go
-// service.go
-func init() {
-	onet.RegisterNewService(Name, newService)
-}
+## [const.go](const.go)
 
-type Service struct {
-	// We need to embed the ServiceProcessor, so that incoming messages
-	// are correctly handled.
-	*onet.ServiceProcessor
-	path string
-	// Count holds the number of calls to 'ClockRequest'
-	Count int
-}
+This file contains the constants used in the [service](.) folder. 
 
-// ...
+## [helpers.go](helpers.go)
 
-func newService(c *onet.Context, path string) onet.Service {
-	s := &Service{
-		ServiceProcessor: onet.NewServiceProcessor(c),
-		path:             path,
-	}
-	if err := s.RegisterHandlers(s.ClockRequest, s.CountRequest); err != nil {
-		log.ErrFatal(err, "Couldn't register messages")
-	}
-	return s
-}
-```
+This file contains helpers methods used in the [service](.) folder. Most of the methods directly interact with the os, for instance creating directory or getting an unused port.
 
-In our example it creates a new `Service`-structure and registers the handlers
-that will be called by ONet if a client-request is received. The `Service`-
-structure embeds the `onet.ServiceProcessor` which is responsible for the
-correct routing of incoming client-requests to the handlers you register.
+## [ipfs.go](ipfs.go)
 
-For convenience, the file `api.go` contains a `Client`-definition that clients
-can use to communicate with the service. You have to keep in mind that if a client
-instantiates a `NewClient`, this will not have a direct access to the service-
-structure. It can only communicate to the service through the `SendProtobuf`
-(or simple `Send`) call:
+This file contains all the code setting up IPFS and IPFS Cluster daemons, and starting them.
 
- ```go
- func (c *Client) Count(si *network.ServerIdentity) (int, error) {
- 	reply := &CountResponse{}
- 	err := c.SendProtobuf(si, &CountRequest{}, reply)
- 	if err != nil {
- 		return -1, err
- 	}
- 	return reply.Count, nil
- }
-```
+## [ping.go](ping.go)
 
-This method takes a `ServerIdentity` as a destination for the message. It calls
-`SendProtobuf` which is a wrapper around marshalling and unmarshalling of the
-messages. The `reply` has to be initialized beforehand, so that `SendProtobuf`
-can correctly unmarshal the result received from the service.
+This file contains the code used to compute the ping distances between the hosts. The ping distances can be computed: each host ping every other host in the system and then, they share their distances to all other hosts with all peers in the system. The ping distance between each pair of hosts can also be loaded from a text file.
 
-Once a client calls `NewClient().Count(si)`, a message will be sent to the
-service of conode `si` and the `Service.CountRequest`-method will be called.
-In this method the counter is returned through the network, and `SendProtobuf`
-unmarshals the response to the `reply` so that the count of calls to
-`ClockRequest` can be returned.
+## [service.go](service.go)
+
+This file contains the Onet service. The `Setup` service initializes all the data structures, computes ping distances and builds the ARAs.
+
+## [startara.go](startara.go)
+
+This file contains the protocol `StartARAProtocol`. This protocol is called by `StartInstancesProtocol` on the root of an ARA. It starts an IPFS daemon, then an IPFS Cluster daemon on the ARA leader, and then broadcast its bootstrap address to all other cluster members that will join the cluster using this bootstrap address. The other cluster members will also start one new IPFS and one new IPFS Cluster instance to join the ARA.
+
+## [startinstances.go](startinstances.go)
+
+This file contains the protocol `StartInstancesProtocol`. This protocol is called on the root of the Onet tree, and for each ARA calls the protocol `StartARAProtocol`, in order to start one IPFS and IPFS Cluster daemon for each ARA membership on each node. 
+
+## [startipfs.go](startipfs.go)
+
+This file contains the protocol `StartIPFSProtocol`. This protocol is run on the root of the Onet tree, and starts a single IPFS daemon on each host. Each host return its IPFS bootstrap address to the leader. Then this protocol start an instance of `ClusterBootstrapProtocol` for each ARA on the ARA leader.
+
+## [struct.go](struct.go)
+
+This file contains the structures used in the [service](.) folder. 

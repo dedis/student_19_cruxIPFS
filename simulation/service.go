@@ -2,34 +2,32 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"path/filepath"
-	"strconv"
-	"strings"
+	"os/exec"
+	"time"
 
 	"github.com/BurntSushi/toml"
 
 	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
-	"github.com/dedis/student_19_cruxIPFS/gentree"
+	"github.com/dedis/student_19_cruxIPFS/operations"
 	"github.com/dedis/student_19_cruxIPFS/service"
 
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/app"
 	"go.dedis.ch/onet/v3/log"
-	"go.dedis.ch/onet/v3/network"
+	"go.dedis.ch/onet/v3/simul"
 )
 
-/*
- * Defines the simulation for the service-template
- */
-
 func init() {
-	onet.SimulationRegister(cruxIPFS.ServiceName, NewSimulationService)
+	onet.SimulationRegister(service.ServiceName, NewIPFSSimulation)
 }
 
-// NewSimulationService returns the new simulation, where all fields are
+func main() {
+	simul.Start()
+}
+
+// NewIPFSSimulation returns the new simulation, where all fields are
 // initialised using the config-file
-func NewSimulationService(config string) (onet.Simulation, error) {
+func NewIPFSSimulation(config string) (onet.Simulation, error) {
 	es := &IPFSSimulation{}
 	_, err := toml.Decode(config, es)
 	if err != nil {
@@ -38,15 +36,18 @@ func NewSimulationService(config string) (onet.Simulation, error) {
 	return es, nil
 }
 
-// Setup creates the tree used for that simulation
+// Setup the IPFSSimulation, copies files to remote host (deterlab), load
+// simulation parameters and create roster and config tree
+// This function is run on a single node
 func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	*onet.SimulationConfig, error) {
 
-	SetNodePaths(len(hosts))
-
-	app.Copy(dir, filepath.Join(DATAFOLDER, NODEPATHREMOTE))
-	app.Copy(dir, "../clean.sh")
-	app.Copy(dir, "pings.txt")
+	app.Copy(dir, prescriptLocation)
+	app.Copy(dir, nodesLocation)
+	app.Copy(dir, ipfsLocation)
+	app.Copy(dir, ipfsClusterLocation)
+	app.Copy(dir, ipfsCtlLocation)
+	app.Copy(dir, simdetailsLocation)
 
 	sc := &onet.SimulationConfig{}
 	s.CreateRoster(sc, hosts, 2000)
@@ -57,137 +58,103 @@ func (s *IPFSSimulation) Setup(dir string, hosts []string) (
 	return sc, nil
 }
 
-// Node can be used to initialize each node before it will be run
-// by the server. Here we call the 'Node'-method of the
-// SimulationBFTree structure which will load the roster- and the
-// tree-structure to speed up the first round.
+// Node is run on all nodes, it reads nodes information (mostly the level for
+// ARA generation), and initialize the service (computing/loading ping distance,
+// generating ARAs, starting ipfs and clusters)
 func (s *IPFSSimulation) Node(config *onet.SimulationConfig) error {
-	index, _ := config.Roster.Search(config.Server.ServerIdentity.ID)
-	if index < 0 {
-		log.Fatal("Didn't find this node in roster")
-	}
-	log.Lvl3("Initializing node-index", index)
 
-	//config.Overlay.RegisterTree()
+	s.ReadNodeInfo(false, *config)
 
-	s.ReadNodeInfo(false)
+	parseParams()
 
 	mymap := s.initializeMaps(config, true)
 
-	myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
+	myService := config.GetService(service.ServiceName).(*service.Service)
 
-	serviceReq := &cruxIPFS.InitRequest{
+	serviceReq := &service.InitRequest{
 		Nodes:                s.Nodes.All,
 		ServerIdentityToName: mymap,
 		OnetTree:             config.Tree,
 		Roster:               config.Roster,
+		Cruxified:            cruxified,
+		ComputePings:         computePings,
+		Mode:                 mode,
 	}
 
 	myService.InitRequest(serviceReq)
 
-	for _, trees := range myService.BinaryTree {
-		for _, tree := range trees {
-			config.Overlay.RegisterTree(tree)
+	if cruxified {
+		for _, trees := range myService.BinaryTree {
+			for _, tree := range trees {
+				config.Overlay.RegisterTree(tree)
+			}
 		}
+	} else {
+		bt := make(map[string][]*onet.Tree)
+		bt[service.Node0] = []*onet.Tree{config.Tree}
+		myService.BinaryTree = bt
 	}
 
 	return s.SimulationBFTree.Node(config)
 }
 
-// Run is used on the destination machines and runs a number of
-// rounds
-func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
-	myService := config.GetService(cruxIPFS.ServiceName).(*service.Service)
+func (s *IPFSSimulation) Run1(config *onet.SimulationConfig) error {
 
-	pi, err := myService.CreateProtocol(service.StartIPFSName, config.Tree)
+	/*
+		o, err := exec.Command("bash", "-c", cmd).Output()
+		fmt.Println(string(o))
+		if err != nil {
+			fmt.Println("Error:", err)
+		}
+	*/
+	go func() {
+		cmd := "ipfs daemon"
+		o, err := exec.Command("bash", "-c", cmd).Output()
+		fmt.Println(string(o))
+		if err != nil {
+			fmt.Println("Error:", err)
+		}
+	}()
+
+	time.Sleep(10 * time.Second)
+
+	return nil
+}
+
+// Run is run on a single node. Execute performance tests and output results to
+// stdout, output needs to be parsed by an external script
+func (s *IPFSSimulation) Run(config *onet.SimulationConfig) error {
+
+	myService := config.GetService(service.ServiceName).(*service.Service)
+	/*
+
+		pi, err := myService.CreateProtocol(service.StartIPFSName, config.Tree)
+		if err != nil {
+			fmt.Println(err)
+		}
+		pi.Start()
+
+		<-pi.(*service.StartIPFSProtocol).Ready
+
+		operations.SaveState(cruxIPFS.SaveFile,
+			pi.(*service.StartIPFSProtocol).Nodes)
+	*/
+
+	pi, err := myService.CreateProtocol(service.StartInstancesName, config.Tree)
 	if err != nil {
 		fmt.Println(err)
 	}
 	pi.Start()
 
-	<-pi.(*service.StartIPFSProtocol).Ready
-	saveState("../save.txt", pi.(*service.StartIPFSProtocol).IPFSInstances,
-		pi.(*service.StartIPFSProtocol).Clusters)
+	<-pi.(*service.StartInstancesProtocol).Ready
 
+	operations.SaveState(cruxIPFS.SaveFile,
+		pi.(*service.StartInstancesProtocol).Nodes)
+
+	// wait for some time for clusters to converge
+	time.Sleep(3 * time.Minute)
+	operations.Test2(nOps, len(myService.Nodes.All))
+
+	log.Lvl1("Done")
 	return nil
-}
-
-// ReadNodeInfo read node information
-func (s *IPFSSimulation) ReadNodeInfo(isLocalTest bool) {
-	_, err := filepath.Abs(filepath.Dir(os.Args[0]))
-	if err != nil {
-		log.Fatal(err)
-	}
-	if isLocalTest {
-		s.ReadNodesFromFile(NODEPATHLOCAL)
-	} else {
-		s.ReadNodesFromFile(NODEPATHREMOTE)
-	}
-}
-
-// ReadNodesFromFile read nodes information from a text file
-func (s *IPFSSimulation) ReadNodesFromFile(filename string) {
-	s.Nodes.All = make([]*gentree.LocalityNode, 0)
-
-	readLine := cruxIPFS.ReadFileLineByLine(filename)
-
-	for true {
-		line := readLine()
-		//fmt.Println(line)
-		if line == "" {
-			//fmt.Println("end")
-			break
-		}
-
-		if strings.HasPrefix(line, "#") {
-			continue
-		}
-
-		tokens := strings.Split(line, " ")
-		coords := strings.Split(tokens[1], ",")
-		name, xstr, ystr, IP, levelstr := tokens[0], coords[0], coords[1], tokens[2], tokens[3]
-
-		x, _ := strconv.ParseFloat(xstr, 64)
-		y, _ := strconv.ParseFloat(ystr, 64)
-		level, err := strconv.Atoi(levelstr)
-
-		if err != nil {
-			log.Lvl1("Error", err)
-
-		}
-
-		//	log.Lvl1("reqd node level", name, level_str, "lvl", level)
-
-		myNode := cruxIPFS.CreateNode(name, x, y, IP, level)
-		s.Nodes.All = append(s.Nodes.All, myNode)
-	}
-}
-
-func (s *IPFSSimulation) initializeMaps(config *onet.SimulationConfig, isLocalTest bool) map[*network.ServerIdentity]string {
-
-	s.Nodes.ServerIdentityToName = make(map[network.ServerIdentityID]string)
-	ServerIdentityToName := make(map[*network.ServerIdentity]string)
-
-	if isLocalTest {
-		for i := range s.Nodes.All {
-			treeNode := config.Tree.List()[i]
-			// quick fix
-			//treeNode := config.Tree.List()[i+1]
-			s.Nodes.All[i].ServerIdentity = treeNode.ServerIdentity
-			s.Nodes.ServerIdentityToName[treeNode.ServerIdentity.ID] = s.Nodes.All[i].Name
-			ServerIdentityToName[treeNode.ServerIdentity] = s.Nodes.All[i].Name
-			//log.Lvl1("associating", treeNode.ServerIdentity.String(), "to", s.Nodes.All[i].Name)
-		}
-	} else {
-		for _, treeNode := range config.Tree.List() {
-			serverIP := treeNode.ServerIdentity.Address.Host()
-			node := s.Nodes.GetByIP(serverIP)
-			node.ServerIdentity = treeNode.ServerIdentity
-			s.Nodes.ServerIdentityToName[treeNode.ServerIdentity.ID] = node.Name
-			ServerIdentityToName[treeNode.ServerIdentity] = node.Name
-			//log.Lvl1("associating", treeNode.ServerIdentity.String(), "to", node.Name)
-		}
-	}
-
-	return ServerIdentityToName
 }

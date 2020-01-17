@@ -1,0 +1,2 @@
+1 : build.go:53 (simul.startBuild)           - Deploying to deterlab
+1 : deterlab.go:138 (platform.(*Deterlab).Build) - Building for guissou users.deterlab.net SAFER  simulDir= /mnt/guillaume/Documents/epfl/ipfs/repos/student_19_cruxIPFS3/simulation

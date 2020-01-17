@@ -48,7 +48,7 @@ func (p *StartIPFSProtocol) Dispatch() error {
 		wg.Add(1)
 		go func() {
 			// start ipfs
-			s.StartIPFS()
+			s.StartIPFS("")
 			wg.Done()
 		}()
 
@@ -56,32 +56,42 @@ func (p *StartIPFSProtocol) Dispatch() error {
 		ipfsReplies := <-p.repliesChan
 		wg.Wait()
 
-		p.IPFSInstances = make([]IPFSInformation, len(ipfsReplies)+1)
-		p.IPFSInstances[0] = s.MyIPFS
+		p.Nodes = make(map[string]*NodeInfo)
+		p.Nodes[s.Name] = &NodeInfo{
+			IPFS:     s.MyIPFS[0],
+			Clusters: make([]ClusterInfo, 0),
+		}
 		for i := 0; i < len(ipfsReplies); i++ {
-			p.IPFSInstances[i+1] = *ipfsReplies[i].IPFS
+			p.Nodes[ipfsReplies[i].IPFS.Name] = &NodeInfo{
+				IPFS:     *ipfsReplies[i].IPFS,
+				Clusters: make([]ClusterInfo, 0),
+			}
 		}
 
 		if !p.IsRoot() {
-			return p.SendToParent(&StartIPFSReply{IPFS: &s.MyIPFS})
+			return p.SendToParent(&StartIPFSReply{IPFS: &s.MyIPFS[0]})
 		} // root
 		log.Lvl1("All IPFS instances started successfully")
 
-		p.Clusters = make([]ClusterInfo, 0)
 		// start cluster instances on the root
 		p.SendToChildren(&StartIPFSAnnounce{Message: "Clusters"})
 
 		wg.Add(1)
 		go func() {
-			// ugly
-			p.Clusters = append(p.Clusters, s.startClusters()...)
+			p.Nodes[s.Name].Clusters = append(p.Nodes[s.Name].Clusters,
+				s.startClusters()...)
 			wg.Done()
 		}()
 		// wait for children replies
 		replies := <-p.repliesChan
 		wg.Wait()
 		for _, r := range replies {
-			p.Clusters = append(p.Clusters, *r.Clusters...)
+			if r.Clusters != nil {
+				for _, c := range *(r.Clusters) {
+					p.Nodes[c.Leader].Clusters =
+						append(p.Nodes[c.Leader].Clusters, c)
+				}
+			}
 		}
 		p.Ready <- true
 
@@ -91,9 +101,9 @@ func (p *StartIPFSProtocol) Dispatch() error {
 	// node is a leaf
 	if ann.Message == "IPFS" {
 		// start ipfs
-		s.StartIPFS()
+		s.StartIPFS("")
 		// send ok to parent when it's done
-		p.SendToParent(&StartIPFSReply{IPFS: &s.MyIPFS})
+		p.SendToParent(&StartIPFSReply{IPFS: &s.MyIPFS[0]})
 		ann = <-p.announceChan
 		if ann.Message == "Clusters" {
 			info := s.startClusters()

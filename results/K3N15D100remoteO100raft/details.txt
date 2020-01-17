@@ -1,0 +1,9 @@
+K=3
+N=15
+R=15
+D=100
+remote=true
+ops=100
+pings=false
+mode=raft
+cruxified=false
