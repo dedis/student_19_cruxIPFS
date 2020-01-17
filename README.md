@@ -1,5 +1,5 @@
 # Crux IPFS
-Author: Guillaume Michel
+Author: [Guillaume Michel](https://github.com/guillaumemichel/)
 
 Master Semester project: Speeding up the Inter-Planetary File System </br>
 Laboratory: DEDIS, EPFL </br>
