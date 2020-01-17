@@ -13,6 +13,7 @@ import (
 	"time"
 
 	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
+	"github.com/ipfs/ipfs-cluster/api"
 	"github.com/ipfs/ipfs-cluster/api/rest/client"
 	"go.dedis.ch/onet/v3/log"
 )
@@ -120,4 +121,50 @@ func ListPeers(c client.Client) {
 	for _, p := range peers {
 		fmt.Printf("%s: %s\n", p.Peername, p.Addresses[0])
 	}
+}
+
+// WriteFile to the cluster
+func writeFile(c client.Client, path string) (string, time.Duration) {
+	ctx := context.Background()
+
+	_, err := os.Stat(path)
+	if err != nil {
+		log.Lvl1(err)
+	}
+	cids := make(chan string, 10)
+	out := make(chan *api.AddedOutput, 1)
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func(ch chan string) {
+		defer wg.Done()
+		for v := range out {
+			if v == nil {
+				ch <- ""
+				return
+			}
+			ch <- v.Cid.String()
+		}
+	}(cids)
+
+	paths := []string{path}
+	start := time.Now()
+	c.Add(ctx, paths, api.DefaultAddParams(), out)
+	wg.Wait()
+	name := <-cids
+	t := time.Now()
+	if name == "" {
+		log.Lvl1("nil return after write")
+	}
+	return name, t.Sub(start)
+}
+
+func readFile(c client.Client, filename string) time.Duration {
+	ctx := context.Background()
+
+	sh := c.IPFS(ctx)
+	start := time.Now()
+	_, err := sh.Cat(filename)
+	t := time.Now()
+	checkErr(err)
+	return t.Sub(start)
 }

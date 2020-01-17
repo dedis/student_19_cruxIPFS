@@ -30,16 +30,16 @@ while test $# -gt 0; do
       echo "$0 [options]"
       echo " "
       echo "options:"
-      echo "-h, --help                  show brief help"
-      echo "-c, --cruxified             run only cruxified experiment"
-      echo "-v, --vanilla               run only vanilla experiment"
-      echo "-r, --remote                run simulation remotely"
-      echo "-l, --local                 run simulation locally"
+      echo "  -h, --help                  show brief help"
+      echo "  -c, --cruxified             run only cruxified experiment"
+      echo "  -v, --vanilla               run only vanilla experiment"
+      echo "  -r, --remote                run simulation remotely"
+      echo "  -l, --local                 run simulation locally"
       #echo "-K                          specify the number of ARA levels"
       #echo "-N                          specify the number of nodes"
-      echo "-p, --pings                 specify to compute new ping distances"
-      echo "-m, --mode=MODE             specifiy ipfs-cluster mode (raft/crdt)"
-      echo "-o, --operations=O          specify the number of operations to perform (int)"
+      echo "  -p, --pings                 specify to compute new ping distances"
+      echo "  -m, --mode=MODE             specifiy ipfs-cluster mode (raft/crdt)"
+      echo "  -o, --operations=O          specify the number of operations to perform (int)"
       exit 0
       ;;
 
@@ -257,9 +257,24 @@ else
     pings=$f_pings
 fi
 
+if $remote; then
+    deploy=remote
+else
+    deploy=local
+fi
+
+path='../results/K'$K'N'$N'D'$D$deploy'O'$ops$mode
+
+mkdir $path
+mkdir $path'/data'
+mkdir $path'/graphs'
+
+output_v=$path'/output_v.txt'
+output_c=$path'/output_c.txt'
+
 # generate ipfs.toml
 printf 'Simulation = "IPFS"\nServers = '$N'\nBf = '$(($N-1))'\nRounds = 1\nSuite = "Ed25519"\nPrescript = "prescript.sh"\n\nDepth\n1' > ../simulation/ipfs.toml
-printf 'Simulation = "IPFS"\nServers = '$N'\nBf = '$(($N-1))'\nRounds = 1\nSuite = "Ed25519"\nPrescript = "prescript.sh"\n\nDepth\n1' > ../data/ipfs.toml
+printf 'Simulation = "IPFS"\nServers = '$N'\nBf = '$(($N-1))'\nRounds = 1\nSuite = "Ed25519"\nPrescript = "prescript.sh"\n\nDepth\n1' > $path'/ipfs.toml'
 
 cd ../simulation
 go build
@@ -279,7 +294,6 @@ if ! $f_crux; then
     echo 'mode='$mode >> $DETFILE
     echo 'cruxified='$cruxified >> $DETFILE
 
-    output_v='../data/output_v.txt'
     rm $output_v > /dev/null 2>&1
 
     echo 'Starting vanilla experiment'
@@ -299,8 +313,8 @@ if ! $f_crux; then
     done
 
     # parse output
-    cat $output_v | grep "ping node" > ../data/results/pings.txt
-    cat $output_v | grep minoptime > ../data/results/vanilla.txt
+    cat $output_v | grep "ping node" > $path'/data/pings.txt'
+    cat $output_v | grep minoptime > $path'/data/vanilla.txt'
 
     pings=false
 fi
@@ -322,7 +336,6 @@ if ! $f_van; then
     echo 'mode='$mode >> $DETFILE
     echo 'cruxified='$cruxified >> $DETFILE
 
-    output_c='../data/output_c.txt'
     rm $output_c > /dev/null 2>&1
 
     echo 'Starting cruxified experiment'
@@ -343,42 +356,15 @@ if ! $f_van; then
 
     # parse output
     if $f_crux; then
-        cat $output_c | grep "ping node" > ../data/results/pings.txt
+        cat $output_c | grep "ping node" > $path'/data/pings.txt'
     fi
-    cat $output_c | grep minoptime > ../data/results/min.txt
-    cat $output_c | grep maxoptime > ../data/results/max.txt
+    cat $output_c | grep minoptime > $path'/data/min.txt'
+    cat $output_c | grep maxoptime > $path'/data/max.txt'
 fi
-
-
-# plot graph
-#cd ../plot
-#rm *.pdf
-#python3 plot.py
 
 # save results
 
-mkdir '../../results' > /dev/null 2>&1
-
-if $remote; then
-    deploy=remote
-else
-    deploy=local
-fi
-
-path='../results/K'$K'N'$N'D'$D$deploy'O'$ops$mode
-
-mkdir $path
-mkdir $path'/data'
-mkdir $path'/graphs'
-
-cp '../data/ipfs.toml' $path
 cp '../data/nodes.txt' $path
 cp '../data/details.txt' $path
-cp $output_c $path
-cp $output_v $path
-
-#cp -r '../plot/.' $path'/graphs'
-#rm $path'/graphs/plot.py'
-cp -r '../data/results/.' $path'/data'
 
 echo 'Results saved to '$path

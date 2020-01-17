@@ -54,40 +54,6 @@ func (ns LocalityNodes) GetByServerIdentityIP(ip string) *LocalityNode {
 	return nil
 }
 
-/*
-func (ns LocalityNodes) OccupyNextPort(ip string) int {
-
-	port := -1
-	for _, n := range ns.All {
-		if strings.Contains(n.ServerIdentity.String(), ip) {
-			n.NextPortMtx.Lock()
-			if n.NextPort != n.AvailablePortsEnd {
-				port = n.NextPort
-				n.NextPort++
-			}
-			n.NextPortMtx.Unlock()
-		}
-	}
-	return port
-}
-*/
-
-/*
-func (ns LocalityNodes) OccupyNextPortByName(name string) int {
-
-	port := -1
-	for _, n := range ns.All {
-		if n.Name == name {
-			if n.NextPort != n.AvailablePortsEnd {
-				port = n.NextPort
-				n.NextPort++
-			}
-		}
-	}
-	return port
-}
-*/
-
 // GetByName gets the node by name.
 func (ns LocalityNodes) GetByName(name string) *LocalityNode {
 	nodeIdx := NodeNameToInt(name)
@@ -241,42 +207,6 @@ func CreateLocalityGraph(all LocalityNodes, randomCoords, randomLevels bool,
 			}
 		}
 	}
-	/*
-
-			// write to file
-			file, _ := os.Create("Specs/original.txt")
-			w := bufio.NewWriter(file)
-			w.WriteString(strconv.Itoa(len(all.All)) + "\n")
-			for _, node := range all.All {
-				w.WriteString(fmt.Sprint(node.X) + " " + fmt.Sprint(node.Y) + "\n")
-
-			}
-
-			for _, node := range all.All {
-				for clusterNodeName, exists := range node.Cluster {
-					if exists {
-						name1 := strings.Split(node.Name, "_")[1]
-						name2 := strings.Split(clusterNodeName, "_")[1]
-
-						w.WriteString(name1 + " " + name2 + "\n")
-					}
-				}
-			}
-
-			w.Flush()
-			file.Close()
-
-				file, _ = os.Create("nodes_read.txt")
-				w = bufio.NewWriter(file)
-					for _, node := range all.All {
-						w.WriteString(node.Name + " " + fmt.Sprint(node.X) + "," + fmt.Sprint(node.Y) + " 127.0.0.1 " + strconv.Itoa(node.Level) + "\n")
-
-					}
-
-				w.Flush()
-		file.Close()
-	*/
-
 }
 
 // checkDistance Checks if a Node is suitable to be another Node's bunch
@@ -294,18 +224,7 @@ func checkDistance(distance float64, lvl int, lvls int, Adist []float64) bool {
 	return true
 }
 
-/*
-//Computes the Euclidian distance between two nodes
-func ComputeDist(v1 *LocalityNode, v2 *LocalityNode, pingDist map[string]map[string]float64) float64 {
-	if len(pingDist) == 0 {
-		//panic("aaa")
-		dist := math.Sqrt(math.Pow(v1.X-v2.X, 2) + math.Pow(v1.Y-v2.Y, 2))
-		return dist
-	}
-	return pingDist[v1.Name][v2.Name]
-}
-*/
-
+// GenerateRadius GenerateRadius
 func GenerateRadius(maxDist float64) []float64 {
 	multiplier := 1.0
 	//base := math.Sqrt(2)
@@ -672,14 +591,6 @@ func CreateOnetLPTree(all LocalityNodes, rootName string, BunchLowerBound int) (
 	//Creates a file where we can write
 	file, _ := os.Create("Specs/optimized.txt")
 	fmt.Fprintf(file, strconv.Itoa(len(all.All))+"\n")
-
-	/*
-		//Prints coordinates of all nodes into the file
-		for _, n := range all.All {
-
-			fmt.Fprintf(file, fmt.Sprint(n.X)+" "+fmt.Sprint(n.Y)+"\n")
-		}
-	*/
 
 	//Distance between nodes after Optimisation
 	Dist2 := AproximateDistanceOracle(all)

@@ -14,10 +14,15 @@ import (
 	"go.dedis.ch/onet/v3"
 	"go.dedis.ch/onet/v3/app"
 	"go.dedis.ch/onet/v3/log"
+	"go.dedis.ch/onet/v3/simul"
 )
 
 func init() {
 	onet.SimulationRegister(service.ServiceName, NewIPFSSimulation)
+}
+
+func main() {
+	simul.Start()
 }
 
 // NewIPFSSimulation returns the new simulation, where all fields are

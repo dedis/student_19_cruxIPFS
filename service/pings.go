@@ -11,8 +11,6 @@ import (
 
 	"go.dedis.ch/onet/v3/log"
 	"go.dedis.ch/onet/v3/network"
-
-	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
 )
 
 // ExecReqPings sends all its own pings distances to the node that requested it
@@ -222,7 +220,7 @@ func (s *Service) getPings(readFromFile bool) {
 
 	} else {
 		// read from file lines of form "node_19 node_7 : 321"
-		readLine := cruxIPFS.ReadFileLineByLine(PingsFile)
+		readLine := ReadFileLineByLine(PingsFile)
 
 		for true {
 			line := readLine()

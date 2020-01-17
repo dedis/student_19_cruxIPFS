@@ -667,9 +667,6 @@ func printShortestNsPaths(N int, R int, shortest map[string]map[string]float64,
 		}
 	}
 
-	//fmt.Println("1 2", shortest["site_0"]["site_1"],
-	//shortest["site_0"]["site_2"])
-
 	w8.WriteString("\n" + lastPart)
 
 	w8.Flush()
@@ -709,40 +706,9 @@ func checkErr(e error) {
 
 func shortestNSRoutes() {
 	dist, N, R, directions, _ := readNodes()
-
-	//file7, _ := os.Create("shortest.txt")
-	//w7 := bufio.NewWriter(file7)
 	shortest, next := floydWarshall(N, R, dist)
 
-	/*
-		for n1, m := range shortest {
-			for n2 := range m {
-				if !strings.Contains(n1, "router") &&
-					!strings.Contains(n2, "router") {
-
-					//w7.WriteString("ping " + n1 + " " + n2 + " = " +
-					//fmt.Sprintf("%.2f", d) + "\n")
-				}
-			}
-		}
-
-		//w7.Flush()
-		//file7.Close()
-
-		//fmt.Println(shortest)
-	*/
-
 	printShortestNsPaths(N, R, shortest, next, directions)
-
-	/*
-		fmt.Println(ipLInks)
-
-		for i := 0; i < N; i++ {
-			namei := "node_" + strconv.Itoa(i)
-			fmt.Println(namei, ipLInks[namei][firstLinks[namei]])
-		}
-	*/
-
 }
 
 // DeterNode structure
@@ -821,9 +787,9 @@ func genAndPrintRndRouters(N int, R int, SpaceMax int, K int, zeroY bool,
 	w2.WriteString("for {set i 0} {$i < $n_nodes} {incr i} {\n")
 
 	w2.WriteString("\tset site($i) [$ns node]\n")
-	//w2.WriteString("\ttb-set-hardware $site($i) {MicroCloud}\n")
+	w2.WriteString("\ttb-set-hardware $site($i) {MicroCloud}\n")
 	//w2.WriteString("\ttb-set-hardware $site($i) {bpc2133}\n")
-	w2.WriteString("\ttb-set-hardware $site($i) {dl380g3}\n")
+	//w2.WriteString("\ttb-set-hardware $site($i) {dl380g3}\n")
 
 	w2.WriteString("\ttb-set-node-os $site($i) Ubuntu1404-64-STD\n")
 
@@ -847,8 +813,6 @@ func genAndPrintRndRouters(N int, R int, SpaceMax int, K int, zeroY bool,
 	for i := 0; i < R; i++ {
 		attempts := 0
 		for {
-
-			//log.LLvl1("node", i, "attempts", attempts)
 			if len(routers[i].IP) == maxIfaces || attempts == 100 {
 				break
 			}
@@ -908,8 +872,6 @@ func genAndPrintRndRouters(N int, R int, SpaceMax int, K int, zeroY bool,
 			routers[peerIdx].IP = append(routers[peerIdx].IP, "10.1."+
 				strconv.Itoa(linkNr+1)+".3")
 
-			//log.LLvl1(i, peerIdx, dist)
-
 			linkNr++
 
 		}
@@ -942,26 +904,6 @@ func genAndPrintRndRouters(N int, R int, SpaceMax int, K int, zeroY bool,
 	w2.WriteString(lastPart)
 
 	w2.Flush()
-	/*
-
-		file, _ := os.Create("out.txt")
-		defer file.Close()
-		w := bufio.NewWriter(file)
-
-		// print nodes in the out experiment file
-		for i := 0; i < N; i++ {
-			ips := ""
-			for _, ip := range nodes[i].IP {
-				ips += ip + ","
-			}
-
-			w.WriteString(nodes[i].Name + " " + nodes[i].HostIP + " " +
-				strconv.Itoa(nodes[i].Level) + "\n")
-		}
-
-		w.Flush()
-	*/
-
 	file3, _ := os.Create("../data/nodes.txt")
 	defer file3.Close()
 	w3 := bufio.NewWriter(file3)
@@ -980,7 +922,6 @@ func main() {
 
 	K := flag.Int("K", 3, "Number of levels.")
 	N := flag.Int("N", 10, "Number of nodes.")
-	// TODO S doesn't have any function at the moment
 	R := flag.Int("R", 10, "Number of routers.")
 	SpaceMax := flag.Int("SpaceMax", 15, "Coordinate space size.")
 

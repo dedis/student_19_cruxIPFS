@@ -11,8 +11,8 @@ import (
 	"go.dedis.ch/onet/v3/log"
 	"go.dedis.ch/onet/v3/network"
 
-	cruxIPFS "github.com/dedis/student_19_cruxIPFS"
 	"github.com/dedis/student_19_cruxIPFS/gentree"
+	"github.com/dedis/student_19_cruxIPFS/service"
 )
 
 // ReadNodeInfo read node information
@@ -30,7 +30,7 @@ func (s *IPFSSimulation) ReadNodesFromFile(filename string,
 	config onet.SimulationConfig) {
 	s.Nodes.All = make([]*gentree.LocalityNode, 0)
 
-	readLine := cruxIPFS.ReadFileLineByLine(filename)
+	readLine := service.ReadFileLineByLine(filename)
 
 	for i := 0; i < len(config.Roster.List); i++ {
 		line := readLine()
